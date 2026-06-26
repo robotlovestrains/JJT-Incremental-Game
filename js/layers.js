@@ -12,7 +12,7 @@ addLayer("TFD", {
     baseResource: "skill",
     baseAmount() {return player.points},
     type: "normal",
-    exponent: 0.5,
+    exponent: -1,
     gainMult() {
         mult = new Decimal(1)
         return mult
@@ -25,4 +25,10 @@ addLayer("TFD", {
         {key: "T", description: "T: Reset for TFD", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
+    infoboxes: {
+        lore: {
+            title: "Info About this layer",
+            body() { return "You Gain this currency automadicly Nice, also dark and odd?" },
+        },
+    },
 })
