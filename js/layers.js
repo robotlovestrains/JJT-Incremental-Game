@@ -12,7 +12,7 @@ addLayer("TFD", {
     baseResource: "skill",
     baseAmount() {return player.points},
     type: "normal",
-    exponent: -1,
+    exponent: 0,
     gainMult() {
         mult = new Decimal(1)
         return mult
