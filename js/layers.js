@@ -1448,7 +1448,7 @@ addLayer("XST", {
         },
         1: {
             requirementDescription: "2 Exist Power",
-            effectDescription: "x10 Skill",
+            effectDescription: "x1,000,000 Skill",
             done() { return player[this.layer].points.gte(2) },
             unlocked() {return hasMilestone(this.layer, 0)}
         },
