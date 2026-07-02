@@ -86,7 +86,7 @@ function getPointGen() {
 	if(hasUpgrade('FLN', 23)) gain = gain.times(100)
 	if(getBuyableAmount('A', 13) > 0) gain = gain.times(new Decimal(2).pow(getBuyableAmount('A', 13)))
 	if(hasUpgrade('A', 41)) gain = gain.times(10000)
-	if(hasMilestone('XST', 1)) gain = gain.times(10)
+	if(hasMilestone('XST', 1)) gain = gain.times(1000000)
 	if(hasUpgrade('TFD', 35)) gain = gain.times(1000)
 	
 	if(hasUpgrade('Neg', 11)) gain = gain.add((upgradeEffect('Neg', 11)).times(-1))
