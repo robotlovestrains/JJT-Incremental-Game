@@ -6,7 +6,7 @@ addLayer("TFD", {
         unlocked: true,
 		points: new Decimal(0),
     }},
-    color: "#202020",
+    color: "#464646",
     requires: new Decimal(10),
     resource: "The First Difficulty",
     baseResource: "Skill",
@@ -31,6 +31,7 @@ addLayer("TFD", {
         if(hasUpgrade('Neg', 24)) mult = mult.times(50)
         if(hasUpgrade('TES', 11)) mult = mult.times(upgradeEffect('TES', 11))
         if(hasMilestone('XST', 0)) mult = mult.times(25)
+        if(hasUpgrade('TFD', 35)) mult = mult.times(1e10)
         return mult
     },
     gainExp() {
@@ -44,7 +45,7 @@ addLayer("TFD", {
     infoboxes: {
         lore: {
             title: "Info About this layer",
-            body() { return "You Gain this currency automadicly Nice, also dark and odd? [Row 1]" },
+            body() { return "You Gain this currency automatically Nice, also dark and odd? [Row 1] (Brighter for visibility)" },
         },
     },
     passiveGeneration() {
@@ -113,16 +114,18 @@ addLayer("TFD", {
             unlocked() {return hasUpgrade(this.layer, 12)},
         },
         14: {
-            title: "NonStadic Booster I",
+            title: "Non-Stadic Booster I",
             description: "TFD Boost Skill",
             effect() {
                 let boost = new Decimal(1)
                 boost = boost.times(player[this.layer].points.add(1).pow(0.3))
                 if(hasUpgrade('TFD', 31)) boost = boost.pow(1.05)
+
+                boost = new Decimal.min(boost, new Decimal(1e100))
                 return boost
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x Skill" },
-            tooltip: "Boost Effect: (TFD + 1)^0.3",
+            tooltip: "Boost Effect: (TFD + 1)^0.3 (all non-Stadic boost cap at 1e100)",
             cost: new Decimal(45),
             unlocked() {return hasUpgrade(this.layer, 13)},
         },
@@ -133,6 +136,8 @@ addLayer("TFD", {
                 let boost = new Decimal(1)
                 boost = boost.times((player.points.add(1).pow(0.2)).times(3))
                 if(hasUpgrade(this.layer, 31)) boost = boost.pow(1.05)
+
+                boost = new Decimal.min(boost, new Decimal(1e100))
                 return boost
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x Skill" },
@@ -153,12 +158,14 @@ addLayer("TFD", {
             unlocked() {return hasUpgrade(this.layer, 21)},
         },
         23: {
-            title: "NonStadic Booster II",
+            title: "Non-Stadic Booster II",
             description: "Skill Boost TFD",
             effect() {
                 let boost = new Decimal(1)
                 boost = boost.times(player.points.add(1).pow(0.05))
                 if(hasUpgrade(this.layer, 31)) boost = boost.pow(1.05)
+
+                boost = new Decimal.min(boost, new Decimal(1e100))
                 return boost
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x TFD" },
@@ -213,7 +220,7 @@ addLayer("TLG", {
         unlocked: false,
 		points: new Decimal(0),
     }},
-    color: "#004000",
+    color: "#005000",
     requires: new Decimal(10000000),
     base: new Decimal(2),
     resource: "The Lower Gap",
@@ -242,7 +249,7 @@ addLayer("TLG", {
     infoboxes: {
         lore: {
             title: "Info About this layer",
-            body() { return "This is a Long Layer [Reset 1]" },
+            body() { return "This is a Long Layer [Reset 1] (Brighter for visibility)" },
         },
     },
     milestones: {
@@ -294,6 +301,12 @@ addLayer("TLG", {
             done() { return player[this.layer].points.gte(8) },
             unlocked() {return hasMilestone(this.layer, this.id)},
         },
+        8: {
+            requirementDescription: "Relax",
+            effectDescription: "Unlock Relax and x10 Skill (No QoL)",
+            //done() { return player[this.layer].points.gte(9) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
     },
     unlocked() {
         let notlocked = false
@@ -304,16 +317,16 @@ addLayer("TLG", {
 })
 
 addLayer("Neg", {
-    name: "Negitivity",
+    name: "Negativity",
     symbol: "Neg",
     position: 1,
     startData() { return {
         unlocked: false,
 		points: new Decimal(0),
     }},
-    color: "#1f003d",
+    color: "#320064",
     requires: new Decimal(100),
-    resource: "Negitivity",
+    resource: "Negativity",
     baseResource: "Skill",
     baseAmount() {return player.points},
     type: "normal",
@@ -333,13 +346,13 @@ addLayer("Neg", {
     },
     row: 0,
     hotkeys: [
-        {key: "N", description: "N: Reset for Negitivity", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "N", description: "N: Reset for Negativity", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown() {return hasMilestone('TLG', 0)},
     infoboxes: {
         lore: {
             title: "Info About this layer",
-            body() { return "First New Layer Note: you may need to reset to fix the unclickable Upgrades (every layer)" },
+            body() { return "First New Layer Note: you may need to reset to fix the unclickable Upgrades (every layer also brighter for visability)" },
         },
     },
     passiveGeneration() {
@@ -349,22 +362,24 @@ addLayer("Neg", {
     autoUpgrade() {return hasMilestone('TLG', 5)},
     upgrades: {
         11: {
-            title: "A Nerf to start because i'm to lazy to learn [Row 1]",
+            title: "A Nerf to start because i'm to lazy too learn [Row 1]",
             description: "Neg Boost Skill (-)",
             effect() {
                 let boost = new Decimal(1)
-                boost = boost.times(Math.log2((player[this.layer].points.add(1/25)).times(25).pow(0.7)))
-                if (hasMilestone('$', 4)) boost = new Decimal(1).times(Math.log2(player[this.layer].points.times(25).pow(1)))
-                if (hasUpgrade(this.layer, 13)) boost = new Decimal(1).times(Math.log2(player[this.layer].points.times(20).pow(0.7)))
-                if (hasMilestone('$', 4) || hasUpgrade(this.layer, 13)) boost = new Decimal(1).times(Math.log2(player[this.layer].points.times(20).pow(1)))
+                boost = boost.times(((player[this.layer].points.add(1/25)).times(25).pow(0.7)).log(2))
+                if (hasMilestone('$', 4)) boost = new Decimal(1).times((player[this.layer].points.times(25).pow(1)).log(2))
+                if (hasUpgrade(this.layer, 13)) boost = new Decimal(1).times((player[this.layer].points.times(20).pow(0.7)).log(2))
+                if (hasMilestone('$', 4) || hasUpgrade(this.layer, 13)) boost = new Decimal(1).times((player[this.layer].points.times(20).pow(1)).log(2))
                 if (hasMilestone('TLG', 2)) boost = new Decimal(2).pow(boost)
                 if (hasUpgrade(this.layer, 22)) boost = new Decimal(1).times(player[this.layer].points.times(10).pow(1.1))
-                
+
                 if(hasUpgrade('TFD', 31)) boost = boost.pow(1.05)
+
+                boost = new Decimal.min(boost, new Decimal(1e250))
                 return boost
             },
             effectDisplay() {return "-" + format(upgradeEffect(this.layer, this.id))+" Skill Gain (After Multipliers)"},
-            tooltip: "log2((Neg + 1/25) x 25)^0.7",
+            tooltip: "log2((Neg + 1/25) x 25)^0.7 (Cap: 1e250)",
             cost: new Decimal(0),
         },
         12: {
@@ -384,17 +399,19 @@ addLayer("Neg", {
             description: "Skill Boost Itself (+)",
             effect() {
                 let boost = new Decimal(1)
-                boost = boost.times(Math.log10((player.points.add(1)).pow(2)))
+                boost = boost.times(((player.points.add(1)).pow(2)).log10())
                 if(hasUpgrade('TFD', 31)) boost = boost.pow(1.05)
+
+                boost = new Decimal.min(boost, new Decimal(300))
                 return boost
             },
             effectDisplay() {return "+"+format(upgradeEffect(this.layer, this.id))+" Skill Gain"},
-            tooltip: "log10((Skill + 1)^2)",
+            tooltip: "log10((Skill + 1)^2) (Cap: 300)",
             cost: new Decimal(1000),
             unlocked() {return hasUpgrade(this.layer, 13)},
         },
         15: {
-            title: "Finnishing the Row",
+            title: "Finishing the Row",
             description: "x2.5 TFD and unlock a TFD Milestone",
             cost: new Decimal(50000),
             unlocked() {return hasUpgrade('Neg', 14)},
@@ -421,7 +438,7 @@ addLayer("Neg", {
                 return boost
             },
             effectDisplay() {return "/"+format(upgradeEffect(this.layer, this.id))+" Skill Gain (After Neg Upgrade 11)"},
-            tooltip: "Negitivity^0.05 + 1",
+            tooltip: "Negitivity^0.05 + 1 (No Cap)",
             cost: new Decimal(5e16),
             unlocked() {return hasUpgrade(this.layer, 22)},
         },
@@ -481,7 +498,7 @@ addLayer("UIP", {
     infoboxes: {
         lore: {
             title: "Info About this layer",
-            body() { return "Triplits everywere [Row 1]" },
+            body() { return "Triplets everywere [Row 1]" },
         },
     },
     passiveGeneration() {
@@ -511,7 +528,7 @@ addLayer("UIP", {
 
     buyables: {
         11: {
-            title: "Triples I",
+            title: "Triplets I",
             cost(x) { return new Decimal(3).pow((x.pow(3)).add(4)) },
             display() { return "x3 Skill Per Level Currently: x"+format(new Decimal(3).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format(new Decimal(3).pow((getBuyableAmount(this.layer, this.id).pow(3)).add(4))) },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
@@ -522,7 +539,7 @@ addLayer("UIP", {
             unlocked() {return hasUpgrade(this.layer, 13)},
         },
         12: {
-            title: "Triples II",
+            title: "Triplets II",
             cost(x) { return new Decimal(3).pow((x.pow(3.3)).add(4)) },
             display() { return "x3 TFD Per Level Currently: x"+format(new Decimal(3).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format(new Decimal(3).pow((getBuyableAmount(this.layer, this.id).pow(3.3)).add(4))) },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
@@ -533,7 +550,7 @@ addLayer("UIP", {
             unlocked() {return hasUpgrade(this.layer, 13)},
         },
         13: {
-            title: "Triples III",
+            title: "Triplets III",
             cost(x) { return new Decimal(3).pow((x.pow(3.6)).add(4)) },
             display() { return "x3 Negitivity Per Level Currently: x"+format(new Decimal(3).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format(new Decimal(3).pow((getBuyableAmount(this.layer, this.id).pow(3.6)).add(4))) },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
@@ -546,14 +563,14 @@ addLayer("UIP", {
     },
     automate() {
         if(hasMilestone('TLG', 7)) {
-            if(layers.UIP.buyables[11].canAfford()) {
-                layers.UIP.buyables[11].buy();
+            if(layers[this.layer].buyables[11].canAfford()) {
+                layers[this.layer].buyables[11].buy();
             };
-            if(layers.UIP.buyables[12].canAfford()) {
-                layers.UIP.buyables[12].buy();
+            if(layers[this.layer].buyables[12].canAfford()) {
+                layers[this.layer].buyables[12].buy();
             };
-            if(layers.UIP.buyables[13].canAfford()) {
-                layers.UIP.buyables[13].buy();
+            if(layers[this.layer].buyables[13].canAfford()) {
+                layers[this.layer].buyables[13].buy();
             };
         }
     },
@@ -681,7 +698,7 @@ addLayer("$", {
         },
         7: {
             requirementDescription: "Getting FLN Upgrade 12",
-            effectDescription: "Skill Boost Skill log10(Skill + 1) (x)",
+            effectDescription: "Skill Boost Skill log10(Skill + 1) (x) (Cap: 100)",
             done() {return hasUpgrade('FLN', 12)},
             unlocked() {return hasUpgrade('FLN', 12)},
         },
@@ -703,6 +720,8 @@ addLayer("$", {
             effect() {
                 let boost = new Decimal(1)
                 boost = boost.times((player[this.layer].points.add(1)).pow(0.75))
+
+                boost = new Decimal.min(boost, new Decimal(1e100))
                 return boost
             },
             effectDisplay() {return format(upgradeEffect(this.layer, this.id)) + "x Skill"},
@@ -769,7 +788,7 @@ addLayer("FLN", {
     upgrades: {
         11: {
             title: "Remover I",
-            description: "Negitivity Upgrade 11 Now (+) instead and x2 Friendlyness",
+            description: "Negitivity Upgrade 11 Now (+) instead and x2 FLN",
             cost: new Decimal(5),
         },
         12: {
@@ -786,10 +805,12 @@ addLayer("FLN", {
                 boost = boost.times((new Decimal(1.01).pow(player[this.layer].points.pow(1/2))).pow(player[this.layer].points.pow(-0.3)))
                 if(hasUpgrade('FLN', 22)) boost = new Decimal(1).times((new Decimal(1.01).pow(player[this.layer].points.pow(1/2))).pow(player[this.layer].points.pow(-0.4)))
                 if(hasUpgrade('TFD', 31)) boost = boost.pow(1.05)
+
+                boost = new Decimal.min(boost, new Decimal(1000))
                 return boost
             },
             effectDisplay() {return format(upgradeEffect(this.layer, this.id))+"x Skill"},
-            tooltip: "(1.01^sqrt(FLN))^(FLN^-0.3)",
+            tooltip: "(1.01^sqrt(FLN))^(FLN^-0.3)) (Cap: 1,000)",
             cost: new Decimal(10000),
             unlocked() {return hasUpgrade(this.layer, 12)},
         },
@@ -804,8 +825,10 @@ addLayer("FLN", {
             description: "FLN Boost itself",
             effect() {
                 let boost = new Decimal(1)
-                boost = boost.times(Math.log2((player[this.layer].points.times(1/10000)).add(1)))
+                boost = boost.times(((player[this.layer].points.times(1/10000)).add(1)).log(2))
                 if(hasUpgrade('TFD', 31)) boost = boost.pow(1.05)
+
+                boost = new Decimal.min(boost, new Decimal(1e100))
                 return boost
             },
             effectDisplay() {return format(upgradeEffect(this.layer, this.id))+"x FLN"},
@@ -891,7 +914,9 @@ addLayer("TES", {
             description: "TES Boost TFD, Neg, UIP and FLN and TES Decreases Ca$h Requirement",
             effect() {
                 let boost = new Decimal(1)
-                boost = boost.times(Math.log10(player[this.layer].points.add(10)))
+                boost = boost.times((player[this.layer].points.add(10)).log10())
+
+                boost = new Decimal.min(boost, new Decimal(1e100))
                 return boost
             },
             effectDisplay() {return format(upgradeEffect(this.layer, this.id))+"x TFD, Neg, UIP and FLN and / Ca$h Requirement"},
@@ -903,7 +928,9 @@ addLayer("TES", {
             description: "TES Boost Skill",
             effect() {
                 let boost = new Decimal(1)
-                boost = boost.times(Math.log2(player[this.layer].points.add(2)))
+                boost = boost.times((player[this.layer].points.add(2)).log(2))
+
+                boost = new Decimal.min(boost, new Decimal(1e100))
                 return boost
             },
             effectDisplay() {return format(upgradeEffect(this.layer, this.id))+"x Skill"},
@@ -1041,6 +1068,23 @@ addLayer("A", {
             unlocked() {return hasUpgrade(this.layer, 35)},
         },
     },
+    automate() {
+        if(hasUpgrade('RAX', 11)) {
+            if(layers[this.layer].buyables[11].canAfford()) {
+                layers[this.layer].buyables[11].buy();
+            };
+        }
+        if(hasUpgrade('RAX', 12)) {
+            if(layers[this.layer].buyables[12].canAfford()) {
+                layers[this.layer].buyables[12].buy();
+            };
+        }
+        if(hasUpgrade('RAX', 13)) {
+            if(layers[this.layer].buyables[13].canAfford()) {
+                layers[this.layer].buyables[13].buy();
+            };
+        }
+    },
     upgrades: {
         11: {
             title: "Red Booster I",
@@ -1088,11 +1132,13 @@ addLayer("A", {
             description: "'A' Boost itself",
             effect() {
                 let boost = new Decimal(1)
-                boost = boost.times(Math.log2(player[this.layer].points.add(2)))
+                boost = boost.times((player[this.layer].points.add(2)).log(2))
+
+                boost = new Decimal.min(boost, new Decimal(1e308))
                 return boost
             },
             effectDisplay() {return format(upgradeEffect(this.layer, this.id)) + "x 'A'"},
-            tooltip: "log2(A + 1) + 1",
+            tooltip: "log2(A + 1) + 1 (Cap: 1e308)",
             cost: new Decimal(120000),
             unlocked() {return hasUpgrade(this.layer, 22)},
         },
@@ -1101,11 +1147,13 @@ addLayer("A", {
             description: "'A' Boost itself again (^)",
             effect() {
                 let boost = new Decimal(1)
-                boost = boost.times(Math.log10(Math.log10(player[this.layer].points.add(1e10))))
+                boost = boost.times(((player[this.layer].points.add(1e10)).log10()).log10())
+                
+                boost = new Decimal.min(boost, new Decimal(100))
                 return boost
             },
             effectDisplay() {return "^" + format(upgradeEffect(this.layer, this.id)) + " 'A'"},
-            tooltip: "log10(log10(A + 1) + 1) + 1",
+            tooltip: "log10(log10(A + 1) + 1) + 1) (Cap: 100)",
             cost: new Decimal(2000000),
             unlocked() {return hasUpgrade(this.layer, 23)},
         },
@@ -1151,6 +1199,11 @@ addLayer("A", {
             cost: new Decimal(1e40),
             unlocked() {return hasUpgrade(this.layer, 35)},
         },
+    },
+    autoUpgrade() {
+        let auto = false
+        if(hasUpgrade('RAX', 14)) auto = true
+        return auto
     },
 
     deactivated() {
@@ -1216,6 +1269,13 @@ addLayer("ДА", {
             unlocked() {return hasUpgrade(this.layer, 23)},
         },
     },
+    automate() {
+        if(hasUpgrade('RAX', 15)) {
+            if(layers[this.layer].buyables[11].canAfford()) {
+                layers[this.layer].buyables[11].buy();
+            };
+        }
+    },
     upgrades: {
         11: {
             title: "Green Red Nerfer I",
@@ -1226,7 +1286,7 @@ addLayer("ДА", {
                 return boost
             },
             effectDisplay() {return "/" + format(upgradeEffect(this.layer, this.id)) + " A"},
-            tooltip: "10^((ДА x 0.75))",
+            tooltip: "10^((ДА x 0.75)) (No Cap)",
             cost: new Decimal(0),
         },
         12: {
@@ -1365,6 +1425,74 @@ addLayer("XST", {
     deactivated() {
         let inactive = true
         if(hasMilestone("TLG", 7)) inactive = false
+        return inactive
+    },
+})
+
+addLayer("RAX", {
+    name: "Relax",
+    symbol: "RAX",
+    position: 8,
+    startData() { return {
+        unlocked: false,
+		points: new Decimal(0),
+    }},
+    color: "#d6d6d6",
+    requires: new Decimal(1e125),
+    resource: "Relax",
+    baseResource: "Skill",
+    baseAmount() {return player.points},
+    type: "normal",
+    exponent: 0.5,
+    gainMult() {
+        mult = new Decimal(1)
+        return mult
+    },
+    gainExp() {
+        return new Decimal(1)
+    },
+    row: 0,
+    hotkeys: [
+        {key: "L", description: "L: Reset for Relax", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    layerShown() {return hasMilestone('TLG', 8)},
+    infoboxes: {
+        lore: {
+            title: "Info About this layer",
+            body() { return "QoL layer Nice [Row 1]" },
+        },
+    },
+    upgrades: {
+        11: {
+            title: "Qol I",
+            description: "AutoBuy 'A' 11 Buyable",
+            cost: new Decimal(1),
+        },
+        12: {
+            title: "Qol II",
+            description: "AutoBuy 'A' 12 Buyable",
+            cost: new Decimal(1),
+        },
+        13: {
+            title: "Qol III",
+            description: "AutoBuy 'A' 13 Buyable",
+            cost: new Decimal(1),
+        },
+        14: {
+            title: "Qol IV",
+            description: "AutoBuy 'A' Upgades",
+            cost: new Decimal(1),
+        },
+        15: {
+            title: "Qol V",
+            description: "AutoBuy ДА 11 Buyable",
+            cost: new Decimal(1),
+        },
+    },
+
+    deactivated() {
+        let inactive = true
+        if(hasMilestone("TLG", 8)) inactive = false
         return inactive
     },
 })
