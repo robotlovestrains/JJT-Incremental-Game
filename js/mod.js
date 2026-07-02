@@ -59,7 +59,6 @@ function getPointGen() {
 	if(hasUpgrade('TFD', 12)) gain = gain.times(2)
 	if(hasUpgrade('TFD', 13)) gain = gain.times(2.5)
 	if(hasUpgrade('TFD', 14)) gain = gain.times(upgradeEffect('TFD', 14))
-	gain = gain.times(7e33)
 	if(hasUpgrade('TFD', 15)) gain = gain.times(upgradeEffect('TFD', 15))
 	if(hasUpgrade('TFD', 22)) gain = gain.times(1.5)
 	if(hasMilestone('TFD', 0)) gain = gain.times(2)
