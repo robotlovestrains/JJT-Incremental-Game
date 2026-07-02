@@ -304,7 +304,7 @@ addLayer("TLG", {
         8: {
             requirementDescription: "Relax",
             effectDescription: "Unlock Relax and x10 Skill (No QoL)",
-            //done() { return player[this.layer].points.gte(9) },
+            done() { return player[this.layer].points.gte(1e100) },
             unlocked() {return hasMilestone(this.layer, this.id)},
         },
     },
