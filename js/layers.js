@@ -48,6 +48,7 @@ addLayer("TFD", {
             body() { return "You Gain this currency automatically Nice, also dark and odd? [Row 1] (Brighter for visibility)" },
         },
     },
+    resetDescription: "Reset Skill For ",
     passiveGeneration() {
         let Gen = 1
         return Gen
@@ -201,7 +202,7 @@ addLayer("TFD", {
             title: "Unlocker III",
             description: "Unlock Ca$h a Upgrade",
             cost: new Decimal(2e32),
-            unlocked() {return hasUpgrade(this.layer, 15)},
+            unlocked() {return hasUpgrade(this.layer, 32)},
         },
         34: {
             title: "Unlocker IV",
@@ -240,6 +241,7 @@ addLayer("TLG", {
     hotkeys: [
         {key: "L", description: "L: Reset for TLG", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
+    resetDescription: "Reset Skill and Above For ",
     layerShown() {
         let vis = false
         if(hasMilestone('TFD', 2)) vis = true
@@ -352,9 +354,10 @@ addLayer("Neg", {
     infoboxes: {
         lore: {
             title: "Info About this layer",
-            body() { return "First New Layer Note: you may need to reset to fix the unclickable Upgrades (every layer also brighter for visability)" },
+            body() { return "First New Layer (brighter for visability) [Row 1]" },
         },
     },
+    resetDescription: "Reset Skill For ",
     passiveGeneration() {
         let Gen = 1
         return Gen
@@ -362,7 +365,7 @@ addLayer("Neg", {
     autoUpgrade() {return hasMilestone('TLG', 5)},
     upgrades: {
         11: {
-            title: "A Nerf to start because i'm to lazy too learn [Row 1]",
+            title: "A Nerf to start because i'm to lazy too learn",
             description: "Neg Boost Skill (-)",
             effect() {
                 let boost = new Decimal(1)
@@ -455,6 +458,10 @@ addLayer("Neg", {
             unlocked() {return hasUpgrade(this.layer, 24)},
         },
     },
+    update(diff) {
+        if (player.points.gte(100) && hasMilestone('TLG', 0)) player[this.layer].unlocked = true
+    },
+
     deactivated() {
         let inactive = true
         if(hasMilestone('TLG', 0)) inactive = false
@@ -494,6 +501,7 @@ addLayer("UIP", {
     hotkeys: [
         {key: "I", description: "I: Reset for TFD", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
+    resetDescription: "Reset Skill For ",
     layerShown() {return hasMilestone('TLG', 1)},
     infoboxes: {
         lore: {
@@ -574,6 +582,9 @@ addLayer("UIP", {
             };
         }
     },
+    update(diff) {
+        if (player.points.gte(1000) && hasMilestone('TLG', 1)) player[this.layer].unlocked = true
+    },
 
     deactivated() {
         let inactive = true
@@ -617,6 +628,7 @@ addLayer("$", {
             body() { return "Money Time [Row 1]" },
         },
     },
+    resetDescription: "Reset Skill For ",
     autoPrestige() {
         let auto = false
         if(hasMilestone(this.layer, 0)) auto = true
@@ -730,6 +742,9 @@ addLayer("$", {
             unlocked() {return hasUpgrade('TFD', 33)},
         },
     },
+    update(diff) {
+        if (player.points.gte(10000) && hasMilestone('TLG', 2)) player[this.layer].unlocked = true
+    },
 
     deactivated() {
         let inactive = true
@@ -774,6 +789,7 @@ addLayer("FLN", {
     hotkeys: [
         {key: "F", description: "F: Reset for FLN", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
+    resetDescription: "Reset Skill For ",
     layerShown() {return hasMilestone('TLG', 3)},
     infoboxes: {
         lore: {
@@ -861,6 +877,9 @@ addLayer("FLN", {
             unlocked() {return hasUpgrade(this.layer, 23)},
         },
     },
+    update(diff) {
+        if (player.points.gte(100000) && hasMilestone('TLG', 3)) player[this.layer].unlocked = true
+    },
 
     deactivated() {
         let inactive = true
@@ -897,6 +916,7 @@ addLayer("TES", {
     hotkeys: [
         {key: "E", description: "E: Reset for TES", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
+    resetDescription: "Reset Skill For ",
     layerShown() {return hasMilestone('TLG', 4)},
     infoboxes: {
         lore: {
@@ -956,6 +976,9 @@ addLayer("TES", {
             cost: new Decimal(1000000),
             unlocked() {return hasUpgrade(this.layer, 14)},
         },
+    },
+    update(diff) {
+        if (player.points.gte(1e9) && hasMilestone('TLG', 4)) player[this.layer].unlocked = true
     },
 
     deactivated() {
@@ -1022,6 +1045,7 @@ addLayer("A", {
     hotkeys: [
         {key: "A", description: "A: Reset for A", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
+    prestigeButtonReset() {return "Reset Skill For +"+format(layers[this.layer].gain)+" A"},
     layerShown() {return hasMilestone('TLG', 5)},
     infoboxes: {
         lore: {
@@ -1205,6 +1229,9 @@ addLayer("A", {
         if(hasUpgrade('RAX', 14)) auto = true
         return auto
     },
+    update(diff) {
+        if (player.points.gte(1e12) && hasMilestone('TLG', 5)) player[this.layer].unlocked = true
+    },
 
     deactivated() {
         let inactive = true
@@ -1242,6 +1269,7 @@ addLayer("ДА", {
     hotkeys: [
         {key: "ctrl+A", description: "ctrl+A: Reset for ДА", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
+    resetDescription: "Reset 'A' For ",
     onPrestige(gain) {
         player.A.points = new Decimal(0)
     },
@@ -1367,6 +1395,9 @@ addLayer("ДА", {
             unlocked() {return hasUpgrade(this.layer, 31)},
         },
     },
+    update(diff) {
+        if (player.A.points.gte(1e42) && hasMilestone('TLG', 6)) player[this.layer].unlocked = true
+    },
 
     deactivated() {
         let inactive = true
@@ -1401,6 +1432,7 @@ addLayer("XST", {
     hotkeys: [
         {key: "X", description: "X: Reset for Exist", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
+    resetDescription: "Reset Skill and Row 1 For ",
     layerShown() {return hasMilestone('TLG', 7)},
     infoboxes: {
         lore: {
@@ -1420,6 +1452,9 @@ addLayer("XST", {
             done() { return player[this.layer].points.gte(2) },
             unlocked() {return hasMilestone(this.layer, 0)}
         },
+    },
+    update(diff) {
+        if (player.points.gte(1e110) && hasMilestone('TLG', 7)) player[this.layer].unlocked = true
     },
 
     deactivated() {
@@ -1455,6 +1490,7 @@ addLayer("RAX", {
     hotkeys: [
         {key: "L", description: "L: Reset for Relax", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
+    resetDescription: "Reset Skill For ",
     layerShown() {return hasMilestone('TLG', 8)},
     infoboxes: {
         lore: {
@@ -1488,6 +1524,9 @@ addLayer("RAX", {
             description: "AutoBuy ДА 11 Buyable",
             cost: new Decimal(1),
         },
+    },
+    update(diff) {
+        //if (player.points.gte(1e125) && hasMilestone('TLG', 8)) player[this.layer].unlocked = true
     },
 
     deactivated() {
