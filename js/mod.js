@@ -17,14 +17,13 @@ let VERSION = {
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>vA2.0 The Past Infinite</h3><br>
+	<h3>vA2.0 The Class Negative</h3><br>
 		- Made Relax->Instant Win<br>
 		- Changed How the ДА Upgrades unlock<br>
+		- Fixed the Export Save Feature<br>
 		- Added 7 More TLG Milestones<br>
 		- Added 60 More Upgrades<br>
 		- Added 33 More Milestones<br>
-		- Changed How ДА Upgrades are Visable<br>
-		- Fixed the Export Save Feature<br>
 		EndGame: 1e3244 Points<br>
 		<br>
 	<h3>vA1.1 The Fixes Update</h3><br>
