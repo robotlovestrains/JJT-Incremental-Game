@@ -468,7 +468,7 @@ addLayer("Neg", {
                 boost = boost.times(((player[this.layer].points.add(1/25)).times(25).pow(0.7)).log(2))
                 if (hasMilestone('$', 4)) boost = new Decimal(1).times((player[this.layer].points.times(25).pow(1)).log(2))
                 if (hasUpgrade(this.layer, 13)) boost = new Decimal(1).times((player[this.layer].points.times(20).pow(0.7)).log(2))
-                if (hasMilestone('$', 4) || hasUpgrade(this.layer, 13)) boost = new Decimal(1).times((player[this.layer].points.times(20).pow(1)).log(2))
+                if (hasMilestone('$', 4) && hasUpgrade(this.layer, 13)) boost = new Decimal(1).times((player[this.layer].points.times(20).pow(1)).log(2))
                 if (hasMilestone('TLG', 2)) boost = new Decimal(2).pow(boost)
                 if (hasUpgrade(this.layer, 22)) boost = new Decimal(1).times(player[this.layer].points.times(10).pow(1.1))
 
@@ -664,7 +664,7 @@ addLayer("UIP", {
             },
             display() {
                 let output = ""
-                output = "x3 TFD Per Level Currently: x"+format(new Decimal(3).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format(new Decimal(3).pow((getBuyableAmount(this.layer, this.id).pow(3)).add(4)))
+                output = "x3 TFD Per Level Currently: x"+format(new Decimal(3).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format(new Decimal(3).pow((getBuyableAmount(this.layer, this.id).pow(3.3)).add(4)))
                 if(hasMilestone('ITW', 3)) output = "x3 TFD Per Level Currently: x"+format(new Decimal(3).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format((new Decimal(3).pow((getBuyableAmount(this.layer, this.id).pow(3.3)).add(4))).times(1/25))
                 return output
             },
@@ -685,7 +685,7 @@ addLayer("UIP", {
             },
             display() {
                 let output = ""
-                output = "x3 Neg Per Level Currently: x"+format(new Decimal(3).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format(new Decimal(3).pow((getBuyableAmount(this.layer, this.id).pow(3)).add(4)))
+                output = "x3 Neg Per Level Currently: x"+format(new Decimal(3).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format(new Decimal(3).pow((getBuyableAmount(this.layer, this.id).pow(3.6)).add(4)))
                 if(hasMilestone('ITW', 3)) output = "x3 Neg Per Level Currently: x"+format(new Decimal(3).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format((new Decimal(3).pow((getBuyableAmount(this.layer, this.id).pow(3.6)).add(4))).times(1/25))
                 return output
             },
