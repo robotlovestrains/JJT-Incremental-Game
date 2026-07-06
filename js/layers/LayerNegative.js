@@ -38,6 +38,8 @@ addLayer("TFD", {
         if(hasUpgrade('TFD', 43)) mult = mult.times(1e35)
         if(hasUpgrade('TFD', 44)) mult = mult.times(1e40)
         if(hasUpgrade('TFD', 45)) mult = mult.times(1e50)
+        
+        if(hasMilestone('TLG', 16)) mult = new Decimal(0)
         return mult
     },
     gainExp() {
@@ -418,7 +420,7 @@ addLayer("TLG", {
         },
         16: {
             requirementDescription: "Millisecondless",
-            effectDescription: "Unlock Millisecondless but combine all Class negative layers exsept TLG into Class Negative layer and /30 Skill Gain",
+            effectDescription: "Unlock Millisecondless but combine all Class Negative Layers exsept TLG into Class Negative layer and Change the Way the Ca$h and Mult Layers Unlock and /30 Skill Gain",
             done() { return player[this.layer].points.gte(18) },
             unlocked() {return hasMilestone(this.layer, this.id)},
         },
@@ -455,6 +457,8 @@ addLayer("Neg", {
         if(hasUpgrade('TES', 11)) mult = mult.times(upgradeEffect('TES', 11))
         if(hasMilestone('XST', 0)) mult = mult.times(25)
         if(hasUpgrade('SKIP', 13)) mult = mult.times(25)
+
+        if(hasMilestone('TLG', 16)) mult = new Decimal(0)
         return mult
     },
     gainExp() {
@@ -615,6 +619,8 @@ addLayer("UIP", {
         if(hasUpgrade('TES', 11)) mult = mult.times(upgradeEffect('TES', 11))
         if(hasMilestone('XST', 0)) mult = mult.times(25)
         if(hasUpgrade('SKIP', 13)) mult = mult.times(25)
+
+        if(hasMilestone('TLG', 16)) mult = new Decimal(0)
         return mult
     },
     gainExp() {
@@ -776,6 +782,8 @@ addLayer("$", {
         if(hasUpgrade(this.layer, 12)) mult = mult.times(upgradeEffect(this.layer, 12))
         if(hasUpgrade('MULTI', 11)) mult = mult.times(upgradeEffect('MULTI', 11))
         if(hasMilestone('ITW', 4)) mult = mult.times(1e10)
+
+        if(hasMilestone('TLG', 16)) mult = new Decimal(0)
         return mult
     },
     gainExp() {
@@ -802,7 +810,7 @@ addLayer("$", {
         let auto = false
         if(hasMilestone(this.layer, 0)) auto = true
         if(hasMilestone('TLG', 3)) auto = true
-        if(hasMilestone('TLG', 16)) auto = true 
+        if(hasMilestone('TLG', 16)) auto = false
         return auto
     },
     resetsNothing() {return hasMilestone(this.layer, 4)},
@@ -880,7 +888,7 @@ addLayer("$", {
         },
         7: {
             requirementDescription: "Getting FLN Upgrade 12",
-            effectDescription: "Skill Boost Skill log10(Skill + 1) + 1 (x) (Cap: 100)",
+            effectDescription: "Skill Boost Skill log10(Skill + 10) (x) (Cap: 100)",
             tooltip() {return format(new Decimal.min((player.points.add(10)).log10(), new Decimal(100)))+"x Skill"},
             done() {return hasUpgrade('FLN', 12)},
             unlocked() {return hasUpgrade('FLN', 12)},
@@ -988,6 +996,8 @@ addLayer("FLN", {
         if(hasUpgrade(this.layer, 33)) mult = mult.times(100)
         if(hasUpgrade(this.layer, 34)) mult = mult.times(10)
         if(hasUpgrade(this.layer, 35)) mult = mult.times(1e10)
+        
+        if(hasMilestone('TLG', 16)) mult = new Decimal(0)
         return mult
     },
     gainExp() {
@@ -1136,7 +1146,7 @@ addLayer("FLN", {
                 return Boost
             },
             effectDisplay() {return format(upgradeEffect(this.layer, this.id))+"x Skill"},
-            tooltip: "log10(log10(FLN + 1) + 1) + 1 (No Cap)",
+            tooltip: "log10(log10(FLN + 1e10)) (No Cap)",
             cost: new Decimal(5e162),
             unlocked() {return hasMilestone('ITW', 5)},
         },
@@ -1150,7 +1160,7 @@ addLayer("FLN", {
                 return Boost
             },
             effectDisplay() {return format(upgradeEffect(this.layer, this.id))+"x FNL Upgrade 41 Effect"},
-            tooltip: "Log100(FNL Upgrade 41 Effect + 1) + 1",
+            tooltip: "Log100(FNL Upgrade 41 Effect + 100)",
             cost: new Decimal(1e164),
             unlocked() {return hasUpgrade(this.layer, 41)},
         },
@@ -1164,7 +1174,7 @@ addLayer("FLN", {
                 return Boost
             },
             effectDisplay() {return format(upgradeEffect(this.layer, this.id))+"x FNL Upgrade 42 Effect"},
-            tooltip: "Log20(FNL Upgrade 42 Effect + 1) + 1",
+            tooltip: "Log20(FNL Upgrade 42 Effect + 20)",
             cost: new Decimal(4.2e167),
             unlocked() {return hasUpgrade(this.layer, 42)},
         },
@@ -1210,6 +1220,8 @@ addLayer("TES", {
         if(hasUpgrade('TES', 23)) mult = mult.times(10)
         if(hasUpgrade('SKIP', 11)) mult = mult.times(25)
         if(hasUpgrade('SKIP', 13)) mult = mult.times(25)
+
+        if(hasMilestone('TLG', 16)) mult = new Decimal(0)
         return mult
     },
     gainExp() {
@@ -1280,7 +1292,7 @@ addLayer("TES", {
                 return boost
             },
             effectDisplay() {return format(upgradeEffect(this.layer, this.id))+"x TFD, Neg, UIP and FLN and / Ca$h Requirement"},
-            tooltip: "log10(TES + 1) + 1",
+            tooltip: "log10(TES + 10)",
             cost: new Decimal(25),
         },
         12: {
@@ -1294,7 +1306,7 @@ addLayer("TES", {
                 return boost
             },
             effectDisplay() {return format(upgradeEffect(this.layer, this.id))+"x Skill"},
-            tooltip: "log2(TES + 1) + 1",
+            tooltip: "log2(TES + 2)",
             cost: new Decimal(250),
             unlocked() {return hasUpgrade(this.layer, 11)},
         },
@@ -1407,6 +1419,8 @@ addLayer("A", {
         if(hasMilestone('ITW', 8)) mult = mult.pow(1.2)
         
         if(hasUpgrade('ДА', 11)) mult = mult.times(upgradeEffect('ДА', 11).pow(-1))
+
+        if(hasMilestone('TLG', 16)) mult = new Decimal(0)
         return mult
     },
     gainExp() {
@@ -1544,7 +1558,7 @@ addLayer("A", {
                 return boost
             },
             effectDisplay() {return format(upgradeEffect(this.layer, this.id)) + "x 'A'"},
-            tooltip: "log2(A + 1) + 1 (Cap: 1e308)",
+            tooltip: "log2(A + 2) (Cap: 1e308)",
             cost: new Decimal(120000),
             unlocked() {return hasUpgrade(this.layer, 22)},
         },
@@ -1559,7 +1573,7 @@ addLayer("A", {
                 return boost
             },
             effectDisplay() {return "^" + format(upgradeEffect(this.layer, this.id)) + " 'A'"},
-            tooltip: "log10(log10(A + 1) + 1) + 1) (Cap: 100)",
+            tooltip: "log10(log10(A + 1e10))) (Cap: 100)",
             cost: new Decimal(2000000),
             unlocked() {return hasUpgrade(this.layer, 23)},
         },
@@ -1666,6 +1680,7 @@ addLayer("ДА", {
     gainMult() {
         mult = new Decimal(0)
         if(hasUpgrade(this.layer, 11)) mult = new Decimal(1)
+        if(hasMilestone('TLG', 16)) mult = new Decimal(0)
         return mult
     },
     gainExp() {
@@ -1850,7 +1865,9 @@ addLayer("XST", {
     exponent: 3,
     gainMult() {
         mult = new Decimal(1)
-        if(hasMilestone(this.layer, 7)) mult = mult.times(new Decimal(10).tetrate(player[this.layer].points.pow(0.1)).pow(-1))
+        if(hasMilestone(this.layer, 7)) mult = mult.times(new Decimal(10).tetrate(player[this.layer].points.pow(0.1)))
+
+        if(hasMilestone('TLG', 16)) mult = new Decimal(0)
         return mult
     },
     gainExp() {
@@ -2032,6 +2049,8 @@ addLayer("RAX", {
     gainMult() {
         mult = new Decimal(1)
         if(hasUpgrade('SKIP', 13)) mult = mult.times(25)
+
+        if(hasMilestone('TLG', 16)) mult = new Decimal(0)
         return mult
     },
     gainExp() {
@@ -2161,6 +2180,8 @@ addLayer("SKIP", {
     gainMult() {
         mult = new Decimal(1)
         if(hasUpgrade('SKIP', 13)) mult = mult.times(25)
+        
+        if(hasMilestone('TLG', 16)) mult = new Decimal(0)
         return mult
     },
     gainExp() {
@@ -2294,6 +2315,8 @@ addLayer("MULTI", {
         if(hasUpgrade(this.layer, 15)) mult = mult.times(new Decimal(3.33).pow(-1))
         if(getBuyableAmount(this.layer, 11) > 0) mult = mult.times(((player[this.layer].points.pow(0.05)).pow(getBuyableAmount(this.layer, 11))).pow(-1))
         if(hasMilestone('ITW', 12)) mult = mult.times(new Decimal(1e10).pow(-1))
+
+        if(hasMilestone('TLG', 16)) mult = new Decimal(0)
         return mult
     },
     gainExp() {
@@ -2334,6 +2357,7 @@ addLayer("MULTI", {
     autoPrestige() {
         let auto = false
         if(hasUpgrade(this.layer, 15) || hasMilestone('TLG', 14)) auto = true
+        if(hasMilestone('TLG', 16)) auto = false
         return auto
     },
     update(diff) {
@@ -2429,6 +2453,8 @@ addLayer("RSF", {
     exponent: 0.5,
     gainMult() {
         mult = new Decimal(1)
+
+        if(hasMilestone('TLG', 16)) mult = new Decimal(0)
         return mult
     },
     gainExp() {
@@ -2522,6 +2548,8 @@ addLayer("IF.", {
     exponent: 0.05,
     gainMult() {
         mult = new Decimal(1)
+
+        if(hasMilestone('TLG', 16)) mult = new Decimal(0)
         return mult
     },
     gainExp() {
@@ -2603,6 +2631,8 @@ addLayer("IFS", {
     exponent: 0.05,
     gainMult() {
         mult = new Decimal(1)
+
+        if(hasMilestone('TLG', 16)) mult = new Decimal(0)
         return mult
     },
     gainExp() {
@@ -2684,6 +2714,8 @@ addLayer("IFT", {
         if(hasUpgrade(this.layer, 12)) mult = mult.times(1e25)
         if(hasUpgrade(this.layer, 13)) mult = mult.times(1e50)
         if(hasUpgrade(this.layer, 14)) mult = mult.times(1e200)
+
+        if(hasMilestone('TLG', 16)) mult = new Decimal(0)
         return mult
     },
     gainExp() {
@@ -2779,7 +2811,9 @@ addLayer("ITW", {
         mult = new Decimal(1)
         if(hasMilestone(this.layer, 11)) mult = mult.times(new Decimal('e10000').pow(-1))
         if(hasMilestone(this.layer, 12)) mult = mult.times(new Decimal('e10000'))
+        
         if(hasMilestone(this.layer, 17)) mult = new Decimal(0)
+        if(hasMilestone('TLG', 16)) mult = new Decimal(0)
         return mult
     },
     gainExp() {

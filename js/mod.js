@@ -172,6 +172,15 @@ function getPointGen() {
 	if(hasUpgrade('CNT', 23)) gain = gain.times(5)
 	if(hasUpgrade('CNT', 24)) gain = gain.times(10)
 	if(hasUpgrade('CNT', 25)) gain = gain.times(11)
+	if(hasUpgrade('CNT', 31)) gain = gain.times(upgradeEffect('CNT', 31))
+	if(hasMilestone('S', 0)) gain = gain.times(2)
+	if(hasMilestone('S', 1)) gain = gain.times(3)
+	if(hasMilestone('S', 2)) gain = gain.times(5)
+	if(hasMilestone('S', 4)) gain = gain.times(new Decimal.min(player.S.points.pow(2).add(1), new Decimal(1000000)))
+	if(hasUpgrade('CNT', 34)) gain = gain.times(20)
+	if(hasMilestone('MULT', 0)) gain = gain.times(new Decimal.min(new Decimal(10).tetrate(player.MULT.points.pow(0.2)), new Decimal(1e10)))
+	if(hasUpgrade('MULT', 11)) gain = gain.times(10)
+	if(hasUpgrade('MULT', 12)) gain = gain.times(25)
 
 	//Layers 0
 

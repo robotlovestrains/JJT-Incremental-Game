@@ -20,6 +20,9 @@ addLayer("CNT", {
         if(hasUpgrade(this.layer, 23)) mult = mult.times(3)
         if(hasUpgrade(this.layer, 24)) mult = mult.times(4)
         if(hasUpgrade(this.layer, 25)) mult = mult.times(11)
+        if(hasUpgrade(this.layer, 32)) mult = mult.times(upgradeEffect(this.layer, 32))
+        if(hasMilestone('S', 3)) mult = mult.times(2)
+        if(hasUpgrade(this.layer, 34)) mult = mult.times(20)
         return mult
     },
     gainExp() {
@@ -37,6 +40,8 @@ addLayer("CNT", {
     passiveGeneration() {
         let Gen = 0
         if(hasMilestone(this.layer, 0)) Gen = 0.1
+        if(hasMilestone(this.layer, 2)) Gen += 0.4
+        if(hasMilestone('S', 3)) Gen += 0.5
         return Gen
     },
     update(diff) {
@@ -52,6 +57,16 @@ addLayer("CNT", {
             requirementDescription: "45 Class Negative Power",
             effectDescription: "Unlock More CNT Upgrades",
             done() { return player[this.layer].points.gte(45) },
+        },
+        2: {
+            requirementDescription: "50,000 Class Negative Power",
+            effectDescription: "Gan 40% more of CMP/s",
+            done() { return player[this.layer].points.gte(50000) },
+        },
+        3: {
+            requirementDescription: "250,000 Class Negative Power",
+            effectDescription: "Unlock More Upgrades",
+            done() { return player[this.layer].points.gte(250000) },
         },
     },
     upgrades: {
@@ -114,6 +129,50 @@ addLayer("CNT", {
             cost: new Decimal(3333),
             unlocked() {return hasUpgrade(this.layer, 24)},
         },
+        31: {
+            title: "Rebirth Non-Static Booster I",
+            description: "CNP Boost Skill",
+            effect() {
+                let effect = new Decimal(1)
+                effect = effect.times((player[this.layer].points.pow(0.1).add(1)).log10().add(1))
+                return effect
+            },
+            effectDisplay() {return format(upgradeEffect(this.layer, this.id))+"x Skill"},
+            tooltip: "log10(CNP^0.1 + 1) + 1 (No Cap)",
+            cost: new Decimal(300000),
+            unlocked() {return hasMilestone(this.layer, 3)},
+        },
+        32: {
+            title: "Rebirth Non-Static Booster II",
+            description: "CNP Boost itself",
+            effect() {
+                let effect = new Decimal(1)
+                effect = effect.times((player[this.layer].points.pow(5).add(1)).log(1e10).add(1))
+                return effect
+            },
+            effectDisplay() {return format(upgradeEffect(this.layer, this.id))+"x CNP"},
+            tooltip: "log1e10(CNP^5 + 1) + 1 (No Cap)",
+            cost: new Decimal(600000),
+            unlocked() {return hasUpgrade(this.layer, 31)},
+        },
+        33: {
+            title: "Rebirth Unlocker I",
+            description: "Unlock Ca$h again",
+            cost: new Decimal(1000000),
+            unlocked() {return hasUpgrade(this.layer, 32)},
+        },
+        34: {
+            title: "Rebirth Booster XI",
+            description: "x20 Skill and CNP",
+            cost: new Decimal(1e9),
+            unlocked() {return hasMilestone('S', 6)},
+        },
+        35: {
+            title: "Rebirth Unlocker II",
+            description: "Unlock Mult again",
+            cost: new Decimal(2e10),
+            unlocked() {return hasUpgrade(this.layer, 34)},
+        },
     },
 
     deactivated() {
@@ -126,13 +185,13 @@ addLayer("CNT", {
 addLayer("S", {
     name: "Ca$h",
     symbol: "$",
-    position: 3,
+    position: 1,
     startData() { return {
         unlocked: false,
 		points: new Decimal(0),
     }},
     color: "#009600",
-    requires: new Decimal(10000),
+    requires: new Decimal(1000000),
     resource: "Ca$h",
     baseResource: "Skill",
     baseAmount() {return player.points},
@@ -149,8 +208,24 @@ addLayer("S", {
     hotkeys: [
         {key: "C", description: "C: Reset for Ca$h", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
+    canBuyMax() {
+        let maxing = false
+        if(hasMilestone(this.layer, 5)) maxing = true
+        return maxing
+    },
+    resetsNothing() {
+        let reset = false
+        if(hasMilestone(this.layer, 6)) reset = true
+        return reset
+    },
+    autoPrestige() {
+        let Auto = false
+        if(hasMilestone('MULT', 1)) Auto = true
+        return Auto
+    },
     layerShown() {
         let vis = false
+        if(hasUpgrade('CNT', 33)) vis = true
         return vis
     },
     infoboxes: {
@@ -163,16 +238,54 @@ addLayer("S", {
     milestones: {
         0: {
             requirementDescription: "1 Ca$h",
-            effectDescription: "",
+            effectDescription: "x2 Skill",
             done() { return player[this.layer].points.gte(1) },
+        },
+        1: {
+            requirementDescription: "2 Ca$h",
+            effectDescription: "x3 Skill",
+            done() { return player[this.layer].points.gte(2) },
+            unlocked() {return hasMilestone(this.layer, 0)},
+        },
+        2: {
+            requirementDescription: "5 Ca$h",
+            effectDescription: "x1.5 Skill",
+            done() { return player[this.layer].points.gte(5) },
+            unlocked() {return hasMilestone(this.layer, 1)},
+        },
+        3: {
+            requirementDescription: "12 Ca$h",
+            effectDescription: "x2 CNP and Gain 50% more CNP/s",
+            done() { return player[this.layer].points.gte(12) },
+            unlocked() {return hasMilestone(this.layer, 2)},
+        },
+        4: {
+            requirementDescription: "P2W",
+            effectDescription: "Cash Boost Skill ($^2 + 1) (x) (Cap: 1,000,000)",
+            tooltip() {return format(new Decimal.min(player[this.layer].points.pow(2).add(1), new Decimal(1000000)))+"x Skill"},
+            done() { return player[this.layer].points.gte(20) },
+            unlocked() {return hasMilestone(this.layer, 3)},
+        },
+        5: {
+            requirementDescription: "50 Ca$h",
+            effectDescription: "Buy Max Ca$h",
+            done() { return player[this.layer].points.gte(50) },
+            unlocked() {return hasMilestone(this.layer, 4)},
+        },
+        6: {
+            requirementDescription: "500 Ca$h",
+            effectDescription: "Ca$h Resets Nothing and Unlock More CNT Upgrades",
+            done() { return player[this.layer].points.gte(500) },
+            unlocked() {return hasMilestone(this.layer, 5)},
         },
     },
     update(diff) {
-
+        if(player.points.gte(1000000) && hasUpgrade('CNT', 33)) player[this.layer].unlocked = true
     },
 
     deactivated() {
         let inactive = true
+        if(hasUpgrade('CNT', 33)) inactive = false
         return inactive
     },
 })
@@ -180,21 +293,21 @@ addLayer("S", {
 addLayer("MULT", {
     name: "Multiplier",
     symbol: "MULT",
-    position: 10,
+    position: 2,
     startData() { return {
         unlocked: false,
 		points: new Decimal(0),
     }},
     color: "#ff0000",
-    requires: new Decimal(333000),
+    requires: new Decimal(1000),
     resource: "Multiplier",
     baseResource: "Ca$h",
-    baseAmount() {return player.$.points},
+    baseAmount() {return player.S.points},
     type: "static",
     exponent: 0.5,
     base: 1.1,
     gainMult() {
-        mult = new Decimal(0)
+        mult = new Decimal(1)
         return mult
     },
     gainExp() {
@@ -206,17 +319,17 @@ addLayer("MULT", {
     ],
     resetsNothing: true,
     onPrestige(gain) {
-        if(hasUpgrade('RSF', 14)) {
-
-        }
-        else {
-           player.$.points = new Decimal(0) 
-        }
+        player.S.points = new Decimal(0) 
     },
-    canBuyMax() {return hasUpgrade(this.layer, 13)},
+    autoPrestige() {
+        let Auto = false
+        if(hasMilestone('MULT', 2)) Auto = true
+        return Auto
+    },
     resetDescription: "Reset Ca$h For ",
     layerShown() {
         let vis = false
+        if(hasUpgrade('CNT', 35)) vis = true
         return vis
     },
     infoboxes: {
@@ -225,13 +338,54 @@ addLayer("MULT", {
             body() { return "Multiplier again [Row 1.5]" },
         },
     },
+    milestones: {
+        0: {
+            requirementDescription: "1 Multi",
+            effectDescription: "Multi Boost Skill (10^^(Multi^0.2)) (x) (Cap: 1e10)",
+            tooltip() {return format(new Decimal.min(new Decimal(10).tetrate(player[this.layer].points.pow(0.2)), new Decimal(1e10)))},
+            done() { return player[this.layer].points.gte(1) },
+        },
+        1: {
+            requirementDescription: "5 Multi",
+            effectDescription: "Auto Reset for Ca$h",
+            done() { return player[this.layer].points.gte(5) },
+            unlocked() {return hasMilestone(this.layer, 0)},
+        },
+        2: {
+            requirementDescription: "50 Multi",
+            effectDescription: "Auto Reset for Multi and Unlock Multi Upgrades",
+            done() { return player[this.layer].points.gte(50) },
+            unlocked() {return hasMilestone(this.layer, 1)},
+        },
+    },
+    upgrades: {
+        11: {
+            title: "Multi Booster I",
+            description: "x10 Skill",
+            cost: new Decimal(50),
+            unlocked() {return hasMilestone(this.layer, 2)},
+        },
+        12: {
+            title: "Multi Booster II",
+            description: "x25 Skill",
+            cost: new Decimal(75),
+            unlocked() {return hasUpgrade(this.layer, 11)},
+        },
+        13: {
+            title: "Multi QoL I",
+            description: "MULTI Reset Nothing",
+            cost: new Decimal(125),
+            unlocked() {return hasUpgrade(this.layer, 12)},
+        },
+    },
     update(diff) {
-
+        if(player.S.points.gte(1000) && hasUpgrade('CNT', 35)) player[this.layer].unlocked = true
     },
     
 
     deactivated() {
         let inactive = true
+        if(hasUpgrade('CNT', 35)) inactive = false
         return inactive
     },
 })
