@@ -260,8 +260,8 @@ function NaNcheck(data) {
 	}
 }
 function exportSave() {
-	//if (NaNalert) return
-	let str = btoa(JSON.stringify(player));
+	if (NaNalert) return "Error"
+	let str = btoa(unescape(encodeURIComponent(JSON.stringify(player))));
 
 	const el = document.createElement("textarea");
 	el.value = str;

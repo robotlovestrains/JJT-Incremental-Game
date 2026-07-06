@@ -32,6 +32,12 @@ addLayer("TFD", {
         if(hasUpgrade('TES', 11)) mult = mult.times(upgradeEffect('TES', 11))
         if(hasMilestone('XST', 0)) mult = mult.times(25)
         if(hasUpgrade('TFD', 35)) mult = mult.times(1e10)
+        if(hasUpgrade('SKIP', 13)) mult = mult.times(25)
+        if(hasUpgrade('TFD', 41)) mult = mult.times(1e25)
+        if(hasUpgrade('TFD', 42)) mult = mult.times(1e30)
+        if(hasUpgrade('TFD', 43)) mult = mult.times(1e35)
+        if(hasUpgrade('TFD', 44)) mult = mult.times(1e40)
+        if(hasUpgrade('TFD', 45)) mult = mult.times(1e50)
         return mult
     },
     gainExp() {
@@ -51,6 +57,7 @@ addLayer("TFD", {
     resetDescription: "Reset Skill For ",
     passiveGeneration() {
         let Gen = 1
+        if(hasMilestone('ITW', 13)) Gen = 1e10
         return Gen
     },
     milestones: {
@@ -210,6 +217,42 @@ addLayer("TFD", {
             cost: new Decimal(2.5e36),
             unlocked() {return hasUpgrade(this.layer, 33)},
         },
+        35: {
+            title: "Unloc.. No Final Booster I",
+            description: "x1e10 TFD and x100 Skill",
+            cost: new Decimal(2.5e92),
+            unlocked() {return hasUpgrade('RAX', 25) || hasMilestone('XST', 4)},
+        },
+        41: {
+            title: "Final Booster II",
+            description: "x1e25 TFD and x1e50 Skill",
+            cost: new Decimal('e380'),
+            unlocked() {return hasMilestone('ITW', 0)},
+        },
+        42: {
+            title: "Final Booster III",
+            description: "x1e30 TFD and x1e45 Skill",
+            cost: new Decimal('e405'),
+            unlocked() {return hasUpgrade(this.layer, 41)},
+        },
+        43: {
+            title: "Final Booster IV",
+            description: "x1e35 TFD and x1e40 Skill",
+            cost: new Decimal('e434'),
+            unlocked() {return hasUpgrade(this.layer, 42)},
+        },
+        44: {
+            title: "Final Booster IV",
+            description: "x1e40 TFD and x1e35 Skill",
+            cost: new Decimal('e468'),
+            unlocked() {return hasUpgrade(this.layer, 43)},
+        },
+        45: {
+            title: "Final Booster Final",
+            description: "x1e50 TFD and x1e25 Skill",
+            cost: new Decimal('e500'),
+            unlocked() {return hasUpgrade(this.layer, 44)},
+        },
     },
 })
 
@@ -229,7 +272,16 @@ addLayer("TLG", {
     baseAmount() {return player.points},
     type: "static",
     base: 100.05,
-    exponent: 2,
+    exponent() {
+        let exponental = new Decimal(2)
+        if(hasMilestone(this.layer, 15)) exponental = new Decimal(2).pow(player[this.layer].points.add(-14).pow(0.5))
+        return exponental
+    },
+    effectDescription() {
+        let effect = "No Softcap.. For Now"
+        if(hasMilestone(this.layer, 15)) effect = "Softcap I"
+        return effect
+    },
     gainMult() {
         mult = new Decimal(1)
         return mult
@@ -237,7 +289,7 @@ addLayer("TLG", {
     gainExp() {
         return new Decimal(1)
     },
-    row: 2,
+    row: 3,
     hotkeys: [
         {key: "L", description: "L: Reset for TLG", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
@@ -292,8 +344,8 @@ addLayer("TLG", {
             unlocked() {return hasMilestone(this.layer, this.id)},
         },
         6: {
-            requirementDescription: "Felix the ДА",
-            effectDescription: "Unlock Felix the ДА and x25 'A' (QoL Mult)",
+            requirementDescription: "Felix the AА",
+            effectDescription: "Unlock Felix the AА and x25 'A' (QoL Mult)",
             done() { return player[this.layer].points.gte(7) },
             unlocked() {return hasMilestone(this.layer, this.id)},
         },
@@ -306,7 +358,49 @@ addLayer("TLG", {
         8: {
             requirementDescription: "Relax",
             effectDescription: "Unlock Relax and x10 Skill (No QoL)",
-            done() { return player[this.layer].points.gte(1e100) },
+            done() { return player[this.layer].points.gte(9) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        9: {
+            requirementDescription: "Skip (Odd name)",
+            effectDescription: "Unlock Skip and autobuy the True Ease Buyable (Ok QoL)",
+            done() { return player[this.layer].points.gte(10) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        10: {
+            requirementDescription: "Multiplier",
+            effectDescription: "Unlock Multiplier and Keep the effect of XST Milestones 2 and 4 (Good QoL)",
+            done() { return player[this.layer].points.gte(11) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        11: {
+            requirementDescription: "Restful",
+            effectDescription: "Unlock RestFul and AutoReset for Exist and it Dosn't Reset Upgrades and Milestones (Insane QoL)",
+            done() { return player[this.layer].points.gte(12) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        12: {
+            requirementDescription: "Infinite Dot",
+            effectDescription: "Unlock Infinite Dot and x50 Skill (I'm Done Will QoL.. For Now)",
+            done() { return player[this.layer].points.gte(13) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        13: {
+            requirementDescription: "Infinite Easy",
+            effectDescription: "Unlock Infinite Easy",
+            done() { return player[this.layer].points.gte(14) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        14: {
+            requirementDescription: "Infinite (Real)",
+            effectDescription: "Unlock Infinite and Autogain all prev layers",
+            done() { return player[this.layer].points.gte(15) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        15: {
+            requirementDescription: "Instant Win",
+            effectDescription: "Unlock Instant Win and AutoBuy Infinite Dot and Easy Upgrades",
+            done() { return player[this.layer].points.gte(16) },
             unlocked() {return hasMilestone(this.layer, this.id)},
         },
     },
@@ -326,7 +420,7 @@ addLayer("Neg", {
         unlocked: false,
 		points: new Decimal(0),
     }},
-    color: "#320064",
+    color: "#4e019b",
     requires: new Decimal(100),
     resource: "Negativity",
     baseResource: "Skill",
@@ -341,6 +435,7 @@ addLayer("Neg", {
         if(hasUpgrade(this.layer, 21)) mult = mult.times(1.3)
         if(hasUpgrade('TES', 11)) mult = mult.times(upgradeEffect('TES', 11))
         if(hasMilestone('XST', 0)) mult = mult.times(25)
+        if(hasUpgrade('SKIP', 13)) mult = mult.times(25)
         return mult
     },
     gainExp() {
@@ -360,6 +455,7 @@ addLayer("Neg", {
     resetDescription: "Reset Skill For ",
     passiveGeneration() {
         let Gen = 1
+        if(hasMilestone('ITW', 13)) Gen = 1e10
         return Gen
     },
     autoUpgrade() {return hasMilestone('TLG', 5)},
@@ -387,7 +483,7 @@ addLayer("Neg", {
         },
         12: {
             title: "Booster III",
-            description: "+2 Skill Gain",
+            description: "+2 Skill Gain (all +/- Gains are before the x or / gains)",
             cost: new Decimal(50),
             unlocked() {return hasUpgrade(this.layer, 11)},
         },
@@ -477,7 +573,7 @@ addLayer("UIP", {
         unlocked: false,
 		points: new Decimal(0),
     }},
-    color: "#400040",
+    color: "#720072",
     requires: new Decimal(1000),
     resource: "Unimpossible",
     baseResource: "Skill",
@@ -492,6 +588,7 @@ addLayer("UIP", {
         if(hasUpgrade('Neg', 24)) mult = mult.times(50)
         if(hasUpgrade('TES', 11)) mult = mult.times(upgradeEffect('TES', 11))
         if(hasMilestone('XST', 0)) mult = mult.times(25)
+        if(hasUpgrade('SKIP', 13)) mult = mult.times(25)
         return mult
     },
     gainExp() {
@@ -506,11 +603,12 @@ addLayer("UIP", {
     infoboxes: {
         lore: {
             title: "Info About this layer",
-            body() { return "Triplets everywere [Row 1]" },
+            body() { return "Triplets everywere (brighter for visability) [Row 1]" },
         },
     },
     passiveGeneration() {
         let Gen = 1
+        if(hasMilestone('ITW', 13)) Gen = 1e10
         return Gen
     },
     autoUpgrade() {return hasMilestone('TLG', 5)},
@@ -537,8 +635,18 @@ addLayer("UIP", {
     buyables: {
         11: {
             title: "Triplets I",
-            cost(x) { return new Decimal(3).pow((x.pow(3)).add(4)) },
-            display() { return "x3 Skill Per Level Currently: x"+format(new Decimal(3).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format(new Decimal(3).pow((getBuyableAmount(this.layer, this.id).pow(3)).add(4))) },
+            cost(x) {
+                let Cost = new Decimal(1)
+                Cost = new Decimal(3).pow((x.pow(3)).add(4))
+                if(hasMilestone('ITW', 3)) Cost.times(1/25)
+                return Cost
+            },
+            display() {
+                let output = ""
+                output = "x3 Skill Per Level Currently: x"+format(new Decimal(3).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format(new Decimal(3).pow((getBuyableAmount(this.layer, this.id).pow(3)).add(4)))
+                if(hasMilestone('ITW', 3)) output = "x3 Skill Per Level Currently: x"+format(new Decimal(3).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format((new Decimal(3).pow((getBuyableAmount(this.layer, this.id).pow(3)).add(4))).times(1/25))
+                return output
+            },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())
@@ -548,8 +656,18 @@ addLayer("UIP", {
         },
         12: {
             title: "Triplets II",
-            cost(x) { return new Decimal(3).pow((x.pow(3.3)).add(4)) },
-            display() { return "x3 TFD Per Level Currently: x"+format(new Decimal(3).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format(new Decimal(3).pow((getBuyableAmount(this.layer, this.id).pow(3.3)).add(4))) },
+            cost(x) {
+                let Cost = new Decimal(1)
+                Cost = new Decimal(3).pow((x.pow(3.3)).add(4))
+                if(hasMilestone('ITW', 3)) Cost.times(1/25)
+                return Cost
+            },
+            display() {
+                let output = ""
+                output = "x3 TFD Per Level Currently: x"+format(new Decimal(3).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format(new Decimal(3).pow((getBuyableAmount(this.layer, this.id).pow(3)).add(4)))
+                if(hasMilestone('ITW', 3)) output = "x3 TFD Per Level Currently: x"+format(new Decimal(3).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format((new Decimal(3).pow((getBuyableAmount(this.layer, this.id).pow(3.3)).add(4))).times(1/25))
+                return output
+            },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())
@@ -559,8 +677,18 @@ addLayer("UIP", {
         },
         13: {
             title: "Triplets III",
-            cost(x) { return new Decimal(3).pow((x.pow(3.6)).add(4)) },
-            display() { return "x3 Negitivity Per Level Currently: x"+format(new Decimal(3).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format(new Decimal(3).pow((getBuyableAmount(this.layer, this.id).pow(3.6)).add(4))) },
+            cost(x) {
+                let Cost = new Decimal(1)
+                Cost = new Decimal(3).pow((x.pow(3.6)).add(4))
+                if(hasMilestone('ITW', 3)) Cost.times(1/25)
+                return Cost
+            },
+            display() {
+                let output = ""
+                output = "x3 Neg Per Level Currently: x"+format(new Decimal(3).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format(new Decimal(3).pow((getBuyableAmount(this.layer, this.id).pow(3)).add(4)))
+                if(hasMilestone('ITW', 3)) output = "x3 Neg Per Level Currently: x"+format(new Decimal(3).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format((new Decimal(3).pow((getBuyableAmount(this.layer, this.id).pow(3.6)).add(4))).times(1/25))
+                return output
+            },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())
@@ -612,6 +740,9 @@ addLayer("$", {
         mult = new Decimal(1)
         if(hasUpgrade('TES', 11)) mult = mult.times(upgradeEffect('TES', 11))
         if(hasMilestone('XST', 0)) mult = mult.times(25)
+        if(hasUpgrade(this.layer, 12)) mult = mult.times(upgradeEffect(this.layer, 12))
+        if(hasUpgrade('MULTI', 11)) mult = mult.times(upgradeEffect('MULTI', 11))
+        if(hasMilestone('ITW', 4)) mult = mult.times(1e10)
         return mult
     },
     gainExp() {
@@ -710,12 +841,13 @@ addLayer("$", {
         },
         7: {
             requirementDescription: "Getting FLN Upgrade 12",
-            effectDescription: "Skill Boost Skill log10(Skill + 1) (x) (Cap: 100)",
+            effectDescription: "Skill Boost Skill log10(Skill + 1) + 1 (x) (Cap: 100)",
+            tooltip() {return format(new Decimal.min((player.points.add(10)).log10(), new Decimal(100)))+"x Skill"},
             done() {return hasUpgrade('FLN', 12)},
             unlocked() {return hasUpgrade('FLN', 12)},
         },
         8: {
-            requirementDescription: "five Grand",
+            requirementDescription: "Five Grand",
             effectDescription: "Unlock maxing Ca$h and Unlock more TFD Upgrades",
             done() { 
                 let Done = false
@@ -723,6 +855,16 @@ addLayer("$", {
                 return Done
             },
             unlocked() {return hasUpgrade('FLN', 21)},
+        },
+        9: {
+            requirementDescription: "Ten Mil",
+            effectDescription: "x1e75 Skill",
+            done() { 
+                let Done = false
+                if(player[this.layer].points.gte(1e7) && hasMilestone('ITW', 4)) Done = true
+                return Done
+            },
+            unlocked() {return hasMilestone('ITW', 4)},
         },
     },
     upgrades: {
@@ -741,6 +883,24 @@ addLayer("$", {
             cost: new Decimal(16500),
             unlocked() {return hasUpgrade('TFD', 33)},
         },
+        12: {
+            title: "Ca$h Boost II",
+            description: "Ca$h Decrease It's Requirement",
+            effect() {
+                let boost = new Decimal(1)
+                boost = boost.times((player[this.layer].points.add(1)).pow(0.1))
+                return boost
+            },
+            effectDisplay() {return "/"+format(upgradeEffect(this.layer, this.id)) + " Ca$h"},
+            tooltip: "(Ca$h + 1)^0.1 (No Cap)",
+            cost: new Decimal(225000),
+            unlocked() {return hasUpgrade('RAX', 25) || hasMilestone('XST', 4)},
+        },
+    },
+    autoUpgrade() {
+        let auto = false
+        if(hasMilestone('ITW', 10)) auto = true
+        return auto
     },
     update(diff) {
         if (player.points.gte(10000) && hasMilestone('TLG', 2)) player[this.layer].unlocked = true
@@ -770,16 +930,23 @@ addLayer("FLN", {
     exponent: 0.1,
     gainMult() {
         mult = new Decimal(1)
-        if(hasUpgrade('FLN', 11)) mult = mult.times(2)
-        if(hasUpgrade('FLN', 12)) mult = mult.times(2)
-        if(hasUpgrade('FLN', 13)) mult = mult.times(2)
-        if(hasUpgrade('FLN', 14)) mult = mult.times(100)
-        if(hasUpgrade('FLN', 15)) mult = mult.times(upgradeEffect('FLN', 15))
-        if(hasUpgrade('FLN', 21)) mult = mult.times(100)
-        if(hasUpgrade('FLN', 22)) mult = mult.times(100)
-        if(hasUpgrade('FLN', 23)) mult = mult.times(100000)
+        if(hasUpgrade(this.layer, 11)) mult = mult.times(2)
+        if(hasUpgrade(this.layer, 12)) mult = mult.times(2)
+        if(hasUpgrade(this.layer, 13)) mult = mult.times(2)
+        if(hasUpgrade(this.layer, 14)) mult = mult.times(100)
+        if(hasUpgrade(this.layer, 15)) mult = mult.times(upgradeEffect(this.layer, 15))
+        if(hasUpgrade(this.layer, 21)) mult = mult.times(100)
+        if(hasUpgrade(this.layer, 22)) mult = mult.times(100)
+        if(hasUpgrade(this.layer, 23)) mult = mult.times(100000)
         if(hasUpgrade('TES', 11)) mult = mult.times(upgradeEffect('TES', 11))
         if(hasMilestone('XST', 0)) mult = mult.times(25)
+        if(hasUpgrade(this.layer, 25)) mult = mult.times(1e10)
+        if(hasUpgrade('SKIP', 13)) mult = mult.times(25)
+        if(hasUpgrade(this.layer, 31)) mult = mult.times(10000)
+        if(hasUpgrade(this.layer, 32)) mult = mult.times(1000)
+        if(hasUpgrade(this.layer, 33)) mult = mult.times(100)
+        if(hasUpgrade(this.layer, 34)) mult = mult.times(10)
+        if(hasUpgrade(this.layer, 35)) mult = mult.times(1e10)
         return mult
     },
     gainExp() {
@@ -799,12 +966,13 @@ addLayer("FLN", {
     },
     passiveGeneration() {
         let Gen = 1
+        if(hasMilestone('ITW', 13)) Gen = 1e10
         return Gen
     },
     upgrades: {
         11: {
             title: "Remover I",
-            description: "Negitivity Upgrade 11 Now (+) instead and x2 FLN",
+            description: "Negitivity Upgrade 11 Now (+) instead and x2 FLN (Requires Neg Nerf)",
             cost: new Decimal(5),
         },
         12: {
@@ -841,14 +1009,14 @@ addLayer("FLN", {
             description: "FLN Boost itself",
             effect() {
                 let boost = new Decimal(1)
-                boost = boost.times(((player[this.layer].points.times(1/10000)).add(1)).log(2))
+                boost = boost.times(((player[this.layer].points.times(1/10000)).add(2)).log(2))
                 if(hasUpgrade('TFD', 31)) boost = boost.pow(1.05)
 
                 boost = new Decimal.min(boost, new Decimal(1e100))
                 return boost
             },
             effectDisplay() {return format(upgradeEffect(this.layer, this.id))+"x FLN"},
-            tooltip: "log2(FLN / 10,000 + 1)",
+            tooltip: "log2(FLN / 10,000 + 1) + 1",
             cost: new Decimal(10000000),
             unlocked() {return hasUpgrade('FLN', 14)},
         },
@@ -876,6 +1044,89 @@ addLayer("FLN", {
             cost: new Decimal(1.5e20),
             unlocked() {return hasUpgrade(this.layer, 23)},
         },
+        25: {
+            title: "Friends Again.",
+            description: "x1e10 FLN",
+            cost: new Decimal(5e32),
+            unlocked() {return hasUpgrade('RAX', 25) || hasMilestone('XST', 4)},
+        },
+        31: {
+            title: "Friendly Boost I",
+            description: "x10,000 FLN and Skill",
+            cost: new Decimal(2.5e142),
+            unlocked() {return hasMilestone('ITW', 5)},
+        },
+        32: {
+            title: "Friendly Boost II",
+            description: "x1,000 FLN and Skill",
+            cost: new Decimal(1e144),
+            unlocked() {return hasUpgrade(this.layer, 31)},
+        },
+        33: {
+            title: "Friendly Boost III",
+            description: "x100 FLN and Skill",
+            cost: new Decimal(5e147),
+            unlocked() {return hasUpgrade(this.layer, 32)},
+        },
+        34: {
+            title: "Friendly Boost IV",
+            description: "x10 FLN and Skill",
+            cost: new Decimal(1e150),
+            unlocked() {return hasUpgrade(this.layer, 33)},
+        },
+        35: {
+            title: "Friendly Boost Final",
+            description: "x1e10 FLN and Skill",
+            cost: new Decimal(1.51e151),
+            unlocked() {return hasUpgrade(this.layer, 34)},
+        },
+        41: {
+            title: "Friend Non-Static Booster I",
+            description: "FLN Boost Skill",
+            effect() {
+                let Boost = new Decimal(1)
+                Boost = Boost.times(((player[this.layer].points.add(1e10)).log10()).log10())
+                if(hasUpgrade(this.layer, 42)) Boost = Boost.times(upgradeEffect(this.layer, 42))
+                return Boost
+            },
+            effectDisplay() {return format(upgradeEffect(this.layer, this.id))+"x Skill"},
+            tooltip: "log10(log10(FLN + 1) + 1) + 1 (No Cap)",
+            cost: new Decimal(5e162),
+            unlocked() {return hasMilestone('ITW', 5)},
+        },
+        42: {
+            title: "Friend Non-Static Booster II",
+            description: "FNL Upgrade 41 Effect Boost itself",
+            effect() {
+                let Boost = new Decimal(1)
+                Boost = Boost.times(upgradeEffect(this.layer, 41).add(100).log(100))
+                if(hasUpgrade(this.layer, 43)) Boost = Boost.times(upgradeEffect(this.layer, 43))
+                return Boost
+            },
+            effectDisplay() {return format(upgradeEffect(this.layer, this.id))+"x FNL Upgrade 41 Effect"},
+            tooltip: "Log100(FNL Upgrade 41 Effect + 1) + 1",
+            cost: new Decimal(1e164),
+            unlocked() {return hasUpgrade(this.layer, 41)},
+        },
+        43: {
+            title: "Friend Non-Static Booster III",
+            description: "FNL Upgrade 42 Effect Boost itself",
+            effect() {
+                let Boost = new Decimal(1)
+                Boost = Boost.times(upgradeEffect(this.layer, 42).add(20).log(20))
+                if(hasUpgrade(this.layer, 44)) Boost = Boost.times(upgradeEffect(this.layer, 44))
+                return Boost
+            },
+            effectDisplay() {return format(upgradeEffect(this.layer, this.id))+"x FNL Upgrade 42 Effect"},
+            tooltip: "Log20(FNL Upgrade 42 Effect + 1) + 1",
+            cost: new Decimal(4.2e167),
+            unlocked() {return hasUpgrade(this.layer, 42)},
+        },
+    },
+    autoUpgrade() {
+        let auto = false
+        if(hasUpgrade('RAX', 23) || hasMilestone('XST', 4) || hasMilestone('TLG', 10)) auto = true
+        return auto
     },
     update(diff) {
         if (player.points.gte(100000) && hasMilestone('TLG', 3)) player[this.layer].unlocked = true
@@ -907,6 +1158,10 @@ addLayer("TES", {
         mult = new Decimal(1)
         if(hasUpgrade('TES', 14)) mult = mult.times(100)
         if(hasMilestone('XST', 0)) mult = mult.times(25)
+        if(hasUpgrade('TES', 22)) mult = mult.times(100)
+        if(hasUpgrade('TES', 23)) mult = mult.times(10)
+        if(hasUpgrade('SKIP', 11)) mult = mult.times(25)
+        if(hasUpgrade('SKIP', 13)) mult = mult.times(25)
         return mult
     },
     gainExp() {
@@ -926,7 +1181,39 @@ addLayer("TES", {
     },
     passiveGeneration() {
         let Gen = 1
+        if(hasMilestone('ITW', 13)) Gen = 1e10
         return Gen
+    },
+    buyables: {
+        11: {
+            title: "Infinite Ease",
+            cost(x) {
+                let Cost = new Decimal(1)
+                Cost = new Decimal(5e18).times((x.pow(0.15)).add(1))
+                if(hasMilestone('ITW', 6)) Cost = Cost.times(1000)
+                return Cost
+            },
+            display() {
+                let effect = ""
+                effect = "x1.01 Skill Per Level Currently: x"+format(new Decimal(1.01).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format(new Decimal(5e18).times((getBuyableAmount(this.layer, this.id).pow(0.15)).add(1)))+" Amount: "+format(getBuyableAmount(this.layer, this.id))+"/3,500"
+                if(hasMilestone('ITW', 6)) effect = "x1.1 Skill Per Level Currently: x"+format(new Decimal(1.1).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format(new Decimal(5e18).times((getBuyableAmount(this.layer, this.id).pow(0.15)).add(1)).times(1000))+" Amount: "+format(getBuyableAmount(this.layer, this.id))+"/3,500"
+                return effect
+            },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: new Decimal(3500),
+            unlocked() {return hasUpgrade(this.layer, 21)},
+        },
+    },
+    automate() {
+        if(hasMilestone('TLG', 9)) {
+            if(layers[this.layer].buyables[11].canAfford() && (new Decimal(getBuyableAmount(this.layer, 11)).lt(3500))) {
+                layers[this.layer].buyables[11].buy();
+            };
+        }
     },
     upgrades: {
         11: {
@@ -976,6 +1263,29 @@ addLayer("TES", {
             cost: new Decimal(1000000),
             unlocked() {return hasUpgrade(this.layer, 14)},
         },
+        21: {
+            title: "Unlocker VI",
+            description: "Just like in JUT (JJT Upgrade Tree [Roblox] Unlock a Buyable)",
+            cost: new Decimal(7.5e18),
+            unlocked() {return hasUpgrade('RAX', 25) || hasMilestone('XST', 4)},
+        },
+        22: {
+            title: "Mega Booster V",
+            description: "x100 TES and Skill",
+            cost: new Decimal(2e19),
+            unlocked() {return hasUpgrade(this.layer, 21)},
+        },
+        23: {
+            title: "Mega Booster VI",
+            description: "x10 TES and Skill",
+            cost: new Decimal(1e22),
+            unlocked() {return hasUpgrade(this.layer, 22)},
+        },
+    },
+    autoUpgrade() {
+        let auto = false
+        if(hasUpgrade('RAX', 24) || hasMilestone('XST', 4) || hasMilestone('TLG', 10)) auto = true
+        return auto
     },
     update(diff) {
         if (player.points.gte(1e9) && hasMilestone('TLG', 4)) player[this.layer].unlocked = true
@@ -1017,25 +1327,31 @@ addLayer("A", {
         if(hasUpgrade('A', 32)) mult = mult.times(500)
         if(hasUpgrade('A', 33)) mult = mult.times(750)
         if(hasUpgrade('A', 34)) mult = mult.times(1000)
-        if(getBuyableAmount(this.layer, 13) > 0) mult = mult.times(Math.log2(new Decimal(2).pow(getBuyableAmount(this.layer, 13))))
+        if(getBuyableAmount(this.layer, 13) > 0) mult = mult.times((new Decimal(2).pow(getBuyableAmount(this.layer, 13))).log(2))
         if(hasMilestone('TLG', 6)) mult = mult.times(25)
-        if(hasUpgrade('ДА', 12)) mult = mult.times(5)
-        if(hasUpgrade('ДА', 13)) mult = mult.times(2)
-        if(hasUpgrade('ДА', 14)) mult = mult.times(4)
-        if(hasUpgrade('ДА', 15)) mult = mult.times(10)
-        if(hasUpgrade('ДА', 21)) mult = mult.times(11)
-        if(hasUpgrade('ДА', 22)) mult = mult.times(5)
-        if(getBuyableAmount('ДА')) mult = mult.times(new Decimal(1.1).pow(getBuyableAmount(this.layer, this.id)))
+        if(hasUpgrade('AА', 12)) mult = mult.times(5)
+        if(hasUpgrade('AА', 13)) mult = mult.times(2)
+        if(hasUpgrade('AА', 14)) mult = mult.times(4)
+        if(hasUpgrade('AА', 15)) mult = mult.times(10)
+        if(hasUpgrade('AА', 21)) mult = mult.times(11)
+        if(hasUpgrade('AА', 22)) mult = mult.times(5)
+        if(getBuyableAmount('AА', 11)) mult = mult.times(new Decimal(1.1).pow(getBuyableAmount('AА', 11)))
         if(hasMilestone('XST', 0)) mult = mult.times(25)
+        if(hasUpgrade('SKIP', 13)) mult = mult.times(25)
+        if(getBuyableAmount(this.layer, 13) > 0 && hasMilestone('ITW', 7)) mult = mult.times((new Decimal(2).pow(getBuyableAmount(this.layer, 13))).log(2).pow(-1))
+        if(getBuyableAmount(this.layer, 13) > 0 && hasMilestone('ITW', 7)) mult = mult.times(new Decimal(2).pow(getBuyableAmount(this.layer, 13)))
+        if(hasMilestone('ITW', 8)) mult = mult.times(1e10)
         
         if(hasUpgrade('A', 24)) mult = mult.pow(upgradeEffect(this.layer, 24))
         if(getBuyableAmount(this.layer, 12) > 0) mult = mult.pow(new Decimal(1.01).pow(getBuyableAmount(this.layer, 12)))
-        if(hasUpgrade('ДА', 24)) mult = mult.pow(1.01)
-        if(hasUpgrade('ДА', 25)) mult = mult.pow(1.05)
-        if(hasUpgrade('ДА', 31)) mult = mult.pow(1.1)
-        if(hasUpgrade('ДА', 32)) mult = mult.pow(1.1)
+        if(hasUpgrade('AА', 24)) mult = mult.pow(1.01)
+        if(hasUpgrade('AА', 25)) mult = mult.pow(1.05)
+        if(hasUpgrade('AА', 31)) mult = mult.pow(1.1)
+        if(hasUpgrade('AА', 32)) mult = mult.pow(1.1)
+        if(hasUpgrade('AА', 33)) mult = mult.pow(1.15)
+        if(hasMilestone('ITW', 8)) mult = mult.pow(1.2)
         
-        if(hasUpgrade('ДА', 11)) mult = mult.times(upgradeEffect('ДА', 11).pow(-1))
+        if(hasUpgrade('AА', 11)) mult = mult.times(upgradeEffect('AА', 11).pow(-1))
         return mult
     },
     gainExp() {
@@ -1055,13 +1371,14 @@ addLayer("A", {
     },
     passiveGeneration() {
         let Gen = 1
+        if(hasMilestone('ITW', 13)) Gen = 1e10
         return Gen
     },
     buyables: {
         11: {
             title: "Red Booster Endless",
-            cost(x) { return new Decimal(500).times(new Decimal(2).pow((x.pow(1.5)).add(1))).times(upgradeEffect('ДА', 11).pow(-1)) },
-            display() { return "x1.5 'A' Per Level Currently: x"+format(new Decimal(1.5).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format(new Decimal(500).times(new Decimal(2).pow((getBuyableAmount(this.layer, this.id).pow(1.5)).add(1))).times(upgradeEffect('ДА', 11).pow(-1))) },
+            cost(x) { return new Decimal(500).times(new Decimal(2).pow((x.pow(1.5)).add(1))).times(upgradeEffect('AА', 11).pow(-1)) },
+            display() { return "x1.5 'A' Per Level Currently: x"+format(new Decimal(1.5).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format(new Decimal(500).times(new Decimal(2).pow((getBuyableAmount(this.layer, this.id).pow(1.5)).add(1))).times(upgradeEffect('AА', 11).pow(-1))) },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())
@@ -1071,8 +1388,8 @@ addLayer("A", {
         },
         12: {
             title: "Red Booster Endless II",
-            cost(x) { return new Decimal(100000).times(new Decimal(10).pow((x.pow(1.5)).add(1))).times(upgradeEffect('ДА', 11).pow(-1)) },
-            display() { return "^1.01 'A' Per Level Currently: ^"+format(new Decimal(1.01).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format(new Decimal(100000).times(new Decimal(10).pow((getBuyableAmount(this.layer, this.id).pow(1.5)).add(1))).times(upgradeEffect('ДА', 11).pow(-1))) },
+            cost(x) { return new Decimal(100000).times(new Decimal(10).pow((x.pow(1.5)).add(1))).times(upgradeEffect('AА', 11).pow(-1)) },
+            display() { return "^1.01 'A' Per Level Currently: ^"+format(new Decimal(1.01).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format(new Decimal(100000).times(new Decimal(10).pow((getBuyableAmount(this.layer, this.id).pow(1.5)).add(1))).times(upgradeEffect('AА', 11).pow(-1))) },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())
@@ -1082,8 +1399,13 @@ addLayer("A", {
         },
         13: {
             title: "Pink Booster",
-            cost(x) { return new Decimal(1e33).times(new Decimal(1.1).pow((x.pow(1.5)).add(1))).times(upgradeEffect('ДА', 11).pow(-1)) },
-            display() { return "x2 Skill Per Level and 'A' by the log2 Currently: x"+format(new Decimal(2).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format(new Decimal(1e33).times(new Decimal(1.1).pow((getBuyableAmount(this.layer, this.id).pow(1.5)).add(1))).times(upgradeEffect('ДА', 11).pow(-1))) + " Amount: " + format(getBuyableAmount(this.layer, this.id)) },
+            cost(x) { return new Decimal(1e33).times(new Decimal(1.1).pow((x.pow(1.5)).add(1))).times(upgradeEffect('AА', 11).pow(-1)) },
+            display() {
+                let effect = ""
+                effect = "x2 Skill Per Level and 'A' by the log2 Currently: x"+format(new Decimal(2).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format(new Decimal(1e33).times(new Decimal(1.1).pow((getBuyableAmount(this.layer, this.id).pow(1.5)).add(1))).times(upgradeEffect('AА', 11).pow(-1))) + " Amount: " + format(getBuyableAmount(this.layer, this.id))
+                if(hasMilestone('ITW', 7)) effect = "x2 Skill and 'A' Per Level Per Level Currently: x"+format(new Decimal(5).pow(getBuyableAmount(this.layer, this.id)))+" and x"+format(new Decimal(2).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format(new Decimal(1e33).times(new Decimal(1.1).pow((getBuyableAmount(this.layer, this.id).pow(1.5)).add(1))).times(upgradeEffect('AА', 11).pow(-1))) + " Amount: " + format(getBuyableAmount(this.layer, this.id))
+                return effect
+            },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())
@@ -1093,17 +1415,17 @@ addLayer("A", {
         },
     },
     automate() {
-        if(hasUpgrade('RAX', 11)) {
+        if(hasUpgrade('RAX', 11) || hasMilestone('XST', 2) || hasMilestone('TLG', 10)) {
             if(layers[this.layer].buyables[11].canAfford()) {
                 layers[this.layer].buyables[11].buy();
             };
         }
-        if(hasUpgrade('RAX', 12)) {
+        if(hasUpgrade('RAX', 12) || hasMilestone('XST', 2) || hasMilestone('TLG', 10)) {
             if(layers[this.layer].buyables[12].canAfford()) {
                 layers[this.layer].buyables[12].buy();
             };
         }
-        if(hasUpgrade('RAX', 13)) {
+        if(hasUpgrade('RAX', 13) || hasMilestone('XST', 2) || hasMilestone('TLG', 10)) {
             if(layers[this.layer].buyables[13].canAfford()) {
                 layers[this.layer].buyables[13].buy();
             };
@@ -1219,14 +1541,38 @@ addLayer("A", {
         },
         41: {
             title: "White Booster I",
-            description: "x10,000",
+            description: "x10,000 Skill",
             cost: new Decimal(1e40),
             unlocked() {return hasUpgrade(this.layer, 35)},
+        },
+        42: {
+            title: "White Booster II",
+            description: "x100 Skill",
+            cost: new Decimal(5e53),
+            unlocked() {return hasUpgrade('RAX', 25) || hasMilestone('XST', 4) || hasMilestone('TLG', 10)},
+        },
+        43: {
+            title: "White Booster III",
+            description: "x25 Skill",
+            cost: new Decimal(7.5e53),
+            unlocked() {return hasUpgrade(this.layer, 42)},
+        },
+        44: {
+            title: "White Booster IV",
+            description: "x10 Skill",
+            cost: new Decimal(2.5e52),
+            unlocked() {return hasUpgrade(this.layer, 43)},
+        },
+        45: {
+            title: "White Booster V",
+            description: "x2 Skill",
+            cost: new Decimal(5e51),
+            unlocked() {return hasUpgrade(this.layer, 44)},
         },
     },
     autoUpgrade() {
         let auto = false
-        if(hasUpgrade('RAX', 14)) auto = true
+        if(hasUpgrade('RAX', 14) || hasMilestone('XST', 2) || hasMilestone('TLG', 10)) auto = true
         return auto
     },
     update(diff) {
@@ -1240,9 +1586,9 @@ addLayer("A", {
     },
 })
 
-addLayer("ДА", {
-    name: "Felix the ДА",
-    symbol: "ДА",
+addLayer("AА", {
+    name: "Felix the AА",
+    symbol: "AА",
     position: 7,
     startData() { return {
         unlocked: false,
@@ -1250,7 +1596,7 @@ addLayer("ДА", {
     }},
     color: "#00a500",
     requires: new Decimal(1e42),
-    resource: "Felix the ДА",
+    resource: "Felix the AА",
     baseResource: "A",
     baseAmount() {return player.A.points},
     type: "normal",
@@ -1258,8 +1604,6 @@ addLayer("ДА", {
     gainMult() {
         mult = new Decimal(0)
         if(hasUpgrade(this.layer, 11)) mult = new Decimal(1)
-        
-        
         return mult
     },
     gainExp() {
@@ -1267,11 +1611,16 @@ addLayer("ДА", {
     },
     row: 0,
     hotkeys: [
-        {key: "ctrl+A", description: "ctrl+A: Reset for ДА", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "ctrl+A", description: "ctrl+A: Reset for AА", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     resetDescription: "Reset 'A' For ",
     onPrestige(gain) {
-        player.A.points = new Decimal(0)
+        if(hasUpgrade('MULTI', 14)) {
+
+        }
+        else {
+          player.A.points = new Decimal(0)  
+        }
     },
     resetsNothing() {return true},
     layerShown() {return hasMilestone('TLG', 6)},
@@ -1281,10 +1630,7 @@ addLayer("ДА", {
             body() { return "Green exstention to Red (All upgrades are !Free!) [Row 1.5]" },
         },
     },
-    passiveGeneration() {
-        let Gen = 0
-        return Gen
-    },
+    autoPrestige() {return hasUpgrade('RAX', 22) || hasMilestone('XST', 4) || hasMilestone('TLG', 10)},
     buyables: {
         11: {
             title: "Green Red Booster Endless I (Free)",
@@ -1298,7 +1644,7 @@ addLayer("ДА", {
         },
     },
     automate() {
-        if(hasUpgrade('RAX', 15)) {
+        if(hasUpgrade('RAX', 15) || hasMilestone('XST', 2) || hasMilestone('TLG', 10)) {
             if(layers[this.layer].buyables[11].canAfford()) {
                 layers[this.layer].buyables[11].buy();
             };
@@ -1307,14 +1653,14 @@ addLayer("ДА", {
     upgrades: {
         11: {
             title: "Green Red Nerfer I",
-            description: "ДА Boosts A and decrease buyable Costs (/) [After Powers]",
+            description: "AА Boosts 'A' and decreases buyable Costs (/) [After Powers]",
             effect() {
                 let boost = new Decimal(1)
                 boost = boost.times(new Decimal(10).pow(player[this.layer].points.times(0.75)))
                 return boost
             },
             effectDisplay() {return "/" + format(upgradeEffect(this.layer, this.id)) + " A"},
-            tooltip: "10^((ДА x 0.75)) (No Cap)",
+            tooltip: "10^((AА x 0.75)) (No Cap)",
             cost: new Decimal(0),
         },
         12: {
@@ -1322,78 +1668,90 @@ addLayer("ДА", {
             description: "x5 'A'",
             cost: new Decimal(3),
             pay: new Decimal(0),
-            unlocked() {return hasUpgrade(this.layer, 11)},
+            unlocked() {return hasUpgrade(this.layer, 11) && player[this.layer].points.gte(3)},
         },
         13: {
             title: "Green Red Booster II",
             description: "x2 'A'",
             cost: new Decimal(5),
             pay: new Decimal(0),
-            unlocked() {return hasUpgrade(this.layer, 12)},
+            unlocked() {return hasUpgrade(this.layer, 12) && player[this.layer].points.gte(5)},
         },
         14: {
             title: "Green Red Booster III",
             description: "x4 'A'",
             cost: new Decimal(6),
             pay: new Decimal(0),
-            unlocked() {return hasUpgrade(this.layer, 13)},
+            unlocked() {return hasUpgrade(this.layer, 13) && player[this.layer].points.gte(6)},
         },
         15: {
             title: "Green Red Booster IV",
             description: "x10 'A'",
             cost: new Decimal(8),
             pay: new Decimal(0),
-            unlocked() {return hasUpgrade(this.layer, 14)},
+            unlocked() {return hasUpgrade(this.layer, 14) && player[this.layer].points.gte(8)},
         },
         21: {
             title: "Green Red Booster V",
             description: "x11 'A'",
             cost: new Decimal(11),
             pay: new Decimal(0),
-            unlocked() {return hasUpgrade(this.layer, 15)},
+            unlocked() {return hasUpgrade(this.layer, 15) && player[this.layer].points.gte(11)},
         },
         22: {
             title: "Green Red Booster VI",
             description: "x5 'A'",
             cost: new Decimal(14),
             pay: new Decimal(0),
-            unlocked() {return hasUpgrade(this.layer, 21)},
+            unlocked() {return hasUpgrade(this.layer, 21) && player[this.layer].points.gte(14)},
         },
         23: {
             title: "Green Unlocker I",
             description: "Unlock a buyable",
             cost: new Decimal(17),
             pay: new Decimal(0),
-            unlocked() {return hasUpgrade(this.layer, 22)},
+            unlocked() {return hasUpgrade(this.layer, 22) && player[this.layer].points.gte(17)},
         },
         24: {
             title: "Green Red Super Booster I",
             description: "^1.01 'A'",
             cost: new Decimal(18),
             pay: new Decimal(0),
-            unlocked() {return hasUpgrade(this.layer, 23)},
+            unlocked() {return hasUpgrade(this.layer, 23) && player[this.layer].points.gte(18)},
         },
         25: {
             title: "Green Red Super Booster II",
             description: "^1.05 'A'",
             cost: new Decimal(19),
             pay: new Decimal(0),
-            unlocked() {return hasUpgrade(this.layer, 24)},
+            unlocked() {return hasUpgrade(this.layer, 24) && player[this.layer].points.gte(19)},
         },
         31: {
             title: "Green Red Super Booster III",
             description: "^1.1 'A'",
             cost: new Decimal(24),
             pay: new Decimal(0),
-            unlocked() {return hasUpgrade(this.layer, 25)},
+            unlocked() {return hasUpgrade(this.layer, 25) && player[this.layer].points.gte(25)},
         },
         32: {
             title: "Green Red Super Booster IV",
             description: "^1.1 'A' again",
             cost: new Decimal(34),
             pay: new Decimal(0),
-            unlocked() {return hasUpgrade(this.layer, 31)},
+            unlocked() {return hasUpgrade(this.layer, 31) && player[this.layer].points.gte(34)},
         },
+        33: {
+            title: "Green Red Super Booster V",
+            description: "^1.15 'A'",
+            cost: new Decimal(68),
+            pay: new Decimal(0),
+            unlocked() {return hasMilestone('XST', 5) && player[this.layer].points.gte(68)},
+        },
+    },
+    autoUpgrade() {
+        let auto = false
+        if(hasUpgrade('RAX', 22) || hasMilestone('XST', 4) || hasMilestone('TLG', 10)) auto = true
+        return auto
     },
     update(diff) {
         if (player.A.points.gte(1e42) && hasMilestone('TLG', 6)) player[this.layer].unlocked = true
@@ -1423,6 +1781,7 @@ addLayer("XST", {
     exponent: 3,
     gainMult() {
         mult = new Decimal(1)
+        if(hasMilestone(this.layer, 7)) mult = mult.times(new Decimal(10).tetrate(player[this.layer].points.pow(0.1)).pow(-1))
         return mult
     },
     gainExp() {
@@ -1432,6 +1791,48 @@ addLayer("XST", {
     hotkeys: [
         {key: "X", description: "X: Reset for Exist", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
+    onPrestige(gain) {
+        if(hasMilestone('TLG', 11) &! hasMilestone('ITW', 9)) {
+            player.points = new Decimal(0)
+            player.TFD.points = new Decimal(0)
+            player.Neg.points = new Decimal(0)
+            player.UIP.points = new Decimal(0)
+            player.$.points = new Decimal(0)
+            player.FLN.points = new Decimal(0)
+            player.TES.points = new Decimal(0)
+            player.A.points = new Decimal(0)
+            player.AА.points = new Decimal(0)
+            if(hasUpgrade('RSF', 14)) {
+
+            }
+            else {
+                player.RAX.points = new Decimal(0)
+                player.SKIP.points = new Decimal(0)
+                player.MULTI.points = new Decimal(0)
+                player.RSF.points = new Decimal(0)
+            }
+            if(hasMilestone('ITW', 1)) {
+
+            }
+            else {
+                setBuyableAmount('UIP', 11, new Decimal(0))
+                setBuyableAmount('UIP', 12, new Decimal(0))
+                setBuyableAmount('UIP', 13, new Decimal(0))
+                setBuyableAmount('TES', 11, new Decimal(0))
+                setBuyableAmount('A', 11, new Decimal(0))
+                setBuyableAmount('A', 12, new Decimal(0))
+                setBuyableAmount('A', 13, new Decimal(0))
+            }
+            if(hasUpgrade('RSF', 14)) {
+
+            }
+            else {
+                setBuyableAmount('MULTI', 11, new Decimal(0))
+            }
+        };
+    },
+    resetsNothing() {return hasMilestone('TLG', 11)},
+    autoPrestige() {return hasMilestone('TLG', 11)},
     resetDescription: "Reset Skill and Row 1 For ",
     layerShown() {return hasMilestone('TLG', 7)},
     infoboxes: {
@@ -1448,13 +1849,84 @@ addLayer("XST", {
         },
         1: {
             requirementDescription: "2 Exist Power",
-            effectDescription: "x10 Skill",
+            effectDescription: "x1,000,000 Skill",
             done() { return player[this.layer].points.gte(2) },
             unlocked() {return hasMilestone(this.layer, 0)}
         },
+        2: {
+            requirementDescription: "3 Exist Power",
+            effectDescription: "Keep the effect of the First Row Relax Upgrades",
+            done() {
+                let Done = false
+                if(player[this.layer].points.gte(3) && hasUpgrade('RAX', 21)) Done = true
+                return Done
+            },
+            unlocked() {
+                let notlocked = false
+                if(hasUpgrade('RAX', 21) || hasMilestone(this.layer, this.id)) notlocked = true
+                return notlocked
+            }
+        },
+        3: {
+            requirementDescription: "5 Exist Power",
+            effectDescription: "Unlock More Relax Upgrades",
+            done() {
+                let Done = false
+                if(player[this.layer].points.gte(5) && hasMilestone(this.layer, 2)) Done = true
+                return Done
+            },
+            unlocked() {return hasMilestone(this.layer, 2)}
+        },
+        4: {
+            requirementDescription: "6 Exist Power",
+            effectDescription: "Keep the effect of the 2nd Row Relax Upgrades",
+            done() {
+                let Done = false
+                if(player[this.layer].points.gte(6) && hasUpgrade('SKIP', 15)) Done = true
+                return Done
+            },
+            unlocked() {
+                let notlocked = false
+                if(hasUpgrade('SKIP', 25) || hasMilestone(this.layer, this.id)) notlocked = true
+                return notlocked
+            }
+        },
+        5: {
+            requirementDescription: "7 Exist Power",
+            effectDescription: "10^Exist Power x Skill and unlock a AА Upgrade",
+            tooltip() {return format(new Decimal(10).pow(player[this.layer].points))+"x Skill"},
+            done() { return player[this.layer].points.gte(7) && hasMilestone(this.layer, 4) },
+            unlocked() {return hasMilestone(this.layer, 4)}
+        },
+        6: {
+            requirementDescription: "17 Exist Power",
+            effectDescription: "AutoBuy the MULTI Buyable.",
+            done() { return player[this.layer].points.gte(17) && hasMilestone('ITW', 9) },
+            unlocked() {return hasMilestone('ITW', 9)}
+        },
+        7: {
+            requirementDescription: "18 Exist Power",
+            effectDescription: "10^^(Exist^0.1) Decreases Requirement of Exist",
+            tooltip() {return "/"+format(new Decimal(10).tetrate(player[this.layer].points.pow(0.1)))+" Exist Requirement"},
+            done() { return player[this.layer].points.gte(18) },
+            unlocked() {return hasMilestone(this.layer, 6)}
+        },
     },
-    update(diff) {
-        if (player.points.gte(1e110) && hasMilestone('TLG', 7)) player[this.layer].unlocked = true
+    upgrades: {
+        11: {
+            title: "Keeper I",
+            description: "Keep Resful Upgrade 11 Effect",
+            cost: new Decimal(8),
+            pay: new Decimal(0),
+            unlocked() {return hasUpgrade('RSF', 11)},
+        },
+        12: {
+            title: "Keeper II",
+            description: "Keep Resful Upgrade 12 Effect",
+            cost: new Decimal(8),
+            pay: new Decimal(0),
+            unlocked() {return hasUpgrade('RSF', 12)},
+        },
     },
 
     deactivated() {
@@ -1481,6 +1953,7 @@ addLayer("RAX", {
     exponent: 0.5,
     gainMult() {
         mult = new Decimal(1)
+        if(hasUpgrade('SKIP', 13)) mult = mult.times(25)
         return mult
     },
     gainExp() {
@@ -1497,6 +1970,12 @@ addLayer("RAX", {
             title: "Info About this layer",
             body() { return "QoL layer Nice [Row 1]" },
         },
+    },
+    passiveGeneration() {
+        let Gen = 0
+        if(hasUpgrade('RSF', 11) || hasUpgrade('XST', 11) || hasMilestone('TLG', 14)) Gen = 1
+        if(hasMilestone('ITW', 13)) Gen = 1e10
+        return Gen
     },
     upgrades: {
         11: {
@@ -1521,17 +2000,800 @@ addLayer("RAX", {
         },
         15: {
             title: "Qol V",
-            description: "AutoBuy ДА 11 Buyable",
+            description: "AutoBuy AА 11 Buyable",
             cost: new Decimal(1),
         },
+        21: {
+            title: "Unlock V",
+            description: "Unlock More XST Milestones",
+            unlocked() {
+                let notlocked = false
+                if(hasUpgrade(this.layer, 11) && hasUpgrade(this.layer, 12) && hasUpgrade(this.layer, 13) && hasUpgrade(this.layer, 14) && hasUpgrade(this.layer, 15)) notlocked = true
+                return notlocked
+            },
+            cost: new Decimal(50000),
+        },
+        22: {
+            title: "Qol VI",
+            description: "AutoBuy AА Upgrades and Auto Reset",
+            cost: new Decimal(500000000),
+            unlocked() {return hasMilestone('XST', 3)}
+        },
+        23: {
+            title: "Qol VII",
+            description: "AutoBuy FLN Upgrades",
+            cost: new Decimal(500000000),
+            unlocked() {return hasMilestone('XST', 3)}
+        },
+        24: {
+            title: "Qol VIII",
+            description: "AutoBuy TES Upgrades",
+            cost: new Decimal(500000000),
+            unlocked() {return hasMilestone('XST', 3)}
+        },
+        25: {
+            title: "Unlock VI",
+            description: "Unlock More Upgrades",
+            unlocked() {
+                let notlocked = false
+                if(hasUpgrade(this.layer, 22) && hasUpgrade(this.layer, 23) && hasUpgrade(this.layer, 24)) notlocked = true
+                return notlocked
+            },
+            cost: new Decimal(1e9),
+        },
+    },
+    autoUpgrade() {
+        let auto = false
+        if(hasMilestone('ITW', 10)) auto = true
+        return auto
     },
     update(diff) {
-        //if (player.points.gte(1e125) && hasMilestone('TLG', 8)) player[this.layer].unlocked = true
+        if (player.points.gte(1e125) && hasMilestone('TLG', 8)) player[this.layer].unlocked = true
     },
 
     deactivated() {
         let inactive = true
         if(hasMilestone("TLG", 8)) inactive = false
+        return inactive
+    },
+})
+
+addLayer("SKIP", {
+    name: "Skip",
+    symbol: "SKIP",
+    position: 9,
+    startData() { return {
+        unlocked: false,
+		points: new Decimal(0),
+    }},
+    color: "#e1ac65",
+    requires: new Decimal(1e140),
+    resource: "Skip",
+    baseResource: "Skill",
+    baseAmount() {return player.points},
+    type: "normal",
+    exponent: 0.5,
+    gainMult() {
+        mult = new Decimal(1)
+        if(hasUpgrade('SKIP', 13)) mult = mult.times(25)
+        return mult
+    },
+    gainExp() {
+        return new Decimal(1)
+    },
+    row: 0,
+    hotkeys: [
+        {key: "S", description: "S: Reset for Skip", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    resetDescription: "Reset Skill For ",
+    layerShown() {return hasMilestone('TLG', 9)},
+    infoboxes: {
+        lore: {
+            title: "Info About this layer",
+            body() { return "Skipped [Row 1]" },
+        },
+    },
+    passiveGeneration() {
+        let Gen = 0
+        if(hasUpgrade('RSF', 12) || hasUpgrade('XST', 12) || hasMilestone('TLG', 14)) Gen = 1
+        if(hasMilestone('ITW', 13)) Gen = 1e10
+        return Gen
+    },
+    update(diff) {
+        if (player.points.gte(1e140) && hasMilestone('TLG', 9)) player[this.layer].unlocked = true
+    },
+    upgrades: {
+        11: {
+            title: "Row 1",
+            description: "x25 TES",
+            cost: new Decimal(0.05),
+            unlocked() {return hasUpgrade(this.layer, 24)},
+        },
+        12: {
+            title: "Inflaition",
+            description: "x1e10 Skill",
+            cost: new Decimal(1000000),
+            unlocked() {return hasUpgrade(this.layer, 11)},
+        },
+        13: {
+            title: "Inflaition II",
+            description: "x25 TFD, Neg, UIP, FLN->'A', Relax and Skip",
+            cost: new Decimal(5e18),
+            unlocked() {return hasUpgrade(this.layer, 12)},
+        },
+        14: {
+            title: "Inflai.. No Just End this Row",
+            description: "NO BOOSTS 4 U",
+            cost: new Decimal(2e22),
+            unlocked() {return hasUpgrade(this.layer, 13)},
+        },
+        15: {
+            title: "FINE",
+            description: 'UNLOCK A "USELESS" XST MILESTONE THERE!',
+            cost: new Decimal(5e24),
+            unlocked() {return hasUpgrade(this.layer, 25)},
+        },
+        21: {
+            title: "Skipped",
+            description: "x10 Skill",
+            cost: new Decimal(1),
+            unlocked() {return hasUpgrade(this.layer, 22)},
+        },
+        22: {
+            title: "We Skipped A Upgrade",
+            description: "x5 Skill",
+            cost: new Decimal(5),
+        },
+        23: {
+            title: "Back on Track",
+            description: "x10 Skill",
+            cost: new Decimal(250),
+            unlocked() {return hasUpgrade(this.layer, 21)},
+        },
+        24: {
+            title: "Wait we skipped a row",
+            description: "x2 Skill",
+            cost: new Decimal(5000),
+            unlocked() {return hasUpgrade(this.layer, 23)},
+        },
+        25: {
+            title: "We are Back",
+            description: "x25 Skill",
+            cost: new Decimal(5e22),
+            unlocked() {return hasUpgrade(this.layer, 14)},
+        },
+    },
+    autoUpgrade() {
+        let auto = false
+        if(hasMilestone('ITW', 10)) auto = true
+        return auto
+    },
+
+    deactivated() {
+        let inactive = true
+        if(hasMilestone("TLG", 9)) inactive = false
+        return inactive
+    },
+})
+
+addLayer("MULTI", {
+    name: "Multiplier",
+    symbol: "MULTI",
+    position: 10,
+    startData() { return {
+        unlocked: false,
+		points: new Decimal(0),
+    }},
+    color: "#ff0000",
+    requires: new Decimal(333000),
+    resource: "Multiplier",
+    baseResource: "Ca$h",
+    baseAmount() {return player.$.points},
+    type: "static",
+    exponent: 0.5,
+    base: 1.1,
+    gainMult() {
+        mult = new Decimal(0)
+        if(hasUpgrade(this.layer, 11)) mult = new Decimal(1)
+        
+        if(hasUpgrade(this.layer, 12)) mult = mult.times(new Decimal(1.5).pow(-1))
+        if(hasUpgrade(this.layer, 13)) mult = mult.times(new Decimal(2.5).pow(-1))
+        if(hasUpgrade(this.layer, 14)) mult = mult.times(new Decimal(5).pow(-1))
+        if(hasUpgrade(this.layer, 15)) mult = mult.times(new Decimal(3.33).pow(-1))
+        if(getBuyableAmount(this.layer, 11) > 0) mult = mult.times(((player[this.layer].points.pow(0.05)).pow(getBuyableAmount(this.layer, 11))).pow(-1))
+        if(hasMilestone('ITW', 12)) mult = mult.times(new Decimal(1e10).pow(-1))
+        return mult
+    },
+    gainExp() {
+        return new Decimal(1)
+    },
+    row: 0,
+    hotkeys: [
+        {key: "M", description: "M: Reset for Multiplier", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    resetsNothing: true,
+    onPrestige(gain) {
+        if(hasUpgrade('RSF', 14)) {
+
+        }
+        else {
+           player.$.points = new Decimal(0) 
+        }
+    },
+    canBuyMax() {return hasUpgrade(this.layer, 13)},
+    prestigeButtonReset() {return "Reset Ca$h For +"+format(layers[this.layer].gain)+" Multi"},
+    layerShown() {return hasMilestone('TLG', 10)},
+    infoboxes: {
+        lore: {
+            title: "Info About this layer",
+            body() { return "Multiplier [Row 1.5]" },
+        },
+    },
+    passiveGeneration() {
+        let Gen = 0
+        if(hasMilestone('ITW', 13)) Gen = 1e10
+        return Gen
+    },
+    autoPrestige() {
+        let auto = false
+        if(hasUpgrade(this.layer, 15) || hasMilestone('TLG', 14)) auto = true
+        return auto
+    },
+    update(diff) {
+        if (player.$.points.gte(333000) && hasMilestone('TLG', 10)) player[this.layer].unlocked = true
+    },
+    buyables: {
+        11: {
+            title() {return "Self Booster I (Free) "+format(getBuyableAmount(this.layer, this.id))+"/50"},
+            cost(x) { return new Decimal(1000).times(new Decimal(1.2).pow((x.pow(1.2)).add(1))) },
+            display() { return "/"+format(player[this.layer].points.pow(0.05))+" (MULTI^0.05) Multiplier Requirement Per Level Currently: /"+format((player[this.layer].points.pow(0.05)).pow(getBuyableAmount(this.layer, this.id)))+" Cost: "+format(new Decimal(1000).times(new Decimal(1.2).pow((getBuyableAmount(this.layer, this.id).pow(1.2)).add(1)))) },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: new Decimal(50),
+            unlocked() {return hasUpgrade('RSF', 13)},
+        },
+    },
+    automate() {
+        if(hasMilestone('XST', 6)) {
+            if(layers[this.layer].buyables[11].canAfford() && (new Decimal(getBuyableAmount(this.layer, 11)).lt(50))) {
+                layers[this.layer].buyables[11].buy()
+            }
+        }
+    },
+    upgrades: {
+        11: {
+            title: "Booster again",
+            description: "Multi Boost Skill and Devide Ca$h Requirement (X, /)",
+            effect() {
+                let boost = new Decimal(1)
+                boost = boost.times(player[this.layer].points.add(1))
+                return boost
+            },
+            effectDisplay() {return format(upgradeEffect(this.layer, this.id))+"x Points and / Ca$h Requirement"},
+            tooltip: "(Multiplier + 1) [Basic i know]",
+            cost: new Decimal(0),
+        },
+        12: {
+            title: "Go Have Fun",
+            description: "/1.5 Multiplier Requirement",
+            cost: new Decimal(15),
+            unlocked() {return hasUpgrade(this.layer, 11)},
+        },
+        13: {
+            title: "Average Boost I",
+            description: "/2.5 Multiplier Requirement and unlock Maxing",
+            cost: new Decimal(80),
+            unlocked() {return hasUpgrade(this.layer, 12)},
+        },
+        14: {
+            title: "Average Boost II",
+            description: "/5 Multiplier Requirement and AА Doesn't Reset 'A'",
+            cost: new Decimal(300),
+            unlocked() {return hasUpgrade(this.layer, 13)},
+        },
+        15: {
+            title: "Average Boost III",
+            description: "/3.33 Multiplier Requirement and AutoGain Multiplier",
+            cost: new Decimal(1000),
+            unlocked() {return hasUpgrade(this.layer, 14)},
+        },
+    },
+    autoUpgrade() {
+        let auto = false
+        if(hasMilestone('ITW', 10)) auto = true
+        return auto
+    },
+    
+
+    deactivated() {
+        let inactive = true
+        if(hasMilestone("TLG", 10)) inactive = false
+        return inactive
+    },
+})
+
+addLayer("RSF", {
+    name: "Restful",
+    symbol: "RSF",
+    position: 11,
+    startData() { return {
+        unlocked: false,
+		points: new Decimal(0),
+    }},
+    color: "#006e00",
+    requires: new Decimal(1e170),
+    resource: "Restful",
+    baseResource: "Skill",
+    baseAmount() {return player.points},
+    type: "normal",
+    exponent: 0.5,
+    gainMult() {
+        mult = new Decimal(1)
+        return mult
+    },
+    gainExp() {
+        return new Decimal(1)
+    },
+    row: 0,
+    hotkeys: [
+        {key: "M", description: "M: Reset for Multiplier", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    resetsNothing: true,
+    onPrestige(gain) {
+        player.$.points = new Decimal(0)
+    },
+    canBuyMax() {return hasUpgrade(this.layer, 13)},
+    prestigeButtonReset() {return "Reset Skill For +"+format(layers[this.layer].gain)+" Multi"},
+    layerShown() {return hasMilestone('TLG', 11)},
+    infoboxes: {
+        lore: {
+            title: "Info About this layer",
+            body() { return "ZZZ.. Oh [Row 1]" },
+        },
+    },
+    passiveGeneration() {
+        let Gen = 1
+        if(hasMilestone('ITW', 13)) Gen = 1e10
+        return Gen
+    },
+    update(diff) {
+        if (player.points.gte(1e170) && hasMilestone('TLG', 11)) player[this.layer].unlocked = true
+    },
+    upgrades: {
+        11: {
+            title: "What PRICE!",
+            description: "Start Gaining 100% of Restful and Unlock a Exist Upgrade (All Free BTW)",
+            cost: new Decimal(1e33),
+        },
+        12: {
+            title: "Automation II",
+            description: "Start Gaining 100% of Skip and Unlock a Exist Upgrade",
+            cost: new Decimal(1e35),
+            unlocked() {return hasUpgrade(this.layer, 11)},
+        },
+        13: {
+            title: "Big Unlock",
+            description: "Unlock a MULTI Buyable.",
+            cost: new Decimal(1e35),
+            unlocked() {return hasUpgrade(this.layer, 12)},
+        },
+        14: {
+            title: "Big QoL I",
+            description: "MULTI dosn't Reset Ca$h and Keep all The Buyables and Amounts of Currencies past Exist on Exist and x10,000,000 Skill",
+            cost: new Decimal(3e38),
+            unlocked() {return hasUpgrade(this.layer, 13)},
+        },
+    },
+    autoUpgrade() {
+        let auto = false
+        if(hasMilestone('ITW', 10)) auto = true
+        return auto
+    },
+    
+
+    deactivated() {
+        let inactive = true
+        if(hasMilestone("TLG", 11)) inactive = false
+        return inactive
+    },
+})
+
+addLayer("IF.", {
+    name: "Infinite Dot",
+    symbol: "IF.",
+    position: 12,
+    startData() { return {
+        unlocked: false,
+		points: new Decimal(0),
+    }},
+    color: "#ee9999",
+    requires: new Decimal(1.79e308),
+    resource: "Ifinite Dot",
+    baseResource: "Skill",
+    baseAmount() {return player.points},
+    type: "normal",
+    exponent: 0.05,
+    gainMult() {
+        mult = new Decimal(1)
+        return mult
+    },
+    gainExp() {
+        return new Decimal(1)
+    },
+    row: 0,
+    hotkeys: [
+        {key: "F", description: "F: Reset for Infinite Dot", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    layerShown() {return hasMilestone('TLG', 12)},
+    infoboxes: {
+        lore: {
+            title: "Info About this layer",
+            body() { return "Infinity [Row 1]" },
+        },
+    },
+    passiveGeneration() {
+        let Gen = 0
+        if(hasMilestone('TLG', 14)) Gen = 1
+        if(hasMilestone('ITW', 13)) Gen = 1e10
+        return Gen
+    },
+    update(diff) {
+        if (player.points.gte(1.79e308) && hasMilestone('TLG', 12)) player[this.layer].unlocked = true
+    },
+    upgrades: {
+        11: {
+            title: "Infinity And Beyond",
+            description: "x1e150 Skill",
+            cost: new Decimal(1),
+        },
+        12: {
+            title: "Infinity And Beyond IV",
+            description: "x1e150 Skill again",
+            cost: new Decimal(1e90),
+            unlocked() {return hasMilestone('ITW', 14)}
+        },
+        13: {
+            title: "Infinity And Beyond V",
+            description: "x1e50 Skill again",
+            cost: new Decimal(1e105),
+            unlocked() {return hasUpgrade(this.layer, 12)}
+        },
+    },
+    autoUpgrade() {
+        let auto = false
+        if(hasMilestone('TLG', 15)) auto = true
+        return auto
+    },
+
+    deactivated() {
+        let inactive = true
+        if(hasMilestone("TLG", 12)) inactive = false
+        return inactive
+    },
+})
+
+addLayer("IFS", {
+    name: "Infinite Esay",
+    symbol: "IFS",
+    position: 13,
+    startData() { return {
+        unlocked: false,
+		points: new Decimal(0),
+    }},
+    color: "#73ff22",
+    requires: new Decimal(1000),
+    resource: "Ifinite Easy",
+    baseResource: "Infinite Dot",
+    baseAmount() {return player['IF.'].points},
+    type: "normal",
+    exponent: 0.05,
+    gainMult() {
+        mult = new Decimal(1)
+        return mult
+    },
+    gainExp() {
+        return new Decimal(1)
+    },
+    row: 0,
+    hotkeys: [
+        {key: "Y", description: "Y: Reset for Infinite Easy", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    resetsNothing: true,
+    onPrestige(gain) {
+        player['IF.'].points = new Decimal(0)
+    },
+    layerShown() {return hasMilestone('TLG', 13)},
+    infoboxes: {
+        lore: {
+            title: "Info About this layer",
+            body() { return "Infinity II [Row 1.5]" },
+        },
+    },
+    passiveGeneration() {
+        let Gen = 0
+        if(hasMilestone('TLG', 14)) Gen = 1
+        return Gen
+    },
+    update(diff) {
+        if (player['IF.'].points.gte(1000) && hasMilestone('TLG', 13)) player[this.layer].unlocked = true
+    },
+    upgrades: {
+        11: {
+            title: "Infinity And Beyond II",
+            description: "x1e100 Skill",
+            cost: new Decimal(1),
+        },
+        12: {
+            title: "Infinity And Beyond VI",
+            description: "x1e150 Skill again",
+            cost: new Decimal(1000000),
+            unlocked() {return hasMilestone('ITW', 15)}
+        },
+    },
+    autoUpgrade() {
+        let auto = false
+        if(hasMilestone('TLG', 15)) auto = true
+        return auto
+    },
+
+    deactivated() {
+        let inactive = true
+        if(hasMilestone("TLG", 13)) inactive = false
+        return inactive
+    },
+})
+
+addLayer("IFT", {
+    name: "Infinity",
+    symbol: "IFT",
+    position: 1,
+    startData() { return {
+        unlocked: true,
+		points: new Decimal(0),
+    }},
+    color: "#a000ff",
+    requires: new Decimal('e400'),
+    resource: "Ifinity",
+    baseResource: "Skill",
+    baseAmount() {return player.points},
+    type: "normal",
+    exponent: 0.05,
+    gainMult() {
+        mult = new Decimal(1)
+        if(hasUpgrade(this.layer, 12)) mult = mult.times(1e25)
+        if(hasUpgrade(this.layer, 13)) mult = mult.times(1e50)
+        if(hasUpgrade(this.layer, 14)) mult = mult.times(1e200)
+        return mult
+    },
+    gainExp() {
+        return new Decimal(1)
+    },
+    row: 1,
+    hotkeys: [
+        {key: "ctrl+I", description: "ctrl+I: Reset for Infinite", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    layerShown() {return hasMilestone('TLG', 14)},
+    infoboxes: {
+        lore: {
+            title: "Info About this layer",
+            body() { return "Infinity Real [Row 2]" },
+        },
+    },
+    passiveGeneration() {
+        let Gen = 0
+        if(hasUpgrade(this.layer, 12)) Gen = 1
+        return Gen
+    },
+    update(diff) {
+        if (player.points.gte(new Decimal('e400')) && hasMilestone('TLG', 14)) player[this.layer].unlocked = true
+    },
+    upgrades: {
+        11: {
+            title: "Infinity And Beyond III",
+            description: "x1e200 Skill",
+            cost: new Decimal(1),
+        },
+        12: {
+            title: "Infinity",
+            description: "Gain 100% Of INT",
+            cost: new Decimal(1e100),
+            unlocked() {return hasMilestone('ITW', 16)},
+        },
+        13: {
+            title: "And",
+            description: "x1e25 Skill and INT",
+            cost: new Decimal(1e105),
+            unlocked() {return hasUpgrade(this.layer, 12)},
+        },
+        14: {
+            title: "Beyond",
+            description: "x1e50 Skill and INT",
+            cost: new Decimal(1e150),
+            unlocked() {return hasUpgrade(this.layer, 13)},
+        },
+        15: {
+            title: "To Infinity and Beyond Final",
+            description: "x1e200 Skill and INT",
+            cost: new Decimal(1e175),
+            unlocked() {return hasUpgrade(this.layer, 14)},
+        },
+    },
+
+    deactivated() {
+        let inactive = true
+        if(hasMilestone("TLG", 14)) inactive = false
+        return inactive
+    },
+})
+
+addLayer("ITW", {
+    name: "Instant Win",
+    symbol: "ITW",
+    position: 0,
+    startData() { return {
+        unlocked: true,
+		points: new Decimal(0),
+    }},
+    color: "#4747ff",
+    requires: new Decimal('e600'),
+    resource: "Instant Win",
+    baseResource: "Skill",
+    baseAmount() {return player.points},
+    type: "static",
+    base: 1.02e100,
+    exponent() {
+        let exponental = new Decimal(1)
+        if(hasMilestone(this.layer, 9)) exponental = exponental.times(player[this.layer].points.add(-8).pow(0.01))
+        if(hasMilestone(this.layer, 14)) exponental = exponental.times(player[this.layer].points.add(-8).pow(0.02))
+        return exponental
+    },
+    gainMult() {
+        mult = new Decimal(1)
+        if(hasMilestone(this.layer, 11)) mult = mult.times(new Decimal('e10000').pow(-1))
+        if(hasMilestone(this.layer, 12)) mult = mult.times(new Decimal('e10000'))
+        if(hasMilestone(this.layer, 17)) mult = new Decimal(0)
+        return mult
+    },
+    gainExp() {
+        return new Decimal(1)
+    },
+    row: 2,
+    hotkeys: [
+        {key: "W", description: "W: Reset for Instant Win", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    layerShown() {return hasMilestone('TLG', 15)},
+    effectDescription() {
+        let effect = "Winning the.. game?"
+        if(hasMilestone(this.layer, 9)) effect = "Softcap I (Lol)"
+        if(hasMilestone(this.layer, 14)) effect = "Softcap II (Oof)"
+        if(hasMilestone(this.layer, 17)) effect = "Cap (F)"
+        return effect
+    },
+    infoboxes: {
+        lore: {
+            title: "Info About this layer",
+            body() { return "Class Negativity 'FINAL' [Row 3!]" },
+        },
+    },
+    update(diff) {
+        if (player.points.gte(new Decimal('e600')) && hasMilestone('TLG', 15)) player[this.layer].unlocked = true
+    },
+    milestones: {
+        0: {
+            requirementDescription: "First Win",
+            effectDescription: "Unlock More TFD Upgrades and x 1e10 Skill. (You don't have the will. Right?)",
+            done() { return player[this.layer].points.gte(1) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        }, 
+        1: {
+            requirementDescription: "Lower Win",
+            effectDescription: "XST Doesn't Reset Buyables and x 1e10 Skill. (Still Small QoL.)",
+            done() { return player[this.layer].points.gte(2) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        2: {
+            requirementDescription: "Negitive Win",
+            effectDescription: "/1e25 Skill Gain. (Big but not large)",
+            done() { return player[this.layer].points.gte(3) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        3: {
+            requirementDescription: "Unimpossible Win",
+            effectDescription: "/1e25 UIP buyable Costs and x1e35 Skill Gain. (Not Impossible.)",
+            done() { return player[this.layer].points.gte(4) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        4: {
+            requirementDescription: "Money Win",
+            effectDescription: "Unlock a Ca$h Milestone and /1e10 Ca$h Requirement and x1e10 Skill. (Millions so What?)",
+            done() { return player[this.layer].points.gte(5) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        5: {
+            requirementDescription: "Friendly Win",
+            effectDescription: "Unlock More FLN Upgrades and x1e10 Skill (Friends are fine.)",
+            done() { return player[this.layer].points.gte(6) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        6: {
+            requirementDescription: "Eased Win",
+            effectDescription: "Make the TES Buyable Base +0.09 Stronger but x1,000 the Cost and /1e15 Skill (The ease is odd?)",
+            done() { return player[this.layer].points.gte(7) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        7: {
+            requirementDescription: "'A' Win",
+            effectDescription: "Change the Pink Booster effect and x1e10 Skill (Effects are main.)",
+            done() { return player[this.layer].points.gte(8) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        8: {
+            requirementDescription: "AА Win",
+            effectDescription: "x1e25 'A' and ^1.2 'A' (This is the End.)",
+            done() { return player[this.layer].points.gte(9) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        9: {
+            requirementDescription: "Exist Win",
+            effectDescription: "Unlock More Exist Milestones and Exist Resets Nothing (SoftCap Time.)",
+            done() { return player[this.layer].points.gte(10) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        10: {
+            requirementDescription: "Relax Win",
+            effectDescription: "Autobuy Ca$h, Relax->Restful Upgrades (QoL again Not Bad.)",
+            done() { return player[this.layer].points.gte(11) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        11: {
+            requirementDescription: "Skip Win",
+            effectDescription: "/1e10,000 ITW Requirement (Skipping to the next.. Intresting.)",
+            done() { return player[this.layer].points.gte(12) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        12: {
+            requirementDescription: "Multiplier Win",
+            effectDescription: "x1e10,000 ITW Requirement and /1e10 Multiplier Requirement (Undid the Skipping. Ok?)",
+            done() { return player[this.layer].points.gte(13) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        13: {
+            requirementDescription: "Restful Win",
+            effectDescription: "Make the Autogains TFD->IFS 1e12% (Making the reset Useless Now.)",
+            done() { return player[this.layer].points.gte(14) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        14: {
+            requirementDescription: "Infinite Dot Win",
+            effectDescription: "Unlock More IN. Upgrades (To Infinity and Beyond)",
+            done() { return player[this.layer].points.gte(15) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        15: {
+            requirementDescription: "Infinite Easy Win",
+            effectDescription: "Unlock More INE Upgrades (To Infinity and Beyond again!?)",
+            done() { return player[this.layer].points.gte(16) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        16: {
+            requirementDescription: "Infinity Win",
+            effectDescription: "Unlock More INT Upgrades (To Infinity and Beyond part 3)",
+            done() { return player[this.layer].points.gte(17) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        17: {
+            requirementDescription: "Winned Win",
+            effectDescription: "x1e1000 Skill",
+            done() { return player[this.layer].points.gte(18) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+    },
+
+    deactivated() {
+        let inactive = true
+        if(hasMilestone("TLG", 15)) inactive = false
         return inactive
     },
 })
