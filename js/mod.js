@@ -16,11 +16,16 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "A3.0",
-	name: "The Automation",
+	num: "A2.2",
+	name: "Fixes Again",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>vA2.2 Fixes Agaib</h3><br>
+		- Made some Upgrades show the correct effect<br>
+		- fixed the game not loading<br>
+		Opps ;(<br>
+		<br>
 	<h3>vA2.1 The Bugs Fixes</h3><br>
 		- Fixed a Bug with Upgrade Neg 11 Not Working Properly<br>
 		- Fixed a Bug with UIP Buyables' Prices Incrorectly<br>
