@@ -173,6 +173,36 @@ addLayer("CNT", {
             cost: new Decimal(2e10),
             unlocked() {return hasUpgrade(this.layer, 34)},
         },
+        41: {
+            title: "Rebirthed Ultra Booster I",
+            description: "x1e25 Skill",
+            cost: new Decimal(1e15),
+            unlocked() {return hasUpgrade('MULT', 15)},
+        },
+        42: {
+            title: "Rebirthed Ultra Booster II",
+            description: "x1e40 Skill",
+            cost: new Decimal(1e23),
+            unlocked() {return hasUpgrade(this.layer, 41)},
+        },
+        43: {
+            title: "Rebirthed Ultra Booster III",
+            description: "x1e75 Skill",
+            cost: new Decimal(1e35),
+            unlocked() {return hasUpgrade(this.layer, 42)},
+        },
+        44: {
+            title: "Rebirthed Ultra Booster IV",
+            description: "x1e150 Skill",
+            cost: new Decimal(1e58),
+            unlocked() {return hasUpgrade(this.layer, 43)},
+        },
+        45: {
+            title: "Rebirthed Ultra Booster Final",
+            description: "x1e250 Skill and Unlock More Multi Upgrades.",
+            cost: new Decimal(5e102),
+            unlocked() {return hasUpgrade(this.layer, 44)},
+        },
     },
 
     deactivated() {
@@ -199,6 +229,10 @@ addLayer("S", {
     exponent: 0.5,
     gainMult() {
         mult = new Decimal(1)
+        if(hasMilestone(this.layer, 8)) mult = mult.times(new Decimal(1e308).pow(-1))
+        if(hasMilestone(this.layer, 9)) mult = mult.times(new Decimal(1e308).pow(-1))
+        if(hasUpgrade('MULT', 23)) mult = mult.times(upgradeEffect('MULT', 14).pow(-1))
+        
         return mult
     },
     gainExp() {
@@ -261,8 +295,12 @@ addLayer("S", {
         },
         4: {
             requirementDescription: "P2W",
-            effectDescription: "Cash Boost Skill ($^2 + 1) (x) (Cap: 1,000,000)",
-            tooltip() {return format(new Decimal.min(player[this.layer].points.pow(2).add(1), new Decimal(1000000)))+"x Skill"},
+            effectDescription: "Cash Boost Skill [[$^2 + 1] (x)] (Cap: 1,000,000)",
+            tooltip() {
+                let Increaser = new Decimal(0)
+                if(hasMilestone(this.layer, 7)) Increaser = Increaser.add(new Decimal(10).pow((player[this.layer].points).log(2)))
+                return format(new Decimal.min(player[this.layer].points.pow(2).add(1), new Decimal(1000000).add(Increaser)))+"x Skill"
+            },
             done() { return player[this.layer].points.gte(20) },
             unlocked() {return hasMilestone(this.layer, 3)},
         },
@@ -277,6 +315,31 @@ addLayer("S", {
             effectDescription: "Ca$h Resets Nothing and Unlock More CNT Upgrades",
             done() { return player[this.layer].points.gte(500) },
             unlocked() {return hasMilestone(this.layer, 5)},
+        },
+        7: {
+            requirementDescription: "P2W More",
+            effectDescription: "Ca$h Boost Ca$h Milestone 4 Cap [[10^log2($)] (+)] (No Cap)",
+            tooltip() {return "+"+format(new Decimal(10).pow((player[this.layer].points).log(2)))+" Ca$h Milestone 4 Cap"},
+            done() { return hasUpgrade('MSL', 11) },
+            unlocked() {return hasUpgrade('MSL', 11)},
+        },
+        8: {
+            requirementDescription: "4.5 Mil",
+            effectDescription: "/1e308 Ca$h Requirement",
+            done() { return player[this.layer].points.gte(4500000) && hasUpgrade('MSL', 11) },
+            unlocked() {return hasMilestone(this.layer, 7)},
+        },
+        9: {
+            requirementDescription: "9 Mil",
+            effectDescription: "/1e308 Ca$h Requirement again",
+            done() { return player[this.layer].points.gte(9000000) },
+            unlocked() {return hasMilestone(this.layer, 8)},
+        },
+        10: {
+            requirementDescription: "15 Mil",
+            effectDescription: "Unlock More MULTI Upgrades",
+            done() { return player[this.layer].points.gte(15000000) },
+            unlocked() {return hasMilestone(this.layer, 9)},
         },
     },
     update(diff) {
@@ -319,7 +382,17 @@ addLayer("MULT", {
     ],
     resetsNothing: true,
     onPrestige(gain) {
-        player.S.points = new Decimal(0) 
+        if(hasUpgrade(this.layer, 13)) {
+
+        }
+        else {
+            player.S.points = new Decimal(0)
+        }
+    },
+    canBuyMax() {
+        let maxing = false
+        if(hasUpgrade(this.layer, 21)) maxing = true
+        return maxing
     },
     autoPrestige() {
         let Auto = false
@@ -376,6 +449,50 @@ addLayer("MULT", {
             description: "MULTI Reset Nothing",
             cost: new Decimal(125),
             unlocked() {return hasUpgrade(this.layer, 12)},
+        },
+        14: {
+            title: "Multi Boost I",
+            description: "Multi Boost Skill (No Cap)",
+            effect() {
+                let effect = new Decimal(1)
+                effect = effect.times(player[this.layer].points.add(1))
+                return effect
+            },
+            effectDisplay() {return format(upgradeEffect(this.layer, this.id))+"x Skill"},
+            tooltip: "(Multi + 1)",
+            cost: new Decimal(300),
+            unlocked() {return hasUpgrade(this.layer, 13)},
+        },
+        15: {
+            title: "Multi Unlocker I",
+            description: "Unlock More CNT Upgrades",
+            cost: new Decimal(400),
+            unlocked() {return hasUpgrade(this.layer, 14)},
+        },
+        21: {
+            title: "Multi Booster III",
+            description: "x1e25 Skill and Unlock Buy max MULTI",
+            cost: new Decimal(2500),
+            unlocked() {return hasUpgrade('CNT', 45)},
+        },
+        22: {
+            title: "Multi Booster IV",
+            description: "x1e50 Skill",
+            cost: new Decimal(7333),
+            unlocked() {return hasUpgrade(this.layer, 21)},
+        },
+        23: {
+            title: "Multi Boost II",
+            description: "MULTI Upgrade 14 also Devides Ca$h Requirement",
+            effectDisplay() {return "/"+format(upgradeEffect(this.layer, 14))+" Ca$h Requiremnt"},
+            cost: new Decimal(10000),
+            unlocked() {return hasMilestone('S', 10)},
+        },
+        24: {
+            title: "Multi Booster V",
+            description: "x1e150 Skill",
+            cost: new Decimal(10500),
+            unlocked() {return hasUpgrade(this.layer, 23)},
         },
     },
     update(diff) {

@@ -3,9 +3,10 @@ let modInfo = {
 	author: "RobotLovesTrains",
 	pointsName: "Skill",
 	modFiles: [
-	 "layers/layerNegative.js",
-	 "layers/ClassNegative.js",
-	 "tree.js",
+		"layers/LayerNegative.js",
+		"layers/ClassNegative.js",
+		"layers/LayerZero.js",
+		"tree.js",
 	],
 
 	discordName: "",
@@ -16,11 +17,18 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "A2.2",
-	name: "Fixes Again",
+	num: "A3.0",
+	name: "Class 0 Automatic",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>vA3.0 Class 0 Automatic</h3><br>
+		- Made some Upgrades show the correct Tooltip<br>
+		- Made 2 (or 1.5?) More TLG<br>
+		- Added 35 More Upgrades<br>
+		- Added 19 More Milestones<br>
+		EndGame: 18 TLG<br>
+		<br>
 	<h3>vA2.2 Fixes Agaib</h3><br>
 		- Made some Upgrades show the correct effect<br>
 		- fixed the game not loading<br>
@@ -186,6 +194,21 @@ function getPointGen() {
 	if(hasMilestone('MULT', 0)) gain = gain.times(new Decimal.min(new Decimal(10).tetrate(player.MULT.points.pow(0.2)), new Decimal(1e10)))
 	if(hasUpgrade('MULT', 11)) gain = gain.times(10)
 	if(hasUpgrade('MULT', 12)) gain = gain.times(25)
+	if(hasUpgrade('MULT', 14)) gain = gain.times(upgradeEffect('MULT', 14))
+	if(hasUpgrade('CNT', 41)) gain = gain.times(1e25)
+	if(hasUpgrade('CNT', 42)) gain = gain.times(1e40)
+	if(hasUpgrade('CNT', 43)) gain = gain.times(1e75)
+	if(hasUpgrade('CNT', 44)) gain = gain.times(1e150)
+	if(hasUpgrade('CNT', 45)) gain = gain.times(1e250)
+	if(hasUpgrade('MULT', 21)) gain = gain.times(1e25)
+	if(hasUpgrade('MULT', 22)) gain = gain.times(1e50)
+	if(hasUpgrade('MULT', 24)) gain = gain.times(1e150)
+	if(hasUpgrade('MSL', 12)) gain = gain.times(1e250)
+	if(hasUpgrade('MSL', 13)) gain = gain.times('e1000')
+	
+	if(hasUpgrade('MSL', 14)) gain = gain.pow(2)
+	if(hasUpgrade('MSL', 15)) gain = gain.pow(3)
+	if(hasUpgrade('MSL', 15)) gain = gain.pow(2.5)
 
 	//Layers 0
 
@@ -242,6 +265,74 @@ function getPointGen() {
 		gain = gain.pow((player.points.add(new Decimal('e3000').times(-1)).pow(243)).pow(-1))
 		modInfo.pointsName = "Skill (Supercap V)"
 	}
+	if(player.points.gte(new Decimal('e3500'))) {
+		gain = gain.pow((player.points.add(new Decimal('e3500').times(-1)).pow(729)).pow(-1))
+		modInfo.pointsName = "Skill (Supercap VI)"
+	}
+	if(player.points.gte(new Decimal('e4000'))) {
+		gain = gain.pow((player.points.add(new Decimal('e4000').times(-1)).pow(2187)).pow(-1))
+		modInfo.pointsName = "Skill (Supercap VII)"
+	}
+	if(player.points.gte(new Decimal('e4500'))) {
+		gain = gain.pow((player.points.add(new Decimal('e4500').times(-1)).pow(6561)).pow(-1))
+		modInfo.pointsName = "Skill (Supercap VIII)"
+	}
+	if(player.points.gte(new Decimal('e5000'))) {
+		gain = gain.pow((player.points.add(new Decimal('e5000').times(-1)).pow(10000)).pow(-1))
+		modInfo.pointsName = "Skill (Ultracap I)"
+	}
+	if(player.points.gte(new Decimal('e7500'))) {
+		gain = gain.pow((player.points.add(new Decimal('e7500').times(-1)).pow(100000)).pow(-1))
+		modInfo.pointsName = "Skill (Ultracap II)"
+	}
+	if(player.points.gte(new Decimal('e10000'))) {
+		gain = gain.pow((player.points.add(new Decimal('e10000').times(-1)).pow(1000000)).pow(-1))
+		modInfo.pointsName = "Skill (Ultracap III)"
+	}
+	if(player.points.gte(new Decimal('e12500'))) {
+		gain = gain.pow((player.points.add(new Decimal('e12500').times(-1)).pow(10000000)).pow(-1))
+		modInfo.pointsName = "Skill (Ultracap IV)"
+	}
+	if(player.points.gte(new Decimal('e15000'))) {
+		gain = gain.pow((player.points.add(new Decimal('e15000').times(-1)).pow(100000000)).pow(-1))
+		modInfo.pointsName = "Skill (Ultracap V)"
+	}
+	if(player.points.gte(new Decimal('e17500'))) {
+		gain = gain.pow((player.points.add(new Decimal('e17500').times(-1)).pow(1e9)).pow(-1))
+		modInfo.pointsName = "Skill (Ultracap VI)"
+	}
+	if(player.points.gte(new Decimal('e20000'))) {
+		gain = gain.pow((player.points.add(new Decimal('e20000').times(-1)).pow(1e10)).pow(-1))
+		modInfo.pointsName = "Skill (Ultracap VII)"
+	}
+	if(player.points.gte(new Decimal('e22500'))) {
+		gain = gain.pow((player.points.add(new Decimal('e22500').times(-1)).pow(1e11)).pow(-1))
+		modInfo.pointsName = "Skill (Ultracap VIII)"
+	}
+	if(player.points.gte(new Decimal('e25000'))) {
+		gain = gain.pow((player.points.add(new Decimal('e25000').times(-1)).pow(1e15)).pow(-1))
+		modInfo.pointsName = "Skill (Pre-Maxcap I)"
+	}
+	if(player.points.gte(new Decimal('e30000'))) {
+		gain = gain.pow((player.points.add(new Decimal('e30000').times(-1)).pow(1e19)).pow(-1))
+		modInfo.pointsName = "Skill (Pre-Maxcap II)"
+	}
+	if(player.points.gte(new Decimal('e35000'))) {
+		gain = gain.pow((player.points.add(new Decimal('e35000').times(-1)).pow(1e21)).pow(-1))
+		modInfo.pointsName = "Skill (Pre-Maxcap III)"
+	}
+	if(player.points.gte(new Decimal('e40000'))) {
+		gain = gain.pow((player.points.add(new Decimal('e40000').times(-1)).pow(1e24)).pow(-1))
+		modInfo.pointsName = "Skill (Pre-Maxcap IV)"
+	}
+	if(player.points.gte(new Decimal('e45000'))) {
+		gain = gain.pow((player.points.add(new Decimal('e45000').times(-1)).pow(1e27)).pow(-1))
+		modInfo.pointsName = "Skill (Pre-Maxcap V)"
+	}
+	if(player.points.gte(new Decimal('e50000'))) {
+		player.points = new Decimal('e50000')
+		modInfo.pointsName = "Skill (Hardcap)"
+	}
 	if(gain < 0.1) gain = new Decimal(0.1)
 	return gain
 }
@@ -256,7 +347,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	//return player.points.gte(new Decimal('e3244'))
+	return player.TLG.points.gte(new Decimal(18))
 }
 
 

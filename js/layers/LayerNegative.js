@@ -295,10 +295,12 @@ addLayer("TLG", {
     effectDescription() {
         let effect = "No Softcap.. For Now"
         if(hasMilestone(this.layer, 15)) effect = "Softcap I"
+        if(hasMilestone(this.layer, 17)) effect = "Cap (GL on the next One)"
         return effect
     },
     gainMult() {
         mult = new Decimal(1)
+        if(hasMilestone(this.layer, 17)) mult = new Decimal(0)
         return mult
     },
     gainExp() {
@@ -421,7 +423,13 @@ addLayer("TLG", {
         16: {
             requirementDescription: "Millisecondless",
             effectDescription: "Unlock Millisecondless but combine all Class Negative Layers exsept TLG into Class Negative layer and Change the Way the Ca$h and Mult Layers Unlock and /30 Skill Gain",
-            done() { return player[this.layer].points.gte(18) },
+            done() { return player[this.layer].points.gte(17) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        17: {
+            requirementDescription: "Astronomical",
+            effectDescription: "Unlock Astronomical but Make this layer useless and the end (vA3.0)",
+            done() { return player[this.layer].points.gte(17) },
             unlocked() {return hasMilestone(this.layer, this.id)},
         },
     },
@@ -493,12 +501,12 @@ addLayer("Neg", {
             description: "Neg Boost Skill (-)",
             effect() {
                 let boost = new Decimal(1)
-                boost = boost.times(((player[this.layer].points.add(1/25)).times(25).pow(0.7)).log(2))
-                if (hasMilestone('$', 4)) boost = new Decimal(1).times((player[this.layer].points.times(25).pow(1)).log(2))
-                if (hasUpgrade(this.layer, 13)) boost = new Decimal(1).times((player[this.layer].points.times(20).pow(0.7)).log(2))
+                boost = boost.times(((player[this.layer].points.times(25).add(1)).pow(0.7)).log(2))
+                if (hasMilestone('$', 4)) boost = new Decimal(1).times(((player[this.layer].points.times(25).add(1)).pow(1)).log(2))
+                if (hasUpgrade(this.layer, 13)) boost = new Decimal(1).times(((player[this.layer].points.times(20).add(1)).pow(0.7)).log(2))
                 if (hasMilestone('$', 4) && hasUpgrade(this.layer, 13)) boost = new Decimal(1).times((player[this.layer].points.times(20).pow(1)).log(2))
                 if (hasMilestone('TLG', 2)) boost = new Decimal(2).pow(boost)
-                if (hasUpgrade(this.layer, 22)) boost = new Decimal(1).times(player[this.layer].points.times(10).pow(1.1))
+                if (hasUpgrade(this.layer, 22)) boost = new Decimal(1).times((player[this.layer].points.times(10).add(1)).pow(1.1))
 
                 if(hasUpgrade('TFD', 31)) boost = boost.pow(1.05)
 
@@ -506,7 +514,19 @@ addLayer("Neg", {
                 return boost
             },
             effectDisplay() {return "-" + format(upgradeEffect(this.layer, this.id))+" Skill Gain (After Multipliers)"},
-            tooltip: "log2((Neg + 1/25) x 25)^0.7 (Cap: 1e250)",
+            tooltip() {
+                let Tip = "log2((Neg x 25 + 1)^0.7) (Cap: 1e250)"
+                if(hasMilestone('$', 4)) Tip = "log2(Neg x 25 + 1) (Cap: 1e250)"
+                if(hasUpgrade(this.layer, 13)) Tip = "log2((Neg x 20 + 1)^0.7) (Cap: 1e250)"
+                if(hasMilestone('$', 4) && hasUpgrade(this.layer, 13)) Tip = "log2(Neg x 20 + 1) (Cap: 1e250)"
+                if(hasMilestone('$', 4) && hasMilestone('TLG', 2)) Tip = "Neg x 25 + 1 (Cap: 1e250)"
+                if(hasUpgrade(this.layer, 13) && hasMilestone('TLG', 2)) Tip = "(Neg x 20 + 1)^0.7 (Cap: 1e250)"
+                if(hasMilestone('$', 4) && hasUpgrade(this.layer, 13)  && hasMilestone('TLG', 2)) Tip = "Neg x 20 + 1 (Cap: 1e250)"
+                if(hasUpgrade(this.layer, 22)) Tip = "(Neg x 10 + 1)^1.1 (Cap: 1e250)"
+
+                if(hasUpgrade('TFD', 31)) Tip = "("+format(Tip)+")^1.05"
+                return Tip
+            },
             cost: new Decimal(0),
         },
         12: {
@@ -517,7 +537,7 @@ addLayer("Neg", {
         },
         13: {
             title: "Nerfer I",
-            description: "-5 the Mult in Neg Upgrade 11. (Doesn't Update)",
+            description: "-5 the Mult in Neg Upgrade 11",
             cost: new Decimal(150),
             unlocked() {return hasUpgrade(this.layer, 12)},
         },
@@ -533,7 +553,11 @@ addLayer("Neg", {
                 return boost
             },
             effectDisplay() {return "+"+format(upgradeEffect(this.layer, this.id))+" Skill Gain"},
-            tooltip: "log10((Skill + 1)^2) (Cap: 300)",
+            tooltip() {
+                let Tip = "log10((Skill + 1)^2) (Cap: 300)"
+                if(hasUpgrade('TFD', 31)) Tip = "log10((Skill + 1)^2)^1.05 (Cap: 300)"
+                return Tip
+            },
             cost: new Decimal(1000),
             unlocked() {return hasUpgrade(this.layer, 13)},
         },
@@ -565,7 +589,10 @@ addLayer("Neg", {
                 return boost
             },
             effectDisplay() {return "/"+format(upgradeEffect(this.layer, this.id))+" Skill Gain (After Neg Upgrade 11)"},
-            tooltip: "Negitivity^0.05 + 1 (No Cap)",
+            tooltip() {
+                let Tip = "Negitivity^0.05 + 1 (No Cap)"
+                if(hasUpgrade('TFD', 31)) Tip = "(Negitivity^0.05 + 1)^1.05 (No Cap)"
+            },
             cost: new Decimal(5e16),
             unlocked() {return hasUpgrade(this.layer, 22)},
         },
@@ -1043,14 +1070,22 @@ addLayer("FLN", {
             effect() {
                 let boost = new Decimal(1)
                 boost = boost.times((new Decimal(1.01).pow(player[this.layer].points.pow(1/2))).pow(player[this.layer].points.pow(-0.3)))
-                if(hasUpgrade('FLN', 22)) boost = new Decimal(1).times((new Decimal(1.01).pow(player[this.layer].points.pow(1/2))).pow(player[this.layer].points.pow(-0.4)))
+                if(hasUpgrade(this.layer, 22)) boost = new Decimal(1).times((new Decimal(1.01).pow(player[this.layer].points.pow(1/2))).pow(player[this.layer].points.pow(-0.4)))
+                
                 if(hasUpgrade('TFD', 31)) boost = boost.pow(1.05)
 
                 boost = new Decimal.min(boost, new Decimal(1000))
                 return boost
             },
             effectDisplay() {return format(upgradeEffect(this.layer, this.id))+"x Skill"},
-            tooltip: "(1.01^sqrt(FLN))^(FLN^-0.3)) (Cap: 1,000)",
+            tooltip() {
+                let Tip = "(1.01^sqrt(FLN))^(FLN^-0.3) (Cap: 1,000)"
+                if(hasUpgrade(this.layer, 22)) Tip = "(1.01^sqrt(FLN))^(FLN^-0.4) (Cap: 1,000)"
+
+                if(hasUpgrade('TFD', 31)) Tip = "((1.01^sqrt(FLN))^(FLN^-0.4))^1.05 (Cap: 1,000)"
+
+                return Tip
+            },
             cost: new Decimal(10000),
             unlocked() {return hasUpgrade(this.layer, 12)},
         },
@@ -1072,7 +1107,12 @@ addLayer("FLN", {
                 return boost
             },
             effectDisplay() {return format(upgradeEffect(this.layer, this.id))+"x FLN"},
-            tooltip: "log2(FLN / 10,000 + 1) + 1",
+            tooltip() {
+                let Tip = "log2(FLN / 10,000 + 1) + 1"
+
+                if(hasUpgrade('TFD', 31)) Tip = "(log2(FLN / 10,000 + 1) + 1)^1.05"
+                return Tip
+            },
             cost: new Decimal(10000000),
             unlocked() {return hasUpgrade('FLN', 14)},
         },
@@ -1292,7 +1332,12 @@ addLayer("TES", {
                 return boost
             },
             effectDisplay() {return format(upgradeEffect(this.layer, this.id))+"x TFD, Neg, UIP and FLN and / Ca$h Requirement"},
-            tooltip: "log10(TES + 10)",
+            tooltip() {
+                let Tip = "log10(TES + 10)"
+
+                if(hasUpgrade('TFD', 31)) Tip = "log10(TES + 10)^1.05"
+                return Tip
+            },
             cost: new Decimal(25),
         },
         12: {
