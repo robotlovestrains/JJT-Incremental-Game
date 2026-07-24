@@ -472,7 +472,7 @@ addLayer("MULT", {
         21: {
             title: "Multi Booster III",
             description: "x1e25 Skill and Unlock Buy max MULTI",
-            cost: new Decimal(2500),
+            cost: new Decimal(1250),
             unlocked() {return hasUpgrade('CNT', 45)},
         },
         22: {

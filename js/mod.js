@@ -6,6 +6,7 @@ let modInfo = {
 		"layers/LayerNegative.js",
 		"layers/ClassNegative.js",
 		"layers/LayerZero.js",
+		"layers/MiniGame.js",
 		"tree.js",
 	],
 
@@ -17,11 +18,23 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "A3.1",
-	name: "Bugs Gone part 1",
+	num: "A3.2",
+	name: "Timewall Remover",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>vA3.2 Timewall Remover</h3><br>
+		- Removed some Timewalls<br>
+		- Added a minigame<br>
+		- Added a event (Used later for events)<br>
+		- Fixed a error bug<br>
+		- Fixed some Milestones<br>
+		- Changed ДА Reset slightly<br>
+		- Changed Some Upgrades slightly<br>
+		- Changed How Autobuying Buyables Work slightly<br>
+		- Broke the endgame and minigame achievments<br>
+		Sad :(<br>
+		<br>
 	<h3>vA3.1 Bugs Gone part 1</h3><br>
 		- Made the Game Possible but Hard<br>
 		- Changed how the Softcaps for Skill Work<br>
@@ -104,7 +117,7 @@ function getPointGen() {
 	if(hasMilestone('TFD', 4)) gain = gain.times(15)
 	if(hasMilestone('TLG', 1)) gain = gain.times(5)
 	if(hasUpgrade('UIP', 11)) gain = gain.times(9)
-	if(getBuyableAmount('UIP', 11) > 0) gain = gain.times(new Decimal(3).pow(getBuyableAmount('UIP', 11)))
+	if(getBuyableAmount('UIP', 11).gte(1)) gain = gain.times(new Decimal(3).pow(getBuyableAmount('UIP', 11)))
 	if(hasMilestone('TLG', 2)) gain = gain.times(2)
 	if(hasMilestone('$', 0)) gain = gain.times(2)
 	if(hasMilestone('$', 1)) gain = gain.times(5)
@@ -122,11 +135,11 @@ function getPointGen() {
 	if(hasUpgrade('TFD', 32)) gain = gain.times(10000)
 	if(hasUpgrade('$', 11)) gain = gain.times(upgradeEffect('$', 11))
 	if(hasUpgrade('FLN', 23)) gain = gain.times(100)
-	if(getBuyableAmount('A', 13) > 0) gain = gain.times(new Decimal(2).pow(getBuyableAmount('A', 13)))
+	if(getBuyableAmount('A', 13).gte(1)) gain = gain.times(new Decimal(2).pow(getBuyableAmount('A', 13)))
 	if(hasUpgrade('A', 41)) gain = gain.times(10000)
 	if(hasMilestone('XST', 1)) gain = gain.times(1000000)
 	if(hasUpgrade('TFD', 35)) gain = gain.times(100)
-	if(getBuyableAmount('TES', 11) > 0) gain = gain.times(new Decimal(1.01).pow(getBuyableAmount('TES', 11)))
+	if(getBuyableAmount('TES', 11).gte(1)) gain = gain.times(new Decimal(1.01).pow(getBuyableAmount('TES', 11)))
 	if(hasUpgrade('TES', 22)) gain = gain.times(100)
 	if(hasUpgrade('TES', 23)) gain = gain.times(10)
 	if(hasUpgrade('A', 42)) gain = gain.times(100)
@@ -164,8 +177,8 @@ function getPointGen() {
 	if(hasUpgrade('FLN', 35)) gain = gain.times(1e10)
 	if(hasUpgrade('FLN', 41)) gain = gain.times(upgradeEffect('FLN', 41))
 	if(hasMilestone('ITW', 6)) gain = gain.times(new Decimal(1e15).pow(-1))
-	if(getBuyableAmount('TES', 11) > 0 && hasMilestone('ITW', 6)) gain = gain.times(new Decimal(1.01).pow(getBuyableAmount('TES', 11)).pow(-1))
-	if(getBuyableAmount('TES', 11) > 0 && hasMilestone('ITW', 6)) gain = gain.times(new Decimal(1.1).pow(getBuyableAmount('TES', 11)))
+	if(getBuyableAmount('TES', 11).gte(1) && hasMilestone('ITW', 6)) gain = gain.times(new Decimal(1.01).pow(getBuyableAmount('TES', 11)).pow(-1))
+	if(getBuyableAmount('TES', 11).gte(1) && hasMilestone('ITW', 6)) gain = gain.times(new Decimal(1.1).pow(getBuyableAmount('TES', 11)))
 	if(hasMilestone('ITW', 7)) gain = gain.times(1e10)
 	if(hasUpgrade('IF.', 12)) gain = gain.times(1e150)
 	if(hasUpgrade('IF.', 13)) gain = gain.times(1e50)
@@ -173,7 +186,7 @@ function getPointGen() {
 	if(hasUpgrade(this.layer, 12)) gain = gain.times(1e25)
     if(hasUpgrade(this.layer, 13)) gain = gain.times(1e50)
 	if(hasUpgrade(this.layer, 14)) gain = gain.times(1e200)
-	if(hasMilestone('ITW', 17)) gain = gain.times(new Decimal('e1000'))
+	if(hasMilestone('ITW', 17)) gain = gain.times(new Decimal('e2000'))
 	
 	if(hasUpgrade('Neg', 11)) gain = gain.add((upgradeEffect('Neg', 11)).times(-1))
 	if(hasUpgrade('Neg', 11) && hasUpgrade('FLN', 11)) gain = gain.add(upgradeEffect('Neg', 11).times(2))
@@ -213,7 +226,8 @@ function getPointGen() {
 	
 	if(hasUpgrade('MSL', 14)) gain = gain.pow(2)
 	if(hasUpgrade('MSL', 15)) gain = gain.pow(3)
-	if(hasUpgrade('MSL', 15)) gain = gain.pow(2.5)
+	if(hasUpgrade('MSL', 21)) gain = gain.pow(5)
+	if(hasUpgrade('MSL', 22)) gain = gain.pow(1)
 
 	//Layers 0
 
