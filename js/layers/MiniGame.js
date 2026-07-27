@@ -61,11 +61,11 @@ addLayer("MiniGame", {
             },
             unlocked() {return hasUpgrade('Island3f', 25) || hasMilestone('Research', 0)}
         },
-        "Event": {
+        "Event (teaser Not Required)": {
             embedLayer: "Event",
             buttonStyle: {
-                "color": "#363636",
-                "border": "2px solid #363636",
+                "color": "#797979",
+                "border": "2px solid #797979",
             },
         },
     },
@@ -2276,7 +2276,7 @@ addLayer("Event", {
         unlocked: true,
 		points: new Decimal(0),
     }},
-    color: "#363636",
+    color: "#797979",
     requires: new Decimal(1e1000),
     resource: "Event Points",
     baseResource: "Skill",
@@ -2292,24 +2292,13 @@ addLayer("Event", {
     },
     row: "side",
     layerShown() {return false},
-    infoboxes: {
-        1: {
-            title: "Info About this layer",
-            body() { return "Not Even a Fun Layer (for now)" },
+    tabFormat: {
+        "Halloween": {
+            embedLayer: "Halloween",
+            buttonStyle: {
+                "color": "#c07000",
+                "border": "2px solid #c07000",
+            },
         },
     },
-    resetsNothing: true,
-    tabFormat: [
-        ["infobox", 1],
-        ["display-text",
-        function() { return 'You have Nil Error' },
-        { "color": "gray", "font-size": "24px"}],
-        "blank",
-        "main-display",
-        "blank",
-        "blank",
-        ["display-text",
-        function() { return 'Error Nothing Returned' },
-        { "color": "red", "font-size": "48px"}],
-    ],
 })

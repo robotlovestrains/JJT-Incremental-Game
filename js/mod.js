@@ -7,6 +7,7 @@ let modInfo = {
 		"layers/ClassNegative.js",
 		"layers/LayerZero.js",
 		"layers/MiniGame.js",
+		"layers/EventOne.js",
 		"tree.js",
 	],
 
@@ -18,11 +19,16 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "A3.2",
-	name: "Timewall Remover",
+	num: "A3.3",
+	name: "More Fixes and Sneak Peek",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>vA3.3 More Fixes and Sneak Peek</h3><br>
+		- Added a sneak peek<br>
+		- Changed ДА Reset slightly again<br>
+		- Changed Some Upgrades slightly<br>
+		<br>
 	<h3>vA3.2 Timewall Remover</h3><br>
 		- Removed some Timewalls<br>
 		- Added a minigame<br>
@@ -353,6 +359,9 @@ function getPointGen() {
 		gain = new Decimal(0)
 		modInfo.pointsName = "Skill (Hardcap)"
 	}
+
+	if(hasMilestone('HalloweenLevel', 1)) gain = gain.times(10)
+
 	if(gain < 1) gain = new Decimal(1)
 	return gain
 }

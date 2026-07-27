@@ -1765,7 +1765,7 @@ addLayer("ДА", {
     },
     row: 0,
     hotkeys: [
-        {key: "ctrl+A", description: "ctrl+A: Reset for ДА", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "ctrl+a", description: "ctrl+a : Reset for ДА", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     resetDescription: "Reset 'A' For ",
     onPrestige(gain) {
@@ -1774,14 +1774,6 @@ addLayer("ДА", {
         }
         else {
           player.A.points = new Decimal(0)
-        }
-        if(hasUpgrade('ДА', 13)) {
-
-        }
-        else {
-            addBuyables('A', 11, -getBuyableAmount('A', 11))
-            addBuyables('A', 12, -getBuyableAmount('A', 12))
-            addBuyables('A', 13, -getBuyableAmount('A', 13))
         }
         if(hasUpgrade('ДА', 23)) {
 
@@ -1847,7 +1839,7 @@ addLayer("ДА", {
         },
         13: {
             title: "Green Red Booster II",
-            description: "x2 'A' and ДА doesn't Reset 'A' buyables",
+            description: "x2 'A' and ДА",
             cost: new Decimal(5),
             onPurchase() {
                 player[this.layer].points = player[this.layer].points.add(5)
@@ -3048,19 +3040,19 @@ addLayer("ITW", {
         },
         14: {
             requirementDescription: "Infinite Dot Win",
-            effectDescription: "Unlock More IN. Upgrades (To Infinity and Beyond)",
+            effectDescription: "Unlock More IF. Upgrades (To Infinity and Beyond)",
             done() { return player[this.layer].points.gte(15) },
             unlocked() {return hasMilestone(this.layer, this.id)},
         },
         15: {
             requirementDescription: "Infinite Easy Win",
-            effectDescription: "Unlock More INE Upgrades (To Infinity and Beyond again!?)",
+            effectDescription: "Unlock More IFE Upgrades (To Infinity and Beyond again!?)",
             done() { return player[this.layer].points.gte(16) },
             unlocked() {return hasMilestone(this.layer, this.id)},
         },
         16: {
             requirementDescription: "Infinity Win",
-            effectDescription: "Unlock More INT Upgrades (To Infinity and Beyond part 3)",
+            effectDescription: "Unlock More IFT Upgrades (To Infinity and Beyond part 3)",
             done() { return player[this.layer].points.gte(17) },
             unlocked() {return hasMilestone(this.layer, this.id)},
         },
