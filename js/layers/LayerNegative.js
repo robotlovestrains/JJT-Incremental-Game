@@ -429,7 +429,7 @@ addLayer("TLG", {
         17: {
             requirementDescription: "Astronomical",
             effectDescription: "Unlock Astronomical but Make this layer useless and the end (vA3.0)",
-            done() { return player[this.layer].points.gte(17) },
+            done() { return player[this.layer].points.gte(18) },
             unlocked() {return hasMilestone(this.layer, this.id)},
         },
     },
@@ -2861,25 +2861,25 @@ addLayer("IFT", {
         },
         12: {
             title: "Infinity",
-            description: "Gain 100% Of INT",
+            description: "Gain 100% Of IFT",
             cost: new Decimal(1e100),
             unlocked() {return hasMilestone('ITW', 16)},
         },
         13: {
             title: "And",
-            description: "x1e25 Skill and INT",
+            description: "x1e25 Skill and IFT",
             cost: new Decimal(1e105),
             unlocked() {return hasUpgrade(this.layer, 12)},
         },
         14: {
             title: "Beyond",
-            description: "x1e50 Skill and INT",
+            description: "x1e50 Skill and IFT",
             cost: new Decimal(1e150),
             unlocked() {return hasUpgrade(this.layer, 13)},
         },
         15: {
             title: "To Infinity and Beyond Final",
-            description: "x1e200 Skill and INT",
+            description: "x1e200 Skill and IFT",
             cost: new Decimal(1e175),
             unlocked() {return hasUpgrade(this.layer, 14)},
         },
@@ -3046,7 +3046,7 @@ addLayer("ITW", {
         },
         15: {
             requirementDescription: "Infinite Easy Win",
-            effectDescription: "Unlock More IFE Upgrades (To Infinity and Beyond again!?)",
+            effectDescription: "Unlock More IFS Upgrades (To Infinity and Beyond again!?)",
             done() { return player[this.layer].points.gte(16) },
             unlocked() {return hasMilestone(this.layer, this.id)},
         },

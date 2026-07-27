@@ -324,9 +324,9 @@ addLayer("S", {
             unlocked() {return hasUpgrade('MSL', 11)},
         },
         8: {
-            requirementDescription: "4.5 Mil",
+            requirementDescription: "4 Mil",
             effectDescription: "/1e308 Ca$h Requirement",
-            done() { return player[this.layer].points.gte(4500000) && hasUpgrade('MSL', 11) },
+            done() { return player[this.layer].points.gte(4000000) && hasUpgrade('MSL', 11) },
             unlocked() {return hasMilestone(this.layer, 7)},
         },
         9: {
@@ -491,7 +491,7 @@ addLayer("MULT", {
         24: {
             title: "Multi Booster V",
             description: "x1e150 Skill",
-            cost: new Decimal(10500),
+            cost: new Decimal(10450),
             unlocked() {return hasUpgrade(this.layer, 23)},
         },
     },

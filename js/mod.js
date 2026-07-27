@@ -19,11 +19,19 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "A3.3",
-	name: "More Fixes and Sneak Peek",
+	num: "A3.4",
+	name: "Instant Fixed",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>vA3.4 Instant Fixed</h3><br>
+		- Changed Some Milestones again x 2 and Upgrades again slightly<br>
+		bruh<br>
+		it's not so hard to fix these<br>
+		but i feel like you guy are making it a mission<br>
+		to Descover these Problems Thx for the Help. ;)<br>
+		also I'll add content next update. Have Fun<br>
+		<br>
 	<h3>vA3.3 More Fixes and Sneak Peek</h3><br>
 		- Added a sneak peek<br>
 		- Changed ДА Reset slightly again<br>
@@ -233,7 +241,9 @@ function getPointGen() {
 	if(hasUpgrade('MSL', 14)) gain = gain.pow(2)
 	if(hasUpgrade('MSL', 15)) gain = gain.pow(3)
 	if(hasUpgrade('MSL', 21)) gain = gain.pow(5)
-	if(hasUpgrade('MSL', 22)) gain = gain.pow(1)
+	if(hasUpgrade('MSL', 22)) gain = gain.pow(7.5)
+	if(hasUpgrade('MSL', 23)) gain = gain.pow(10)
+	if(hasUpgrade('MSL', 24)) gain = gain.pow(15)
 
 	//Layers 0
 
@@ -295,74 +305,75 @@ function getPointGen() {
 		modInfo.pointsName = "Skill (Supercap VI)"
 	}
 	if(gain.gte(new Decimal('e4000'))) {
-		gain = gain.times((gain.add(new Decimal('e4000').times(-1)).pow(1)).pow(-1))
+		gain = gain.times((gain.add(new Decimal('e4000').times(-1)).pow(0.5)).pow(-1))
 		modInfo.pointsName = "Skill (Supercap VII)"
 	}
 	if(gain.gte(new Decimal('e4500'))) {
-		gain = gain.times((gain.add(new Decimal('e4500').times(-1)).pow(2)).pow(-1))
+		gain = gain.times((gain.add(new Decimal('e4500').times(-1)).pow(0.5)).pow(-1))
 		modInfo.pointsName = "Skill (Supercap VIII)"
 	}
 	if(gain.gte(new Decimal('e5000'))) {
-		gain = gain.times((gain.add(new Decimal('e5000').times(-1)).pow(10000)).pow(-1))
+		gain = gain.times((gain.add(new Decimal('e5000').times(-1)).pow(0.5)).pow(-1))
 		modInfo.pointsName = "Skill (Ultracap I)"
 	}
 	if(gain.gte(new Decimal('e7500'))) {
-		gain = gain.times((gain.add(new Decimal('e7500').times(-1)).pow(100000)).pow(-1))
+		gain = gain.times((gain.add(new Decimal('e7500').times(-1)).pow(0.1)).pow(-1))
 		modInfo.pointsName = "Skill (Ultracap II)"
 	}
 	if(gain.gte(new Decimal('e10000'))) {
-		gain = gain.times((gain.add(new Decimal('e10000').times(-1)).pow(1000000)).pow(-1))
+		gain = gain.times((gain.add(new Decimal('e10000').times(-1)).pow(0.1)).pow(-1))
 		modInfo.pointsName = "Skill (Ultracap III)"
 	}
 	if(gain.gte(new Decimal('e12500'))) {
-		gain = gain.times((gain.add(new Decimal('e12500').times(-1)).pow(10000000)).pow(-1))
+		gain = gain.times((gain.add(new Decimal('e12500').times(-1)).pow(0.1)).pow(-1))
 		modInfo.pointsName = "Skill (Ultracap IV)"
 	}
 	if(gain.gte(new Decimal('e15000'))) {
-		gain = gain.times((gain.add(new Decimal('e15000').times(-1)).pow(100000000)).pow(-1))
+		gain = gain.times((gain.add(new Decimal('e15000').times(-1)).pow(0.1)).pow(-1))
 		modInfo.pointsName = "Skill (Ultracap V)"
 	}
 	if(gain.gte(new Decimal('e17500'))) {
-		gain = gain.times((gain.add(new Decimal('e17500').times(-1)).pow(1e9)).pow(-1))
+		gain = gain.times((gain.add(new Decimal('e17500').times(-1)).pow(0.1)).pow(-1))
 		modInfo.pointsName = "Skill (Ultracap VI)"
 	}
 	if(gain.gte(new Decimal('e20000'))) {
-		gain = gain.times((gain.add(new Decimal('e20000').times(-1)).pow(1e10)).pow(-1))
+		gain = gain.times((gain.add(new Decimal('e20000').times(-1)).pow(0.1)).pow(-1))
 		modInfo.pointsName = "Skill (Ultracap VII)"
 	}
 	if(gain.gte(new Decimal('e22500'))) {
-		gain = gain.times((gain.add(new Decimal('e22500').times(-1)).pow(1e11)).pow(-1))
+		gain = gain.times((gain.add(new Decimal('e22500').times(-1)).pow(0.1)).pow(-1))
 		modInfo.pointsName = "Skill (Ultracap VIII)"
 	}
 	if(gain.gte(new Decimal('e25000'))) {
-		gain = gain.times((gain.add(new Decimal('e25000').times(-1)).pow(1e15)).pow(-1))
+		gain = gain.times((gain.add(new Decimal('e25000').times(-1)).pow(0.5)).pow(-1))
 		modInfo.pointsName = "Skill (Pre-Maxcap I)"
 	}
 	if(gain.gte(new Decimal('e30000'))) {
-		gain = gain.times((gain.add(new Decimal('e30000').times(-1)).pow(1e19)).pow(-1))
+		gain = gain.times((gain.add(new Decimal('e30000').times(-1)).pow(0.1)).pow(-1))
 		modInfo.pointsName = "Skill (Pre-Maxcap II)"
 	}
 	if(gain.gte(new Decimal('e35000'))) {
-		gain = gain.times((gain.add(new Decimal('e35000').times(-1)).pow(1e21)).pow(-1))
+		gain = gain.times((gain.add(new Decimal('e35000').times(-1)).pow(0.1)).pow(-1))
 		modInfo.pointsName = "Skill (Pre-Maxcap III)"
 	}
 	if(gain.gte(new Decimal('e40000'))) {
-		gain = gain.times((gain.add(new Decimal('e40000').times(-1)).pow(1e24)).pow(-1))
+		gain = gain.times((gain.add(new Decimal('e40000').times(-1)).pow(0.1)).pow(-1))
 		modInfo.pointsName = "Skill (Pre-Maxcap IV)"
 	}
 	if(gain.gte(new Decimal('e45000'))) {
-		gain = gain.times((gain.add(new Decimal('e45000').times(-1)).pow(1e27)).pow(-1))
+		gain = gain.times((gain.add(new Decimal('e45000').times(-1)).pow(0.1)).pow(-1))
 		modInfo.pointsName = "Skill (Pre-Maxcap V)"
-	}
-	if(player.points.gte(new Decimal('e50000'))) {
-		player.points = new Decimal('e50000')
-		gain = new Decimal(0)
-		modInfo.pointsName = "Skill (Hardcap)"
 	}
 
 	if(hasMilestone('HalloweenLevel', 1)) gain = gain.times(10)
 
 	if(gain < 1) gain = new Decimal(1)
+
+	if(player.points.gte(new Decimal('e50000'))) {
+		gain = new Decimal(0)
+		modInfo.pointsName = "Skill (Hardcap)"
+	}
+
 	return gain
 }
 

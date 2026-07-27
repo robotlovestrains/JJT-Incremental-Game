@@ -329,7 +329,7 @@ addLayer("Pumkin", {
             title: "Pumkins XIII",
             description: "x2 Pumkins and Unlock 2 More Milestones",
             cost: new Decimal(1e9),
-            unlocked() {return hasUpgrade(this.layer, 32) && hasUpgrade('JoL', 12)},
+            unlocked() {return hasUpgrade('JoL', 15)},
         },
         34: {
             title: "Pumkins XIV",

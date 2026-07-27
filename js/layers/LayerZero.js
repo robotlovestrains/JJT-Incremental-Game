@@ -12,7 +12,7 @@ addLayer("MSL", {
     baseResource: "Skill",
     baseAmount() {return player.points},
     type: "normal",
-    exponent: 0.2,
+    exponent: 0.25,
     gainMult() {
         mult = new Decimal(1)
         return mult
@@ -42,7 +42,7 @@ addLayer("MSL", {
         12: {
             title: "Automation Be like",
             description: "x1e250 Skill",
-            cost: new Decimal(1.5e38),
+            cost: new Decimal(1.5e35),
             unlocked() {return hasUpgrade(this.layer, 11)},
         },
         13: {
@@ -60,24 +60,36 @@ addLayer("MSL", {
         15: {
             title: "Exponent II",
             description: "^3 Skill",
-            cost: new Decimal('e399'),
+            cost: new Decimal('e400'),
             unlocked() {return hasUpgrade(this.layer, 14)},
         },
         21: {
             title: "Exponent III",
             description: "^5 Skill",
-            cost: new Decimal('e464'),
+            cost: new Decimal('e465'),
             unlocked() {return hasUpgrade(this.layer, 15)},
         },
         22: {
             title: "Exponent IV",
             description: "^7.5 Skill",
-            cost: new Decimal('e542'),
+            cost: new Decimal('e540'),
             unlocked() {return hasUpgrade(this.layer, 21)},
+        },
+        23: {
+            title: "Exponent V",
+            description: "^10 Skill",
+            cost: new Decimal('e575'),
+            unlocked() {return hasUpgrade(this.layer, 22)},
+        },
+        24: {
+            title: "Exponent VI",
+            description: "^15 Skill",
+            cost: new Decimal('e3500'),
+            unlocked() {return hasUpgrade(this.layer, 23)},
         },
     },
     update(diff) {
-        if (player.points.gte('e600') && hasMilestone('TLG', 16)) player[this.layer].unlocked = true
+        if (player.points.gte(new Decimal('e600')) && hasMilestone('TLG', 16)) player[this.layer].unlocked = true
     },
     
 
