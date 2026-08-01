@@ -1,5 +1,5 @@
 addLayer("TFD", {
-    name: "The First Difficult",
+    name: "The First Difficulty",
     symbol: "TFD",
     position: 0,
     startData() { return {
@@ -47,11 +47,12 @@ addLayer("TFD", {
     },
     row: 0,
     hotkeys: [
-        {key: "T", description: "T: Reset for TFD", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "T", description: "shift+T: Reset for TFD", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown() {
         let vis = true
         if(hasMilestone('TLG', 16)) vis = false
+        if(hasUpgrade('BSG', 11)) vis = false
         return vis
     },
     infoboxes: {
@@ -289,18 +290,16 @@ addLayer("TLG", {
     base: 100.05,
     exponent() {
         let exponental = new Decimal(2)
-        if(hasMilestone(this.layer, 15)) exponental = new Decimal(2).pow(player[this.layer].points.add(-14).pow(0.5))
         return exponental
     },
     effectDescription() {
         let effect = "No Softcap.. For Now"
-        if(hasMilestone(this.layer, 15)) effect = "Softcap I"
-        if(hasMilestone(this.layer, 100)) effect = "Cap (GL on the next Update)"
+        if(hasMilestone(this.layer, 15)) effect = "Capped"
         return effect
     },
     gainMult() {
         mult = new Decimal(1)
-        if(hasMilestone(this.layer, 100)) mult = new Decimal(0)
+        if(hasMilestone(this.layer, 15)) mult = new Decimal(0)
         return mult
     },
     gainExp() {
@@ -308,13 +307,14 @@ addLayer("TLG", {
     },
     row: 3,
     hotkeys: [
-        {key: "L", description: "L: Reset for TLG", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "L", description: "shift+L: Reset for TLG", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     resetDescription: "Reset Skill and Above For ",
     layerShown() {
         let vis = false
         if(hasMilestone('TFD', 2)) vis = true
         if(hasMilestone(this.layer, 0)) vis = true
+        if(hasUpgrade('BSG', 11)) vis = false
         return vis
     },
     infoboxes: {
@@ -474,12 +474,13 @@ addLayer("Neg", {
     },
     row: 0,
     hotkeys: [
-        {key: "N", description: "N: Reset for Negativity", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "N", description: "shift+N: Reset for Negativity", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown() {
         let vis = false
         if(hasMilestone('TLG', 0)) vis = true
         if(hasMilestone('TLG', 16)) vis = false
+        if(hasUpgrade('BSG', 11)) vis = false
         return vis
     },
     infoboxes: {
@@ -655,13 +656,14 @@ addLayer("UIP", {
     },
     row: 0,
     hotkeys: [
-        {key: "I", description: "I: Reset for TFD", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "I", description: "shift+I: Reset for TFD", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     resetDescription: "Reset Skill For ",
     layerShown() {
         let vis = false
         if(hasMilestone('TLG', 1)) vis = true
         if(hasMilestone('TLG', 16)) vis = false
+        if(hasUpgrade('BSG', 11)) vis = false
         return vis
     },
     infoboxes: {
@@ -818,12 +820,13 @@ addLayer("$", {
     },
     row: 0,
     hotkeys: [
-        {key: "C", description: "C: Reset for Ca$h", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "C", description: "shift+C: Reset for Ca$h", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown() {
         let vis = false
         if(hasMilestone('TLG', 2)) vis = true
         if(hasMilestone('TLG', 16)) vis = false
+        if(hasUpgrade('BSG', 11)) vis = false
         return vis
     },
     infoboxes: {
@@ -1033,13 +1036,14 @@ addLayer("FLN", {
     },
     row: 0,
     hotkeys: [
-        {key: "F", description: "F: Reset for FLN", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "F", description: "shift+F: Reset for FLN", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     resetDescription: "Reset Skill For ",
     layerShown() {
         let vis = false
         if(hasMilestone('TLG', 3)) vis = true
         if(hasMilestone('TLG', 16)) vis = false
+        if(hasUpgrade('BSG', 11)) vis = false
         return vis
     },
     infoboxes: {
@@ -1299,13 +1303,14 @@ addLayer("TES", {
     },
     row: 0,
     hotkeys: [
-        {key: "E", description: "E: Reset for TES", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "E", description: "shift+E: Reset for TES", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     resetDescription: "Reset Skill For ",
     layerShown() {
         let vis = false
         if(hasMilestone('TLG', 4)) vis = true
         if(hasMilestone('TLG', 16)) vis = false
+        if(hasUpgrade('BSG', 11)) vis = false
         return vis
     },
     infoboxes: {
@@ -1505,13 +1510,14 @@ addLayer("A", {
     },
     row: 0,
     hotkeys: [
-        {key: "A", description: "A: Reset for A", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "A", description: "shift+A: Reset for A", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     prestigeButtonReset() {return "Reset Skill For +"+format(layers[this.layer].gain)+" A"},
     layerShown() {
         let vis = false
         if(hasMilestone('TLG', 5)) vis = true
         if(hasMilestone('TLG', 16)) vis = false
+        if(hasUpgrade('BSG', 11)) vis = false
         return vis
     },
     infoboxes: {
@@ -1765,7 +1771,7 @@ addLayer("ДА", {
     },
     row: 0,
     hotkeys: [
-        {key: "ctrl+a", description: "ctrl+a : Reset for ДА", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "ctrl+a", description: "ctrl+A : Reset for ДА", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     resetDescription: "Reset 'A' For ",
     onPrestige(gain) {
@@ -1787,6 +1793,7 @@ addLayer("ДА", {
         let vis = false
         if(hasMilestone('TLG', 6)) vis = true
         if(hasMilestone('TLG', 16)) vis = false
+        if(hasUpgrade('BSG', 11)) vis = false
         return vis
     },
     infoboxes: {
@@ -1982,7 +1989,7 @@ addLayer("XST", {
     },
     row: 1,
     hotkeys: [
-        {key: "X", description: "X: Reset for Exist", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "X", description: "shift+X: Reset for Exist", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     onPrestige(gain) {
         if(hasMilestone('TLG', 11) &! hasMilestone('ITW', 9)) {
@@ -2031,6 +2038,7 @@ addLayer("XST", {
         let vis = false
         if(hasMilestone('TLG', 7)) vis = true
         if(hasMilestone('TLG', 16)) vis = false
+        if(hasUpgrade('BSG', 11)) vis = false
         return vis
     },
     infoboxes: {
@@ -2165,13 +2173,14 @@ addLayer("RAX", {
     },
     row: 0,
     hotkeys: [
-        {key: "L", description: "L: Reset for Relax", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "L", description: "shift+L: Reset for Relax", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     resetDescription: "Reset Skill For ",
     layerShown() {
         let vis = false
         if(hasMilestone('TLG', 8)) vis = true
         if(hasMilestone('TLG', 16)) vis = false
+        if(hasUpgrade('BSG', 11)) vis = false
         return vis
     },
     infoboxes: {
@@ -2296,13 +2305,14 @@ addLayer("SKIP", {
     },
     row: 0,
     hotkeys: [
-        {key: "S", description: "S: Reset for Skip", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "S", description: "shift+S: Reset for Skip", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     resetDescription: "Reset Skill For ",
     layerShown() {
         let vis = false
         if(hasMilestone('TLG', 9)) vis = true
         if(hasMilestone('TLG', 16)) vis = false
+        if(hasUpgrade('BSG', 11)) vis = false
         return vis
     },
     infoboxes: {
@@ -2431,7 +2441,7 @@ addLayer("MULTI", {
     },
     row: 0,
     hotkeys: [
-        {key: "M", description: "M: Reset for Multiplier", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "M", description: "shift+M: Reset for Multiplier", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     resetsNothing: true,
     onPrestige(gain) {
@@ -2448,6 +2458,7 @@ addLayer("MULTI", {
         let vis = false
         if(hasMilestone('TLG', 10)) vis = true
         if(hasMilestone('TLG', 16)) vis = false
+        if(hasUpgrade('BSG', 11)) vis = false
         return vis
     },
     infoboxes: {
@@ -2569,7 +2580,7 @@ addLayer("RSF", {
     },
     row: 0,
     hotkeys: [
-        {key: "M", description: "M: Reset for Multiplier", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "U", description: "shift+U: Reset for Multiplier", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     resetsNothing: true,
     onPrestige(gain) {
@@ -2581,6 +2592,7 @@ addLayer("RSF", {
         let vis = false
         if(hasMilestone('TLG', 11)) vis = true
         if(hasMilestone('TLG', 16)) vis = false
+        if(hasUpgrade('BSG', 11)) vis = false
         return vis
     },
     infoboxes: {
@@ -2664,12 +2676,13 @@ addLayer("IF.", {
     },
     row: 0,
     hotkeys: [
-        {key: "F", description: "F: Reset for Infinite Dot", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "ctrl+f", description: "ctrl+F: Reset for Infinite Dot", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown() {
         let vis = false
         if(hasMilestone('TLG', 12)) vis = true
         if(hasMilestone('TLG', 16)) vis = false
+        if(hasUpgrade('BSG', 11)) vis = false
         return vis
     },
     infoboxes: {
@@ -2747,7 +2760,7 @@ addLayer("IFS", {
     },
     row: 0,
     hotkeys: [
-        {key: "Y", description: "Y: Reset for Infinite Easy", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "Y", description: "shift+Y: Reset for Infinite Easy", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     resetsNothing: true,
     onPrestige(gain) {
@@ -2757,6 +2770,7 @@ addLayer("IFS", {
         let vis = false
         if(hasMilestone('TLG', 13)) vis = true
         if(hasMilestone('TLG', 16)) vis = false
+        if(hasUpgrade('BSG', 11)) vis = false
         return vis
     },
     infoboxes: {
@@ -2830,12 +2844,13 @@ addLayer("IFT", {
     },
     row: 1,
     hotkeys: [
-        {key: "ctrl+I", description: "ctrl+I: Reset for Infinite", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "ctrl+I", description: "ctrl+shift+I: Reset for Infinite", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown() {
         let vis = false
         if(hasMilestone('TLG', 14)) vis = true
         if(hasMilestone('TLG', 16)) vis = false
+        if(hasUpgrade('BSG', 11)) vis = false
         return vis
     },
     infoboxes: {
@@ -2928,12 +2943,13 @@ addLayer("ITW", {
     },
     row: 2,
     hotkeys: [
-        {key: "W", description: "W: Reset for Instant Win", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "W", description: "shift+W: Reset for Instant Win", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown() {
         let vis = false
         if(hasMilestone('TLG', 15)) vis = true
         if(hasMilestone('TLG', 16)) vis = false
+        if(hasUpgrade('BSG', 11)) vis = false
         return vis
     },
     effectDescription() {

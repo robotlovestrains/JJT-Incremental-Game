@@ -3,11 +3,12 @@ let modInfo = {
 	author: "RobotLovesTrains",
 	pointsName: "Skill",
 	modFiles: [
-		"layers/LayerNegative.js",
-		"layers/ClassNegative.js",
-		"layers/LayerZero.js",
-		"layers/MiniGame.js",
-		"layers/EventOne.js",
+		"layers_v1/LayerNegative.js",
+		"layers_v1/ClassNegative.js",
+		"layers_v1/LayerZero.js",
+		"layers_extra/MiniGame.js",
+		"layers_extra/EventOne.js",
+		"layers_v2/ClassNegative.js",
 		"tree.js",
 	],
 
@@ -19,11 +20,15 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "A3.4",
-	name: "Instant Fixed",
+	num: "Alpha1.0 / A4.0",
+	name: "Reseting (for Good reason)",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>vAlpha1.0 / Reseting (for Good reason)</h3><br>
+		- Just Rework and Fixes<br>
+		Too lazy to write for this update hope you like the rework<br>
+		<br>
 	<h3>vA3.4 Instant Fixed</h3><br>
 		- Changed Some Milestones again x 2 and Upgrades again slightly<br>
 		bruh<br>
@@ -94,7 +99,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Made 23 Milestones<br>
 		EndGame: 1e135 Points`
 
-let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
+let winText = `Congratulations! You have reached the end and beaten this Update, but for now...`
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
@@ -237,7 +242,11 @@ function getPointGen() {
 	if(hasUpgrade('MULT', 24)) gain = gain.times(1e150)
 	if(hasUpgrade('MSL', 12)) gain = gain.times(1e250)
 	if(hasUpgrade('MSL', 13)) gain = gain.times('e1000')
-	
+	if(hasUpgrade('Win', 11)) gain = gain.times(1e10)
+	if(hasUpgrade('Win', 12)) gain = gain.times(100)
+	if(hasUpgrade('Win', 13)) gain = gain.times(1e10)
+	if(hasUpgrade('Win', 14)) gain = gain.times('e1000')
+
 	if(hasUpgrade('MSL', 14)) gain = gain.pow(2)
 	if(hasUpgrade('MSL', 15)) gain = gain.pow(3)
 	if(hasUpgrade('MSL', 21)) gain = gain.pow(5)
@@ -365,14 +374,32 @@ function getPointGen() {
 		modInfo.pointsName = "Skill (Pre-Maxcap V)"
 	}
 
-	if(hasMilestone('HalloweenLevel', 1)) gain = gain.times(10)
-
 	if(gain < 1) gain = new Decimal(1)
 
 	if(player.points.gte(new Decimal('e50000'))) {
 		gain = new Decimal(0)
 		modInfo.pointsName = "Skill (Hardcap)"
 	}
+
+	//Rework
+
+	if(hasUpgrade('BSG', 11)) {
+		gain = new Decimal(1)
+		modInfo.pointsName = "Skill"
+	}
+
+	gain = gain.times(buyableEffect('TFDRM', 11))
+	gain = gain.times(buyableEffect('TFDRM', 21))
+	gain = gain.times(buyableEffect('TFDRM', 31))
+	gain = gain.times(buyableEffect('TFDRM', 32))
+	gain = gain.times(buyableEffect('TFDRM', 41))
+	gain = gain.times(buyableEffect('TFDRM', 71))
+	gain = gain.times(buyableEffect('TFDRM', 72))
+	gain = gain.times(buyableEffect('TFDRM', 81))
+	gain = gain.times(buyableEffect('TFDRM', 91))
+
+	//Misc
+	//if(hasMilestone('HalloweenLevel', 1)) gain = gain.times(10)
 
 	return gain
 }
@@ -387,7 +414,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.TLG.points.gte(new Decimal(18))
+	return getBuyableAmount('TFDRM', 101).gte(1)
 }
 
 

@@ -107,7 +107,7 @@ addLayer("MiniA", {
         "blank",
         "blank",
         ["display-text",
-        function() { return 'You Can only Seen the Next 3 Achivements Requirements (Broken Sad :O)' },
+        function() { return 'You Can only Seen the Next 3 Achivements (Broken Sad :O)' },
         { "color": "yellow", "font-size": "24px"}],
         "achievements",
     ],
@@ -115,169 +115,117 @@ addLayer("MiniA", {
         11: {
             name: "First Is the Start",
             done() {return hasUpgrade('Island1', 11)},
-            tooltip: "Get Upgrade #1"
+            tooltip: "Get Upgrade #1",
         },
         12: {
             name: "First Boost",
             done() {return hasUpgrade('Island1', 12)},
-            tooltip: "Get Upgrade #2"
+            tooltip: "Get Upgrade #2",
         },
         13: {
             name: "First Non-Static Boost",
             done() {return hasUpgrade('Island1', 21)},
-            tooltip: "Get Upgrade #6"
+            tooltip: "Get Upgrade #6",
         },
         14: {
             name: "First Upgrade Boost",
             done() {return hasUpgrade('Island1', 22)},
-            tooltip() {
-                if(hasAchievement(this.layer, 11)) return "Get Upgrade #7"
-                else return "HIDDEN"
-            },
+            tooltip: "Get Upgrade #7",
         },
         15: {
             name: "First Base Boost",
             done() {return hasUpgrade('Island2a', 11)},
-            tooltip() {
-                if(hasAchievement(this.layer, 12)) return "Get Upgrade #8"
-                else return "HIDDEN"
-            },
+            tooltip: "Get Upgrade #8",
         },
         21: {
             name: "CoolNess",
             done() {return hasUpgrade('Island2a', 13)},
-            tooltip() {
-                if(hasAchievement(this.layer, 13)) return "Get Upgrade #10"
-                else return "HIDDEN"
-            },
+            tooltip: "Get Upgrade #10",
         },
         22: {
             name: "Money",
             done() {return hasUpgrade('Island1', 23)},
-            tooltip() {
-                if(hasAchievement(this.layer, 14)) return "Get Upgrade #17"
-                else return "HIDDEN"
-            },
+            tooltip: "Get Upgrade #17",
         },
         23: {
             name: "More",
             done() {return getBuyableAmount('Island2b', 13).gte(1)},
-            tooltip() {
-                if(hasAchievement(this.layer, 15)) return "Max Buyable Island 2 area 2 Unlocker III"
-                else return "HIDDEN"
-            },
+            tooltip: "Max Buyable Island 2 area 2 Unlocker III",
         },
         24: {
             name: "Wait Hold Up",
             done() {return hasUpgrade('Island2b', 21)},
-            tooltip() {
-                if(hasAchievement(this.layer, 21)) return "Get Upgrade #23"
-                else return "HIDDEN"
-            },
+            tooltip: "Get Upgrade #23",
         },
         25: {
             name: "More II",
             done() {return getBuyableAmount('Island2b', 13).gte(2)},
-            tooltip() {
-                if(hasAchievement(this.layer, 22)) return "Max Buyable Island 2 area 2 Unlocker III again"
-                else return "HIDDEN"
-            },
+            tooltip: "Max Buyable Island 2 area 2 Unlocker III again",
         },
         31: {
             name: "Infinite",
             done() {return hasUpgrade('Island3a', 11)},
-            tooltip() {
-                if(hasAchievement(this.layer, 23)) return "Get Upgrade #25"
-                else return "HIDDEN"
-            },
+            tooltip: "Get Upgrade #25",
         },
         32: {
             name: "Exchanger",
             done() {return hasUpgrade('Island3a', 14)},
-            tooltip() {
-                if(hasAchievement(this.layer, 24)) return "Get Upgrade #28"
-                else return "HIDDEN"
-            },
+            tooltip: "Get Upgrade #28",
         },
         33: {
             name: "Automation I",
             done() {return hasUpgrade('Island3a', 15)},
-            tooltip() {
-                if(hasAchievement(this.layer, 25)) return "Get Upgrade #29"
-                else return "HIDDEN"
-            },
+            tooltip: "Get Upgrade #29",
         },
         34: {
             name: "Tenth One",
             done() {return hasUpgrade('Island3c', 11)},
-            tooltip() {
-                if(hasAchievement(this.layer, 31)) return "Get Upgrade #31"
-                else return "HIDDEN"
-            },
+            tooltip: "Get Upgrade #31",
         },
         35: {
             name: "Another One!",
             done() {return hasUpgrade('Island3c', 13)},
-            tooltip() {
-                if(hasAchievement(this.layer, 32)) return "Get Upgrade #33"
-                else return "HIDDEN"
-            },
+            tooltip: "Get Upgrade #33",
         },
         41: {
             name: "Automation II",
             done() {return hasUpgrade('Island3e', 13)},
-            tooltip() {
-                if(hasAchievement(this.layer, 33)) return "Get Upgrade #39"
-                else return "HIDDEN"
-            },
+            tooltip: "Get Upgrade #39",
         },
         42: {
             name: "Finals",
             done() {return hasUpgrade('Island3f', 11)},
-            tooltip() {
-                if(hasAchievement(this.layer, 34)) return "Get Upgrade #41"
-                else return "HIDDEN"
-            },
+            tooltip: "Get Upgrade #41",
         },
         43: {
             name: "Last 1",
             done() {return hasUpgrade('Island3f', 25)},
-            tooltip() {
-                if(hasAchievement(this.layer, 35)) return "Get Upgrade #50"
-                else return "HIDDEN"
-            },
+            tooltip: "Get Upgrade #50",
         },
         44: {
             name: "Hey!",
             done() {return hasUpgrade('Research', 11)},
-            tooltip() {
-                if(hasAchievement(this.layer, 41)) return "Get Upgrade #51"
-                else return "HIDDEN"
-            },
+            tooltip: "Get Upgrade #51",
         },
         45: {
             name: "Reset again",
             done() {return hasUpgrade('Research', 12)},
-            tooltip() {
-                if(hasAchievement(this.layer, 42)) return "Get Upgrade #52"
-                else return "HIDDEN"
-            },
+            tooltip: "Get Upgrade #52",
         },
         51: {
             name: "Faster Faster",
             done() {return hasUpgrade('Research', 13)},
-            tooltip() {
-                if(hasAchievement(this.layer, 43)) return "Get Upgrade #53"
-                else return "HIDDEN"
-            },
+            tooltip: "Get Upgrade #53",
         },
         52: {
             name: "Early Automation",
             done() {return hasUpgrade('Research', 14)},
-            tooltip() {
-                if(hasAchievement(this.layer, 44)) return "Get Upgrade #54"
-                else return "HIDDEN"
-            },
+            tooltip: "Get Upgrade #54",
+        },
+        53: {
+            name: "Autobuy now",
+            done() {return hasUpgrade('Research', 15)},
+            tooltip: "Get Upgrade #55",
         },
     }
 })
@@ -339,6 +287,7 @@ addLayer("Island1", {
         if(hasUpgrade('Research', 12)) mult = mult.times(2)
         if(hasUpgrade('Research', 13)) mult = mult.times(1.5)
         if(hasUpgrade('Research', 14)) mult = mult.times(5)
+        if(hasUpgrade('Research', 24)) mult = mult.times(5)
 
         if(player["Island3b"].click11) mult = mult.times(2)
         if(player["Island3b"].click12) mult = mult.times(3)
@@ -701,6 +650,9 @@ addLayer("Island2a", {
             buyUpgrade(this.layer, 23);
             buyUpgrade(this.layer, 24);
         };
+        if(hasUpgrade('Research', 22)) {
+            buyUpgrade(this.layer, 25);
+        };
     }
 })
 
@@ -805,7 +757,7 @@ addLayer("Island2b", {
             },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
-                if(!hasUpgrade('Island3a', 15)) player[this.layer].points = player[this.layer].points.sub(this.cost())
+                if(!hasUpgrade('Island3a', 15) && !hasUpgrade('Research', 23)) player[this.layer].points = player[this.layer].points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             purchaseLimit() {
@@ -833,7 +785,7 @@ addLayer("Island2b", {
             },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
-                if(!hasUpgrade('Island3a', 15)) player[this.layer].points = player[this.layer].points.sub(this.cost())
+                if(!hasUpgrade('Island3a', 15) && !hasUpgrade('Research', 23)) player[this.layer].points = player[this.layer].points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             purchaseLimit() {
@@ -857,7 +809,7 @@ addLayer("Island2b", {
             },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                if(!hasUpgrade('Research', 23)) player[this.layer].points = player[this.layer].points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             purchaseLimit() {
@@ -944,10 +896,20 @@ addLayer("Island2b", {
                 layers[this.layer].buyables[12].buy();
             };
         }
+        if(hasUpgrade('Research', 23)) {
+            if(layers[this.layer].buyables[13].canAfford() && getBuyableAmount(this.layer, 13).lt(layers[this.layer].buyables[13].purchaseLimit())) {
+                layers[this.layer].buyables[13].buy();
+            };
+        }
         if(hasUpgrade('Research', 15)) {
             buyUpgrade(this.layer, 11);
             buyUpgrade(this.layer, 12);
             buyUpgrade(this.layer, 13);
+        };
+        if(hasUpgrade('Research', 22)) {
+            buyUpgrade(this.layer, 14);
+            buyUpgrade(this.layer, 15);
+            buyUpgrade(this.layer, 21);
         };
     },
 })
@@ -1166,6 +1128,14 @@ addLayer("Island3a", {
                 layers[this.layer].buyables[11].buy();
             };
         }
+        if(hasUpgrade('Research', 22)) {
+            buyUpgrade(this.layer, 11);
+            buyUpgrade(this.layer, 12);
+            buyUpgrade(this.layer, 13);
+            buyUpgrade(this.layer, 14);
+            buyUpgrade(this.layer, 15);
+            buyUpgrade(this.layer, 21);
+        };
     },
 })
 
@@ -1447,6 +1417,17 @@ addLayer("Island3c", {
             unlocked() {return hasUpgrade(this.layer, 21)},
         },
     },
+    automate() {
+        if(hasUpgrade('Research', 25)) {
+            buyUpgrade(this.layer, 11);
+            buyUpgrade(this.layer, 12);
+            buyUpgrade(this.layer, 13);
+            buyUpgrade(this.layer, 14);
+            buyUpgrade(this.layer, 15);
+            buyUpgrade(this.layer, 21);
+            buyUpgrade(this.layer, 22);
+        };
+    },
 })
 
 addLayer("Island3d", {
@@ -1513,6 +1494,7 @@ addLayer("Island3d", {
         if(hasUpgrade('Research', 13)) gain = gain.times(1.5)
         if(hasUpgrade('Research', 14)) gain = gain.times(2)
         if(hasUpgrade('Research', 15)) gain = gain.times(5)
+        if(hasUpgrade('Research', 24)) gain = gain.times(10)
 
         return gain
     },
@@ -1532,7 +1514,7 @@ addLayer("Island3d", {
             display() {return "x1.05 Sub-Skill per Level Currently: x"+format(buyableEffect(this.layer, this.id))+" Cost: "+format(this.cost())+" Money "+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit())},
             canAfford() { return player["Island2b"].points.gte(this.cost()) },
             buy() {
-                if(!hasUpgrade('Island3e', 13)) player["Island2b"].points = player["Island2b"].points.sub(this.cost())
+                if(!hasUpgrade('Island3e', 13) && !hasUpgrade('Research', 23)) player["Island2b"].points = player["Island2b"].points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             purchaseLimit() {return new Decimal(100).add(buyableEffect(this.layer, 23))},
@@ -1552,7 +1534,7 @@ addLayer("Island3d", {
             display() {return "x1.1 Money per Level Currently: x"+format(buyableEffect(this.layer, this.id))+" Cost: "+format(this.cost())+" Money "+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit())},
             canAfford() { return player["Island2b"].points.gte(this.cost()) },
             buy() {
-                if(!hasUpgrade('Island3e', 13)) player["Island2b"].points = player["Island2b"].points.sub(this.cost())
+                if(!hasUpgrade('Island3e', 13) && !hasUpgrade('Research', 23)) player["Island2b"].points = player["Island2b"].points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             purchaseLimit() {return new Decimal(125).add(buyableEffect(this.layer, 23))},
@@ -1572,7 +1554,7 @@ addLayer("Island3d", {
             display() {return "x1.01 Moners per Level Currently: x"+format(buyableEffect(this.layer, this.id))+" Cost: "+format(this.cost())+" Money "+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit)},
             canAfford() { return player["Island2b"].points.gte(this.cost()) },
             buy() {
-                if(!hasUpgrade('Island3f', 22)) player["Island2b"].points = player["Island2b"].points.sub(this.cost())
+                if(!hasUpgrade('Island3f', 22) && !hasUpgrade('Research', 23)) player["Island2b"].points = player["Island2b"].points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             purchaseLimit: new Decimal(250),
@@ -1867,7 +1849,7 @@ addLayer("Island3d", {
         },
     },
     automate() {
-        if(hasUpgrade('Island3e', 13)) {
+        if(hasUpgrade('Island3e', 13) || hasUpgrade('Research', 21)) {
             if(layers[this.layer].buyables[11].canAfford() && getBuyableAmount(this.layer, 11).lt(layers[this.layer].buyables[11].purchaseLimit())) {
                 layers[this.layer].buyables[11].buy();
             };
@@ -1875,7 +1857,7 @@ addLayer("Island3d", {
                 layers[this.layer].buyables[12].buy();
             };
         }
-        if(hasUpgrade('Island3f', 15)) {
+        if(hasUpgrade('Island3f', 15) || hasUpgrade('Research', 21)) {
             if(layers[this.layer].buyables[13].canAfford() && getBuyableAmount(this.layer, 13).lt(layers[this.layer].buyables[13].purchaseLimit)) {
                 layers[this.layer].buyables[13].buy();
             };
@@ -1974,6 +1956,14 @@ addLayer("Island3e", {
             cost: new Decimal(2e22),
             unlocked() {return hasUpgrade(this.layer, 13)},
         },
+    },
+    automate() {
+        if(hasUpgrade('Research', 25)) {
+            buyUpgrade(this.layer, 11);
+            buyUpgrade(this.layer, 12);
+            buyUpgrade(this.layer, 13);
+            buyUpgrade(this.layer, 14);
+        };
     },
 })
 
@@ -2144,6 +2134,7 @@ addLayer("Research", {
     startData() { return {
         unlocked: true,
 		points: new Decimal(0),
+        secretone: false,
     }},
     color: "#00ffff",
     requires: new Decimal(1e30),
@@ -2154,6 +2145,9 @@ addLayer("Research", {
     exponent: 0.1,
     gainMult() {
         mult = new Decimal(1)
+
+        if(player[this.layer].secretone) mult = mult.times(1.1)
+
         return mult
     },
     gainExp() {
@@ -2260,10 +2254,43 @@ addLayer("Research", {
             unlocked() {return hasUpgrade(this.layer, 14)},
         },
         21: {
-            title: "The End #-1.. For now",
-            description: "Ended Now Go play the Real Game.",
-            cost: new Decimal(100),
+            title: "Restart VI #56",
+            description: "Keep the First 3 of Island 3 moner Buyable Automation and They cost nothing",
+            cost: new Decimal(2),
             unlocked() {return hasUpgrade(this.layer, 15)},
+        },
+        22: {
+            title: "Restart VII #57",
+            description: "Autobuy the Next 10 Upgrades",
+            cost: new Decimal(2),
+            unlocked() {return hasUpgrade(this.layer, 21)},
+        },
+        23: {
+            title: "Restart VIII #58",
+            description: "Autobuy the 3rd Buyable of Island 2 area 2 and All Buyables cost nothing",
+            cost: new Decimal(2),
+            unlocked() {return hasUpgrade(this.layer, 22)},
+        },
+        24: {
+            title: "Restart IX #59",
+            description: "x5 Sub-Skill and x10 Moners",
+            cost: new Decimal(2),
+            unlocked() {return hasUpgrade(this.layer, 23)},
+        },
+        25: {
+            title: "Restart X #60",
+            description: "Autobuy the next 10 Upgrades",
+            cost: new Decimal(2),
+            unlocked() {return hasUpgrade(this.layer, 24)},
+        },
+        31: {
+            title: "End #-1",
+            description: "Sorry for little Content if Bought Give a Perm x1.1 Research tho",
+            cost: new Decimal(100),
+            onPurchase() {
+                player[this.layer].secretone = true
+            },
+            unlocked() {return hasUpgrade(this.layer, 25)},
         },
     },
 })

@@ -29,7 +29,10 @@ addLayer("CNT", {
         return new Decimal(1)
     },
     row: 0,
-    layerShown() {return hasMilestone('TLG', 16)},
+    hotkeys: [
+        {key: "N", description: "N: Reset for CNT", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    layerShown() {return hasMilestone('TLG', 16) && !hasUpgrade('BSG', 11)},
     infoboxes: {
         lore: {
             title: "Info About this layer",
@@ -42,6 +45,7 @@ addLayer("CNT", {
         if(hasMilestone(this.layer, 0)) Gen = 0.1
         if(hasMilestone(this.layer, 2)) Gen += 0.4
         if(hasMilestone('S', 3)) Gen += 0.5
+        if(hasUpgrade('Win', 15)) Gen += 9
         return Gen
     },
     update(diff) {
@@ -204,6 +208,7 @@ addLayer("CNT", {
             unlocked() {return hasUpgrade(this.layer, 44)},
         },
     },
+    autoUpgrade() {return hasUpgrade('Win', 13)},
 
     deactivated() {
         let inactive = true
@@ -245,6 +250,7 @@ addLayer("S", {
     canBuyMax() {
         let maxing = false
         if(hasMilestone(this.layer, 5)) maxing = true
+        if(hasUpgrade('Win', 12)) maxing = true
         return maxing
     },
     resetsNothing() {
@@ -255,11 +261,13 @@ addLayer("S", {
     autoPrestige() {
         let Auto = false
         if(hasMilestone('MULT', 1)) Auto = true
+        if(hasUpgrade('Win', 12)) Auto = true
         return Auto
     },
     layerShown() {
         let vis = false
         if(hasUpgrade('CNT', 33)) vis = true
+        if(hasUpgrade('BSG', 11)) vis = false
         return vis
     },
     infoboxes: {
@@ -392,17 +400,20 @@ addLayer("MULT", {
     canBuyMax() {
         let maxing = false
         if(hasUpgrade(this.layer, 21)) maxing = true
+        if(hasUpgrade('Win', 12)) maxing = true
         return maxing
     },
     autoPrestige() {
         let Auto = false
         if(hasMilestone('MULT', 2)) Auto = true
+        if(hasUpgrade('Win', 12)) Auto = true
         return Auto
     },
     resetDescription: "Reset Ca$h For ",
     layerShown() {
         let vis = false
         if(hasUpgrade('CNT', 35)) vis = true
+        if(hasUpgrade('BSG', 11)) vis = false
         return vis
     },
     infoboxes: {
@@ -495,6 +506,7 @@ addLayer("MULT", {
             unlocked() {return hasUpgrade(this.layer, 23)},
         },
     },
+    autoUpgrade() {return hasUpgrade('Win', 13)},
     update(diff) {
         if(player.S.points.gte(1000) && hasUpgrade('CNT', 35)) player[this.layer].unlocked = true
     },
