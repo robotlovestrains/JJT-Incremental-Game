@@ -20,12 +20,18 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "Alpha1.0 / A4.0",
-	name: "Reseting (for Good reason)",
+	num: "Alpha1.1 / A4.1",
+	name: "Bug Fix",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>vAlpha1.0 / Reseting (for Good reason)</h3><br>
+	<h3>vAlpha1.1 / A4.1 Reseting (for Good reason)</h3><br>
+		- Did a Small Changelog Change<br>
+		- Fixed first TLG first milestone for v1<br>
+		- Fixed the reset upgrade layer to reset points<br>
+		<h3>!NOTICE!</h3> You will lose your TFD v2 on update this is to make the game fair.<br>
+		<br>
+	<h3>vAlpha1.0 / A4.0 Reseting (for Good reason)</h3><br>
 		- Just Rework and Fixes<br>
 		Too lazy to write for this update hope you like the rework<br>
 		<br>
@@ -434,4 +440,5 @@ function maxTickLength() {
 // Use this if you need to undo inflation from an older version. If the version is older than the version that fixed the issue,
 // you can cap their current resources with this.
 function fixOldSave(oldVersion){
+	player['TFDRM'].points = new Decimal(0) //remove next update
 }

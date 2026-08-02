@@ -463,6 +463,9 @@ addLayer("BSG", {
             title: "83nn@63 1",
             description: "Description Not Found (Importent! This will not Be undone Reset Progress.)",
             cost: new Decimal(1),
+            onPurchase() {
+                player.points = new Decimal(0)
+            },
         },
     },
     tabFormat: [

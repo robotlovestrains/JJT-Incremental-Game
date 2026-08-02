@@ -325,8 +325,8 @@ addLayer("TLG", {
     },
     milestones: {
         0: {
-            requirementDescription: "Negitivity. (-)",
-            effectDescription: "Unlock Negitivity",
+            requirementDescription: "Negativity. (-)",
+            effectDescription: "Unlock Negativity",
             done() { return player[this.layer].points.gte(1) },
             unlocked() {return hasMilestone(this.layer, this.id)},
         },
