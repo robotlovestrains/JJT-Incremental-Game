@@ -966,6 +966,7 @@ addLayer("HalloweenLevel", {
     startData() { return {
         unlocked: true,
 		points: new Decimal(1),
+        MainEffectA: false,
     }},
     color: "#96b609",
     requires: new Decimal(1e32),
@@ -1033,6 +1034,9 @@ addLayer("HalloweenLevel", {
         1: {
             requirementDescription: "Level 3",
             effectDescription: "The End for Now x10 Skill (Yes the end for teaser also after softcaps)",
+            onComplete() {
+                player[this.layer].MainEffectA = true;
+            },
             done() {return player[this.layer].points.gte(3)},
         },
     },

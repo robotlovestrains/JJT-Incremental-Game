@@ -20,16 +20,23 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "Alpha1.1 / A4.1",
-	name: "Bug Fix",
+	num: "Alpha2",
+	name: "small but BIG",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>vAlpha2 small but BIG</h3><br>
+		- Added more Main Content<br>
+		- Added more Minigame Content<br>
+		- Changed how the Halloween Effect works<br>
+		- Did a Small Changelog Change<br>
+		GL<br>
+		<br>
 	<h3>vAlpha1.1 / A4.1 Reseting (for Good reason)</h3><br>
 		- Did a Small Changelog Change<br>
 		- Fixed first TLG first milestone for v1<br>
 		- Fixed the reset upgrade layer to reset points<br>
-		<h3>!NOTICE!</h3> You will lose your TFD v2 on update this is to make the game fair.<br>
+		<h3>!NOTICE!</h3> You will lose your TFD v2 on this update this is to make the game fair.<br>
 		<br>
 	<h3>vAlpha1.0 / A4.0 Reseting (for Good reason)</h3><br>
 		- Just Rework and Fixes<br>
@@ -394,6 +401,9 @@ function getPointGen() {
 		modInfo.pointsName = "Skill"
 	}
 
+	if(getBuyableAmount('TFDRM', 141).gte(1)) gain = gain.add(player["NEGRM"].layerEffect)
+	if(hasMilestone('CSHRM', 1)) gain = gain.add(new Decimal(player[this.layer].milestones.length).times(1/3))
+
 	gain = gain.times(buyableEffect('TFDRM', 11))
 	gain = gain.times(buyableEffect('TFDRM', 21))
 	gain = gain.times(buyableEffect('TFDRM', 31))
@@ -403,9 +413,25 @@ function getPointGen() {
 	gain = gain.times(buyableEffect('TFDRM', 72))
 	gain = gain.times(buyableEffect('TFDRM', 81))
 	gain = gain.times(buyableEffect('TFDRM', 91))
+	gain = gain.times(buyableEffect('NEGRM', 11))
+	gain = gain.times(buyableEffect('NEGRM', 21))
+	gain = gain.times(buyableEffect('NEGRM', 31))
+	gain = gain.times(buyableEffect('NEGRM', 41))
+	gain = gain.times(buyableEffect('NEGRM', 51))
+	gain = gain.times(buyableEffect('TFDRM', 121))
+	gain = gain.times(buyableEffect('TFDRM', 131))
+	gain = gain.times(buyableEffect('TFDRM', 132))
+	gain = gain.times(buyableEffect('TFDRM', 151))
+	if(hasMilestone('CSHRM', 0)) gain = gain.times(new Decimal(2).pow(player["CSHRM"].milestones.length))
+	if(hasMilestone('CSHRM', 2)) gain = gain.times(player["CSHRM"].points.add(1))
+
+	gain = gain.add(player["NEGRM"].layerEffect.times(-1))
+	if(getBuyableAmount('TFDRM', 141).gte(1)) gain = gain.add(player["NEGRM"].layerEffect)
+
+	if(gain < 1) gain = new Decimal(1)
 
 	//Misc
-	//if(hasMilestone('HalloweenLevel', 1)) gain = gain.times(10)
+	if(player['HalloweenLevel'].MainEffectA) gain = gain.times(10)
 
 	return gain
 }
@@ -420,7 +446,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return getBuyableAmount('TFDRM', 101).gte(1)
+	//return getBuyableAmount('TFDRM', 101).gte(1)
 }
 
 
@@ -440,5 +466,5 @@ function maxTickLength() {
 // Use this if you need to undo inflation from an older version. If the version is older than the version that fixed the issue,
 // you can cap their current resources with this.
 function fixOldSave(oldVersion){
-	player['TFDRM'].points = new Decimal(0) //remove next update
+	if(hasMilestone('HalloweenLevel', 1)) player['HalloweenLevel'].MainEffectA = true //remove after halloween event
 }
