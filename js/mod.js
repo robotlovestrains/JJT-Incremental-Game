@@ -20,11 +20,15 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "Alpha2",
-	name: "small but BIG",
+	num: "Alpha2.1",
+	name: "Opps I Broke it",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>vAlpha2.1 Opps I Broke it</h3><br>
+		- Fixed the Halloween effect breaking the game<br>
+		Sorry :O<br>
+		<br>
 	<h3>vAlpha2 small but BIG</h3><br>
 		- Added more Main Content<br>
 		- Added more Minigame Content<br>
@@ -431,6 +435,7 @@ function getPointGen() {
 	if(gain < 1) gain = new Decimal(1)
 
 	//Misc
+	player['HalloweenLevel'].MainEffectA = hasMilestone('HalloweenLevel', 1) //remove after halloween event
 	if(player['HalloweenLevel'].MainEffectA) gain = gain.times(10)
 
 	return gain
@@ -466,5 +471,5 @@ function maxTickLength() {
 // Use this if you need to undo inflation from an older version. If the version is older than the version that fixed the issue,
 // you can cap their current resources with this.
 function fixOldSave(oldVersion){
-	if(hasMilestone('HalloweenLevel', 1)) player['HalloweenLevel'].MainEffectA = true //remove after halloween event
+
 }
