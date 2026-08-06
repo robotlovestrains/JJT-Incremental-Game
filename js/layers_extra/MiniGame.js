@@ -290,6 +290,8 @@ addLayer("Island1", {
         if(hasUpgrade(this.layer, 24)) mult = mult.times(2.5)
         if(hasUpgrade(this.layer, 25)) mult = mult.times(8)
         if(hasUpgrade('Island2b', 25)) mult = mult.times(1.1)
+        if(hasUpgrade('Island3a', 25)) mult = mult.times(1.1)
+        if(hasUpgrade('Island3c', 23)) mult = mult.times(1.2)
 
         if(hasUpgrade('Research', 11)) mult = mult.times(5)
         if(hasUpgrade('Research', 12)) mult = mult.times(2)
@@ -306,7 +308,7 @@ addLayer("Island1", {
         if(player["Island3b"].click23) mult = mult.times(1/12)
         if(player["Island3b"].click24) mult = mult.times(1/16)
         
-        return mult
+        return mult//.times(0) // Make sure to slash out the .times()
     },
     gainExp() {
         return new Decimal(1)
@@ -374,7 +376,7 @@ addLayer("Island1", {
                 if(hasUpgrade('Island3a', 11)) Text = "Sub-Skill boost Itself log35(x + 1) + 1 [x] [Cap: Cap 1e100]"
                 if(hasUpgrade('Island3a', 21)) Text = "Sub-Skill boost Itself log25(x + 1) + 1 [x] [Cap: Cap 1e100]"
                 if(getBuyableAmount('Island3d', 22).gte(1)) Text = "Sub-Skill boost Itself log15(x + 1) + 1 [x] [Cap: Cap 1e100]"
-                if(hasUpgrade('Island2b', 23)) Text = "Sub-Skill boost Itself log75(x + 1) + 1 x 2.5 [x] [Cap: Cap 1e100]"
+                if(hasUpgrade('Island2b', 23)) Text = "Sub-Skill boost Itself log15(x + 1) + 1 x 2.5 [x] [Cap: Cap 1e100]"
                 return Text
             },
             effect() {
@@ -725,6 +727,7 @@ addLayer("Island2b", {
         if(hasUpgrade('Island3f', 21)) mult = mult.times(new Decimal(2).cbrt())
         if(hasUpgrade('Island1', 25)) mult = mult.times(4)
         if(hasUpgrade(this.layer, 25)) mult = mult.times(1.1)
+        if(hasUpgrade('Island3c', 23)) mult = mult.times(1.2)
 
         if(hasUpgrade('Research', 12)) mult = mult.times(2)
         if(hasUpgrade('Research', 13)) mult = mult.times(1.5)
@@ -739,7 +742,7 @@ addLayer("Island2b", {
         if(player["Island3b"].click23) mult = mult.times(4)
         if(player["Island3b"].click24) mult = mult.times(5)
 
-        return mult
+        return mult//.times(0) // Make sure to slash out the .times()
     },
     gainExp() {
         return new Decimal(1)
@@ -796,6 +799,7 @@ addLayer("Island2b", {
             },
             purchaseLimit() {
                 let Max = new Decimal(250).add(buyableEffect('Island3d', 21))
+                if(hasUpgrade('Island3a', 23)) Max = Max.add(200)
                 return Max
             },
             unlocked() {return hasUpgrade(this.layer, 12)},
@@ -824,6 +828,7 @@ addLayer("Island2b", {
             },
             purchaseLimit() {
                 let Max = new Decimal(200).add(buyableEffect('Island3d', 21))
+                if(hasUpgrade('Island3a', 23)) Max = Max.add(200)
                 return Max
             },
             unlocked() {return hasUpgrade(this.layer, 12)},
@@ -1207,13 +1212,31 @@ addLayer("Island3a", {
             unlocked() {return hasUpgrade('Research', 32)},
         },
         23: {
-            title: "New V #-1",
-            description: "The end.. For Now",
+            title: "New VI #70",
+            description: "-5 in the Log of Upgrade #6, Upgrade #10's Boost also Effects Moners, +200 Buyables' Max for Island 2 area 2 Sub-Skill Boost I & Money Boost and +5 Buyable's Max For Island 3 moner Increaser II",
+            currencyDisplayName: "Sub-Skill",
+            currencyInternalName: "points",
+            currencyLayer: "Island1",
+            cost: new Decimal(5e38),
+            unlocked() {return hasUpgrade(this.layer, 22)},
+        },
+        24: {
+            title: "New VII #71",
+            description: "x1.5 moners",
             currencyDisplayName: "Sub-Skill",
             currencyInternalName: "points",
             currencyLayer: "Island1",
             cost: new Decimal(1e40),
-            unlocked() {return hasUpgrade(this.layer, 22)},
+            unlocked() {return hasUpgrade(this.layer, 23)},
+        },
+        25: {
+            title: "New VIII #72",
+            description: "x1.1 Sub-Skill",
+            currencyDisplayName: "Sub-Skill",
+            currencyInternalName: "points",
+            currencyLayer: "Island1",
+            cost: new Decimal(1e40),
+            unlocked() {return hasUpgrade(this.layer, 24)},
         },
     },
     automate() {
@@ -1513,6 +1536,33 @@ addLayer("Island3c", {
             cost: new Decimal(1e19),
             unlocked() {return hasUpgrade(this.layer, 21)},
         },
+        23: {
+            title: "New IX #73",
+            description: "x1.2 Sub-Skill, Money and moners",
+            currencyDisplayName: "Sub-Skill",
+            currencyInternalName: "points",
+            currencyLayer: "Island1",
+            cost: new Decimal(2.5e40),
+            unlocked() {return hasUpgrade('Research', 32)},
+        },
+        24: {
+            title: "New X #74",
+            description: "Nothing For a Cool suprise",
+            currencyDisplayName: "Sub-Skill",
+            currencyInternalName: "points",
+            currencyLayer: "Island1",
+            cost: new Decimal(5e40),
+            unlocked() {return hasUpgrade(this.layer, 23)},
+        },
+        25: {
+            title: "More Content II #75",
+            description: "Unlock More Research Upgrades",
+            currencyDisplayName: "Sub-Skill",
+            currencyInternalName: "points",
+            currencyLayer: "Island1",
+            cost: new Decimal(5e40),
+            unlocked() {return hasUpgrade(this.layer, 24)},
+        },
     },
     automate() {
         if(hasUpgrade('Research', 25)) {
@@ -1589,6 +1639,8 @@ addLayer("Island3d", {
         if(hasUpgrade('Island3f', 21)) gain = gain.times(new Decimal(2).cbrt())
         if(hasUpgrade('Island1', 25)) gain = gain.times(2)
         if(hasUpgrade('Island2b', 25)) mult = mult.times(1.1)
+        if(hasUpgrade('Island3a', 24)) mult = mult.times(1.5)
+        if(hasUpgrade('Island3c', 23)) mult = mult.times(1.2)
 
         if(hasUpgrade('Research', 13)) gain = gain.times(1.5)
         if(hasUpgrade('Research', 14)) gain = gain.times(2)
@@ -1670,7 +1722,7 @@ addLayer("Island3d", {
                 Effect = Effect.add(new Decimal(5).times(getBuyableAmount(this.layer, this.id)))
                 return Effect
             },
-            display() {return "+5 Buyables' Sub-Skill Boost I and Money Boost I per Level Currently: +"+format(buyableEffect(this.layer, this.id))+" Cost: "+format(this.cost())+" Moners "+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit())},
+            display() {return "+5 Buyables' Max for Sub-Skill Boost I and Money Boost I per Level Currently: +"+format(buyableEffect(this.layer, this.id))+" Cost: "+format(this.cost())+" Moners "+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit())},
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 if(hasUpgrade('Research', 31)) player[this.layer].points = player[this.layer].points.sub(this.cost())
@@ -1708,7 +1760,7 @@ addLayer("Island3d", {
                 Effect = Effect.add(new Decimal(10).times(getBuyableAmount(this.layer, this.id)))
                 return Effect
             },
-            display() {return "+10 Buyables' Sub-Skill Boost II and Money Boost II per Level Currently: +"+format(buyableEffect(this.layer, this.id))+" Cost: "+format(this.cost())+" Moners "+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit())},
+            display() {return "+10 Buyables' Max for Sub-Skill Boost II and Money Boost II per Level Currently: +"+format(buyableEffect(this.layer, this.id))+" Cost: "+format(this.cost())+" Moners "+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit())},
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 if(hasUpgrade('Research', 31)) player[this.layer].points = player[this.layer].points.sub(this.cost())
@@ -1716,6 +1768,7 @@ addLayer("Island3d", {
             },
             purchaseLimit() {
                 let Max = new Decimal(5)
+                if(hasUpgrade('Island3a', 23)) Max = Max.add(5)
                 return Max
             },
             unlocked() {return hasUpgrade('Island3f', 15)},
@@ -1970,6 +2023,38 @@ addLayer("Island3d", {
             };
             if(layers[this.layer].buyables[23].canAfford() && getBuyableAmount(this.layer, 23).lt(layers[this.layer].buyables[23].purchaseLimit())) {
                 layers[this.layer].buyables[23].buy();
+            };
+        }
+        if(hasUpgrade('Research', 33)) {
+            if(player["Island2b"].points.gte(new Decimal(1e9).times(new Decimal(1).pow(2)))) {
+                player[this.layer].points = player[this.layer].points.add(layers[this.layer].getMonersGain().times(1));
+            };
+            if(player["Island2b"].points.gte(new Decimal(1e9).times(new Decimal(2).pow(2)))) {
+                player[this.layer].points = player[this.layer].points.add(layers[this.layer].getMonersGain().times(2));
+            };
+            if(player["Island2b"].points.gte(new Decimal(1e9).times(new Decimal(3).pow(2)))) {
+                player[this.layer].points = player[this.layer].points.add(layers[this.layer].getMonersGain().times(3));
+            };
+            if(player["Island2b"].points.gte(new Decimal(1e9).times(new Decimal(4).pow(2)))) {
+                player[this.layer].points = player[this.layer].points.add(layers[this.layer].getMonersGain().times(4));
+            };
+            if(player["Island2b"].points.gte(new Decimal(1e9).times(new Decimal(5).pow(2)))) {
+                player[this.layer].points = player[this.layer].points.add(layers[this.layer].getMonersGain().times(5));
+            };
+            if(player["Island2b"].points.gte(new Decimal(1e9).times(new Decimal(6).pow(2)))) {
+                player[this.layer].points = player[this.layer].points.add(layers[this.layer].getMonersGain().times(6));
+            };
+            if(player["Island2b"].points.gte(new Decimal(1e9).times(new Decimal(7).pow(2)))) {
+                player[this.layer].points = player[this.layer].points.add(layers[this.layer].getMonersGain().times(7));
+            };
+            if(player["Island2b"].points.gte(new Decimal(1e9).times(new Decimal(8).pow(2)))) {
+                player[this.layer].points = player[this.layer].points.add(layers[this.layer].getMonersGain().times(8));
+            };
+            if(player["Island2b"].points.gte(new Decimal(1e9).times(new Decimal(9).pow(2)))) {
+                player[this.layer].points = player[this.layer].points.add(layers[this.layer].getMonersGain().times(9));
+            };
+            if(player["Island2b"].points.gte(new Decimal(1e9).times(new Decimal(10).pow(2)))) {
+                player[this.layer].points = player[this.layer].points.add(layers[this.layer].getMonersGain().times(10));
             };
         }
     },
@@ -2413,6 +2498,18 @@ addLayer("Research", {
             description: "Unlock More Upgrades in Island 1, 2 and 3",
             cost: new Decimal(2),
             unlocked() {return hasUpgrade(this.layer, 31)},
+        },
+        33: {
+            title: "QoL I #76",
+            description: "AutoGain The First 10 Converters in Island 3 moners",
+            cost: new Decimal(0),
+            unlocked() {return hasUpgrade('Island3c', 25)},
+        },
+        34: {
+            title: "End #-1",
+            description: "The End.. For now",
+            cost: new Decimal(100),
+            unlocked() {return hasUpgrade(this.layer, 33)},
         },
     },
 })

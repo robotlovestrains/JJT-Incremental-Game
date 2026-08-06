@@ -20,11 +20,18 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "Alpha2.1",
-	name: "Opps I Broke it",
+	num: "Alpha3.0",
+	name: "More Content",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>vAlpha3.0 More Content</h3><br>
+		- Added more Layer<br>
+		- Added more Content in Minigame Layer<br>
+		- Change Changelog again x 2<br>
+		EndGame: 5 TLG<br>
+		Updates are taking longer due to upgrade tree<br>
+		<br>
 	<h3>vAlpha2.1 Opps I Broke it</h3><br>
 		- Fixed the Halloween effect breaking the game<br>
 		Sorry :O<br>
@@ -34,6 +41,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added more Minigame Content<br>
 		- Changed how the Halloween Effect works<br>
 		- Did a Small Changelog Change<br>
+		EndGame: 3 TLG<br>
 		GL<br>
 		<br>
 	<h3>vAlpha1.1 / A4.1 Reseting (for Good reason)</h3><br>
@@ -45,6 +53,8 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>vAlpha1.0 / A4.0 Reseting (for Good reason)</h3><br>
 		- Just Rework and Fixes<br>
 		Too lazy to write for this update hope you like the rework<br>
+		EndGame (Rework): TFD Upgrade #13<br>
+		EndGame (v1): 50 AOC<br>
 		<br>
 	<h3>vA3.4 Instant Fixed</h3><br>
 		- Changed Some Milestones again x 2 and Upgrades again slightly<br>
@@ -406,7 +416,7 @@ function getPointGen() {
 	}
 
 	if(getBuyableAmount('TFDRM', 141).gte(1)) gain = gain.add(player["NEGRM"].layerEffect)
-	if(hasMilestone('CSHRM', 1)) gain = gain.add(new Decimal(player[this.layer].milestones.length).times(1/3))
+	if(hasMilestone('CSHRM', 1) || hasMilestone('TLGRM', 2)) gain = gain.add(new Decimal(player[this.layer].milestones.length).times(1/3))
 
 	gain = gain.times(buyableEffect('TFDRM', 11))
 	gain = gain.times(buyableEffect('TFDRM', 21))
@@ -428,9 +438,14 @@ function getPointGen() {
 	gain = gain.times(buyableEffect('TFDRM', 151))
 	if(hasMilestone('CSHRM', 0)) gain = gain.times(new Decimal(2).pow(player["CSHRM"].milestones.length))
 	if(hasMilestone('CSHRM', 2)) gain = gain.times(player["CSHRM"].points.add(1))
+	gain = gain.times(buyableEffect('UIPRM', 11))
+	gain = gain.times(buyableEffect('FLNRM', 11))
+	gain = gain.times(buyableEffect('FLNRM', 31))
+	gain = gain.times(buyableEffect('FLNRM', 71))
+	gain = gain.times(buyableEffect('CSHRM', 11))
 
 	gain = gain.add(player["NEGRM"].layerEffect.times(-1))
-	if(getBuyableAmount('TFDRM', 141).gte(1)) gain = gain.add(player["NEGRM"].layerEffect)
+	if(getBuyableAmount('TFDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) gain = gain.add(player["NEGRM"].layerEffect)
 
 	if(gain < 1) gain = new Decimal(1)
 
@@ -451,7 +466,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	//return getBuyableAmount('TFDRM', 101).gte(1)
+	//return hasMilestone('TLG', 2)
 }
 
 
