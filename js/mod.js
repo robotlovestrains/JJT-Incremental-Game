@@ -21,10 +21,15 @@ let modInfo = {
 // Set your version in num and name
 let VERSION = {
 	num: "Alpha3.0",
-	name: "More Content",
+	name: "Brr Fixes",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>vAlpha3.1 Brr Fixes</h3><br>
+		- Fixed the Endgame<br>
+		- Fixed a Milestone<br>
+		- Added a Ending Milestone<br>
+		<br>
 	<h3>vAlpha3.0 More Content</h3><br>
 		- Added more Layer<br>
 		- Added more Content in Minigame Layer<br>
@@ -466,7 +471,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	//return hasMilestone('TLG', 2)
+	return hasMilestone('TLG', 4)
 }
 
 

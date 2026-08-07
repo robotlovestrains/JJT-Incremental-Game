@@ -552,6 +552,12 @@ addLayer("TLGRM", {
             done() { return player[this.layer].points.gte(4) },
             unlocked() {return hasMilestone(this.layer, this.id)},
         },
+        4: {
+            requirementDescription: "5 TLG",
+            effectDescription: "In Next Update",
+            done() { return player[this.layer].points.gte(5) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
     },
 })
 
@@ -1173,7 +1179,7 @@ addLayer("FLNRM", {
         1: {
             requirementDescription: "Level 2",
             effectDescription: "Unlock More Ca$h Milestones",
-            done() { return player[this.layer].level.gte(1) },
+            done() { return player[this.layer].level.gte(2) },
         },
     },
     automate() {
