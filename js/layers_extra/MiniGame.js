@@ -308,7 +308,7 @@ addLayer("Island1", {
         if(player["Island3b"].click23) mult = mult.times(1/12)
         if(player["Island3b"].click24) mult = mult.times(1/16)
         
-        return mult//.times(0) // Make sure to slash out the .times()
+        return mult.times(0) // Make sure to slash out the .times()
     },
     gainExp() {
         return new Decimal(1)
@@ -742,7 +742,7 @@ addLayer("Island2b", {
         if(player["Island3b"].click23) mult = mult.times(4)
         if(player["Island3b"].click24) mult = mult.times(5)
 
-        return mult//.times(0) // Make sure to slash out the .times()
+        return mult.times(0) // Make sure to slash out the .times()
     },
     gainExp() {
         return new Decimal(1)
