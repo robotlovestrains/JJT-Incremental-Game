@@ -26,6 +26,7 @@ addLayer("TFDRM", {
         mult = mult.times(buyableEffect(this.layer, 132))
         mult = mult.times(buyableEffect('UIPRM', 12))
         mult = mult.times(buyableEffect('FLNRM', 41)[1])
+        mult = mult.times(buyableEffect('TESRM', 11))
 
         return mult
     },
@@ -44,6 +45,7 @@ addLayer("TFDRM", {
     passiveGeneration() {
         let Gen = new Decimal(0)
         if(hasMilestone('TLGRM', 1)) Gen = Gen.add(0.25)
+        if(hasMilestone('XSTRM', 0)) Gen = Gen.add(player['XSTRM'].MEone)
         return Gen
     },
     infoboxes: {
@@ -54,7 +56,7 @@ addLayer("TFDRM", {
     },
     resetDescription: "Reset Skill For ",
     tabFormat: {
-        "Upgrades [reset]": {
+        "Upgrades": {
             content: [
                 ["infobox", 1],
                 "blank",
@@ -64,8 +66,6 @@ addLayer("TFDRM", {
                 ["display-text",
                     function() { return format(player[this.layer].RT)+' Reset Time has Past' },
                     { "color": "#464646", "font-size": "24px" }],
-                "blank",
-                "prestige-button",
                 "blank",
                 ["row", [["buyable", 11]]],
                 "blank",
@@ -111,9 +111,8 @@ addLayer("TFDRM", {
                 "blank",
                 ["row", [["buyable", 151]]],
             ],
-            unlocked() {return !hasMilestone('TLGRM', 1)},
         },
-        "Upgrades [no reset]": {
+        "Reset": {
             content: [
                 ["infobox", 1],
                 "blank",
@@ -127,51 +126,9 @@ addLayer("TFDRM", {
                     function() { return format(player[this.layer].RT)+' Reset Time has Past' },
                     { "color": "#464646", "font-size": "24px" }],
                 "blank",
-                ["row", [["buyable", 11]]],
-                "blank",
-                "blank",
-                ["row", [["buyable", 21]]],
-                "blank",
-                "blank",
-                ["row", [["buyable", 31], "blank", "blank", "blank", "blank", ["buyable", 32]]],
-                "blank",
-                "blank",
-                ["row", [["buyable", 41]]],
-                "blank",
-                "blank",
-                ["row", [["buyable", 51]]],
-                "blank",
-                "blank",
-                ["row", [["buyable", 61], "blank", "blank", "blank", "blank", ["buyable", 62]]],
-                "blank",
-                "blank",
-                ["row", [["buyable", 71], "blank", "blank", "blank", "blank", ["buyable", 72]]],
-                "blank",
-                "blank",
-                ["row", [["buyable", 81]]],
-                "blank",
-                "blank",
-                ["row", [["buyable", 91]]],
-                "blank",
-                "blank",
-                ["row", [["buyable", 101]]],
-                "blank",
-                "blank",
-                ["row", [["buyable", 111]]],
-                "blank",
-                "blank",
-                ["row", [["buyable", 121]]],
-                "blank",
-                "blank",
-                ["row", [["buyable", 131], "blank", "blank", "blank", "blank", ["buyable", 132]]],
-                "blank",
-                "blank",
-                ["row", [["buyable", 141]]],
-                "blank",
-                "blank",
-                ["row", [["buyable", 151]]],
+                "prestige-button",
             ],
-            unlocked() {return hasMilestone('TLGRM', 1)},
+            unlocked() {return !hasMilestone('TLGRM', 1) && player['XSTRM'].points.lt(5)},
         },
     },
     buyables: {
@@ -463,7 +420,7 @@ addLayer("TFDRM", {
             if(layers[this.layer].buyables[61].canAfford() && getBuyableAmount(this.layer, 61).lt(layers[this.layer].buyables[61].purchaseLimit)) {
                 layers[this.layer].buyables[61].buy()
             };
-            if(layers[this.layer].buyables[32].canAfford() && getBuyableAmount(this.layer, 62).lt(layers[this.layer].buyables[62].purchaseLimit)) {
+            if(layers[this.layer].buyables[62].canAfford() && getBuyableAmount(this.layer, 62).lt(layers[this.layer].buyables[62].purchaseLimit)) {
                 layers[this.layer].buyables[62].buy()
             };
             if(layers[this.layer].buyables[71].canAfford() && getBuyableAmount(this.layer, 71).lt(layers[this.layer].buyables[71].purchaseLimit)) {
@@ -471,6 +428,35 @@ addLayer("TFDRM", {
             };
             if(layers[this.layer].buyables[72].canAfford() && getBuyableAmount(this.layer, 72).lt(layers[this.layer].buyables[72].purchaseLimit)) {
                 layers[this.layer].buyables[72].buy()
+            };
+        }
+        if(hasMilestone('TLGRM', 7)) {
+            if(layers[this.layer].buyables[81].canAfford() && getBuyableAmount(this.layer, 81).lt(layers[this.layer].buyables[81].purchaseLimit)) {
+                layers[this.layer].buyables[81].buy()
+            };
+            if(layers[this.layer].buyables[91].canAfford() && getBuyableAmount(this.layer, 91).lt(layers[this.layer].buyables[91].purchaseLimit)) {
+                layers[this.layer].buyables[91].buy()
+            };
+            if(layers[this.layer].buyables[101].canAfford() && getBuyableAmount(this.layer, 101).lt(layers[this.layer].buyables[101].purchaseLimit)) {
+                layers[this.layer].buyables[101].buy()
+            };
+            if(layers[this.layer].buyables[111].canAfford() && getBuyableAmount(this.layer, 111).lt(layers[this.layer].buyables[111].purchaseLimit)) {
+                layers[this.layer].buyables[111].buy()
+            };
+            if(layers[this.layer].buyables[121].canAfford() && getBuyableAmount(this.layer, 121).lt(layers[this.layer].buyables[121].purchaseLimit)) {
+                layers[this.layer].buyables[121].buy()
+            };
+            if(layers[this.layer].buyables[131].canAfford() && getBuyableAmount(this.layer, 131).lt(layers[this.layer].buyables[131].purchaseLimit())) {
+                layers[this.layer].buyables[131].buy()
+            };
+            if(layers[this.layer].buyables[132].canAfford() && getBuyableAmount(this.layer, 132).lt(layers[this.layer].buyables[132].purchaseLimit())) {
+                layers[this.layer].buyables[132].buy()
+            };
+            if(layers[this.layer].buyables[141].canAfford() && getBuyableAmount(this.layer, 141).lt(layers[this.layer].buyables[141].purchaseLimit)) {
+                layers[this.layer].buyables[141].buy()
+            };
+            if(layers[this.layer].buyables[151].canAfford() && getBuyableAmount(this.layer, 151).lt(layers[this.layer].buyables[151].purchaseLimit)) {
+                layers[this.layer].buyables[151].buy()
             };
         }
     }
@@ -494,6 +480,7 @@ addLayer("TLGRM", {
     base: 10000,
     gainMult() {
         mult = new Decimal(1)
+
         return mult
     },
     gainExp() {
@@ -536,7 +523,7 @@ addLayer("TLGRM", {
         },
         1: {
             requirementDescription: "2 TLG",
-            effectDescription: "Unlock Ca$h also Autogain 25% of TFD/s and Remove it's Reset Button",
+            effectDescription: "Unlock Ca$h also Autogain 25% of TFD/s and Remove its Reset Button",
             done() { return player[this.layer].points.gte(2) },
             unlocked() {return hasMilestone(this.layer, this.id)},
         },
@@ -554,8 +541,39 @@ addLayer("TLGRM", {
         },
         4: {
             requirementDescription: "5 TLG",
-            effectDescription: "In Next Update",
+            effectDescription: "Unlock True Ease and Allow Both Upgrade FLN #7a and #7b to be Bought and Unlock a FLN Level",
             done() { return player[this.layer].points.gte(5) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        5: {
+            requirementDescription: "6 TLG",
+            effectDescription: "Unlock 'A' and MaxBuy the True Ease 1st Buyable",
+            done() { return player[this.layer].points.gte(6) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        6: {
+            requirementDescription: "7 TLG",
+            effectDescription: "Unlock ДА and Autogain 25% of UIP and Autoreset for Ca$h and Remove UIP's Reset Button",
+            done() { return player[this.layer].points.gte(7) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        7: {
+            requirementDescription: "8 TLG",
+            effectDescription: "Unlock Exist AutoBuy the Next 8 TFD Upgrade and first 5 Neg Upgrades and Row 1 UIP Buyables",
+            done() { return player[this.layer].points.gte(8) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        8: {
+            requirementDescription: "9 TLG",
+            effectDescription: "I would Like to add a Difficulty but this is the First Side and it has like nothing usefull so x1.5 Skil per TLG",
+            done() { return player[this.layer].points.gte(9) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+            tooltip() {return "x"+format(new Decimal(1.5).pow(player[this.layer].points))}
+        },
+        9: {
+            requirementDescription: "10 TLG",
+            effectDescription: "The End.. For Now",
+            done() { return player[this.layer].points.gte(10) },
             unlocked() {return hasMilestone(this.layer, this.id)},
         },
     },
@@ -570,7 +588,7 @@ addLayer("NEGRM", {
 		points: new Decimal(0),
         layerEffect: new Decimal(0),
     }},
-    color: "#3a0046",
+    color: "#92248F",
     requires: new Decimal(1e3),
     resource: "Negativity",
     baseResource: "Skill",
@@ -582,6 +600,7 @@ addLayer("NEGRM", {
 
         mult = mult.times(buyableEffect('UIPRM', 12))
         mult = mult.times(buyableEffect('FLNRM', 41)[2])
+        mult = mult.times(buyableEffect('TESRM', 11))
 
         return mult
     },
@@ -597,6 +616,7 @@ addLayer("NEGRM", {
     passiveGeneration() {
         let Gen = new Decimal(0)
         if(getBuyableAmount(this.layer, 51).gte(1)) Gen = Gen.add(0.1)
+        if(hasMilestone('XSTRM', 0)) Gen = Gen.add(player['XSTRM'].MEone)
         return Gen
     },
     infoboxes: {
@@ -613,7 +633,7 @@ addLayer("NEGRM", {
                 "blank",
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].points) + ' Negativity (Neg)' },
-                    { "color": "#3a0046", "font-size": "24px" }],
+                    { "color": "#92248F", "font-size": "24px" }],
                 ["display-text",
                     function() {
                         let text = '-' + format(player[this.layer].layerEffect) + ' Skill gain [1.5^cbrt(x) - 1] [after All effects unless specifed]'
@@ -621,9 +641,7 @@ addLayer("NEGRM", {
                         if(getBuyableAmount('TFDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) text = '+' + format(player[this.layer].layerEffect) + ' Skill gain [log25(x + 1) + 1] [after All effects unless specifed]'
                         return text
                     },
-                    { "color": "#3a0046", "font-size": "24px" }],
-                "blank",
-                "prestige-button",
+                    { "color": "#92248F", "font-size": "24px" }],
                 "blank",
                 ["row", [["buyable", 11]]],
                 "blank",
@@ -639,6 +657,26 @@ addLayer("NEGRM", {
                 "blank",
                 ["row", [["buyable", 51]]],
             ],
+        },
+        "Reset": {
+            content: [
+                ["infobox", 1],
+                "blank",
+                ["display-text",
+                    function() { return 'You have ' + format(player[this.layer].points) + ' Negativity (Neg)' },
+                    { "color": "#92248F", "font-size": "24px" }],
+                ["display-text",
+                    function() {
+                        let text = '-' + format(player[this.layer].layerEffect) + ' Skill gain [1.5^cbrt(x) - 1] [after All effects unless specifed]'
+                        if(getBuyableAmount(this.layer, 42).gte(1)) text = '-' + format(player[this.layer].layerEffect) + ' Skill gain [1.5^sqrt(x) - 1] [after All effects unless specifed]'
+                        if(getBuyableAmount('TFDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) text = '+' + format(player[this.layer].layerEffect) + ' Skill gain [log25(x + 1) + 1] [after All effects unless specifed]'
+                        return text
+                    },
+                    { "color": "#92248F", "font-size": "24px" }],,
+                "blank",
+                "prestige-button",
+            ],
+            unlocked() {return getBuyableAmount('NEGRM', 51).lt(1) && player['XSTRM'].points.lt(5)},
         },
     },
     buyables: {
@@ -731,6 +769,26 @@ addLayer("NEGRM", {
         if(getBuyableAmount(this.layer, 42).gte(1)) effect = new Decimal(-1).add(new Decimal(1.5).pow(player[this.layer].points.sqrt()));
         if(getBuyableAmount('TFDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) effect = player[this.layer].points.add(1).log(25).add(1);
         player[this.layer].layerEffect = effect;
+        if(hasMilestone('TLGRM', 7)) {
+            if(layers[this.layer].buyables[11].canAfford() && getBuyableAmount(this.layer, 11).lt(layers[this.layer].buyables[11].purchaseLimit)) {
+                layers[this.layer].buyables[11].buy()
+            };
+            if(layers[this.layer].buyables[21].canAfford() && getBuyableAmount(this.layer, 21).lt(layers[this.layer].buyables[21].purchaseLimit) && getBuyableAmount(this.layer, 11).gte(1)) {
+                layers[this.layer].buyables[21].buy()
+            };
+            if(layers[this.layer].buyables[31].canAfford() && getBuyableAmount(this.layer, 31).lt(layers[this.layer].buyables[31].purchaseLimit) && getBuyableAmount(this.layer, 21).gte(1)) {
+                layers[this.layer].buyables[31].buy()
+            };
+            if(layers[this.layer].buyables[41].canAfford() && getBuyableAmount(this.layer, 41).lt(layers[this.layer].buyables[41].purchaseLimit)) {
+                layers[this.layer].buyables[41].buy()
+            };
+            if(layers[this.layer].buyables[42].canAfford() && getBuyableAmount(this.layer, 42).lt(layers[this.layer].buyables[42].purchaseLimit)) {
+                layers[this.layer].buyables[42].buy()
+            };
+            if(layers[this.layer].buyables[51].canAfford() && getBuyableAmount(this.layer, 51).lt(layers[this.layer].buyables[51].purchaseLimit) && getBuyableAmount(this.layer, 41).gte(1) && getBuyableAmount(this.layer, 42).gte(1)) {
+                layers[this.layer].buyables[51].buy()
+            };
+        }
     },
 })
 
@@ -753,6 +811,8 @@ addLayer("CSHRM", {
     gainMult() {
         mult = new Decimal(1)
 
+        mult = mult.times(buyableEffect('TESRM', 11).pow(-1))
+
         return mult
     },
     gainExp() {
@@ -769,6 +829,11 @@ addLayer("CSHRM", {
             title: "Info About this layer",
             body() { return "Money Time [Row 1] (Brighter for visibility)" },
         },
+    },
+    autoPrestige() {
+        let auto = false
+        if(hasMilestone('TLGRM', 6)) auto = true
+        return auto
     },
     resetDescription: "Reset Skill For ",
     tabFormat: {
@@ -813,19 +878,20 @@ addLayer("CSHRM", {
         },
         2: {
             requirementDescription: "5 Ca$h",
-            effectDescription() {return "Ca$h Boosts Skill ($+1) and Unlock the Other TFD 16 Upgrade Effect: x"+format(player[this.layer].points.add(1))},
+            effectDescription() {return "Ca$h Boosts Skill ($+1) and Allow Both Upgrades TFD #16a and #16b to be Bought Effect: x"+format(player[this.layer].points.add(1))},
             done() { return player[this.layer].points.gte(5) },
         },
         3: {
             requirementDescription: "8 Ca$h",
             effectDescription() {return "Unlock Ca$h Buyables"},
             done() { return player[this.layer].points.gte(8) && hasMilestone('FLNRM', 1) },
+            unlocked() {return hasMilestone('FLNRM', 1)}
         },
     },
     buyables: {
         11: {
             title() {return "<h2>p2w</h2>"},
-            cost(x) { return new Decimal(4).times(new Decimal(2).pow(x.add(1).pow(0.1))) },
+            cost(x) { return new Decimal(4).times(new Decimal(2).pow(x.add(1).pow(0.1))).tetrate(x.add(1).pow(0.01)) },
             display() { return "<h2>+x0.5 Skill per level every 10 levels x1.1 Effect</h2><br><br><br><h2>Requires: "+format(this.cost())+" UIP</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             effect() { return new Decimal(0.5).times(getBuyableAmount(this.layer, this.id)).add(1).times(new Decimal(1.1).pow(new Decimal.floor(getBuyableAmount(this.layer, this.id).times(1/10)))) },
@@ -846,7 +912,7 @@ addLayer("UIPRM", {
         pointsB: new Decimal(0),
         pointsC: new Decimal(0),
     }},
-    color: "#630077",
+    color: "#580C72",
     requires: new Decimal(10e6),
     resource: "Unimpossible",
     baseResource: "Skill",
@@ -858,6 +924,7 @@ addLayer("UIPRM", {
 
         mult = mult.times(buyableEffect('FLNRM', 21))
         mult = mult.times(buyableEffect('FLNRM', 41)[3])
+        mult = mult.times(buyableEffect('TESRM', 11))
 
         return mult
     },
@@ -876,6 +943,12 @@ addLayer("UIPRM", {
             body() { return "- and some times double - [Row 1]" },
         },
     },
+    passiveGeneration() {
+        let Gen = new Decimal(0)
+        if(hasMilestone('TLGRM', 6)) Gen = Gen.add(0.25)
+        if(hasMilestone('XSTRM', 0)) Gen = Gen.add(player['XSTRM'].MEone)
+        return Gen
+    },
     prestigeButtonText() {return "Reset Skill For +"+format(getResetGain(this.layer))+" Unimpossible, +"+format(getResetGain(this.layer).sqrt())+" Almost Unimpossible and +"+format(getResetGain(this.layer).cbrt())+" Ununpossable<br><br> Next at "+format(getNextAt(this.layer))+" Skill"},
     onPrestige(gain) {
         player[this.layer].pointsB = player[this.layer].pointsB.add(getResetGain(this.layer).sqrt())
@@ -888,18 +961,34 @@ addLayer("UIPRM", {
                 "blank",
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].points) + ' Unimpossible (UIP)' },
-                    { "color": "#630077", "font-size": "24px" }],
+                    { "color": "#580C72", "font-size": "24px" }],
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].pointsB) + ' Almost Unimpossible (AUI)' },
-                    { "color": "#630077", "font-size": "24px" }],
+                    { "color": "#580C72", "font-size": "24px" }],
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].pointsC) + ' Ununpossable (UUP)' },
-                    { "color": "#630077", "font-size": "24px" }],
-                "blank",
-                "prestige-button",
+                    { "color": "#580C72", "font-size": "24px" }],
                 "blank",
                 "buyables",
             ],
+        },
+        "Reset": {
+            content: [
+                ["infobox", 1],
+                "blank",
+                ["display-text",
+                    function() { return 'You have ' + format(player[this.layer].points) + ' Unimpossible (UIP)' },
+                    { "color": "#580C72", "font-size": "24px" }],
+                ["display-text",
+                    function() { return 'You have ' + format(player[this.layer].pointsB) + ' Almost Unimpossible (AUI)' },
+                    { "color": "#580C72", "font-size": "24px" }],
+                ["display-text",
+                    function() { return 'You have ' + format(player[this.layer].pointsC) + ' Ununpossable (UUP)' },
+                    { "color": "#580C72", "font-size": "24px" }],
+                "blank",
+                "prestige-button",
+            ],
+            unlocked() {return !hasMilestone('TLGRM', 6) && player['XSTRM'].points.lt(5)},
         },
     },
     buyables: {
@@ -940,10 +1029,27 @@ addLayer("UIPRM", {
             purchaseLimit: new Decimal(100),
         },
     },
+    automate() {
+        if(hasMilestone('TLGRM', 6)) {
+            player[this.layer].pointsB = player[this.layer].pointsB.add(getResetGain(this.layer).sqrt());
+        player[this.layer].pointsC = player[this.layer].pointsC.add(getResetGain(this.layer).cbrt());
+        };
+        if(hasMilestone('TLGRM', 7)) {
+            if(layers[this.layer].buyables[11].canAfford() && getBuyableAmount(this.layer, 11).lt(layers[this.layer].buyables[11].purchaseLimit)) {
+                layers[this.layer].buyables[11].buy()
+            };
+            if(layers[this.layer].buyables[12].canAfford() && getBuyableAmount(this.layer, 12).lt(layers[this.layer].buyables[12].purchaseLimit)) {
+                layers[this.layer].buyables[12].buy()
+            };
+            if(layers[this.layer].buyables[13].canAfford() && getBuyableAmount(this.layer, 13).lt(layers[this.layer].buyables[13].purchaseLimit)) {
+                layers[this.layer].buyables[13].buy()
+            };
+        }
+    },
 })
 
 addLayer("FLNRM", {
-    name: "FLN",
+    name: "Friendliness",
     symbol: "FLN",
     position: 4,
     startData() { return {
@@ -953,9 +1059,9 @@ addLayer("FLNRM", {
         BUpgrades: new Decimal(0),
         LvReq: new Decimal(100e3),
     }},
-    color: "#7eb474",
+    color: "#cecece",
     requires: new Decimal(1e9),
-    resource: "FLN",
+    resource: "Friendliness",
     baseResource: "Skill",
     baseAmount() {return player.points},
     type: "normal",
@@ -965,6 +1071,7 @@ addLayer("FLNRM", {
 
         mult = mult.times(buyableEffect(this.layer, 41)[4])
         mult = mult.times(buyableEffect(this.layer, 61))
+        mult = mult.times(buyableEffect('TESRM', 11))
 
         return mult
     },
@@ -976,6 +1083,11 @@ addLayer("FLNRM", {
         let vis = false
         if(hasMilestone('TLGRM', 3)) vis = true
         return vis
+    },
+    passiveGeneration() {
+        let Gen = new Decimal(0)
+        if(hasMilestone('XSTRM', 0)) Gen = Gen.add(player['XSTRM'].MEone)
+        return Gen
     },
     infoboxes: {
         1: {
@@ -995,9 +1107,7 @@ addLayer("FLNRM", {
                 "blank",
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].points) + ' FLN (FLN)' },
-                    { "color": "#7eb474", "font-size": "24px" }],
-                "blank",
-                "prestige-button",
+                    { "color": "#00ff00", "font-size": "24px" }],
                 "blank",
                 ["row", [["buyable", 11]]],
                 "blank",
@@ -1033,6 +1143,18 @@ addLayer("FLNRM", {
                 "milestones",
             ],
             unlocked() {return getBuyableAmount('FLNRM', 51).gte(1)}
+        },
+        "Reset": {
+            content: [
+                ["infobox", 2],
+                "blank",
+                ["display-text",
+                    function() { return 'You have ' + format(player[this.layer].points) + ' FLN (FLN)' },
+                    { "color": "#00ff00", "font-size": "24px" }],
+                "blank",
+                "prestige-button",
+            ],
+            unlocked() {return player['XSTRM'].points.lt(5)}
         },
     },
     clickables: {
@@ -1143,8 +1265,8 @@ addLayer("FLNRM", {
         71: {
             title() {return "<h2>FLN #7a</h2>"},
             cost(x) { return new Decimal(250e3) },
-            display() { return "<h2>x10 Skill</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
-            canAfford() { return player[this.layer].points.gte(this.cost()) && (getBuyableAmount(this.layer, 72).lt(1)) },
+            display() { return "<h2>x10 Skill and Lock #7a</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
+            canAfford() { return player[this.layer].points.gte(this.cost()) && (getBuyableAmount(this.layer, 72).lt(1) || hasMilestone('TLGRM', 4)) },
             effect() { return getBuyableAmount(this.layer, this.id).times(9).add(1) },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())
@@ -1158,8 +1280,8 @@ addLayer("FLNRM", {
         72: {
             title() {return "<h2>FLN #7b</h2>"},
             cost(x) { return new Decimal(250e3) },
-            display() { return "<h2>+5 levels to TFD #16a and #16b</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2>" },
-            canAfford() { return player[this.layer].points.gte(this.cost()) && (getBuyableAmount(this.layer, 71).lt(1)) },
+            display() { return "<h2>+5 levels to TFD #16a and #16b and Lock #7a</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2>" },
+            canAfford() { return player[this.layer].points.gte(this.cost()) && (getBuyableAmount(this.layer, 71).lt(1) || hasMilestone('TLGRM', 4)) },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
@@ -1181,8 +1303,456 @@ addLayer("FLNRM", {
             effectDescription: "Unlock More Ca$h Milestones",
             done() { return player[this.layer].level.gte(2) },
         },
+        2: {
+            requirementDescription: "Level 3",
+            effectDescription() {return "10^(FLN level) Boost Skill Effect: x"+format(new Decimal(10).pow(player[this.layer].level))},
+            done() { return player[this.layer].level.gte(3) && hasMilestone('TLGRM', 4) },
+            unlocked() {return hasMilestone('TLGRM', 4)}
+        },
     },
     automate() {
         player[this.layer].LvReq = new Decimal(100e3).times(new Decimal(50).pow(player[this.layer].level).add(1));
+        if(hasMilestone('XSTRM', 1)) {
+            if(layers[this.layer].buyables[11].canAfford() && getBuyableAmount(this.layer, 11).lt(layers[this.layer].buyables[11].purchaseLimit)) {
+                layers[this.layer].buyables[11].buy()
+            };
+            if(layers[this.layer].buyables[21].canAfford() && getBuyableAmount(this.layer, 21).lt(layers[this.layer].buyables[21].purchaseLimit)) {
+                layers[this.layer].buyables[21].buy()
+            };
+            if(layers[this.layer].buyables[31].canAfford() && getBuyableAmount(this.layer, 31).lt(layers[this.layer].buyables[31].purchaseLimit)) {
+                layers[this.layer].buyables[31].buy()
+            };
+            if(layers[this.layer].buyables[41].canAfford() && getBuyableAmount(this.layer, 41).lt(layers[this.layer].buyables[41].purchaseLimit)) {
+                layers[this.layer].buyables[41].buy()
+            };
+            if(layers[this.layer].buyables[51].canAfford() && getBuyableAmount(this.layer, 51).lt(layers[this.layer].buyables[51].purchaseLimit)) {
+                layers[this.layer].buyables[51].buy()
+            };
+        }
+        if(hasMilestone('XSTRM', 3) && player[this.layer].points.gte(player[this.layer].LvReq)) {
+            player[this.layer].points = new Decimal(0)
+            player[this.layer].level = player[this.layer].level.add(1)
+            player[this.layer].BUpgrades = new Decimal(0)
+            addBuyables(this.layer, 11, -1)
+            addBuyables(this.layer, 21, -1)
+            addBuyables(this.layer, 31, -1)
+            addBuyables(this.layer, 41, -1)
+            addBuyables(this.layer, 51, -1)
+        };
+    },
+})
+
+addLayer("TESRM", {
+    name: "True Ease",
+    symbol: "TES",
+    position: 5,
+    startData() { return {
+        unlocked: true,
+		points: new Decimal(0),
+    }},
+    color: "#cecece",
+    requires: new Decimal(100e9),
+    resource: "True Ease",
+    baseResource: "Skill",
+    baseAmount() {return player.points},
+    type: "normal",
+    exponent: 0.5,
+    gainMult() {
+        mult = new Decimal(1)
+
+        mult = mult.times(buyableEffect('TESRM', 11))
+
+        return mult
+    },
+    gainExp() {
+        return new Decimal(1)
+    },
+    row: 0,
+    layerShown() {
+        let vis = false
+        if(hasMilestone('TLGRM', 4)) vis = true
+        return vis
+    },
+    passiveGeneration() {
+        let Gen = new Decimal(0)
+        if(hasMilestone('XSTRM', 0)) Gen = Gen.add(player['XSTRM'].MEone)
+        return Gen
+    },
+    infoboxes: {
+        1: {
+            title: "Info About this layer",
+            body() { return "Friends [Row 1]" },
+        },
+    },
+    resetDescription: "Reset Skill For ",
+    tabFormat: {
+        "Buyables": {
+            content: [
+                ["infobox", 1],
+                "blank",
+                ["display-text",
+                    function() { return 'You have ' + format(player[this.layer].points) + ' True Ease (TES)' },
+                    { "color": "#cecece", "font-size": "24px" }],
+                "blank",
+                "buyables",
+            ],
+        },
+        "Reset": {
+            content: [
+                ["infobox", 1],
+                "blank",
+                ["display-text",
+                    function() { return 'You have ' + format(player[this.layer].points) + ' True Ease (TES)' },
+                    { "color": "#cecece", "font-size": "24px" }],
+                "blank",
+                "prestige-button",
+            ],
+            unlocked() {return player['XSTRM'].points.lt(5)}
+        },
+    },
+    buyables: {
+        11: {
+            title() {return "<h2>Mega Booster I</h2>"},
+            cost(x) { return new Decimal(0.2).times(new Decimal(5).pow(x.add(1).pow(0.25))).tetrate(x.add(1).pow(0.1)) },
+            display() { return "<h3>Boost all Non-Static layers (to this Point) by x1.01 per level and Devide all Static layers (to this Point exsept TLG) Requirments by /1.01 (also Points doesn't Count)</h3><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+" and /"+format(this.effect())+"</h3><br>"+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit) },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            effect() { return new Decimal(1.01).pow(getBuyableAmount(this.layer, this.id)) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                if(hasMilestone('TLGRM', 5) && player[this.layer].points.gte(this.cost())){
+                    this.buy();
+                }
+            },
+            purchaseLimit: 250,
+        },
+    },
+    automate() {
+        if(hasMilestone('XSTRM', 1)) {
+            if(layers[this.layer].buyables[11].canAfford() && getBuyableAmount(this.layer, 11).lt(layers[this.layer].buyables[11].purchaseLimit)) {
+                layers[this.layer].buyables[11].buy()
+            };
+        }
+    },
+})
+
+addLayer("ARM", {
+    name: "A",
+    symbol: "A",
+    position: 6,
+    startData() { return {
+        unlocked: true,
+		points: new Decimal(0),
+    }},
+    color: "#ff0000",
+    requires: new Decimal(10e12),
+    resource: "A",
+    baseResource: "Skill",
+    baseAmount() {return player.points},
+    type: "normal",
+    exponent: 0.5,
+    gainMult() {
+        mult = new Decimal(1)
+
+        return mult
+    },
+    gainExp() {
+        return new Decimal(1)
+    },
+    row: 0,
+    layerShown() {
+        let vis = false
+        if(hasMilestone('TLGRM', 5)) vis = true
+        return vis
+    },
+    infoboxes: {
+        1: {
+            title: "Info About this layer",
+            body() { return "Alphabet [Row 1]" },
+        },
+    },
+    passiveGeneration() {
+        let Gen = new Decimal(0)
+        if(hasMilestone('ДARM', 0)) Gen = Gen.add(0.25)
+        if(hasMilestone('XSTRM', 0)) Gen = Gen.add(player['XSTRM'].MEone)
+        return Gen
+    },
+    resetDescription: "Reset Skill For ",
+    tabFormat: {
+        "Buyables": {
+            content: [
+                ["infobox", 1],
+                "blank",
+                ["display-text",
+                    function() { return 'You have ' + format(player[this.layer].points) + " 'A'" },
+                    { "color": "#ffff00", "font-size": "24px" }],
+                "blank",
+                ["display-text",
+                    function() { return 'To Unlock the Next Buyable you Need atleast 10 of the Prev Buyable' },
+                    { "color": "#ffff00", "font-size": "24px" }],
+                "buyables",
+            ],
+        },
+        "Reset": {
+            content: [
+                ["infobox", 1],
+                "blank",
+                ["display-text",
+                    function() { return 'You have ' + format(player[this.layer].points) + " 'A'" },
+                    { "color": "#ffff00", "font-size": "24px" }],
+                "blank",
+                "prestige-button",
+            ],
+            unlocked() {return !hasMilestone('ДARM', 0) && player['XSTRM'].points.lt(5)}
+        },
+    },
+    buyables: {
+        11: {
+            title() {return "<h2>A</h2>"},
+            cost(x) { return new Decimal(0.5).times(new Decimal(2).pow(x.add(1).pow(0.25))).tetrate(x.add(1).pow(0.1)) },
+            display() { return "<h3>Add +0.01 Base Skill Gain per level</h3><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: +"+format(this.effect())+"</h3>" },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            effect() { return getBuyableAmount(this.layer, this.id).times(new Decimal(0.01)) },
+            buy() {
+                if(!hasMilestone('ДARM', 1)) player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+        },
+        12: {
+            title() {return "<h2>B</h2>"},
+            cost(x) { return new Decimal(25).times(new Decimal(2).pow(x.add(1).pow(0.25))).tetrate(x.add(1).pow(0.1)) },
+            display() { return "<h3>Boost Skill Based on 'A'</h3><br><h2>('A' + 1)^(buyable Amount x 0.025)</h2><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3><br>"+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit) },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            effect() { return player[this.layer].points.add(1).pow(getBuyableAmount(this.layer, this.id).times(0.025)) },
+            buy() {
+                if(!hasMilestone('ДARM', 1)) player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: 25,
+            unlocked() {return getBuyableAmount(this.layer, 11).gte(10)}
+        },
+        13: {
+            title() {return "<h2>C</h2>"},
+            cost(x) { return new Decimal(1.5e6).times(new Decimal(2).pow(x.add(1).pow(0.25))).tetrate(x.add(1).pow(0.01)) },
+            display() { return "<h3>Cool Boost Total Buyables (in this layer) and this buyable is counted 5 times boost Skill</h3><br><h2>log25(Buyables x 5 + 1)</h2><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            effect() { return getBuyableAmount(this.layer, 11).add(getBuyableAmount(this.layer, 12)).add(getBuyableAmount(this.layer, this.id).times(5)).add(getBuyableAmount(this.layer, 14)).times(5).add(1).log(25) },
+            buy() {
+                if(!hasMilestone('ДARM', 1)) player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            unlocked() {return getBuyableAmount(this.layer, 12).gte(10)}
+        },
+        14: {
+            title() {return "<h2>D</h2>"},
+            cost(x) { return new Decimal(500e6).times(new Decimal(2).pow(x.add(1).pow(0.25))).tetrate(x.add(1).pow(0.01)) },
+            display() { return "<h3>Doesn't Have an Effect</h3><br><h2>x1 Skill</h2><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            effect() { return new Decimal(1).pow(getBuyableAmount(this.layer, this.id)) },
+            buy() {
+                if(!hasMilestone('ДARM', 1)) player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            unlocked() {return getBuyableAmount(this.layer, 13).gte(10)}
+        },
+        21: {
+            title() {return "<h2>E</h2>"},
+            cost(x) { return new Decimal(1e1000) },
+            display() { return "<h3>???</h3><br><h2>x1 Skill</h2><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            effect() { return new Decimal(1).pow(getBuyableAmount(this.layer, this.id)) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            unlocked() {return getBuyableAmount(this.layer, 14).gte(10)}
+        },
+    },
+    automate() {
+        if(hasMilestone('XSTRM', 1)) {
+            if(layers[this.layer].buyables[11].canAfford() && getBuyableAmount(this.layer, 11).lt(layers[this.layer].buyables[11].purchaseLimit)) {
+                layers[this.layer].buyables[11].buy()
+            };
+            if(layers[this.layer].buyables[12].canAfford() && getBuyableAmount(this.layer, 12).lt(layers[this.layer].buyables[12].purchaseLimit)) {
+                layers[this.layer].buyables[12].buy()
+            };
+            if(layers[this.layer].buyables[13].canAfford() && getBuyableAmount(this.layer, 13).lt(layers[this.layer].buyables[13].purchaseLimit)) {
+                layers[this.layer].buyables[13].buy()
+            };
+            if(layers[this.layer].buyables[14].canAfford() && getBuyableAmount(this.layer, 14).lt(layers[this.layer].buyables[14].purchaseLimit)) {
+                layers[this.layer].buyables[14].buy()
+            };
+        }
+    },
+})
+
+addLayer("ДARM", {
+    name: "Felix the ДА",
+    symbol: "ДА",
+    position: 7,
+    startData() { return {
+        unlocked: true,
+		points: new Decimal(0),
+    }},
+    color: "#00ff00",
+    requires: new Decimal(10e9),
+    resource: "ДА",
+    baseResource: "'A'",
+    baseAmount() {return player['ARM'].points},
+    type: "static",
+    exponent: 0.5,
+    gainMult() {
+        mult = new Decimal(1)
+
+        return mult
+    },
+    gainExp() {
+        return new Decimal(1)
+    },
+    row: 0,
+    layerShown() {
+        let vis = false
+        if(hasMilestone('TLGRM', 6)) vis = true
+        return vis
+    },
+    infoboxes: {
+        1: {
+            title: "Info About this layer",
+            body() { return "Alphabet [Row 1]" },
+        },
+    },
+    onPrestige(gain) {
+        player['ARM'].points = new Decimal(0)
+    },
+    resetNothing: true,
+    resetDescription: "Reset 'A' (not Buyables) For ",
+    tabFormat: {
+        "Milestones": {
+            content: [
+                ["infobox", 1],
+                "blank",
+                ["display-text",
+                    function() { return 'You have ' + format(player[this.layer].points) + ' ДА' },
+                    { "color": "#ffffff", "font-size": "24px" }],
+                "blank",
+                "prestige-button",
+                "blank",
+                "milestones",
+            ],
+        },
+    },
+    milestones: {
+        0: {
+            requirementDescription: "1 ДА",
+            effectDescription: "AutoGain 25% of 'A'",
+            done() { return player[this.layer].points.gte(1) },
+        },
+        1: {
+            requirementDescription: "2 ДА",
+            effectDescription: "row 1 'A' Buyables Cost Nothing",
+            done() { return player[this.layer].points.gte(2) },
+            unlocked() {return hasMilestone(this.layer, 0)},
+        },
+    },
+})
+
+addLayer("XSTRM", {
+    name: "Exist",
+    symbol: "XST",
+    position: 8,
+    startData() { return {
+        unlocked: true,
+		points: new Decimal(0),
+        MEone: new Decimal(0)
+    }},
+    color: "#cecece",
+    requires: new Decimal(100e15),
+    resource: "Exist",
+    baseResource: "Skill",
+    baseAmount() {return player.points},
+    type: "static",
+    exponent: 0.55,
+    base: 10,
+    gainMult() {
+        mult = new Decimal(1)
+
+        return mult
+    },
+    gainExp() {
+        return new Decimal(1)
+    },
+    row: 0,
+    layerShown() {
+        let vis = false
+        if(hasMilestone('TLGRM', 7)) vis = true
+        return vis
+    },
+    infoboxes: {
+        1: {
+            title: "Info About this layer",
+            body() { return "Big Layer [Row 1]" },
+        },
+    },
+    resetDescription: "Reset Skill For ",
+    tabFormat: {
+        "Milestones": {
+            content: [
+                ["infobox", 1],
+                "blank",
+                ["display-text",
+                    function() { return 'You have ' + format(player[this.layer].points) + ' Exist' },
+                    { "color": "#cecece", "font-size": "24px" }],
+                "blank",
+                "prestige-button",
+                "blank",
+                "milestones",
+            ],
+        },
+    },
+    milestones: {
+        0: {
+            requirementDescription: "1 Exist",
+            effectDescription: "AutoGain +0(5% x Exist)/s of Other Layer (to this Point exsept TLG and Non-Static layers) and at +25%/s Remove thier Reset Buttons [SoftCap: +100%/s, +250%/s and HardCap: +500%/s]",
+            done() { return player[this.layer].points.gte(1) },
+            tooltip() {return "+"+format(player[this.layer].MEone.times(100))+"%/s"},
+        },
+        1: {
+            requirementDescription: "5 Exist",
+            effectDescription: "AutoBuy the First 5 FLN Upgrade and First True Ease Buyable",
+            done() { return player[this.layer].points.gte(5) },
+            unlocked() {return hasMilestone(this.layer, 0)},
+        },
+        2: {
+            requirementDescription: "75 Exist",
+            effectDescription: "AutoBuy row 1 'A' Buyables",
+            done() { return player[this.layer].points.gte(75) },
+            unlocked() {return hasMilestone(this.layer, 1)},
+        },
+        3: {
+            requirementDescription: "150 Exist",
+            effectDescription: "AutoReset For FLNLV",
+            done() { return player[this.layer].points.gte(150) },
+            unlocked() {return hasMilestone(this.layer, 2)},
+        },
+    },
+    automate() {
+        if(hasMilestone(this.layer, 0)) {
+            if(player[this.layer].MEone = player[this.layer].points.times(0.05).lte(1)) {
+                player[this.layer].MEone = player[this.layer].points.times(0.05)
+            }
+            else {
+                if(player[this.layer].MEone = player[this.layer].points.times(0.05).sqrt().lte(2.5)) {
+                    player[this.layer].MEone = player[this.layer].points.times(0.05).sqrt()
+                }
+                else {
+                    if(player[this.layer].MEone = player[this.layer].points.times(0.05).sqrt().add(-1.5).cbrt().add(1.5).lte(5)) {
+                        player[this.layer].MEone = player[this.layer].points.times(0.05).sqrt().add(-1.5).cbrt().add(1.5)
+                    }
+                    else {
+                        player[this.layer].MEone = new Decimal(5)
+                    };
+                };
+            };
+        };
     },
 })

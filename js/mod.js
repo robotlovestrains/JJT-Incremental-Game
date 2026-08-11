@@ -20,11 +20,17 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "Alpha3.1",
-	name: "Brr Fixes",
+	num: "Alpha4.0",
+	name: "Existence",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>vAlpha4.0 Existence</h3><br>
+		- Added more Content<br>
+		- Changed Some layers Colors<br>
+		- Canged where the Reset button is (for some layers)<br>
+		EndGame: 10 TLG<br>
+		<br>
 	<h3>vAlpha3.1 Brr Fixes</h3><br>
 		- Fixed the Endgame<br>
 		- Fixed a Milestone<br>
@@ -420,8 +426,9 @@ function getPointGen() {
 		modInfo.pointsName = "Skill"
 	}
 
-	if(getBuyableAmount('TFDRM', 141).gte(1)) gain = gain.add(player["NEGRM"].layerEffect)
-	if(hasMilestone('CSHRM', 1) || hasMilestone('TLGRM', 2)) gain = gain.add(new Decimal(player[this.layer].milestones.length).times(1/3))
+	if(getBuyableAmount('TFDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) gain = gain.add(player["NEGRM"].layerEffect)
+	if(hasMilestone('CSHRM', 1)) gain = gain.add(new Decimal(player[this.layer].milestones.length).times(1/3))
+	gain = gain.add(buyableEffect('ARM', 11))
 
 	gain = gain.times(buyableEffect('TFDRM', 11))
 	gain = gain.times(buyableEffect('TFDRM', 21))
@@ -448,11 +455,15 @@ function getPointGen() {
 	gain = gain.times(buyableEffect('FLNRM', 31))
 	gain = gain.times(buyableEffect('FLNRM', 71))
 	gain = gain.times(buyableEffect('CSHRM', 11))
+	gain = gain.times(new Decimal(10).pow(player['FLNRM'].level))
+	gain = gain.times(buyableEffect('ARM', 12))
+	if(getBuyableAmount('ARM', 13).gte(1))  gain = gain.times(buyableEffect('ARM', 13))
+	if(hasMilestone('TLGRM', 8)) gain = gain.times(new Decimal(1.5).pow(player['TLGRM'].points))
 
 	gain = gain.add(player["NEGRM"].layerEffect.times(-1))
 	if(getBuyableAmount('TFDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) gain = gain.add(player["NEGRM"].layerEffect)
 
-	if(gain < 1) gain = new Decimal(1)
+	if(gain < new Decimal(1)) gain = new Decimal(1)
 
 	//Misc
 	player['HalloweenLevel'].MainEffectA = hasMilestone('HalloweenLevel', 1) //remove after halloween event
@@ -471,7 +482,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return hasMilestone('TLG', 4)
+	return hasMilestone('TLGRM', 9)
 }
 
 
