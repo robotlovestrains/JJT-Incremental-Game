@@ -20,11 +20,17 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "Alpha4.0",
-	name: "Existence",
+	num: "Alpha5.0",
+	name: "Win Part 1",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>vAlpha5.0 Win Part 1</h3><br>
+		- Added more Content<br>
+		- Make Some Changes<br>
+		- Removed the halloween event fixer<br>
+		EndGame: 3 ITW<br>
+		<br>
 	<h3>vAlpha4.0 Existence</h3><br>
 		- Added more Content<br>
 		- Changed Some layers Colors<br>
@@ -459,6 +465,22 @@ function getPointGen() {
 	gain = gain.times(buyableEffect('ARM', 12))
 	if(getBuyableAmount('ARM', 13).gte(1))  gain = gain.times(buyableEffect('ARM', 13))
 	if(hasMilestone('TLGRM', 8)) gain = gain.times(new Decimal(1.5).pow(player['TLGRM'].points))
+	gain = gain.times(buyableEffect('ARM', 21))
+	gain = gain.times(buyableEffect('IFDRM', 41))
+	if(hasMilestone('IFTRM', 1)) gain = gain.times(10e3)
+	gain = gain.times(buyableEffect('TFDRM', 1011))
+	gain = gain.times(buyableEffect('TFDRM', 1021))
+	gain = gain.times(buyableEffect('TFDRM', 1031))
+	gain = gain.times(buyableEffect('TFDRM', 1032))
+	gain = gain.times(buyableEffect('TFDRM', 1041))
+	gain = gain.times(buyableEffect('TFDRM', 1071))
+	gain = gain.times(buyableEffect('TFDRM', 1072))
+	gain = gain.times(buyableEffect('TFDRM', 1081))
+	gain = gain.times(buyableEffect('TFDRM', 1091))
+	gain = gain.times(buyableEffect('TFDRM', 1101))
+
+	if(inChallenge('ITWRM', 11)) gain = gain.pow(0.5)
+	if(inChallenge('ITWRM', 12)) gain = gain.pow(0.33)
 
 	gain = gain.add(player["NEGRM"].layerEffect.times(-1))
 	if(getBuyableAmount('TFDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) gain = gain.add(player["NEGRM"].layerEffect)
@@ -466,7 +488,6 @@ function getPointGen() {
 	if(gain < new Decimal(1)) gain = new Decimal(1)
 
 	//Misc
-	player['HalloweenLevel'].MainEffectA = hasMilestone('HalloweenLevel', 1) //remove after halloween event
 	if(player['HalloweenLevel'].MainEffectA) gain = gain.times(10)
 
 	return gain
@@ -482,7 +503,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return hasMilestone('TLGRM', 9)
+	//return hasMilestone('TLGRM', 9)
 }
 
 
