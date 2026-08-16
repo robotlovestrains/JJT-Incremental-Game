@@ -503,7 +503,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	//return hasMilestone('TLGRM', 9)
+	return hasMilestone('ITWRM', 2)
 }
 
 
