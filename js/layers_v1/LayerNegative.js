@@ -268,6 +268,7 @@ addLayer("TFD", {
     deactivated() {
         let inactive = false
         if(hasMilestone('TLG', 16)) inactive = true
+        if(hasUpgrade('BSG', 11)) inactive = true
         return inactive
     },
 })
@@ -437,6 +438,7 @@ addLayer("TLG", {
         let notlocked = false
         if(hasMilestone('TFD', 2)) notlocked = true
         if(hasMilestone("TLG", 0)) notlocked = true
+        if(hasUpgrade('BSG', 11)) inactive = true
         return notlocked
     },
 })
@@ -619,6 +621,7 @@ addLayer("Neg", {
         let inactive = true
         if(hasMilestone('TLG', 0)) inactive = false
         if(hasMilestone('TLG', 16)) inactive = true
+        if(hasUpgrade('BSG', 11)) inactive = true
         return inactive
     },
 })
@@ -785,6 +788,7 @@ addLayer("UIP", {
         let inactive = true
         if(hasMilestone("TLG", 1)) inactive = false
         if(hasMilestone('TLG', 16)) inactive = true
+        if(hasUpgrade('BSG', 11)) inactive = true
         return inactive
     },
 })
@@ -988,6 +992,7 @@ addLayer("$", {
         let inactive = true
         if(hasMilestone("TLG", 2)) inactive = false
         if(hasMilestone('TLG', 16)) inactive = true
+        if(hasUpgrade('BSG', 11)) inactive = true
         return inactive
     },
 })
@@ -1267,6 +1272,7 @@ addLayer("FLN", {
         let inactive = true
         if(hasMilestone("TLG", 3)) inactive = false
         if(hasMilestone('TLG', 16)) inactive = true
+        if(hasUpgrade('BSG', 11)) inactive = true
         return inactive
     },
 })
@@ -1441,6 +1447,7 @@ addLayer("TES", {
         let inactive = true
         if(hasMilestone("TLG", 4)) inactive = false
         if(hasMilestone('TLG', 16)) inactive = true
+        if(hasUpgrade('BSG', 11)) inactive = true
         return inactive
     },
 })
@@ -1741,6 +1748,7 @@ addLayer("A", {
         let inactive = true
         if(hasMilestone("TLG", 5)) inactive = false
         if(hasMilestone('TLG', 16)) inactive = true
+        if(hasUpgrade('BSG', 11)) inactive = true
         return inactive
     },
 })
@@ -1958,6 +1966,7 @@ addLayer("ДА", {
         let inactive = true
         if(hasMilestone("TLG", 6)) inactive = false
         if(hasMilestone('TLG', 16)) inactive = true
+        if(hasUpgrade('BSG', 11)) inactive = true
         return inactive
     },
 })
@@ -2142,6 +2151,7 @@ addLayer("XST", {
         let inactive = true
         if(hasMilestone("TLG", 7)) inactive = false
         if(hasMilestone('TLG', 16)) inactive = true
+        if(hasUpgrade('BSG', 11)) inactive = true
         return inactive
     },
 })
@@ -2274,6 +2284,7 @@ addLayer("RAX", {
         let inactive = true
         if(hasMilestone("TLG", 8)) inactive = false
         if(hasMilestone('TLG', 16)) inactive = true
+        if(hasUpgrade('BSG', 11)) inactive = true
         return inactive
     },
 })
@@ -2402,6 +2413,7 @@ addLayer("SKIP", {
         let inactive = true
         if(hasMilestone("TLG", 9)) inactive = false
         if(hasMilestone('TLG', 16)) inactive = true
+        if(hasUpgrade('BSG', 11)) inactive = true
         return inactive
     },
 })
@@ -2550,6 +2562,7 @@ addLayer("MULTI", {
         let inactive = true
         if(hasMilestone("TLG", 10)) inactive = false
         if(hasMilestone('TLG', 16)) inactive = true
+        if(hasUpgrade('BSG', 11)) inactive = true
         return inactive
     },
 })
@@ -2646,6 +2659,7 @@ addLayer("RSF", {
     deactivated() {
         let inactive = true
         if(hasMilestone("TLG", 11)) inactive = false
+        if(hasUpgrade('BSG', 11)) inactive = true
         return inactive
     },
 })
@@ -2730,6 +2744,7 @@ addLayer("IF.", {
         let inactive = true
         if(hasMilestone("TLG", 12)) inactive = false
         if(hasMilestone('TLG', 16)) inactive = true
+        if(hasUpgrade('BSG', 11)) inactive = true
         return inactive
     },
 })
@@ -2811,6 +2826,7 @@ addLayer("IFS", {
         let inactive = true
         if(hasMilestone("TLG", 13)) inactive = false
         if(hasMilestone('TLG', 16)) inactive = true
+        if(hasUpgrade('BSG', 11)) inactive = true
         return inactive
     },
 })
@@ -2904,6 +2920,7 @@ addLayer("IFT", {
         let inactive = true
         if(hasMilestone("TLG", 14)) inactive = false
         if(hasMilestone('TLG', 16)) inactive = true
+        if(hasUpgrade('BSG', 11)) inactive = true
         return inactive
     },
 })
@@ -3084,6 +3101,7 @@ addLayer("ITW", {
         let inactive = true
         if(hasMilestone("TLG", 15)) inactive = false
         if(hasMilestone('TLG', 16)) inactive = true
+        if(hasUpgrade('BSG', 11)) inactive = true
         return inactive
     },
 })

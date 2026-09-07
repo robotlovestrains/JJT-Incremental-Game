@@ -9,6 +9,7 @@ let modInfo = {
 		"layers_extra/MiniGame.js",
 		"layers_extra/EventOne.js",
 		"layers_v2/ClassNegative.js",
+		"layers_extra/MiscLayers.js",
 		"tree.js",
 	],
 
@@ -18,13 +19,26 @@ let modInfo = {
 	offlineLimit: 1,  // In hours
 }
 
-// Set your version in num and name
+// Set your version num
+let value = "6.0"
+
+// Set your version and name
 let VERSION = {
-	num: "Alpha5.0",
-	name: "Win Part 1",
+	num: "Alpha"+value,
+	name: "Win Part 2",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>vAlpha6.0 Win Part 2</h3><br>
+		- Added more Content<br>
+		- Added more MiniGame Content<br>
+		- Added a Second MiniGame!<br>
+		- Make Some Changes<br>
+		- Added a Funny Bounus Effects<br>
+		- Removed the Halloween Effect being obtainable<br>
+		EndGame: 11 ITW<br>
+		I had My Birthday on sep 9🎉🎉🎁🎁🎁 (the day this was released on)<br>
+		<br>
 	<h3>vAlpha5.0 Win Part 1</h3><br>
 		- Added more Content<br>
 		- Make Some Changes<br>
@@ -141,7 +155,9 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Made 8 TLG Milestones<br>
 		- Made 70 Upgrades<br>
 		- Made 23 Milestones<br>
-		EndGame: 1e135 Points`
+		EndGame: 1e135 Points<br>
+	<br><br><br>
+	I added a few extra lines for readability.`
 
 let winText = `Congratulations! You have reached the end and beaten this Update, but for now...`
 
@@ -478,14 +494,34 @@ function getPointGen() {
 	gain = gain.times(buyableEffect('TFDRM', 1081))
 	gain = gain.times(buyableEffect('TFDRM', 1091))
 	gain = gain.times(buyableEffect('TFDRM', 1101))
+	gain = gain.times(buyableEffect('NEGRM', 1011))
+	gain = gain.times(buyableEffect('NEGRM', 1021))
+	gain = gain.times(buyableEffect('NEGRM', 1031))
+	gain = gain.times(buyableEffect('NEGRM', 1041))
+	gain = gain.times(buyableEffect('NEGRM', 1051))
+	if(hasChallenge('ITWRM', 21)) gain = gain.times(1.5)
+	if(hasChallenge('ITWRM', 32)) gain = gain.times(challengeEffect('ITWRM', 32))
+	if(hasMilestone('ITWRM', 7) && !player['ITWRM'].ActiveChallenge) gain = gain.times(1e-15)
+	if(hasChallenge('ITWRM', 42)) gain = gain.times(1e6)
+	
+	if(player['ITWRM'].ActiveChallenge) gain = gain.times(5) // Remove
 
 	if(inChallenge('ITWRM', 11)) gain = gain.pow(0.5)
 	if(inChallenge('ITWRM', 12)) gain = gain.pow(0.33)
+	if(inChallenge('ITWRM', 21)) gain = gain.pow(0.33)
+	if(inChallenge('ITWRM', 22)) gain = gain.pow(0.33)
+	if(inChallenge('ITWRM', 31)) gain = gain.pow(0.33)
+	if(inChallenge('ITWRM', 32)) gain = gain.pow(0.5)
+	if(inChallenge('ITWRM', 41)) gain = gain.pow(0.5)
+	if(inChallenge('ITWRM', 42)) gain = gain.pow(0.5)
+	if(inChallenge('ITWRM', 51)) gain = gain.pow(0.5)
+	if(inChallenge('ITWRM', 52)) gain = gain.pow(0.5)
+	gain = gain.pow(1.01) // Remove
 
 	gain = gain.add(player["NEGRM"].layerEffect.times(-1))
 	if(getBuyableAmount('TFDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) gain = gain.add(player["NEGRM"].layerEffect)
 
-	if(gain < new Decimal(1)) gain = new Decimal(1)
+	if(gain.lt(1)) gain = new Decimal(1)
 
 	//Misc
 	if(player['HalloweenLevel'].MainEffectA) gain = gain.times(10)
@@ -503,7 +539,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return hasMilestone('ITWRM', 2)
+	return hasMilestone('ITWRM', 10)
 }
 
 

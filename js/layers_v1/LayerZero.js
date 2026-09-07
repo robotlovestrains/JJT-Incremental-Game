@@ -100,6 +100,7 @@ addLayer("MSL", {
     deactivated() {
         let inactive = true
         if(hasMilestone('TLG', 16)) inactive = false
+        if(hasUpgrade('BSG', 11)) inactive = true
         return inactive
     },
 })
@@ -181,6 +182,7 @@ addLayer("AOC", {
     deactivated() {
         let inactive = true
         if(hasMilestone('TLG', 17)) inactive = false
+        if(hasUpgrade('BSG', 11)) inactive = true
         return inactive
     },
 })
@@ -301,6 +303,7 @@ addLayer("Win", {
     deactivated() {
         let inactive = true
         if(hasMilestone('AOC', 0)) inactive = false
+        if(hasUpgrade('BSG', 11)) inactive = true
         return inactive
     },
 })
@@ -366,6 +369,7 @@ addLayer("WSM", {
     deactivated() {
         let inactive = true
         if(hasMilestone('AOC', 1)) inactive = false
+        if(hasUpgrade('BSG', 11)) inactive = true
         return inactive
     },
 })
@@ -423,6 +427,7 @@ addLayer("DNT", {
     deactivated() {
         let inactive = true
         if(hasMilestone('AOC', 2)) inactive = false
+        if(hasUpgrade('BSG', 11)) inactive = true
         return inactive
     },
 })

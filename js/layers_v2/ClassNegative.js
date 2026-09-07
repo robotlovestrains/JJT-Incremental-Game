@@ -357,7 +357,7 @@ addLayer("TFDRM", {
             },
             purchaseLimit: new Decimal(1),
             branches: [1061, 1062],
-            unlocked() {return getBuyableAmount(this.layer, 51).gte(1) && (inChallenge('ITWRM', 11) || inChallenge('ITWRM', 12))},
+            unlocked() {return getBuyableAmount(this.layer, 51).gte(1) && (inChallenge('ITWRM', 11) || inChallenge('ITWRM', 12) || getBuyableAmount('NEGRM', 1051).gte(1))},
         },
         61: {
             title() {return "<h2>TFD #7</h2>"},
@@ -385,7 +385,7 @@ addLayer("TFDRM", {
             },
             purchaseLimit: new Decimal(1),
             branches: [1071],
-            unlocked() {return getBuyableAmount(this.layer, 61).gte(1) && (inChallenge('ITWRM', 11) || inChallenge('ITWRM', 12))},
+            unlocked() {return getBuyableAmount(this.layer, 61).gte(1) && (inChallenge('ITWRM', 11) || inChallenge('ITWRM', 12) || getBuyableAmount('NEGRM', 1051).gte(1))},
         },
         62: {
             title() {return "<h2>TFD #8</h2>"},
@@ -413,7 +413,7 @@ addLayer("TFDRM", {
             },
             purchaseLimit: new Decimal(1),
             branches: [1072],
-            unlocked() {return getBuyableAmount(this.layer, 62).gte(1) && (inChallenge('ITWRM', 11) || inChallenge('ITWRM', 12))},
+            unlocked() {return getBuyableAmount(this.layer, 62).gte(1) && (inChallenge('ITWRM', 11) || inChallenge('ITWRM', 12) || getBuyableAmount('NEGRM', 1051).gte(1))},
         },
         71: {
             title() {return "<h2>TFD #9</h2>"},
@@ -441,7 +441,7 @@ addLayer("TFDRM", {
             },
             purchaseLimit: new Decimal(1),
             branches: [1081],
-            unlocked() {return getBuyableAmount(this.layer, 71).gte(1) && (inChallenge('ITWRM', 11) || inChallenge('ITWRM', 12))},
+            unlocked() {return getBuyableAmount(this.layer, 71).gte(1) && (inChallenge('ITWRM', 11) || inChallenge('ITWRM', 12) || getBuyableAmount('NEGRM', 1051).gte(1))},
         },
         72: {
             title() {return "<h2>TFD #10</h2>"},
@@ -469,7 +469,7 @@ addLayer("TFDRM", {
             },
             purchaseLimit: new Decimal(1),
             branches: [1081],
-            unlocked() {return getBuyableAmount(this.layer, 72).gte(1) && (inChallenge('ITWRM', 11) || inChallenge('ITWRM', 12))},
+            unlocked() {return getBuyableAmount(this.layer, 72).gte(1) && (inChallenge('ITWRM', 11) || inChallenge('ITWRM', 12) || getBuyableAmount('NEGRM', 1051).gte(1))},
         },
         81: {
             title() {return "<h2>TFD #11</h2>"},
@@ -497,7 +497,7 @@ addLayer("TFDRM", {
             },
             purchaseLimit: new Decimal(1),
             branches: [1091],
-            unlocked() {return getBuyableAmount(this.layer, 81).gte(1) && (inChallenge('ITWRM', 11) || inChallenge('ITWRM', 12))},
+            unlocked() {return getBuyableAmount(this.layer, 81).gte(1) && (inChallenge('ITWRM', 11) || inChallenge('ITWRM', 12) || getBuyableAmount('NEGRM', 1051).gte(1))},
         },
         91: {
             title() {return "<h2>TFD #12</h2>"},
@@ -525,7 +525,7 @@ addLayer("TFDRM", {
             },
             purchaseLimit: new Decimal(1),
             branches: [1101],
-            unlocked() {return getBuyableAmount(this.layer, 91).gte(1) && (inChallenge('ITWRM', 11) || inChallenge('ITWRM', 12))},
+            unlocked() {return getBuyableAmount(this.layer, 91).gte(1) && (inChallenge('ITWRM', 11) || inChallenge('ITWRM', 12) || getBuyableAmount('NEGRM', 1051).gte(1))},
         },
         101: {
             title() {return "<h2>TFD #13</h2>"},
@@ -551,7 +551,7 @@ addLayer("TFDRM", {
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             purchaseLimit: new Decimal(1),
-            unlocked() {return getBuyableAmount(this.layer, 101).gte(1) && (inChallenge('ITWRM', 11) || inChallenge('ITWRM', 12))},
+            unlocked() {return getBuyableAmount(this.layer, 101).gte(1) && (inChallenge('ITWRM', 11) || inChallenge('ITWRM', 12) || getBuyableAmount('NEGRM', 1051).gte(1))},
         },
         111: {
             title() {return "<h2>TFD #14</h2>"},
@@ -700,6 +700,23 @@ addLayer("TFDRM", {
                 layers[this.layer].buyables[151].buy()
             };
         }
+        if(hasMilestone('ITWRM', 4)) {
+            if(layers[this.layer].buyables[1011].canAfford() && getBuyableAmount(this.layer, 1011).lt(layers[this.layer].buyables[1011].purchaseLimit)) {
+                layers[this.layer].buyables[1011].buy()
+            };
+            if(layers[this.layer].buyables[1021].canAfford() && getBuyableAmount(this.layer, 1021).lt(layers[this.layer].buyables[1021].purchaseLimit)) {
+                layers[this.layer].buyables[1021].buy()
+            };
+            if(layers[this.layer].buyables[1031].canAfford() && getBuyableAmount(this.layer, 1031).lt(layers[this.layer].buyables[1031].purchaseLimit)) {
+                layers[this.layer].buyables[1031].buy()
+            };
+            if(layers[this.layer].buyables[1032].canAfford() && getBuyableAmount(this.layer, 1032).lt(layers[this.layer].buyables[1032].purchaseLimit)) {
+                layers[this.layer].buyables[1032].buy()
+            };
+            if(layers[this.layer].buyables[1041].canAfford() && getBuyableAmount(this.layer, 1041).lt(layers[this.layer].buyables[1041].purchaseLimit)) {
+                layers[this.layer].buyables[1041].buy()
+            };
+        }
     }
 })
 
@@ -726,7 +743,7 @@ addLayer("TLGRM", {
         if(hasMilestone(this.layer, 11)) mult = mult.times(player['SKIPRM'].layerEffect.pow(-1))
         if(getBuyableAmount('RTFRM', 31).gte(1)) mult = mult.times(player['SKIPRM'].layerEffect.pow(player[this.layer].points.pow(-1)))
 
-        if(player[this.layer].points.gte(16)) mult = mult.times(new Decimal(1000).pow(player[this.layer].points.add(-15).times(4).pow(1.1)))
+        if(player[this.layer].points.gte(16)) mult = mult.times(new Decimal(1000).pow(player[this.layer].points.add(-15).times(4).pow(1.75)))
 
         return mult
     },
@@ -924,7 +941,8 @@ addLayer("NEGRM", {
                     function() {
                         let text = '-' + format(player[this.layer].layerEffect) + ' Skill gain [1.5^cbrt(x) - 1] [after All effects unless specifed]'
                         if(getBuyableAmount('NEGRM', 42).gte(1)) text = '-' + format(player[this.layer].layerEffect) + ' Skill gain [1.5^sqrt(x) - 1] [after All effects unless specifed]'
-                        if(getBuyableAmount('TFDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) text = '+' + format(player[this.layer].layerEffect) + ' Skill gain [log25(x + 1) + 1] [after All effects unless specifed]'
+                        if(getBuyableAmount('TFDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) text = '+' + format(player[this.layer].layerEffect) + ' Base Skill gain [log25(x + 1) + 1]'
+                        if(getBuyableAmount('NEGRM', 1042).gte(1)) text = '+' + format(player[this.layer].layerEffect) + ' Base Skill gain [log20(x + 1) + 1]'
                         return text
                     },
                     { "color": "#92248F", "font-size": "24px" }],
@@ -944,6 +962,39 @@ addLayer("NEGRM", {
                 ["row", [["buyable", 51]]],
             ],
         },
+        "i Upgrades": {
+            content: [
+                ["infobox", 1],
+                "blank",
+                ["display-text",
+                    function() { return 'You have ' + format(player[this.layer].points) + ' Negativity (Neg)' },
+                    { "color": "#92248F", "font-size": "24px" }],
+                ["display-text",
+                    function() {
+                        let text = '-' + format(player[this.layer].layerEffect) + ' Skill gain [1.5^cbrt(x) - 1] [after All effects unless specifed]'
+                        if(getBuyableAmount('NEGRM', 42).gte(1)) text = '-' + format(player[this.layer].layerEffect) + ' Skill gain [1.5^sqrt(x) - 1] [after All effects unless specifed]'
+                        if(getBuyableAmount('TFDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) text = '+' + format(player[this.layer].layerEffect) + ' Base Skill gain [log25(x + 1) + 1]'
+                        if(getBuyableAmount('NEGRM', 1042).gte(1)) text = '+' + format(player[this.layer].layerEffect) + ' Base Skill gain [log20(x + 1) + 1]'
+                        return text
+                    },
+                    { "color": "#92248F", "font-size": "24px" }],
+                "blank",
+                ["row", [["buyable", 1011]]],
+                "blank",
+                "blank",
+                ["row", [["buyable", 1021]]],
+                "blank",
+                "blank",
+                ["row", [["buyable", 1031]]],
+                "blank",
+                "blank",
+                ["row", [["buyable", 1041], "blank", "blank", "blank", "blank", ["buyable", 1042]]],
+                "blank",
+                "blank",
+                ["row", [["buyable", 1051]]],
+            ],
+            unlocked() {return inChallenge('ITWRM', 21) || hasChallenge('ITWRM', 21)},
+        },
         "Reset": {
             content: [
                 ["infobox", 1],
@@ -955,7 +1006,8 @@ addLayer("NEGRM", {
                     function() {
                         let text = '-' + format(player[this.layer].layerEffect) + ' Skill gain [1.5^cbrt(x) - 1] [after All effects unless specifed]'
                         if(getBuyableAmount('NEGRM', 42).gte(1)) text = '-' + format(player[this.layer].layerEffect) + ' Skill gain [1.5^sqrt(x) - 1] [after All effects unless specifed]'
-                        if(getBuyableAmount('TFDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) text = '+' + format(player[this.layer].layerEffect) + ' Skill gain [log25(x + 1) + 1] [after All effects unless specifed]'
+                        if(getBuyableAmount('TFDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) text = '+' + format(player[this.layer].layerEffect) + ' Base Skill gain [log25(x + 1) + 1]'
+                        if(getBuyableAmount('NEGRM', 1042).gte(1)) text = '+' + format(player[this.layer].layerEffect) + ' Base Skill gain [log20(x + 1) + 1]'
                         return text
                     },
                     { "color": "#92248F", "font-size": "24px" }],,
@@ -978,7 +1030,8 @@ addLayer("NEGRM", {
                     function() {
                         let text = '-' + format(player[this.layer].layerEffect) + ' Skill gain [1.5^cbrt(x) - 1] [after All effects unless specifed]'
                         if(getBuyableAmount('NEGRM', 42).gte(1)) text = '-' + format(player[this.layer].layerEffect) + ' Skill gain [1.5^sqrt(x) - 1] [after All effects unless specifed]'
-                        if(getBuyableAmount('TFDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) text = '+' + format(player[this.layer].layerEffect) + ' Skill gain [log25(x + 1) + 1] [after All effects unless specifed]'
+                        if(getBuyableAmount('TFDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) text = '+' + format(player[this.layer].layerEffect) + ' Base Skill gain [log25(x + 1) + 1]'
+                        if(getBuyableAmount('NEGRM', 1042).gte(1)) text = '+' + format(player[this.layer].layerEffect) + ' Base Skill gain [log20(x + 1) + 1]'
                         return text
                     },
                     { "color": "#92248F", "font-size": "24px" }],
@@ -1000,6 +1053,20 @@ addLayer("NEGRM", {
             purchaseLimit: new Decimal(1),
             branches: [21],
         },
+        1011: {
+            title() {return "<h2>Neg #i1</h2>"},
+            cost(x) { return new Decimal(100) },
+            display() { return "<h2>/0.75</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: /"+format(this.effect().pow(-1))+"</h3>" },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            effect() { return getBuyableAmount(this.layer, this.id).times(1.333).add(1) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: new Decimal(1),
+            branches: [1021],
+            unlocked() {return getBuyableAmount(this.layer, 11).gte(1)},
+        },
         21: {
             title() {return "<h2>Neg #2</h2>"},
             cost(x) { return new Decimal(7) },
@@ -1013,6 +1080,20 @@ addLayer("NEGRM", {
             purchaseLimit: new Decimal(1),
             branches: [31],
             unlocked() {return getBuyableAmount(this.layer, 11).gte(1)},
+        },
+        1021: {
+            title() {return "<h2>Neg #i2</h2>"},
+            cost(x) { return new Decimal(70) },
+            display() { return "<h2>/0.666 Skill</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: /"+format(this.effect().pow(-1))+"</h3>" },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            effect() { return getBuyableAmount(this.layer, this.id).times(0.5).add(1) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: new Decimal(1),
+            branches: [1031],
+            unlocked() {return getBuyableAmount(this.layer, 21).gte(1)},
         },
         31: {
             title() {return "<h2>Neg #3</h2>"},
@@ -1028,6 +1109,20 @@ addLayer("NEGRM", {
             branches: [41, 42],
             unlocked() {return getBuyableAmount(this.layer, 21).gte(1)},
         },
+        1031: {
+            title() {return "<h2>Neg #i3</h2>"},
+            cost(x) { return new Decimal(50) },
+            display() { return "<h2>/2.5 Skill</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect().pow(-1))+"</h3>" },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            effect() { return getBuyableAmount(this.layer, this.id).times(1).add(1).pow(-1) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: new Decimal(1),
+            branches: [1041, 1042],
+            unlocked() {return getBuyableAmount(this.layer, 31).gte(1)},
+        },
         41: {
             title() {return "<h2>Neg #4a</h2>"},
             cost(x) { return new Decimal(25) },
@@ -1042,6 +1137,20 @@ addLayer("NEGRM", {
             branches: [51],
             unlocked() {return getBuyableAmount(this.layer, 31).gte(1)},
         },
+        1041: {
+            title() {return "<h2>Neg #i4a</h2>"},
+            cost(x) { return new Decimal(250) },
+            display() { return "<h2>/0.5 Skill</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: /"+format(this.effect().pow(-1))+"</h3>" },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            effect() { return getBuyableAmount(this.layer, this.id).times(1).add(1) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: new Decimal(1),
+            branches: [1051],
+            unlocked() {return getBuyableAmount(this.layer, 41).gte(1)},
+        },
         42: {
             title() {return "<h2>Neg #4b</h2>"},
             cost(x) { return new Decimal(25) },
@@ -1054,6 +1163,19 @@ addLayer("NEGRM", {
             purchaseLimit: new Decimal(1),
             branches: [51],
             unlocked() {return getBuyableAmount(this.layer, 31).gte(1)},
+        },
+        1042: {
+            title() {return "<h2>Neg #i4b</h2>"},
+            cost(x) { return new Decimal(250) },
+            display() { return "<h2>Buff Neg's Layer Effect</h2><br><h3>log25 → log20</h3><br><br><h2>Cost: "+format(this.cost()) },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: new Decimal(1),
+            branches: [1051],
+            unlocked() {return getBuyableAmount(this.layer, 42).gte(1)},
         },
         51: {
             title() {return "<h2>Neg #5</h2>"},
@@ -1069,6 +1191,19 @@ addLayer("NEGRM", {
             branches: [],
             unlocked() {return getBuyableAmount(this.layer, 41).gte(1) && getBuyableAmount(this.layer, 42).gte(1)},
         },
+        1051: {
+            title() {return "<h2>Neg #i5</h2>"},
+            cost(x) { return new Decimal(200) },
+            display() { return "<h2>/4 Skill, Unlock The Other TFD i Upgrades</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect().pow(-1))+"</h3>" },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            effect() { return getBuyableAmount(this.layer, this.id).times(3).add(1).pow(-1) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: new Decimal(1),
+            unlocked() {return getBuyableAmount(this.layer, 51).gte(1) && (inChallenge('ITWRM', 21) || inChallenge('ITWRM', 22))},
+        },
     },
     deactivated() {
         let inactive = false
@@ -1081,6 +1216,7 @@ addLayer("NEGRM", {
         effect = new Decimal(-1).add(new Decimal(1.5).pow(player[this.layer].points.cbrt()));
         if(getBuyableAmount(this.layer, 42).gte(1)) effect = new Decimal(-1).add(new Decimal(1.5).pow(player[this.layer].points.sqrt()));
         if(getBuyableAmount('TFDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) effect = player[this.layer].points.add(1).log(25).add(1);
+        if(getBuyableAmount('NEGRM', 1042).gte(1)) effect = player[this.layer].points.add(1).log(20).add(1);
         player[this.layer].layerEffect = effect;
         if(hasMilestone('TLGRM', 7)) {
             if(layers[this.layer].buyables[11].canAfford() && getBuyableAmount(this.layer, 11).lt(layers[this.layer].buyables[11].purchaseLimit)) {
@@ -1127,6 +1263,7 @@ addLayer("CSHRM", {
 
         if(inChallenge('ITWRM', 11)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 12)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 21)) mult = new Decimal(0)
 
         return mult
     },
@@ -1219,6 +1356,7 @@ addLayer("CSHRM", {
         let inactive = false
         if(inChallenge('ITWRM', 11)) inactive = true
         if(inChallenge('ITWRM', 12)) inactive = true
+        if(inChallenge('ITWRM', 21)) inactive = true
         return inactive
     },
     automate() {
@@ -1256,6 +1394,8 @@ addLayer("UIPRM", {
 
         if(inChallenge('ITWRM', 11)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 12)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 21)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 22)) mult = new Decimal(0)
 
         return mult
     },
@@ -1350,61 +1490,113 @@ addLayer("UIPRM", {
     buyables: {
         11: {
             title() {return "<h2>AAA #1</h2>"},
-            cost(x) { return new Decimal(1).times(new Decimal(5).pow(x.pow(1.5))) },
-            display() { return "<h2>x1.1 Skill per level</h2><br><br><br><h2>Cost: "+format(this.cost())+" UIP</h2><br><h3>Effect: x"+format(this.effect())+"</h3><br>"+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit) },
+            cost(x) { return new Decimal(1).times(new Decimal(5).pow(x.pow(1.5))).times(buyableEffect(this.layer, 22)) },
+            display() { return "<h2>x"+format(buyableEffect(this.layer, 23))+" Skill per level</h2><br><br><br><h2>Cost: "+format(this.cost())+" UIP</h2><br><h3>Effect: x"+format(this.effect())+"</h3><br>"+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit()) },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
-            effect() { return new Decimal(1.1).pow(getBuyableAmount(this.layer, this.id)) },
+            effect() { return buyableEffect(this.layer, 23).pow(getBuyableAmount(this.layer, this.id)) },
+            buy() {
+                if(!hasChallenge('ITWRM', 31)) player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit() {return new Decimal(100).add(buyableEffect(this.layer, 21))},
+        },
+        12: {
+            title() {return "<h2>AA #1</h2>"},
+            cost(x) { return new Decimal(1).times(new Decimal(5).pow(x.pow(1.5))).times(buyableEffect(this.layer, 22)) },
+            display() { return "<h2>x"+format(buyableEffect(this.layer, 23))+" TFD per level</h2><br><br><br><h2>Cost: "+format(this.cost())+" AUI</h2><br><h3>Effect: x"+format(this.effect())+"</h3><br>"+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit()) },
+            canAfford() { return player[this.layer].pointsB.gte(this.cost()) },
+            effect() { return buyableEffect(this.layer, 23).pow(getBuyableAmount(this.layer, this.id)) },
+            buy() {
+                if(!hasChallenge('ITWRM', 31)) player[this.layer].pointsB = player[this.layer].pointsB.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit() {return new Decimal(100).add(buyableEffect(this.layer, 21))},
+        },
+        13: {
+            title() {return "<h2>A #1</h2>"},
+            cost(x) { return new Decimal(1).times(new Decimal(5).pow(x.pow(1.5))).times(buyableEffect(this.layer, 22)) },
+            display() { return "<h2>x"+format(buyableEffect(this.layer, 23))+" Neg per level</h2><br><br><br><h2>Cost: "+format(this.cost())+" UUI</h2><br><h3>Effect: x"+format(this.effect())+"</h3><br>"+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit()) },
+            canAfford() { return player[this.layer].pointsC.gte(this.cost()) },
+            effect() { return buyableEffect(this.layer, 23).pow(getBuyableAmount(this.layer, this.id)) },
+            buy() {
+                if(!hasChallenge('ITWRM', 31)) player[this.layer].pointsC = player[this.layer].pointsC.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit() {return new Decimal(100).add(buyableEffect(this.layer, 21))},
+        },
+        21: {
+            title() {return "<h2>AAA #2</h2>"},
+            cost(x) { return new Decimal(100).times(new Decimal(5).pow(x.pow(1.5))) },
+            display() { return "<h2>Increase Row1 Buyables' Max amount by 10 per level</h2><br><br><br><h2>Cost: "+format(this.cost())+" UIP</h2><br><h3>Effect: x"+format(this.effect())+"</h3><br>"+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit) },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            effect() { return getBuyableAmount(this.layer, this.id).times(10) },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
-            purchaseLimit: new Decimal(100),
+            purchaseLimit: new Decimal(90),
+            unlocked() {return inChallenge('ITWRM', 31) || hasChallenge('ITWRM', 31)}
         },
-        12: {
-            title() {return "<h2>AA #1</h2>"},
-            cost(x) { return new Decimal(1).times(new Decimal(5).pow(x.pow(1.5))) },
-            display() { return "<h2>x1.1 TFD per level</h2><br><br><br><h2>Cost: "+format(this.cost())+" AUI</h2><br><h3>Effect: x"+format(this.effect())+"</h3><br>"+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit) },
+        22: {
+            title() {return "<h2>AA #2</h2>"},
+            cost(x) { return new Decimal(100).times(new Decimal(5).pow(x.pow(1.5))) },
+            display() { return "<h2>/1.1 Row 1 Buyables' Costs per level</h2><br><br><br><h2>Cost: "+format(this.cost())+" AUI</h2><br><h3>Effect: x"+format(this.effect().pow(-1))+"</h3><br>"+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit) },
             canAfford() { return player[this.layer].pointsB.gte(this.cost()) },
-            effect() { return new Decimal(1.1).pow(getBuyableAmount(this.layer, this.id)) },
+            effect() { return new Decimal(1.1).pow(getBuyableAmount(this.layer, this.id)).pow(-1) },
             buy() {
                 player[this.layer].pointsB = player[this.layer].pointsB.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             purchaseLimit: new Decimal(100),
+            unlocked() {return inChallenge('ITWRM', 31) || hasChallenge('ITWRM', 31)}
         },
-        13: {
-            title() {return "<h2>A #1</h2>"},
-            cost(x) { return new Decimal(1).times(new Decimal(5).pow(x.pow(1.5))) },
-            display() { return "<h2>x1.1 Neg per level</h2><br><br><br><h2>Cost: "+format(this.cost())+" UUI</h2><br><h3>Effect: x"+format(this.effect())+"</h3><br>"+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit) },
+        23: {
+            title() {return "<h2>A #2</h2>"},
+            cost(x) { return new Decimal(100).times(new Decimal(5).pow(x.pow(1.5))) },
+            display() { return "<h2>+0.1 Row 1 Buyables' Effect per level</h2><br><br><br><h2>Cost: "+format(this.cost())+" UUI</h2><br><h3>Effect: x"+format(this.effect().add(-1.1))+"</h3><br>"+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit) },
             canAfford() { return player[this.layer].pointsC.gte(this.cost()) },
-            effect() { return new Decimal(1.1).pow(getBuyableAmount(this.layer, this.id)) },
+            effect() { return new Decimal(1.1).add(getBuyableAmount(this.layer, this.id).times(0.1)) },
             buy() {
                 player[this.layer].pointsC = player[this.layer].pointsC.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             purchaseLimit: new Decimal(100),
+            unlocked() {return inChallenge('ITWRM', 31) || hasChallenge('ITWRM', 31)}
         },
     },
     deactivated() {
         let inactive = false
         if(inChallenge('ITWRM', 11)) inactive = true
         if(inChallenge('ITWRM', 12)) inactive = true
+        if(inChallenge('ITWRM', 21)) inactive = true
+        if(inChallenge('ITWRM', 22)) inactive = true
         return inactive
     },
     automate() {
         if(hasMilestone('TLGRM', 6)) {
             player[this.layer].pointsB = player[this.layer].pointsB.add(getResetGain(this.layer).sqrt());
-        player[this.layer].pointsC = player[this.layer].pointsC.add(getResetGain(this.layer).cbrt());
+            player[this.layer].pointsC = player[this.layer].pointsC.add(getResetGain(this.layer).cbrt());
         };
         if(hasMilestone('TLGRM', 7)) {
-            if(layers[this.layer].buyables[11].canAfford() && getBuyableAmount(this.layer, 11).lt(layers[this.layer].buyables[11].purchaseLimit)) {
+            if(layers[this.layer].buyables[11].canAfford() && getBuyableAmount(this.layer, 11).lt(layers[this.layer].buyables[11].purchaseLimit())) {
                 layers[this.layer].buyables[11].buy()
             };
-            if(layers[this.layer].buyables[12].canAfford() && getBuyableAmount(this.layer, 12).lt(layers[this.layer].buyables[12].purchaseLimit)) {
+            if(layers[this.layer].buyables[12].canAfford() && getBuyableAmount(this.layer, 12).lt(layers[this.layer].buyables[12].purchaseLimit())) {
                 layers[this.layer].buyables[12].buy()
             };
-            if(layers[this.layer].buyables[13].canAfford() && getBuyableAmount(this.layer, 13).lt(layers[this.layer].buyables[13].purchaseLimit)) {
+            if(layers[this.layer].buyables[13].canAfford() && getBuyableAmount(this.layer, 13).lt(layers[this.layer].buyables[13].purchaseLimit())) {
                 layers[this.layer].buyables[13].buy()
+            };
+        }
+        if(hasMilestone('ITWRM', 6)) {
+            if(layers[this.layer].buyables[21].canAfford() && getBuyableAmount(this.layer, 21).lt(layers[this.layer].buyables[21].purchaseLimit)) {
+                layers[this.layer].buyables[21].buy()
+            };
+            if(layers[this.layer].buyables[22].canAfford() && getBuyableAmount(this.layer, 22).lt(layers[this.layer].buyables[22].purchaseLimit)) {
+                layers[this.layer].buyables[22].buy()
+            };
+            if(layers[this.layer].buyables[23].canAfford() && getBuyableAmount(this.layer, 23).lt(layers[this.layer].buyables[23].purchaseLimit)) {
+                layers[this.layer].buyables[23].buy()
             };
         }
     },
@@ -1437,6 +1629,9 @@ addLayer("FLNRM", {
 
         if(inChallenge('ITWRM', 11)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 12)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 21)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 22)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 31)) mult = new Decimal(0)
 
         return mult
     },
@@ -1511,7 +1706,7 @@ addLayer("FLNRM", {
         },
         "Reset": {
             content: [
-                ["infobox", 2],
+                ["infobox", 1],
                 "blank",
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].points) + ' Friendliness (FLN)' },
@@ -1624,7 +1819,7 @@ addLayer("FLNRM", {
                 player[this.layer].BUpgrades = player[this.layer].BUpgrades.add(1)
             },
             purchaseLimit: new Decimal(1),
-            unlocked() {return getBuyableAmount(this.layer, 41).gte(1)},
+            unlocked() {return getBuyableAmount(this.layer, 41).gte(1) || getBuyableAmount(this.layer, this.id).gte(1)},
             branches: [61],
         },
         61: {
@@ -1694,6 +1889,9 @@ addLayer("FLNRM", {
         let inactive = false
         if(inChallenge('ITWRM', 11)) inactive = true
         if(inChallenge('ITWRM', 12)) inactive = true
+        if(inChallenge('ITWRM', 21)) inactive = true
+        if(inChallenge('ITWRM', 22)) inactive = true
+        if(inChallenge('ITWRM', 31)) inactive = true
         return inactive
     },
     automate() {
@@ -1715,15 +1913,28 @@ addLayer("FLNRM", {
                 layers[this.layer].buyables[51].buy()
             };
         }
+        if(hasChallenge('ITWRM', 52)) {
+            if(layers[this.layer].buyables[61].canAfford() && getBuyableAmount(this.layer, 61).lt(layers[this.layer].buyables[61].purchaseLimit)) {
+                layers[this.layer].buyables[61].buy()
+            };
+            if(layers[this.layer].buyables[71].canAfford() && getBuyableAmount(this.layer, 71).lt(layers[this.layer].buyables[71].purchaseLimit)) {
+                layers[this.layer].buyables[71].buy()
+            };
+            if(layers[this.layer].buyables[72].canAfford() && getBuyableAmount(this.layer, 72).lt(layers[this.layer].buyables[72].purchaseLimit)) {
+                layers[this.layer].buyables[72].buy()
+            };
+        }
         if(hasMilestone('XSTRM', 3) && player[this.layer].points.gte(player[this.layer].LvReq)) {
             player[this.layer].points = new Decimal(0)
-            player[this.layer].level = player[this.layer].level.add(1)
-            player[this.layer].BUpgrades = new Decimal(0)
-            addBuyables(this.layer, 11, -1)
-            addBuyables(this.layer, 21, -1)
-            addBuyables(this.layer, 31, -1)
-            addBuyables(this.layer, 41, -1)
-            addBuyables(this.layer, 51, -1)
+                player[this.layer].level = player[this.layer].level.add(1)
+                player[this.layer].BUpgrades = new Decimal(0)
+                setBuyableAmount(this.layer, 11, new Decimal(0))
+                setBuyableAmount(this.layer, 21, new Decimal(0))
+                setBuyableAmount(this.layer, 31, new Decimal(0))
+                setBuyableAmount(this.layer, 41, new Decimal(0))
+                setBuyableAmount(this.layer, 61, new Decimal(0))
+                setBuyableAmount(this.layer, 71, new Decimal(0))
+                setBuyableAmount(this.layer, 72, new Decimal(0))
         };
     },
 })
@@ -1750,6 +1961,11 @@ addLayer("TESRM", {
 
         if(inChallenge('ITWRM', 11)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 12)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 21)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 22)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 31)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 32)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 32)) inactive = true
 
         return mult
     },
@@ -1816,7 +2032,7 @@ addLayer("TESRM", {
         11: {
             title() {return "<h2>Mega Booster I</h2>"},
             cost(x) { return new Decimal(0.2).times(new Decimal(5).pow(x.add(1).pow(0.25))).tetrate(x.add(1).pow(0.1)) },
-            display() { return "<h3>Boost all Non-Static layers (to this Point) by x1.01 per level and Devide all Static layers (to this Point exsept TLG) Requirments by /1.01 (also Points doesn't Count)</h3><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+" and /"+format(this.effect())+"</h3><br>"+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit) },
+            display() { return "<h3>Boost all Non-Static layers (to this Point) by x1.01 per level and Devide all Static layers (to this Point exsept TLG) Requirments by /1.01 (also Points doesn't Count)</h3><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+" and /"+format(this.effect())+"</h3><br>"+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit()) },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             effect() { return new Decimal(1.01).pow(getBuyableAmount(this.layer, this.id)) },
             buy() {
@@ -1826,18 +2042,26 @@ addLayer("TESRM", {
                     this.buy();
                 }
             },
-            purchaseLimit: 250,
+            purchaseLimit() {
+                let limit = new Decimal(250)
+                if(hasChallenge('ITWRM', 41)) limit = limit.add(100)
+                return limit
+            },
         },
     },
     deactivated() {
         let inactive = false
         if(inChallenge('ITWRM', 11)) inactive = true
         if(inChallenge('ITWRM', 12)) inactive = true
+        if(inChallenge('ITWRM', 21)) inactive = true
+        if(inChallenge('ITWRM', 22)) inactive = true
+        if(inChallenge('ITWRM', 31)) inactive = true
+        if(inChallenge('ITWRM', 32)) inactive = true
         return inactive
     },
     automate() {
         if(hasMilestone('XSTRM', 1)) {
-            if(layers[this.layer].buyables[11].canAfford() && getBuyableAmount(this.layer, 11).lt(layers[this.layer].buyables[11].purchaseLimit)) {
+            if(layers[this.layer].buyables[11].canAfford() && getBuyableAmount(this.layer, 11).lt(layers[this.layer].buyables[11].purchaseLimit())) {
                 layers[this.layer].buyables[11].buy()
             };
         }
@@ -1863,9 +2087,15 @@ addLayer("ARM", {
         mult = new Decimal(1)
 
         if(hasMilestone('ДARM', 2)) mult = mult.times(new Decimal(1.05).pow(player['ДARM'].points))
+        if(hasChallenge('ITWRM', 51)) mult.times(1e3)
 
         if(inChallenge('ITWRM', 11)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 12)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 21)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 22)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 31)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 32)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 41)) mult = new Decimal(0)
 
         return mult
     },
@@ -1996,8 +2226,15 @@ addLayer("ARM", {
         },
         22: {
             title() {return "<h2>F</h2>"},
-            cost(x) { return new Decimal('e1000').times(new Decimal(2).pow(x.add(1).pow(0.25))).tetrate(x.add(1).pow(0.01)) },
-            display() { return "<h3>Failed</h3><br><h2>Failed due To Not Having any Ideas</h2><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
+            cost(x) { return new Decimal(player[this.layer].points).times(new Decimal(2).pow(x.add(1).pow(0.25))).tetrate(x.add(1).pow(0.01)) },
+            display() {
+                if(getBuyableAmount(this.layer, this.id).lt(1)) {
+                    return "<h3>Funny</h3><br><h2>Funny Boost ^100 'A'</h2><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>"
+                }
+                else {
+                    return "<h3>Failed</h3><br><h2>FAKE (I lied)</h2><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>"
+                }
+            },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             effect() { return new Decimal(1) },
             buy() {
@@ -2011,6 +2248,11 @@ addLayer("ARM", {
         let inactive = false
         if(inChallenge('ITWRM', 11)) inactive = true
         if(inChallenge('ITWRM', 12)) inactive = true
+        if(inChallenge('ITWRM', 21)) inactive = true
+        if(inChallenge('ITWRM', 22)) inactive = true
+        if(inChallenge('ITWRM', 31)) inactive = true
+        if(inChallenge('ITWRM', 32)) inactive = true
+        if(inChallenge('ITWRM', 41)) inactive = true
         return inactive
     },
     automate() {
@@ -2051,6 +2293,12 @@ addLayer("ДARM", {
 
         if(inChallenge('ITWRM', 11)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 12)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 21)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 22)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 31)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 32)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 41)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 42)) mult = new Decimal(0)
 
         return mult
     },
@@ -2097,7 +2345,7 @@ addLayer("ДARM", {
     milestones: {
         0: {
             requirementDescription: "1 ДА",
-            effectDescription: "AutoGain 25% of 'A'",
+            effectDescription: "AutoGain 25% of 'A' and Remove its Reset button",
             done() { return player[this.layer].points.gte(1) },
         },
         1: {
@@ -2109,15 +2357,21 @@ addLayer("ДARM", {
         2: {
             requirementDescription: "360 ДА",
             effectDescription: "x1.05 'A' Per ДА",
-            done() { return player[this.layer].points.gte(360) && getBuyableAmount('RTFRM', 51).gte(1) },
+            done() { return (player[this.layer].points.gte(360) && getBuyableAmount('RTFRM', 51).gte(1)) || hasMilestone('ITWRM', 8) },
             tooltip() {return "x"+format(new Decimal(1.05).pow(player[this.layer].points))},
-            unlocked() {return hasMilestone(this.layer, 1) && getBuyableAmount('RTFRM', 51).gte(1)},
+            unlocked() {return (hasMilestone(this.layer, 1) && getBuyableAmount('RTFRM', 51).gte(1)) || hasMilestone(this.layer, this.id)},
         }
     },
     deactivated() {
         let inactive = false
         if(inChallenge('ITWRM', 11)) inactive = true
         if(inChallenge('ITWRM', 12)) inactive = true
+        if(inChallenge('ITWRM', 21)) inactive = true
+        if(inChallenge('ITWRM', 22)) inactive = true
+        if(inChallenge('ITWRM', 31)) inactive = true
+        if(inChallenge('ITWRM', 32)) inactive = true
+        if(inChallenge('ITWRM', 41)) inactive = true
+        if(inChallenge('ITWRM', 42)) inactive = true
         return inactive
     },
 })
@@ -2142,8 +2396,17 @@ addLayer("XSTRM", {
     gainMult() {
         mult = new Decimal(1)
 
+        if(hasMilestone('ITWRM', 9)) mult = mult.times(new Decimal(10).pow(player['XSTRM'].points.times(1/100).cbrt()).pow(-1))
+
         if(inChallenge('ITWRM', 11)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 12)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 21)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 22)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 31)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 32)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 41)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 42)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 51)) mult = new Decimal(0)
 
         return mult
     },
@@ -2223,6 +2486,14 @@ addLayer("XSTRM", {
     deactivated() {
         let inactive = false
         if(inChallenge('ITWRM', 11)) inactive = true
+        if(inChallenge('ITWRM', 12)) inactive = true
+        if(inChallenge('ITWRM', 21)) inactive = true
+        if(inChallenge('ITWRM', 22)) inactive = true
+        if(inChallenge('ITWRM', 31)) inactive = true
+        if(inChallenge('ITWRM', 32)) inactive = true
+        if(inChallenge('ITWRM', 41)) inactive = true
+        if(inChallenge('ITWRM', 42)) inactive = true
+        if(inChallenge('ITWRM', 51)) inactive = true
         return inactive
     },
     automate() {
@@ -2267,6 +2538,14 @@ addLayer("RLXRM", {
 
         if(inChallenge('ITWRM', 11)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 12)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 21)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 22)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 31)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 32)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 41)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 42)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 51)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 52)) mult = new Decimal(0)
 
         return mult
     },
@@ -2366,7 +2645,25 @@ addLayer("RLXRM", {
         let inactive = false
         if(inChallenge('ITWRM', 11)) inactive = true
         if(inChallenge('ITWRM', 12)) inactive = true
+        if(inChallenge('ITWRM', 21)) inactive = true
+        if(inChallenge('ITWRM', 22)) inactive = true
+        if(inChallenge('ITWRM', 31)) inactive = true
+        if(inChallenge('ITWRM', 32)) inactive = true
+        if(inChallenge('ITWRM', 41)) inactive = true
+        if(inChallenge('ITWRM', 42)) inactive = true
+        if(inChallenge('ITWRM', 51)) inactive = true
+        if(inChallenge('ITWRM', 52)) inactive = true
         return inactive
+    },
+    automate() {
+        if(hasMilestone('ITWRM', 5)) {
+            if(layers[this.layer].buyables[11].canAfford() && getBuyableAmount(this.layer, 11).lt(layers[this.layer].buyables[11].purchaseLimit)) {
+                layers[this.layer].buyables[11].buy()
+            };
+            if(layers[this.layer].buyables[21].canAfford() && getBuyableAmount(this.layer, 21).lt(layers[this.layer].buyables[21].purchaseLimit)) {
+                layers[this.layer].buyables[21].buy()
+            };
+        }
     },
 })
 
@@ -2391,6 +2688,14 @@ addLayer("SKIPRM", {
 
         if(inChallenge('ITWRM', 11)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 12)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 21)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 22)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 31)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 32)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 41)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 42)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 51)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 52)) mult = new Decimal(0)
 
         return mult
     },
@@ -2465,12 +2770,20 @@ addLayer("SKIPRM", {
         let inactive = false
         if(inChallenge('ITWRM', 11)) inactive = true
         if(inChallenge('ITWRM', 12)) inactive = true
+        if(inChallenge('ITWRM', 21)) inactive = true
+        if(inChallenge('ITWRM', 22)) inactive = true
+        if(inChallenge('ITWRM', 31)) inactive = true
+        if(inChallenge('ITWRM', 32)) inactive = true
+        if(inChallenge('ITWRM', 41)) inactive = true
+        if(inChallenge('ITWRM', 42)) inactive = true
+        if(inChallenge('ITWRM', 51)) inactive = true
+        if(inChallenge('ITWRM', 52)) inactive = true
         return inactive
     },
     automate() {
         let effect = new Decimal(1);
         effect = new Decimal(1).times(player[this.layer].points.add(1).pow(1.1)).pow(-1);
-         if(getBuyableAmount('RTFRM', 31).gte(1)) effect = new Decimal(1).times(player[this.layer].points.add(1).pow(1.1)).pow(player['TLGRM'].points.pow(-1).times(-1))
+        if(getBuyableAmount('RTFRM', 31).gte(1)) effect = new Decimal(1).times(player[this.layer].points.add(1).pow(1.1)).pow(player['TLGRM'].points.pow(-1).times(-1))
         player[this.layer].layerEffect = effect;
     },
 })
@@ -2495,6 +2808,14 @@ addLayer("RTFRM", {
 
         if(inChallenge('ITWRM', 11)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 12)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 21)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 22)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 31)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 32)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 41)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 42)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 51)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 52)) mult = new Decimal(0)
 
         return mult
     },
@@ -2643,7 +2964,34 @@ addLayer("RTFRM", {
         let inactive = false
         if(inChallenge('ITWRM', 11)) inactive = true
         if(inChallenge('ITWRM', 12)) inactive = true
+        if(inChallenge('ITWRM', 21)) inactive = true
+        if(inChallenge('ITWRM', 22)) inactive = true
+        if(inChallenge('ITWRM', 31)) inactive = true
+        if(inChallenge('ITWRM', 32)) inactive = true
+        if(inChallenge('ITWRM', 41)) inactive = true
+        if(inChallenge('ITWRM', 42)) inactive = true
+        if(inChallenge('ITWRM', 51)) inactive = true
+        if(inChallenge('ITWRM', 52)) inactive = true
         return inactive
+    },
+    automate() {
+        if(hasMilestone('ITWRM', 5)) {
+            if(layers[this.layer].buyables[11].canAfford() && getBuyableAmount(this.layer, 11).lt(layers[this.layer].buyables[11].purchaseLimit)) {
+                layers[this.layer].buyables[11].buy()
+            };
+            if(layers[this.layer].buyables[21].canAfford() && getBuyableAmount(this.layer, 21).lt(layers[this.layer].buyables[21].purchaseLimit)) {
+                layers[this.layer].buyables[21].buy()
+            };
+            if(layers[this.layer].buyables[31].canAfford() && getBuyableAmount(this.layer, 31).lt(layers[this.layer].buyables[31].purchaseLimit)) {
+                layers[this.layer].buyables[31].buy()
+            };
+            if(layers[this.layer].buyables[41].canAfford() && getBuyableAmount(this.layer, 41).lt(layers[this.layer].buyables[41].purchaseLimit)) {
+                layers[this.layer].buyables[41].buy()
+            };
+            if(layers[this.layer].buyables[51].canAfford() && getBuyableAmount(this.layer, 51).lt(layers[this.layer].buyables[51].purchaseLimit)) {
+                layers[this.layer].buyables[51].buy()
+            };
+        }
     },
 })
 
@@ -2690,6 +3038,14 @@ addLayer("IFDRM", {
         if(player['IFERM'].RT.lt(0.1) || player['IFTRM'].RT.lt(0.1)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 11)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 12)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 21)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 22)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 31)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 32)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 41)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 42)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 51)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 52)) mult = new Decimal(0)
 
         return mult
     },
@@ -2857,23 +3213,31 @@ addLayer("IFDRM", {
         0: {
             requirementDescription: "1.79e3 IF.",
             effectDescription: "Autobuy the Row 1 Buyables and they cost nothing",
-            done() { return player[this.layer].points.gte(1.79e3) },
+            done() { return player[this.layer].points.gte(1.79e3) || hasMilestone('ITWRM', 3) },
         },
         1: {
             requirementDescription: "1.79e30 IF.",
             effectDescription: "Autobuy the Row 2 Buyables and they cost nothing",
-            done() { return player[this.layer].points.gte(1.79e30) },
+            done() { return player[this.layer].points.gte(1.79e30) || hasMilestone('ITWRM', 3) },
         },
         2: {
             requirementDescription: "1.79e308 IF.",
             effectDescription: "Autobuy the Row 3 Buyables and they cost nothing",
-            done() { return player[this.layer].points.gte(1.79e308) },
+            done() { return player[this.layer].points.gte(1.79e308) || hasMilestone('ITWRM', 3) },
         },
     },
     deactivated() {
         let inactive = false
         if(inChallenge('ITWRM', 11)) inactive = true
         if(inChallenge('ITWRM', 12)) inactive = true
+        if(inChallenge('ITWRM', 21)) inactive = true
+        if(inChallenge('ITWRM', 22)) inactive = true
+        if(inChallenge('ITWRM', 31)) inactive = true
+        if(inChallenge('ITWRM', 32)) inactive = true
+        if(inChallenge('ITWRM', 41)) inactive = true
+        if(inChallenge('ITWRM', 42)) inactive = true
+        if(inChallenge('ITWRM', 51)) inactive = true
+        if(inChallenge('ITWRM', 52)) inactive = true
         return inactive
     },
     automate() {
@@ -2937,6 +3301,14 @@ addLayer("IFERM", {
 
         if(inChallenge('ITWRM', 11)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 12)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 21)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 22)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 31)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 32)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 41)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 42)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 51)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 52)) mult = new Decimal(0)
 
         return mult
     },
@@ -2949,6 +3321,11 @@ addLayer("IFERM", {
         if(hasMilestone('TLGRM', 13)) vis = true
         return vis
     },
+    autoPrestige() {
+        let auto = false
+        if(hasMilestone('ITWRM', 2)) auto = true
+        return auto
+    },
     infoboxes: {
         1: {
             title: "Info About this layer",
@@ -2956,8 +3333,8 @@ addLayer("IFERM", {
         },
     },
     onPrestige(gain) {
-            if(!hasMilestone('ITWRM', 1)) {
-                if(!hasMilestone(this.layer, 2)) {
+        if(!hasMilestone('ITWRM', 1)) {
+            if(!hasMilestone(this.layer, 2)) {
                 setBuyableAmount('IFDRM', 11, new Decimal(0))
                 setBuyableAmount('IFDRM', 12, new Decimal(0))
                 setBuyableAmount('IFDRM', 13, new Decimal(0))
@@ -3016,6 +3393,14 @@ addLayer("IFERM", {
         let inactive = false
         if(inChallenge('ITWRM', 11)) inactive = true
         if(inChallenge('ITWRM', 12)) inactive = true
+        if(inChallenge('ITWRM', 21)) inactive = true
+        if(inChallenge('ITWRM', 22)) inactive = true
+        if(inChallenge('ITWRM', 31)) inactive = true
+        if(inChallenge('ITWRM', 32)) inactive = true
+        if(inChallenge('ITWRM', 41)) inactive = true
+        if(inChallenge('ITWRM', 42)) inactive = true
+        if(inChallenge('ITWRM', 51)) inactive = true
+        if(inChallenge('ITWRM', 52)) inactive = true
         return inactive
     },
     automate() {
@@ -3043,7 +3428,15 @@ addLayer("IFTRM", {
         mult = new Decimal(1)
 
         if(inChallenge('ITWRM', 11)) mult = new Decimal(0)
-
+        if(inChallenge('ITWRM', 12)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 21)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 22)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 31)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 32)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 41)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 42)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 51)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 52)) mult = new Decimal(0)
         return mult
     },
     gainExp() {
@@ -3054,6 +3447,11 @@ addLayer("IFTRM", {
         let vis = false
         if(hasMilestone('TLGRM', 14)) vis = true
         return vis
+    },
+    autoPrestige() {
+        let auto = false
+        if(hasMilestone('ITWRM', 2)) auto = true
+        return auto
     },
     infoboxes: {
         1: {
@@ -3106,11 +3504,21 @@ addLayer("IFTRM", {
             requirementDescription: "2 IFT",
             effectDescription: "x10,000 Skill Gain",
             done() { return player[this.layer].points.gte(2) },
+            unlocked() {return hasMilestone(this.layer, 0)},
         },
     },
     deactivated() {
         let inactive = false
         if(inChallenge('ITWRM', 11)) inactive = true
+        if(inChallenge('ITWRM', 12)) inactive = true
+        if(inChallenge('ITWRM', 21)) inactive = true
+        if(inChallenge('ITWRM', 22)) inactive = true
+        if(inChallenge('ITWRM', 31)) inactive = true
+        if(inChallenge('ITWRM', 32)) inactive = true
+        if(inChallenge('ITWRM', 41)) inactive = true
+        if(inChallenge('ITWRM', 42)) inactive = true
+        if(inChallenge('ITWRM', 51)) inactive = true
+        if(inChallenge('ITWRM', 52)) inactive = true
         return inactive
     },
     automate() {
@@ -3125,6 +3533,7 @@ addLayer("ITWRM", {
     startData() { return {
         unlocked: true,
 		points: new Decimal(0),
+        ActiveChallenge: false,
     }},
     color: "#0000ff",
     requires: new Decimal(1e70),
@@ -3137,10 +3546,15 @@ addLayer("ITWRM", {
     gainMult() {
         mult = new Decimal(1)
 
+        if(hasMilestone(this.layer, 10)) mult = new Decimal(0)
+
         return mult
     },
     gainExp() {
         return new Decimal(1)
+    },
+    onPrestige(gain) {
+        if(!hasMilestone(this.layer, 0)) player[this.layer].points = new Decimal(1) // remove this
     },
     row: 1,
     layerShown() {
@@ -3187,41 +3601,216 @@ addLayer("ITWRM", {
     },
     milestones: {
         0: {
-            requirementDescription: "1 IFT",
+            requirementDescription: "1 ITW",
             effectDescription: "Every Milestone Unlock a Challenge and Unlock the Challenge Sub-tab",
             done() { return player[this.layer].points.gte(1) },
             tooltip() {return format(player[this.layer].points)+" Challenges Unlocked"},
             unlocked() {return hasMilestone(this.layer, this.id)}
         },
         1: {
-            requirementDescription: "2 IFT",
+            requirementDescription: "2 ITW",
             effectDescription: "x5 IF. gain and ^1.1 IF. gain",
             done() { return player[this.layer].points.gte(2) },
             unlocked() {return hasMilestone(this.layer, 0)}
         },
         2: {
-            requirementDescription: "3 IFT",
-            effectDescription: "NEXT UPDATE (hopefully it comes soon)",
+            requirementDescription: "3 ITW",
+            effectDescription: "Autoreset for IFE and IFT",
             done() { return player[this.layer].points.gte(3) },
             unlocked() {return hasMilestone(this.layer, 1)}
+        },
+        3: {
+            requirementDescription: "4 ITW",
+            effectDescription: "Keep IF. Milestones",
+            done() { return player[this.layer].points.gte(4) },
+            unlocked() {return hasMilestone(this.layer, 2)}
+        },
+        4: {
+            requirementDescription: "5 ITW",
+            effectDescription: "Autobuy First 5 TFD i Upgrades",
+            done() { return player[this.layer].points.gte(5) },
+            unlocked() {return hasMilestone(this.layer, 3)}
+        },
+        5: {
+            requirementDescription: "6 ITW",
+            effectDescription: "Autobuy RLX and RTF Upgrades",
+            done() { return player[this.layer].points.gte(6) },
+            unlocked() {return hasMilestone(this.layer, 4)}
+        },
+        6: {
+            requirementDescription: "7 ITW",
+            effectDescription: "Autobuy Row 2 UIP Buyables",
+            done() { return player[this.layer].points.gte(7) },
+            unlocked() {return hasMilestone(this.layer, 5)}
+        },
+        7: {
+            requirementDescription: "8 ITW",
+            effectDescription: "/1e15 Skill When not in a challenge",
+            done() { return player[this.layer].points.gte(8) },
+            unlocked() {return hasMilestone(this.layer, 6)}
+        },
+        8: {
+            requirementDescription: "9 ITW",
+            effectDescription: "Keep ДА Milestone 2 (3rd)",
+            done() { return player[this.layer].points.gte(9) },
+            unlocked() {return hasMilestone(this.layer, 7)}
+        },
+        9: {
+            requirementDescription: "10 ITW",
+            effectDescription: "Devide XST Requirement Based on XST 10^sqrt(XST / 100 + 1)",
+            tooltip() {return "/"+format(new Decimal(10).pow(player['XSTRM'].points.times(1/100).cbrt()))+" XST Requirment"},
+            done() { return player[this.layer].points.gte(10) },
+            unlocked() {return hasMilestone(this.layer, 8)}
+        },
+        10: {
+            requirementDescription: "11 ITW",
+            effectDescription: "I have like No IDEA what to do rn so Ending ig",
+            done() { return player[this.layer].points.gte(11) },
+            unlocked() {return hasMilestone(this.layer, 9)}
         },
     },
     challenges: {
         11: {
             name: "First Win",
-            challengeDescription: "Lock Every layer Exsept This layer, TLG and TFD and Unlock More TFD and ^0.5 Skill",
-            goalDescription: "Get 1e11 Points",
+            challengeDescription: "Lock Every layer Except This layer, TLG and TFD and Unlock More TFD and ^0.5 Skill",
+            goalDescription: "Get 1e11 Skill",
             rewardDescription: "Keep the First 5 Upgrades In this Challenge Unlocked",
+            onEnter() {
+                player[this.layer].ActiveChallenge = true
+            },
+            onExit() {
+                player[this.layer].ActiveChallenge = false
+            },
             canComplete: function() {return player.points.gte(100e9)},
             unlocked() {return hasMilestone(this.layer, 0)},
         },
         12: {
             name: "Lower Win",
             challengeDescription: "Prev Challenge Effect but Nerf Skill More ^0.5 → ^0.33",
-            goalDescription: "Get 1e7 Points",
+            goalDescription: "Get 10,000,000 Skill",
             rewardDescription: "Keep Row 2 IF. Buyables On IFT and Keep Row 3 IF. Buyables On IFE",
+            onEnter() {
+                player[this.layer].ActiveChallenge = true
+            },
+            onExit() {
+                player[this.layer].ActiveChallenge = false
+            },
             canComplete: function() {return player.points.gte(10e6)},
             unlocked() {return hasMilestone(this.layer, 1)},
+        },
+        21: {
+            name: "Negative Win",
+            challengeDescription: "Prev Challenge Effect but Not lock Neg and Unlock More Neg Upgrades but Don't Unlock the Other TFD Upgrades",
+            goalDescription: "Get 5e10 Skill",
+            rewardDescription: "Keep Row All Upgrades except Neg Upgrade #i5 In this Challenge Unlocked",
+            onEnter() {
+                player[this.layer].ActiveChallenge = true
+            },
+            onExit() {
+                player[this.layer].ActiveChallenge = false
+            },
+            canComplete: function() {return player.points.gte(50e9)},
+            unlocked() {return hasMilestone(this.layer, 2)},
+        },
+        22: {
+            name: "Cashed Win",
+            challengeDescription: "Prev Challenge Effect but Not lock Ca$h",
+            goalDescription: "Get 1e11 Skill",
+            rewardDescription: "x1.5 skill",
+            onEnter() {
+                player[this.layer].ActiveChallenge = true
+            },
+            onExit() {
+                player[this.layer].ActiveChallenge = false
+            },
+            canComplete: function() {return player.points.gte(100e9)},
+            unlocked() {return hasMilestone(this.layer, 3)},
+        },
+        31: {
+            name: "UIP Win",
+            challengeDescription: "Prev Challenge Effect but Not lock UIP and Unlock More UIP Buyables and Don't Unlock Neg Upgrade i5.",
+            goalDescription: "Get 500,000,000 Skill",
+            rewardDescription: "Make Row 1 UIP Buyables Cost Nothing and Keep the Buyables Unlocked",
+            onEnter() {
+                player[this.layer].ActiveChallenge = true
+            },
+            onExit() {
+                player[this.layer].ActiveChallenge = false
+            },
+            canComplete: function() {return player.points.gte(500e6)},
+            unlocked() {return hasMilestone(this.layer, 4)},
+        },
+        32: {
+            name: "Friendly Win",
+            challengeDescription: "Prev Challenge Effect but Not lock FLN and ^0.33 → ^0.5",
+            goalDescription: "Get 1e13 Skill",
+            rewardDescription: "For Each Milestone x2 Skill per Level",
+            onEnter() {
+                player[this.layer].ActiveChallenge = true
+            },
+            onExit() {
+                player[this.layer].ActiveChallenge = false
+            },
+            rewardEffect() {return new Decimal(2).pow(player[this.layer].points)},
+            rewardDisplay() {return "x"+format(challengeEffect(this.layer, this.id))+" Skill"},
+            canComplete: function() {return player.points.gte(10e12)},
+            unlocked() {return hasMilestone(this.layer, 5)},
+        },
+        41: {
+            name: "True Ease Win",
+            challengeDescription: "Prev Challenge Effect but Not lock TES",
+            goalDescription: "Get 1e14 Skill",
+            rewardDescription: "Increase The Max Buyable limit 250 → 350",
+            onEnter() {
+                player[this.layer].ActiveChallenge = true
+            },
+            onExit() {
+                player[this.layer].ActiveChallenge = false
+            },
+            canComplete: function() {return player.points.gte(100e12)},
+            unlocked() {return hasMilestone(this.layer, 6)},
+        },
+        42: {
+            name: "'A' Win",
+            challengeDescription: "Prev Challenge Effect but Not lock 'A'",
+            goalDescription: "Get 5e14 Skill",
+            rewardDescription: "x1,000,000 Skill",
+            onEnter() {
+                player[this.layer].ActiveChallenge = true
+            },
+            onExit() {
+                player[this.layer].ActiveChallenge = false
+            },
+            canComplete: function() {return player.points.gte(500e12)},
+            unlocked() {return hasMilestone(this.layer, 7)},
+        },
+        51: {
+            name: "Felix the ДА Win",
+            challengeDescription: "Prev Challenge Effect but Not lock ДА",
+            goalDescription: "Get 2.1e21 Skill",
+            rewardDescription: "x1,000 'A'",
+            onEnter() {
+                player[this.layer].ActiveChallenge = true
+            },
+            onExit() {
+                player[this.layer].ActiveChallenge = false
+            },
+            canComplete: function() {return player.points.gte(2.1e21)},
+            unlocked() {return hasMilestone(this.layer, 8)},
+        },
+        52: {
+            name: "Exist Win",
+            challengeDescription: "Prev Challenge Effect but Not lock XST",
+            goalDescription: "Get 1e23 Skill",
+            rewardDescription: "Autobuy FLN Upgrade #6, #7a and #7b",
+            onEnter() {
+                player[this.layer].ActiveChallenge = true
+            },
+            onExit() {
+                player[this.layer].ActiveChallenge = false
+            },
+            canComplete: function() {return player.points.gte(1e23)},
+            unlocked() {return hasMilestone(this.layer, 9)},
         },
     },
 })
