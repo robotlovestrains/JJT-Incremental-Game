@@ -30,18 +30,11 @@ addLayer("MISC", {
                 "border": "2px solid #b4b4b4",
             },
         },
-        "Event (teaser Not Required)": {
+        "Events (teaser Not Required)": {
             embedLayer: "Event",
             buttonStyle: {
                 "color": "#797979",
                 "border": "2px solid #797979",
-            },
-        },
-        "Cool Boosts (1 DAY ONLY!)": {
-            embedLayer: "BDay",
-            buttonStyle: {
-                "color": "#0eeb58",
-                "border": "2px solid #0eeb58",
             },
         },
     },
@@ -101,46 +94,6 @@ addLayer("MiniGames", {
             },
         },
     },
-})
-
-addLayer("BDay", {
-    name: "BirthDay",
-    symbol: "",
-    position: 0,
-    startData() { return {
-        unlocked: true,
-		points: new Decimal(0),
-    }},
-    color: "#b4b4b4",
-    requires: new Decimal(1e1000),
-    resource: "Useless Layers",
-    baseResource: "Skill",
-    baseAmount() {return player.points},
-    type: "normal",
-    exponent: 0,
-    gainMult() {
-        mult = new Decimal(0)
-        return mult
-    },
-    gainExp() {
-        return new Decimal(1)
-    },
-    row: "side",
-    layerShown() {return false},
-    tabFormat: [
-        ["display-text",
-            function() { return 'On First ITW Reset Gain 2 ITW' },
-            { "color": "#b4b4b4", "font-size": "24px" }],
-        ["display-text",
-            function() { return 'x5 Skill in ITW Challenges' },
-            { "color": "#b4b4b4", "font-size": "24px" }],
-        ["display-text",
-            function() { return '^1.01 Skill (for fun)' },
-            { "color": "#b4b4b4", "font-size": "24px" }],
-        ["display-text",
-            function() { return 'If these Effects do not work too bad' },
-            { "color": "#b4b4b4", "font-size": "16px" }],
-    ],
 })
 
 addLayer("MiniSettings", {

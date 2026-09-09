@@ -20,15 +20,19 @@ let modInfo = {
 }
 
 // Set your version num
-let value = "6.0"
+let value = "6.1"
 
 // Set your version and name
 let VERSION = {
 	num: "Alpha"+value,
-	name: "Win Part 2",
+	name: "Birthday End",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>vAlpha6.1 Birthday End</h3><br>
+		- Removed the Birthday boosts<br>
+		- Did some Small Changes<br>
+		<br>
 	<h3>vAlpha6.0 Win Part 2</h3><br>
 		- Added more Content<br>
 		- Added more MiniGame Content<br>
@@ -503,8 +507,6 @@ function getPointGen() {
 	if(hasChallenge('ITWRM', 32)) gain = gain.times(challengeEffect('ITWRM', 32))
 	if(hasMilestone('ITWRM', 7) && !player['ITWRM'].ActiveChallenge) gain = gain.times(1e-15)
 	if(hasChallenge('ITWRM', 42)) gain = gain.times(1e6)
-	
-	if(player['ITWRM'].ActiveChallenge) gain = gain.times(5) // Remove
 
 	if(inChallenge('ITWRM', 11)) gain = gain.pow(0.5)
 	if(inChallenge('ITWRM', 12)) gain = gain.pow(0.33)
@@ -516,7 +518,6 @@ function getPointGen() {
 	if(inChallenge('ITWRM', 42)) gain = gain.pow(0.5)
 	if(inChallenge('ITWRM', 51)) gain = gain.pow(0.5)
 	if(inChallenge('ITWRM', 52)) gain = gain.pow(0.5)
-	gain = gain.pow(1.01) // Remove
 
 	gain = gain.add(player["NEGRM"].layerEffect.times(-1))
 	if(getBuyableAmount('TFDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) gain = gain.add(player["NEGRM"].layerEffect)

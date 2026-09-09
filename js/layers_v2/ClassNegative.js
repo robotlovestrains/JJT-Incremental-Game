@@ -3553,9 +3553,6 @@ addLayer("ITWRM", {
     gainExp() {
         return new Decimal(1)
     },
-    onPrestige(gain) {
-        if(!hasMilestone(this.layer, 0)) player[this.layer].points = new Decimal(1) // remove this
-    },
     row: 1,
     layerShown() {
         let vis = false
