@@ -2810,7 +2810,7 @@ addLayer("RLXRM", {
             },
             purchaseLimit: new Decimal(1),
             branches: [31],
-            unlocked() {return getBuyableAmount(this.layer, 11).gte(1) && inChallenge('ITWRM', 91)},
+            unlocked() {return getBuyableAmount(this.layer, 11).gte(1) && inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) >= 1)},
         },
         31: {
             title() {return "<h2>RLX #4</h2>"},
