@@ -20,21 +20,24 @@ let modInfo = {
 }
 
 // Set your version num
-let value = "7"
+let value = "7.1"
 
 // Set your version and name
 let VERSION = {
 	num: "Alpha"+value,
-	name: "Win Part 3",
+	name: "Slight Changes",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>vAlpha7.1 Slight Changes</h3><br>
+		- Changed Some Things<br>
+		<br>
 	<h3>vAlpha7.0 Win Part 3</h3><br>
 		- Added more Content<br>
 		- Made ITW Challenges Easier<br>
 		- Fixed Some Bugs<br>
 		Minigame Content Soon?<br>
-		EndGame: ???<br>
+		EndGame: 17 ITW<br>
 		<br>
 	<h3>vAlpha6.1 Birthday End</h3><br>
 		- Removed the Birthday boosts<br>

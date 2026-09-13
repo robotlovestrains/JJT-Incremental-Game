@@ -878,13 +878,13 @@ addLayer("TLGRM", {
         },
         15: {
             requirementDescription: "16 TLG",
-            effectDescription: "Unlock Instant Win and Keep Milestone IFE 2 (3rd) and 3 (4th) and TLG is SOFTCAPED I",
+            effectDescription: "Unlock Instant Win and Keep Milestones IFE 2 (3rd) and 3 (4th) but TLG is SOFTCAPED I",
             done() { return player[this.layer].points.gte(16) },
             unlocked() {return hasMilestone(this.layer, this.id)},
         },
         16: {
             requirementDescription: "17 TLG",
-            effectDescription: "Unlock Millisecondless and For Every TLG After 16 To 20 Instacomplete 4 more Challenges on Reset (NEXT UPDATE To Much Work)",
+            effectDescription: "Unlock Millisecondless and Keep Milestone IFT 0 (1st) and For Every TLG After 16 To 20 Instacomplete 4 more Challenges on Reset (NEXT UPDATE To Much Work)",
             done() { return player[this.layer].points.gte(17) },
             unlocked() {return hasMilestone(this.layer, this.id)},
         },
@@ -2309,7 +2309,7 @@ addLayer("ARM", {
             cost(x) { return new Decimal(1.5e6).times(new Decimal(2).pow(x.add(1).pow(0.25))).tetrate(x.add(1).pow(0.01)) },
             display() { return "<h3>Cool Boost Total Buyables (in this layer) boost Skill</h3><br><h2>log25(Buyables x 5 + 1)</h2><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
-            effect() { return getBuyableAmount(this.layer, 11).add(getBuyableAmount(this.layer, 12)).add(getBuyableAmount(this.layer, this.id)).add(getBuyableAmount(this.layer, 14)).times(5).add(1).log(25) },
+            effect() { return getBuyableAmount(this.layer, 11).add(getBuyableAmount(this.layer, 12)).add(getBuyableAmount(this.layer, this.id)).add(getBuyableAmount(this.layer, 14)).add(getBuyableAmount(this.layer, 21)).add(getBuyableAmount(this.layer, 22)).times(5).add(1).log(25) },
             buy() {
                 if(!hasMilestone('ДARM', 1)) player[this.layer].points = player[this.layer].points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
@@ -3239,6 +3239,8 @@ addLayer("IFDRM", {
         if(hasMilestone('ITWRM', 12)) mult = mult.add(1e10)
 
         if(inChallenge('ITWRM', 72)) mult = mult.add(-1e10)
+        if(inChallenge('ITWRM', 81)) mult = mult.add(-5e9)
+        if(inChallenge('ITWRM', 82)) mult = mult.add(-2.5e9)
         if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 4)) mult = mult.add(-1e10)
 
         mult = mult.times(buyableEffect(this.layer, 21))
@@ -3251,6 +3253,8 @@ addLayer("IFDRM", {
         if(hasMilestone('ITWRM', 12)) mult = mult.times(1e6)
 
         if(inChallenge('ITWRM', 72)) mult = mult.times(1e-6)
+        if(inChallenge('ITWRM', 81)) mult = mult.times(1e-3)
+        if(inChallenge('ITWRM', 82)) mult = mult.times(0.2)
         if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 4)) mult = mult.times(1e-6)
 
         mult = mult.pow(buyableEffect(this.layer, 31))
@@ -3262,6 +3266,8 @@ addLayer("IFDRM", {
         if(hasMilestone('ITWRM', 12)) mult = mult.pow(2)
 
         if(inChallenge('ITWRM', 72)) mult = mult.pow(0.5)
+        if(inChallenge('ITWRM', 81)) mult = mult.pow(0.5)
+        if(inChallenge('ITWRM', 82)) mult = mult.pow(0.5)
         if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 4)) mult = mult.pow(0.5)
 
         if(player['IFERM'].RT.lt(0.1) || player['IFTRM'].RT.lt(0.1)) mult = new Decimal(0)
@@ -3760,7 +3766,7 @@ addLayer("IFTRM", {
         0: {
             requirementDescription: "1 IFT",
             effectDescription: "+150 IF. Gain and x10 IF. Gain and ^1.5 IF. Gain and Unlock more IFE Milestones",
-            done() { return player[this.layer].points.gte(1) },
+            done() { return player[this.layer].points.gte(1) || hasMilestone('TLGRM', 16) },
         },
         1: {
             requirementDescription: "2 IFT",
@@ -4159,7 +4165,7 @@ addLayer("ITWRM", {
         },
         72: {
             name: "Infinite Dot Win",
-            challengeDescription: "Prev Challenge Effect but Not lock IF. but ^0.5 IF. gain and /5,000,000 IF. gain and -1e10 IF. gain and Don't Get IF. Milestones",
+            challengeDescription: "Prev Challenge Effect but Not lock IF. but ^0.5 IF. gain and /1,000,000 IF. gain and -1e10 IF. gain and Don't Get IF. Milestones",
             goalDescription: "Get 1e29 Skill",
             rewardDescription: "x5 Skill",
             onEnter() {
@@ -4173,7 +4179,7 @@ addLayer("ITWRM", {
         },
         81: {
             name: "Infinite Easy Win",
-            challengeDescription: "Prev Challenge Effect but Not lock IFE and Allow Getting IF. Milestones but Don't AutoReset IFE",
+            challengeDescription: "Prev Challenge Effect but Not lock IFE and Allow Getting IF. Milestones and x200 IF. Gain and +5e9 IF. Gain but Don't AutoReset IFE",
             goalDescription: "Get 1e30 Skill",
             rewardDescription: "x5 Skill again",
             onEnter() {
@@ -4187,7 +4193,7 @@ addLayer("ITWRM", {
         },
         82: {
             name: "Infinity Win",
-            challengeDescription: "Prev Challenge Effect but Not lock IFT and AutoRest For IFE Milestones but Don't AutoReset IFT",
+            challengeDescription: "Prev Challenge Effect but Not lock IFT and AutoRest For IFE Milestones and x1,000 IF. Gain and +2.5e9 IF. but Don't AutoReset IFT",
             goalDescription: "Get 1e33 Skill",
             rewardDescription: "x4 Skill",
             onEnter() {
