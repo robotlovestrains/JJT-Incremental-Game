@@ -20,15 +20,22 @@ let modInfo = {
 }
 
 // Set your version num
-let value = "6.1"
+let value = "7"
 
 // Set your version and name
 let VERSION = {
 	num: "Alpha"+value,
-	name: "Birthday End",
+	name: "Win Part 3",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>vAlpha7.0 Win Part 3</h3><br>
+		- Added more Content<br>
+		- Made ITW Challenges Easier<br>
+		- Fixed Some Bugs<br>
+		Minigame Content Soon?<br>
+		EndGame: ???<br>
+		<br>
 	<h3>vAlpha6.1 Birthday End</h3><br>
 		- Removed the Birthday boosts<br>
 		- Did some Small Changes<br>
@@ -455,6 +462,7 @@ function getPointGen() {
 	if(getBuyableAmount('TFDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) gain = gain.add(player["NEGRM"].layerEffect)
 	if(hasMilestone('CSHRM', 1)) gain = gain.add(new Decimal(player[this.layer].milestones.length).times(1/3))
 	gain = gain.add(buyableEffect('ARM', 11))
+	if(hasMilestone('CSHRM', 7)) gain = gain.add(100)
 
 	gain = gain.times(buyableEffect('TFDRM', 11))
 	gain = gain.times(buyableEffect('TFDRM', 21))
@@ -507,17 +515,44 @@ function getPointGen() {
 	if(hasChallenge('ITWRM', 32)) gain = gain.times(challengeEffect('ITWRM', 32))
 	if(hasMilestone('ITWRM', 7) && !player['ITWRM'].ActiveChallenge) gain = gain.times(1e-15)
 	if(hasChallenge('ITWRM', 42)) gain = gain.times(1e6)
+	if(hasMilestone('ITWRM', 10)) gain = gain.times(1e-10)
+	if(hasChallenge('ITWRM', 61)) gain = gain.times(1e6)
+	if(hasChallenge('ITWRM', 72)) gain = gain.times(5)
+	if(hasChallenge('ITWRM', 81)) gain = gain.times(5)
+	if(hasChallenge('ITWRM', 82)) gain = gain.times(4)
+	gain = gain.times(buyableEffect('TESRM', 12))
+	if(hasMilestone('XSTRM', 5)) gain = gain.times(1e10)
+	if(inChallenge('ITWRM', 91)) gain = gain.times(player['SKIPRM'].layerEffectb)
+	if(hasMilestone('XSTRM', 6)) gain = gain.times(1e10)
+	if(hasMilestone('CSHRM', 4)) gain = gain.times(1e10)
+	if(hasMilestone('CSHRM', 5)) gain = gain.times(1e10)
+	if(hasMilestone('CSHRM', 6)) gain = gain.times(1e25)
+	if(hasMilestone('XSTRM', 7)) gain = gain.times(1e25)
+	if(hasMilestone('CSHRM', 7)) gain = gain.times(1e20)
 
-	if(inChallenge('ITWRM', 11)) gain = gain.pow(0.5)
-	if(inChallenge('ITWRM', 12)) gain = gain.pow(0.33)
-	if(inChallenge('ITWRM', 21)) gain = gain.pow(0.33)
-	if(inChallenge('ITWRM', 22)) gain = gain.pow(0.33)
-	if(inChallenge('ITWRM', 31)) gain = gain.pow(0.33)
-	if(inChallenge('ITWRM', 32)) gain = gain.pow(0.5)
-	if(inChallenge('ITWRM', 41)) gain = gain.pow(0.5)
-	if(inChallenge('ITWRM', 42)) gain = gain.pow(0.5)
-	if(inChallenge('ITWRM', 51)) gain = gain.pow(0.5)
-	if(inChallenge('ITWRM', 52)) gain = gain.pow(0.5)
+	let pow = new Decimal(1)
+	if(inChallenge('ITWRM', 11)) pow = pow.times(0.5)
+	if(inChallenge('ITWRM', 12)) pow = pow.times(0.33)
+	if(inChallenge('ITWRM', 21)) pow = pow.times(0.33)
+	if(inChallenge('ITWRM', 22)) pow = pow.times(0.33)
+	if(inChallenge('ITWRM', 31)) pow = pow.times(0.33)
+	if(inChallenge('ITWRM', 32)) pow = pow.times(0.5)
+	if(inChallenge('ITWRM', 41)) pow = pow.times(0.5)
+	if(inChallenge('ITWRM', 42)) pow = pow.times(0.5)
+	if(inChallenge('ITWRM', 51)) pow = pow.times(0.5)
+	if(inChallenge('ITWRM', 52)) pow = pow.times(0.5)
+	if(inChallenge('ITWRM', 61)) pow = pow.times(0.5)
+	if(inChallenge('ITWRM', 62)) pow = pow.times(0.5)
+	if(inChallenge('ITWRM', 71)) pow = pow.times(0.5)
+	if(inChallenge('ITWRM', 72)) pow = pow.times(0.5)
+	if(inChallenge('ITWRM', 81)) pow = pow.times(0.5)
+	if(inChallenge('ITWRM', 82)) pow = pow.times(0.5)
+	if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 0)) pow = pow.times(0.25)
+	if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 1)) pow = pow.times(0.2)
+	if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 2)) pow = pow.times(0.16)
+	if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 3)) pow = pow.times(0.14)
+	if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 4)) pow = pow.times(0.12)
+	gain = gain.pow(pow)
 
 	gain = gain.add(player["NEGRM"].layerEffect.times(-1))
 	if(getBuyableAmount('TFDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) gain = gain.add(player["NEGRM"].layerEffect)
@@ -540,7 +575,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return hasMilestone('ITWRM', 10)
+	return hasMilestone('TLGRM', 16)
 }
 
 

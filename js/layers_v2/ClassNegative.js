@@ -717,7 +717,12 @@ addLayer("TFDRM", {
                 layers[this.layer].buyables[1041].buy()
             };
         }
-    }
+    },
+    deactivated() {
+        let inactive = false
+        if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 4) && player.points.lt(10)) inactive = true
+        return inactive
+    },
 })
 
 addLayer("TLGRM", {
@@ -743,7 +748,8 @@ addLayer("TLGRM", {
         if(hasMilestone(this.layer, 11)) mult = mult.times(player['SKIPRM'].layerEffect.pow(-1))
         if(getBuyableAmount('RTFRM', 31).gte(1)) mult = mult.times(player['SKIPRM'].layerEffect.pow(player[this.layer].points.pow(-1)))
 
-        if(player[this.layer].points.gte(16)) mult = mult.times(new Decimal(1000).pow(player[this.layer].points.add(-15).times(4).pow(1.75)))
+        // softcap
+        if(player[this.layer].points.gte(16)) mult = mult.times(new Decimal(1000).pow(player[this.layer].points.add(-15).times(4).pow(1.15)))
 
         return mult
     },
@@ -874,6 +880,12 @@ addLayer("TLGRM", {
             requirementDescription: "16 TLG",
             effectDescription: "Unlock Instant Win and Keep Milestone IFE 2 (3rd) and 3 (4th) and TLG is SOFTCAPED I",
             done() { return player[this.layer].points.gte(16) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        16: {
+            requirementDescription: "17 TLG",
+            effectDescription: "Unlock Millisecondless and For Every TLG After 16 To 20 Instacomplete 4 more Challenges on Reset (NEXT UPDATE To Much Work)",
+            done() { return player[this.layer].points.gte(17) },
             unlocked() {return hasMilestone(this.layer, this.id)},
         },
     },
@@ -1202,13 +1214,14 @@ addLayer("NEGRM", {
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             purchaseLimit: new Decimal(1),
-            unlocked() {return getBuyableAmount(this.layer, 51).gte(1) && (inChallenge('ITWRM', 21) || inChallenge('ITWRM', 22))},
+            unlocked() {return getBuyableAmount(this.layer, 51).gte(1) && (inChallenge('ITWRM', 21) || inChallenge('ITWRM', 22) || inChallenge('ITWRM', 91))},
         },
     },
     deactivated() {
         let inactive = false
         if(inChallenge('ITWRM', 11)) inactive = true
         if(inChallenge('ITWRM', 12)) inactive = true
+        if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 4) && player.points.lt(1e3)) inactive = true
         return inactive
     },
     automate() {
@@ -1236,6 +1249,23 @@ addLayer("NEGRM", {
             };
             if(layers[this.layer].buyables[51].canAfford() && getBuyableAmount(this.layer, 51).lt(layers[this.layer].buyables[51].purchaseLimit) && getBuyableAmount(this.layer, 41).gte(1) && getBuyableAmount(this.layer, 42).gte(1)) {
                 layers[this.layer].buyables[51].buy()
+            };
+        }
+        if(hasMilestone('ITWRM', 14)) {
+            if(layers[this.layer].buyables[1011].canAfford() && getBuyableAmount(this.layer, 1011).lt(layers[this.layer].buyables[1011].purchaseLimit)) {
+                layers[this.layer].buyables[1011].buy()
+            };
+            if(layers[this.layer].buyables[1021].canAfford() && getBuyableAmount(this.layer, 1021).lt(layers[this.layer].buyables[1021].purchaseLimit) && getBuyableAmount(this.layer, 11).gte(1)) {
+                layers[this.layer].buyables[1021].buy()
+            };
+            if(layers[this.layer].buyables[1031].canAfford() && getBuyableAmount(this.layer, 1031).lt(layers[this.layer].buyables[1031].purchaseLimit) && getBuyableAmount(this.layer, 21).gte(1)) {
+                layers[this.layer].buyables[1031].buy()
+            };
+            if(layers[this.layer].buyables[1041].canAfford() && getBuyableAmount(this.layer, 1041).lt(layers[this.layer].buyables[1041].purchaseLimit)) {
+                layers[this.layer].buyables[1041].buy()
+            };
+            if(layers[this.layer].buyables[1042].canAfford() && getBuyableAmount(this.layer, 1042).lt(layers[this.layer].buyables[1042].purchaseLimit)) {
+                layers[this.layer].buyables[1042].buy()
             };
         }
     },
@@ -1325,7 +1355,7 @@ addLayer("CSHRM", {
         },
         1: {
             requirementDescription: "3 Ca$h",
-            effectDescription() {return "+0.333 Base Skill Gain per Milestone and Stops and 30 Effect: +"+format(new Decimal(player[this.layer].milestones.length).times(1/3))},
+            effectDescription() {return "+0.333 Base Skill Gain per Milestone Effect: +"+format(new Decimal(player[this.layer].milestones.length).times(1/3))},
             done() { return player[this.layer].points.gte(3) },
         },
         2: {
@@ -1338,6 +1368,36 @@ addLayer("CSHRM", {
             effectDescription() {return "Unlock Ca$h Buyables"},
             done() { return player[this.layer].points.gte(8) && hasMilestone('FLNRM', 1) },
             unlocked() {return hasMilestone('FLNRM', 1)}
+        },
+        4: {
+            requirementDescription: "6 Ca$h",
+            effectDescription() {return "x1e10 Skill"},
+            done() { return player[this.layer].points.gte(6) && inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) >= 1) },
+            unlocked() {return inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 1)}
+        },
+        5: {
+            requirementDescription: "7 Ca$h",
+            effectDescription() {return "x1e10 Skill again and x1,000 UIP, AUI and UUP"},
+            done() { return player[this.layer].points.gte(7) && inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) >= 1) },
+            unlocked() {return inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) >= 1)}
+        },
+        6: {
+            requirementDescription: "4 Ca$h",
+            effectDescription() {return "x1e25 Skill"},
+            done() { return player[this.layer].points.gte(4) && inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) >= 2) },
+            unlocked() {return inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) >= 2)}
+        },
+        7: {
+            requirementDescription: "6 Ca$h again",
+            effectDescription() {return "FLN Levels Don't Reset Upgrades and x1,000 'A'"},
+            done() { return player[this.layer].points.gte(6) && inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) >= 2) },
+            unlocked() {return inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) >= 2)}
+        },
+        8: {
+            requirementDescription: "2 Ca$h",
+            effectDescription() {return "+100 Base Skill gain and x1e20 Skill gain"},
+            done() { return player[this.layer].points.gte(2) && inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) >= 3) },
+            unlocked() {return inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) >= 3)}
         },
     },
     buyables: {
@@ -1357,6 +1417,7 @@ addLayer("CSHRM", {
         if(inChallenge('ITWRM', 11)) inactive = true
         if(inChallenge('ITWRM', 12)) inactive = true
         if(inChallenge('ITWRM', 21)) inactive = true
+        if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 4) && player.points.lt(100e3)) inactive = true
         return inactive
     },
     automate() {
@@ -1391,6 +1452,7 @@ addLayer("UIPRM", {
         mult = mult.times(buyableEffect('FLNRM', 21))
         mult = mult.times(buyableEffect('FLNRM', 41)[3])
         mult = mult.times(buyableEffect('TESRM', 11))
+        if(hasMilestone('CSHRM', 5)) mult = mult.times(1e3)
 
         if(inChallenge('ITWRM', 11)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 12)) mult = new Decimal(0)
@@ -1527,7 +1589,7 @@ addLayer("UIPRM", {
         21: {
             title() {return "<h2>AAA #2</h2>"},
             cost(x) { return new Decimal(100).times(new Decimal(5).pow(x.pow(1.5))) },
-            display() { return "<h2>Increase Row1 Buyables' Max amount by 10 per level</h2><br><br><br><h2>Cost: "+format(this.cost())+" UIP</h2><br><h3>Effect: x"+format(this.effect())+"</h3><br>"+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit) },
+            display() { return "<h2>Increase Row 1 Buyables' Max amount by 10 per level</h2><br><br><br><h2>Cost: "+format(this.cost())+" UIP</h2><br><h3>Effect: x"+format(this.effect())+"</h3><br>"+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit) },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             effect() { return getBuyableAmount(this.layer, this.id).times(10) },
             buy() {
@@ -1570,12 +1632,18 @@ addLayer("UIPRM", {
         if(inChallenge('ITWRM', 12)) inactive = true
         if(inChallenge('ITWRM', 21)) inactive = true
         if(inChallenge('ITWRM', 22)) inactive = true
+        if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 4) && player.points.lt(10e6)) inactive = true
         return inactive
     },
     automate() {
-        if(hasMilestone('TLGRM', 6)) {
-            player[this.layer].pointsB = player[this.layer].pointsB.add(getResetGain(this.layer).sqrt());
-            player[this.layer].pointsC = player[this.layer].pointsC.add(getResetGain(this.layer).cbrt());
+        if(layers['UIPRM'].passiveGeneration().gt(0)) {
+            player[this.layer].pointsB = player[this.layer].pointsB.add(getResetGain(this.layer).sqrt().times(layers['UIPRM'].passiveGeneration()).times(0.05));
+            player[this.layer].pointsC = player[this.layer].pointsC.add(getResetGain(this.layer).cbrt().times(layers['UIPRM'].passiveGeneration()).times(0.05));
+        };
+        if(inChallenge('ITWRM', 31)) {
+            player[this.layer].points = player[this.layer].points.add(1);
+            player[this.layer].pointsB = player[this.layer].pointsB.add(1);
+            player[this.layer].pointsC = player[this.layer].pointsC.add(1);
         };
         if(hasMilestone('TLGRM', 7)) {
             if(layers[this.layer].buyables[11].canAfford() && getBuyableAmount(this.layer, 11).lt(layers[this.layer].buyables[11].purchaseLimit())) {
@@ -1626,6 +1694,8 @@ addLayer("FLNRM", {
         mult = mult.times(buyableEffect(this.layer, 41)[4])
         mult = mult.times(buyableEffect(this.layer, 61))
         mult = mult.times(buyableEffect('TESRM', 11))
+
+        if(inChallenge('ITWRM', 32) || (hasChallenge('ITWRM', 32) && player['ITWRM'].ActiveChallenge)) mult = mult.times(1e3)
 
         if(inChallenge('ITWRM', 11)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 12)) mult = new Decimal(0)
@@ -1688,6 +1758,9 @@ addLayer("FLNRM", {
                 "blank",
                 "blank",
                 ["row", [["buyable", 71], "blank", "blank", "blank", "blank", ["buyable", 72]]],
+                "blank",
+                "blank",
+                ["row", [["buyable", 81]]],
             ],
         },
         "Levels": {
@@ -1738,13 +1811,14 @@ addLayer("FLNRM", {
                 player[this.layer].points = new Decimal(0)
                 player[this.layer].level = player[this.layer].level.add(1)
                 player[this.layer].BUpgrades = new Decimal(0)
-                setBuyableAmount(this.layer, 11, new Decimal(0))
-                setBuyableAmount(this.layer, 21, new Decimal(0))
-                setBuyableAmount(this.layer, 31, new Decimal(0))
-                setBuyableAmount(this.layer, 41, new Decimal(0))
-                setBuyableAmount(this.layer, 61, new Decimal(0))
-                setBuyableAmount(this.layer, 71, new Decimal(0))
-                setBuyableAmount(this.layer, 72, new Decimal(0))
+                if(!hasMilestone('CSHRM', 5)) setBuyableAmount(this.layer, 11, new Decimal(0))
+                if(!hasMilestone('CSHRM', 5)) setBuyableAmount(this.layer, 21, new Decimal(0))
+                if(!hasMilestone('CSHRM', 5)) setBuyableAmount(this.layer, 31, new Decimal(0))
+                if(!hasMilestone('CSHRM', 5)) setBuyableAmount(this.layer, 41, new Decimal(0))
+                if(!hasMilestone('CSHRM', 5)) setBuyableAmount(this.layer, 61, new Decimal(0))
+                if(!hasMilestone('CSHRM', 5)) setBuyableAmount(this.layer, 71, new Decimal(0))
+                if(!hasMilestone('CSHRM', 5)) setBuyableAmount(this.layer, 72, new Decimal(0))
+                if(!hasMilestone('CSHRM', 5)) setBuyableAmount(this.layer, 81, new Decimal(0))
             },
         },
     },
@@ -1850,7 +1924,7 @@ addLayer("FLNRM", {
             },
             purchaseLimit: new Decimal(1),
             unlocked() {return getBuyableAmount(this.layer, 61).gte(1)},
-            branches: [],
+            branches: [81],
         },
         72: {
             title() {return "<h2>FLN #7b</h2>"},
@@ -1864,6 +1938,18 @@ addLayer("FLNRM", {
             },
             purchaseLimit: new Decimal(1),
             unlocked() {return getBuyableAmount(this.layer, 61).gte(1)},
+            branches: [81],
+        },
+        81: {
+            title() {return "<h2>FLN #8</h2>"},
+            cost(x) { return new Decimal(10e6).times(new Decimal(1.1).pow(x.times(3).pow(1))) },
+            display() { return "<h2>Does Nothing</h2><br><br><br><h2>Requires: "+format(this.cost())+"</h2>" },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                player[this.layer].BUpgrades = player[this.layer].BUpgrades.add(1)
+            },
+            unlocked() {return (getBuyableAmount(this.layer, 71).gte(1) || getBuyableAmount(this.layer, 71).gte(1)) && inChallenge('ITWRM', 91)},
             branches: [],
         },
     },
@@ -1884,6 +1970,12 @@ addLayer("FLNRM", {
             done() { return player[this.layer].level.gte(3) && hasMilestone('TLGRM', 4) },
             unlocked() {return hasMilestone('TLGRM', 4)}
         },
+        3: {
+            requirementDescription: "Level 3 again!",
+            effectDescription() {return "Root XST Requirement by 2"},
+            done() { return player[this.layer].level.gte(3) && inChallenge('ITWRM', 91) },
+            unlocked() {return inChallenge('ITWRM', 91)}
+        },
     },
     deactivated() {
         let inactive = false
@@ -1892,6 +1984,7 @@ addLayer("FLNRM", {
         if(inChallenge('ITWRM', 21)) inactive = true
         if(inChallenge('ITWRM', 22)) inactive = true
         if(inChallenge('ITWRM', 31)) inactive = true
+        if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 4) && player.points.lt(1e9)) inactive = true
         return inactive
     },
     automate() {
@@ -1926,15 +2019,16 @@ addLayer("FLNRM", {
         }
         if(hasMilestone('XSTRM', 3) && player[this.layer].points.gte(player[this.layer].LvReq)) {
             player[this.layer].points = new Decimal(0)
-                player[this.layer].level = player[this.layer].level.add(1)
-                player[this.layer].BUpgrades = new Decimal(0)
-                setBuyableAmount(this.layer, 11, new Decimal(0))
-                setBuyableAmount(this.layer, 21, new Decimal(0))
-                setBuyableAmount(this.layer, 31, new Decimal(0))
-                setBuyableAmount(this.layer, 41, new Decimal(0))
-                setBuyableAmount(this.layer, 61, new Decimal(0))
-                setBuyableAmount(this.layer, 71, new Decimal(0))
-                setBuyableAmount(this.layer, 72, new Decimal(0))
+            player[this.layer].level = player[this.layer].level.add(1)
+            if(!hasMilestone('CSHRM', 5)) player[this.layer].BUpgrades = new Decimal(0)
+            if(!hasMilestone('CSHRM', 5)) setBuyableAmount(this.layer, 11, new Decimal(0))
+            if(!hasMilestone('CSHRM', 5)) setBuyableAmount(this.layer, 21, new Decimal(0))
+            if(!hasMilestone('CSHRM', 5)) setBuyableAmount(this.layer, 31, new Decimal(0))
+            if(!hasMilestone('CSHRM', 5)) setBuyableAmount(this.layer, 41, new Decimal(0))
+            if(!hasMilestone('CSHRM', 5)) setBuyableAmount(this.layer, 61, new Decimal(0))
+            if(!hasMilestone('CSHRM', 5)) setBuyableAmount(this.layer, 71, new Decimal(0))
+            if(!hasMilestone('CSHRM', 5)) setBuyableAmount(this.layer, 72, new Decimal(0))
+            if(!hasMilestone('CSHRM', 5)) setBuyableAmount(this.layer, 81, new Decimal(0))
         };
     },
 })
@@ -2048,6 +2142,22 @@ addLayer("TESRM", {
                 return limit
             },
         },
+        12: {
+            title() {return "<h2>Mega Booster II</h2>"},
+            cost(x) { return new Decimal(20).times(new Decimal(5).pow(x.add(1).pow(0.3))).tetrate(x.add(1).pow(0.07)) },
+            display() { return "<h2>x1.1 Skill per level</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3><br>"+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit()) },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            effect() { return new Decimal(1.1).pow(getBuyableAmount(this.layer, this.id)) },
+            buy() {
+                if(getBuyableAmount('RLXRM', 31).lt(1)) player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit() {
+                let limit = new Decimal(150)
+                return limit
+            },
+            unlocked() {return (inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) >= 1)) || (challengeCompletions('ITWRM', 91) == 5)}
+        },
     },
     deactivated() {
         let inactive = false
@@ -2057,12 +2167,18 @@ addLayer("TESRM", {
         if(inChallenge('ITWRM', 22)) inactive = true
         if(inChallenge('ITWRM', 31)) inactive = true
         if(inChallenge('ITWRM', 32)) inactive = true
+        if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 4) && player.points.lt(100e9)) inactive = true
         return inactive
     },
     automate() {
         if(hasMilestone('XSTRM', 1)) {
             if(layers[this.layer].buyables[11].canAfford() && getBuyableAmount(this.layer, 11).lt(layers[this.layer].buyables[11].purchaseLimit())) {
                 layers[this.layer].buyables[11].buy()
+            };
+        }
+        if(getBuyableAmount('RLXRM', 22).gte(1)) {
+            if(layers[this.layer].buyables[12].canAfford() && getBuyableAmount(this.layer, 12).lt(layers[this.layer].buyables[12].purchaseLimit())) {
+                layers[this.layer].buyables[12].buy()
             };
         }
     },
@@ -2087,7 +2203,8 @@ addLayer("ARM", {
         mult = new Decimal(1)
 
         if(hasMilestone('ДARM', 2)) mult = mult.times(new Decimal(1.05).pow(player['ДARM'].points))
-        if(hasChallenge('ITWRM', 51)) mult.times(1e3)
+        if(hasChallenge('ITWRM', 51)) mult = mult.times(1e3)
+        if(hasMilestone('CSHRM', 5)) mult = mult.times(1e3)
 
         if(inChallenge('ITWRM', 11)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 12)) mult = new Decimal(0)
@@ -2177,7 +2294,7 @@ addLayer("ARM", {
         12: {
             title() {return "<h2>B</h2>"},
             cost(x) { return new Decimal(25).times(new Decimal(2).pow(x.add(1).pow(0.25))).tetrate(x.add(1).pow(0.1)) },
-            display() { return "<h3>Boost Skill Based on 'A'</h3><br><h2>(('A' + 1)^(buyable Amount x 0.025))^(1/(('A' + 1)^0.01)) Min: x2</h2><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3><br>"+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit) },
+            display() { return "<h3>Boost Skill Based on 'A'</h3><br><h2>(('A' + 1)^(buyable Amount x 0.025))^(1/(('A' + 1)^-0.01)) Min: x2</h2><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3><br>"+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit) },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             effect() { return new Decimal.max(player[this.layer].points.add(1).pow(getBuyableAmount(this.layer, this.id).times(0.025)).pow(new Decimal(1).times(player[this.layer].points.add(1).pow(-0.01))), new Decimal(2)) },
             buy() {
@@ -2226,7 +2343,10 @@ addLayer("ARM", {
         },
         22: {
             title() {return "<h2>F</h2>"},
-            cost(x) { return new Decimal(player[this.layer].points).times(new Decimal(2).pow(x.add(1).pow(0.25))).tetrate(x.add(1).pow(0.01)) },
+            cost(x) {
+                if(inChallenge('ITWRM', 91)) return new Decimal(player[this.layer].points.pow(0.8)).times(new Decimal(2).pow(x.add(1).pow(0.25))).tetrate(x.add(1).pow(0.01))
+                return new Decimal(player[this.layer].points).times(new Decimal(2).pow(x.add(1).pow(0.25))).tetrate(x.add(1).pow(0.01))
+            },
             display() {
                 if(getBuyableAmount(this.layer, this.id).lt(1)) {
                     return "<h3>Funny</h3><br><h2>Funny Boost ^100 'A'</h2><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>"
@@ -2253,6 +2373,7 @@ addLayer("ARM", {
         if(inChallenge('ITWRM', 31)) inactive = true
         if(inChallenge('ITWRM', 32)) inactive = true
         if(inChallenge('ITWRM', 41)) inactive = true
+        if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 4) && player.points.lt(10e12)) inactive = true
         return inactive
     },
     automate() {
@@ -2270,6 +2391,14 @@ addLayer("ARM", {
                 layers[this.layer].buyables[14].buy()
             };
         }
+        if(hasMilestone('ITWRM', 15)) {
+            if(layers[this.layer].buyables[21].canAfford() && getBuyableAmount(this.layer, 21).lt(layers[this.layer].buyables[21].purchaseLimit)) {
+                layers[this.layer].buyables[21].buy()
+            };
+        }
+        if(inChallenge('ITWRM', 42) || inChallenge('ITWRM', 51) || inChallenge('ITWRM', 52) || inChallenge('ITWRM', 61)) {
+            player[this.layer].points = player[this.layer].points.add(0.05);
+        };
     },
 })
 
@@ -2372,6 +2501,7 @@ addLayer("ДARM", {
         if(inChallenge('ITWRM', 32)) inactive = true
         if(inChallenge('ITWRM', 41)) inactive = true
         if(inChallenge('ITWRM', 42)) inactive = true
+        if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 4) && player['ARM'].points.lt(1e9)) inactive = true
         return inactive
     },
 })
@@ -2411,7 +2541,11 @@ addLayer("XSTRM", {
         return mult
     },
     gainExp() {
-        return new Decimal(1)
+        let Exp = new Decimal(1)
+
+        if(hasMilestone('FLNRM', 3)) Exp = Exp.times(2)
+
+        return Exp
     },
     row: 0,
     layerShown() {
@@ -2449,7 +2583,7 @@ addLayer("XSTRM", {
     milestones: {
         0: {
             requirementDescription: "1 Exist",
-            effectDescription: "AutoGain +0(5% x Exist)/s of Other Layer (to this Point exsept TLG and Non-Static layers) and at +25%/s Remove thier Reset Buttons [SoftCap: +100%/s, +250%/s and HardCap: +500%/s]",
+            effectDescription: "AutoGain +0%/s (5% x Exist) of Other Layer (to this Point exsept TLG and Non-Static layers) and at +25%/s Remove thier Reset Buttons [SoftCap: +100%/s, +250%/s and HardCap: +500%/s]",
             done() { return player[this.layer].points.gte(1) },
             tooltip() {return "+"+format(player[this.layer].MEone.times(100))+"%/s"},
         },
@@ -2457,25 +2591,43 @@ addLayer("XSTRM", {
             requirementDescription: "5 Exist",
             effectDescription: "AutoBuy the First 5 FLN Upgrade and First True Ease Buyable",
             done() { return player[this.layer].points.gte(5) || hasMilestone('TLGRM', 9) },
-            unlocked() {return hasMilestone(this.layer, 0) || hasMilestone(this.layer, this.id)},
+            unlocked() {return hasMilestone(this.layer, 0) || hasMilestone(this.layer, 0)},
         },
         2: {
             requirementDescription: "75 Exist",
             effectDescription: "AutoBuy row 1 'A' Buyables",
             done() { return player[this.layer].points.gte(75) || hasMilestone('TLGRM', 11) },
-            unlocked() {return hasMilestone(this.layer, 1) || hasMilestone(this.layer, this.id)},
+            unlocked() {return hasMilestone(this.layer, 1) || hasMilestone(this.layer, 1)},
         },
         3: {
             requirementDescription: "150 Exist",
             effectDescription: "AutoReset For FLNLV",
             done() { return player[this.layer].points.gte(150) || hasMilestone('TLGRM', 9) },
-            unlocked() {return hasMilestone(this.layer, 2) || hasMilestone(this.layer, this.id)},
+            unlocked() {return hasMilestone(this.layer, 2) || hasMilestone(this.layer, 2)},
         },
         4: {
             requirementDescription: "400 Exist",
             effectDescription: "XST Reset Nothing",
             done() { return (player[this.layer].points.gte(400) && getBuyableAmount('RLXRM', 21).gte(1)) || hasMilestone('TLGRM', 10) },
-            unlocked() {return (hasMilestone(this.layer, 3) && getBuyableAmount('RLXRM', 21).gte(1)) || hasMilestone(this.layer, this.id)},
+            unlocked() {return (hasMilestone(this.layer, 3) && getBuyableAmount('RLXRM', 21).gte(1)) || hasMilestone(this.layer, 4)},
+        },
+        5: {
+            requirementDescription: "8 Exist What!",
+            effectDescription: "x1e10 Skill",
+            done() { return player[this.layer].points.gte(8) && inChallenge('ITWRM', 91) },
+            unlocked() {return inChallenge('ITWRM', 91)},
+        },
+        6: {
+            requirementDescription: "100 Exist",
+            effectDescription: "x1e10 Skill again",
+            done() { return player[this.layer].points.gte(100) && inChallenge('ITWRM', 91) },
+            unlocked() {return inChallenge('ITWRM', 91) && hasMilestone(this.layer, 5)},
+        },
+        7: {
+            requirementDescription: "25 Exist",
+            effectDescription: "x1e25 Skill and x100 RLX",
+            done() { return player[this.layer].points.gte(25) && inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) >= 2)},
+            unlocked() {return inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) >= 2)},
         },
     },
     autoPrestige() {
@@ -2515,6 +2667,9 @@ addLayer("XSTRM", {
                 };
             };
         };
+        if(player[this.layer].points.lt(5) && (inChallenge('ITWRM', 52) || inChallenge('ITWRM', 61) || hasChallenge('ITWRM', 61))) {
+            player[this.layer].points = new Decimal(5)
+        };
     },
 })
 
@@ -2535,6 +2690,8 @@ addLayer("RLXRM", {
     exponent: 0.5,
     gainMult() {
         mult = new Decimal(1)
+
+        if(hasMilestone('XSTRM', 7)) mult = mult.times(100)
 
         if(inChallenge('ITWRM', 11)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 12)) mult = new Decimal(0)
@@ -2560,10 +2717,10 @@ addLayer("RLXRM", {
     },
     passiveGeneration() {
         let Gen = new Decimal(0)
-        if(hasMilestone('XSTRM', 0) && getBuyableAmount('RTFRM', 11).gte(1) && getBuyableAmount('RTFRM', 11).gte(1)) Gen = Gen.add(player['XSTRM'].MEone.times(new Decimal(this.position).pow(-3)))
-        if(hasMilestone('XSTRM', 0) && getBuyableAmount('RTFRM', 41).gte(1) && getBuyableAmount('RTFRM', 11).gte(1)) Gen = new Decimal(0).add(player['XSTRM'].MEone.times(new Decimal(this.position).pow(-2)))
-        if(hasMilestone('XSTRM', 0) && hasMilestone('TLGRM', 13) && getBuyableAmount('RTFRM', 11).gte(1)) Gen = new Decimal(0).add(player['XSTRM'].MEone.times(new Decimal(this.position).pow(-1.5)))
-        if(hasMilestone('XSTRM', 0) && hasMilestone('TLGRM', 14) && getBuyableAmount('RTFRM', 11).gte(1)) Gen = new Decimal(0).add(player['XSTRM'].MEone.times(new Decimal(this.position).pow(-0.75)))
+        if(hasMilestone('XSTRM', 0) && (getBuyableAmount('RTFRM', 11).gte(1) || inChallenge('ITWRM', 71) || hasChallenge('ITWRM', 71)) && (getBuyableAmount('RTFRM', 11).gte(1) || inChallenge('ITWRM', 71) || hasChallenge('ITWRM', 71))) Gen = Gen.add(player['XSTRM'].MEone.times(new Decimal(this.position).pow(-3)))
+        if(hasMilestone('XSTRM', 0) && getBuyableAmount('RTFRM', 41).gte(1) && (getBuyableAmount('RTFRM', 11).gte(1) || inChallenge('ITWRM', 71) || hasChallenge('ITWRM', 71))) Gen = new Decimal(0).add(player['XSTRM'].MEone.times(new Decimal(this.position).pow(-2)))
+        if(hasMilestone('XSTRM', 0) && hasMilestone('TLGRM', 13) && (getBuyableAmount('RTFRM', 11).gte(1) || inChallenge('ITWRM', 71) || hasChallenge('ITWRM', 71))) Gen = new Decimal(0).add(player['XSTRM'].MEone.times(new Decimal(this.position).pow(-1.5)))
+        if(hasMilestone('XSTRM', 0) && hasMilestone('TLGRM', 14) && (getBuyableAmount('RTFRM', 11).gte(1) || inChallenge('ITWRM', 71) || hasChallenge('ITWRM', 71))) Gen = new Decimal(0).add(player['XSTRM'].MEone.times(new Decimal(this.position).pow(-0.75)))
         return Gen
     },
     infoboxes: {
@@ -2585,7 +2742,9 @@ addLayer("RLXRM", {
                 ["row", [["buyable", 11]]],
                 "blank",
                 "blank",
-                ["row", [["buyable", 21]]],
+                ["row", [["buyable", 21], "blank", "blank", ["buyable", 22]]],
+                "blank",
+                ["row", [["buyable", 31]]],
             ],
         },
         "Reset": {
@@ -2625,7 +2784,7 @@ addLayer("RLXRM", {
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             purchaseLimit: new Decimal(1),
-            branches: [21],
+            branches: [21, 22],
         },
         21: {
             title() {return "<h2>RLX #2</h2>"},
@@ -2640,6 +2799,32 @@ addLayer("RLXRM", {
             branches: [],
             unlocked() {return getBuyableAmount(this.layer, 11).gte(1)},
         },
+        22: {
+            title() {return "<h2>RLX #3</h2>"},
+            cost(x) { return new Decimal(100) },
+            display() { return "<h2>AutoBuy TES Buyable 12</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2>" },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: new Decimal(1),
+            branches: [31],
+            unlocked() {return getBuyableAmount(this.layer, 11).gte(1) && inChallenge('ITWRM', 91)},
+        },
+        31: {
+            title() {return "<h2>RLX #4</h2>"},
+            cost(x) { return new Decimal(1e3) },
+            display() { return "<h2>TES Buyable 12 Cost Nothing</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2>" },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: new Decimal(1),
+            branches: [],
+            unlocked() {return getBuyableAmount(this.layer, 22).gte(1) && inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) >= 1)},
+        },
     },
     deactivated() {
         let inactive = false
@@ -2653,6 +2838,7 @@ addLayer("RLXRM", {
         if(inChallenge('ITWRM', 42)) inactive = true
         if(inChallenge('ITWRM', 51)) inactive = true
         if(inChallenge('ITWRM', 52)) inactive = true
+        if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 4) && player.points.lt(10e18)) inactive = true
         return inactive
     },
     automate() {
@@ -2675,6 +2861,8 @@ addLayer("SKIPRM", {
         unlocked: true,
 		points: new Decimal(0),
         layerEffect: new Decimal(0),
+        layerEffectb: new Decimal(0),
+        layerEffectc: new Decimal(0),
     }},
     color: "#FFAC65",
     requires: new Decimal(1e21),
@@ -2696,6 +2884,7 @@ addLayer("SKIPRM", {
         if(inChallenge('ITWRM', 42)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 51)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 52)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 61)) mult = new Decimal(0)
 
         return mult
     },
@@ -2710,10 +2899,10 @@ addLayer("SKIPRM", {
     },
     passiveGeneration() {
         let Gen = new Decimal(0)
-        if(hasMilestone('XSTRM', 0) && getBuyableAmount('RTFRM', 11).gte(1)) Gen = Gen.add(player['XSTRM'].MEone.times(new Decimal(this.position).pow(-3)))
-        if(hasMilestone('XSTRM', 0) && getBuyableAmount('RTFRM', 41).gte(1) && getBuyableAmount('RTFRM', 11).gte(1)) Gen = new Decimal(0).add(player['XSTRM'].MEone.times(new Decimal(this.position).pow(-2)))
-        if(hasMilestone('XSTRM', 0) && hasMilestone('TLGRM', 13) && getBuyableAmount('RTFRM', 11).gte(1)) Gen = new Decimal(0).add(player['XSTRM'].MEone.times(new Decimal(this.position).pow(-1.5)))
-        if(hasMilestone('XSTRM', 0) && hasMilestone('TLGRM', 14) && getBuyableAmount('RTFRM', 11).gte(1)) Gen = new Decimal(0).add(player['XSTRM'].MEone.times(new Decimal(this.position).pow(-0.75)))
+        if(hasMilestone('XSTRM', 0) && (getBuyableAmount('RTFRM', 11).gte(1) || inChallenge('ITWRM', 71) || hasChallenge('ITWRM', 71))) Gen = Gen.add(player['XSTRM'].MEone.times(new Decimal(this.position).pow(-3)))
+        if(hasMilestone('XSTRM', 0) && getBuyableAmount('RTFRM', 41).gte(1) && (getBuyableAmount('RTFRM', 11).gte(1) || inChallenge('ITWRM', 71) || hasChallenge('ITWRM', 71))) Gen = new Decimal(0).add(player['XSTRM'].MEone.times(new Decimal(this.position).pow(-2)))
+        if(hasMilestone('XSTRM', 0) && hasMilestone('TLGRM', 13) && (getBuyableAmount('RTFRM', 11).gte(1) || inChallenge('ITWRM', 71) || hasChallenge('ITWRM', 71))) Gen = new Decimal(0).add(player['XSTRM'].MEone.times(new Decimal(this.position).pow(-1.5)))
+        if(hasMilestone('XSTRM', 0) && hasMilestone('TLGRM', 14) && (getBuyableAmount('RTFRM', 11).gte(1) || inChallenge('ITWRM', 71) || hasChallenge('ITWRM', 71))) Gen = new Decimal(0).add(player['XSTRM'].MEone.times(new Decimal(this.position).pow(-0.75)))
         return Gen
     },
     infoboxes: {
@@ -2735,6 +2924,21 @@ addLayer("SKIPRM", {
                     function() {
                         let text = '/' + format(player[this.layer].layerEffect.pow(-1)) + ' TLG 12 Requirement (x + 1)^1.1'
                         if(getBuyableAmount('RTFRM', 31).gte(1)) text = '/' + format(player[this.layer].layerEffect.pow(-1)) + ' TLG Requirement ((x + 1)^1.1)^(1/TLG)'
+                        if(hasChallenge('ITWRM', 62)) text = '/' + format(player[this.layer].layerEffect.pow(-1)) + ' TLG and ITW Requirements ((x + 1)^1.1)^(1/TLG)'
+                        return text
+                    },
+                    { "color": "#464646", "font-size": "24px" }],
+                ["display-text",
+                    function() {
+                        let text = ''
+                        if(inChallenge('ITWRM', 91)) text = 'x' + format(player[this.layer].layerEffectb) + ' Skill'
+                        return text
+                    },
+                    { "color": "#464646", "font-size": "24px" }],
+                ["display-text",
+                    function() {
+                        let text = ''
+                        if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) >= 1)) text = '/' + format(player[this.layer].layerEffectc.pow(-1)) + ' ITW Challenge 17 Requirment'
                         return text
                     },
                     { "color": "#464646", "font-size": "24px" }],
@@ -2778,13 +2982,20 @@ addLayer("SKIPRM", {
         if(inChallenge('ITWRM', 42)) inactive = true
         if(inChallenge('ITWRM', 51)) inactive = true
         if(inChallenge('ITWRM', 52)) inactive = true
+        if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 4) && player.points.lt(1e21)) inactive = true
         return inactive
     },
     automate() {
         let effect = new Decimal(1);
         effect = new Decimal(1).times(player[this.layer].points.add(1).pow(1.1)).pow(-1);
         if(getBuyableAmount('RTFRM', 31).gte(1)) effect = new Decimal(1).times(player[this.layer].points.add(1).pow(1.1)).pow(player['TLGRM'].points.pow(-1).times(-1))
+        if(hasChallenge('ITWRM', 62)) effect = new Decimal(1).times(player[this.layer].points.add(1).pow(1.1)).pow(player['TLGRM'].points.pow(-1).times(-1))
         player[this.layer].layerEffect = effect;
+        effect = new Decimal(1).times(player[this.layer].points.add(1).pow(1.25));
+        player[this.layer].layerEffectb = effect;
+        effect = new Decimal(1).times(player[this.layer].points.add(1).pow(0.5)).pow(-1);
+        if(inChallenge('ITWRM', 91) && challengeCompletions('ITWRM', 91) >= 1) player[this.layer].layerEffectc = effect;
+        if(!inChallenge('ITWRM', 91) || challengeCompletions('ITWRM', 91) == 0) player[this.layer].layerEffectc = new Decimal(1);
     },
 })
 
@@ -2816,6 +3027,8 @@ addLayer("RTFRM", {
         if(inChallenge('ITWRM', 42)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 51)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 52)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 61)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 62)) mult = new Decimal(0)
 
         return mult
     },
@@ -2830,10 +3043,10 @@ addLayer("RTFRM", {
     },
     passiveGeneration() {
         let Gen = new Decimal(0)
-        if(hasMilestone('XSTRM', 0) && getBuyableAmount(this.layer, 11).gte(1)) Gen = Gen.add(player['XSTRM'].MEone.times(new Decimal(this.position).pow(-3)))
-        if(hasMilestone('XSTRM', 0) && getBuyableAmount(this.layer, 41).gte(1) && getBuyableAmount(this.layer, 11).gte(1)) Gen = new Decimal(0).add(player['XSTRM'].MEone.times(new Decimal(this.position).pow(-2)))
-        if(hasMilestone('XSTRM', 0) && hasMilestone('TLGRM', 13) && getBuyableAmount(this.layer, 11).gte(1)) Gen = new Decimal(0).add(player['XSTRM'].MEone.times(new Decimal(this.position).pow(-1.5)))
-        if(hasMilestone('XSTRM', 0) && hasMilestone('TLGRM', 14) && getBuyableAmount(this.layer, 11).gte(1)) Gen = new Decimal(0).add(player['XSTRM'].MEone.times(new Decimal(this.position).pow(-0.75)))
+        if(hasMilestone('XSTRM', 0) && (getBuyableAmount(this.layer, 11).gte(1) || inChallenge('ITWRM', 71) || hasChallenge('ITWRM', 71))) Gen = Gen.add(player['XSTRM'].MEone.times(new Decimal(this.position).pow(-3)))
+        if(hasMilestone('XSTRM', 0) && getBuyableAmount(this.layer, 41).gte(1) && (getBuyableAmount(this.layer, 11).gte(1) || inChallenge('ITWRM', 71) || hasChallenge('ITWRM', 71))) Gen = new Decimal(0).add(player['XSTRM'].MEone.times(new Decimal(this.position).pow(-2)))
+        if(hasMilestone('XSTRM', 0) && hasMilestone('TLGRM', 13) && (getBuyableAmount(this.layer, 11).gte(1) || inChallenge('ITWRM', 71) || hasChallenge('ITWRM', 71))) Gen = new Decimal(0).add(player['XSTRM'].MEone.times(new Decimal(this.position).pow(-1.5)))
+        if(hasMilestone('XSTRM', 0) && hasMilestone('TLGRM', 14) && (getBuyableAmount(this.layer, 11).gte(1) || inChallenge('ITWRM', 71) || hasChallenge('ITWRM', 71))) Gen = new Decimal(0).add(player['XSTRM'].MEone.times(new Decimal(this.position).pow(-0.75)))
         return Gen
     },
     infoboxes: {
@@ -2972,6 +3185,10 @@ addLayer("RTFRM", {
         if(inChallenge('ITWRM', 42)) inactive = true
         if(inChallenge('ITWRM', 51)) inactive = true
         if(inChallenge('ITWRM', 52)) inactive = true
+        if(inChallenge('ITWRM', 61)) inactive = true
+        if(inChallenge('ITWRM', 62)) inactive = true
+        if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 4) && player.points.lt(100e21)) inactive = true
+
         return inactive
     },
     automate() {
@@ -3019,6 +3236,10 @@ addLayer("IFDRM", {
         if(hasMilestone('IFERM', 0)) mult = mult.add(24)
         if(hasMilestone('IFERM', 1)) mult = mult.add(75)
         if(hasMilestone('IFTRM', 0)) mult = mult.add(150)
+        if(hasMilestone('ITWRM', 12)) mult = mult.add(1e10)
+
+        if(inChallenge('ITWRM', 72)) mult = mult.add(-1e10)
+        if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 4)) mult = mult.add(-1e10)
 
         mult = mult.times(buyableEffect(this.layer, 21))
         mult = mult.times(buyableEffect(this.layer, 22))
@@ -3027,6 +3248,10 @@ addLayer("IFDRM", {
         if(hasMilestone('IFERM', 1)) mult = mult.times(5)
         if(hasMilestone('IFTRM', 0)) mult = mult.times(10)
         if(hasMilestone('ITWRM', 1)) mult = mult.times(5)
+        if(hasMilestone('ITWRM', 12)) mult = mult.times(1e6)
+
+        if(inChallenge('ITWRM', 72)) mult = mult.times(1e-6)
+        if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 4)) mult = mult.times(1e-6)
 
         mult = mult.pow(buyableEffect(this.layer, 31))
         mult = mult.pow(buyableEffect(this.layer, 32))
@@ -3034,6 +3259,10 @@ addLayer("IFDRM", {
         if(hasMilestone('IFERM', 1)) mult = mult.pow(1.1)
         if(hasMilestone('IFTRM', 0)) mult = mult.pow(1.5)
         if(hasMilestone('ITWRM', 1)) mult = mult.pow(1.1)
+        if(hasMilestone('ITWRM', 12)) mult = mult.pow(2)
+
+        if(inChallenge('ITWRM', 72)) mult = mult.pow(0.5)
+        if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 4)) mult = mult.pow(0.5)
 
         if(player['IFERM'].RT.lt(0.1) || player['IFTRM'].RT.lt(0.1)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 11)) mult = new Decimal(0)
@@ -3046,6 +3275,9 @@ addLayer("IFDRM", {
         if(inChallenge('ITWRM', 42)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 51)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 52)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 61)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 62)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 71)) mult = new Decimal(0)
 
         return mult
     },
@@ -3213,17 +3445,17 @@ addLayer("IFDRM", {
         0: {
             requirementDescription: "1.79e3 IF.",
             effectDescription: "Autobuy the Row 1 Buyables and they cost nothing",
-            done() { return player[this.layer].points.gte(1.79e3) || hasMilestone('ITWRM', 3) },
+            done() { return (player[this.layer].points.gte(1.79e3) || hasMilestone('ITWRM', 3)) && !inChallenge('ITWRM', 72) },
         },
         1: {
             requirementDescription: "1.79e30 IF.",
             effectDescription: "Autobuy the Row 2 Buyables and they cost nothing",
-            done() { return player[this.layer].points.gte(1.79e30) || hasMilestone('ITWRM', 3) },
+            done() { return (player[this.layer].points.gte(1.79e30) || hasMilestone('ITWRM', 3)) && !inChallenge('ITWRM', 72) },
         },
         2: {
             requirementDescription: "1.79e308 IF.",
             effectDescription: "Autobuy the Row 3 Buyables and they cost nothing",
-            done() { return player[this.layer].points.gte(1.79e308) || hasMilestone('ITWRM', 3) },
+            done() { return (player[this.layer].points.gte(1.79e308) || hasMilestone('ITWRM', 3)) && !inChallenge('ITWRM', 72) },
         },
     },
     deactivated() {
@@ -3238,6 +3470,9 @@ addLayer("IFDRM", {
         if(inChallenge('ITWRM', 42)) inactive = true
         if(inChallenge('ITWRM', 51)) inactive = true
         if(inChallenge('ITWRM', 52)) inactive = true
+        if(inChallenge('ITWRM', 61)) inactive = true
+        if(inChallenge('ITWRM', 62)) inactive = true
+        if(inChallenge('ITWRM', 71)) inactive = true
         return inactive
     },
     automate() {
@@ -3274,7 +3509,12 @@ addLayer("IFDRM", {
                 layers[this.layer].buyables[33].buy()
             };
         }
-        if(player['IFERM'].RT.lt(0.1) || player['IFTRM'].RT.lt(0.1)) {
+        if(hasMilestone('ITWRM', 13)) {
+            if(layers[this.layer].buyables[41].canAfford() && getBuyableAmount(this.layer, 41).lt(layers[this.layer].buyables[41].purchaseLimit)) {
+                layers[this.layer].buyables[41].buy()
+            };
+        }
+        if((player['IFERM'].RT.lt(0.1) && !hasMilestone('ITWRM', 1)) || (player['IFTRM'].RT.lt(0.1) && !hasMilestone('ITWRM', 11))) {
             player[this.layer].points = new Decimal(0)
         };
     },
@@ -3309,6 +3549,10 @@ addLayer("IFERM", {
         if(inChallenge('ITWRM', 42)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 51)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 52)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 61)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 62)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 71)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 72)) mult = new Decimal(0)
 
         return mult
     },
@@ -3324,6 +3568,9 @@ addLayer("IFERM", {
     autoPrestige() {
         let auto = false
         if(hasMilestone('ITWRM', 2)) auto = true
+        if(inChallenge('ITWRM', 81)) auto = false
+        if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 4)) auto = false
+
         return auto
     },
     infoboxes: {
@@ -3401,6 +3648,11 @@ addLayer("IFERM", {
         if(inChallenge('ITWRM', 42)) inactive = true
         if(inChallenge('ITWRM', 51)) inactive = true
         if(inChallenge('ITWRM', 52)) inactive = true
+        if(inChallenge('ITWRM', 61)) inactive = true
+        if(inChallenge('ITWRM', 62)) inactive = true
+        if(inChallenge('ITWRM', 71)) inactive = true
+        if(inChallenge('ITWRM', 72)) inactive = true
+        if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 4) && player['IFDRM'].points.lt(1.79e308)) inactive = true
         return inactive
     },
     automate() {
@@ -3437,6 +3689,11 @@ addLayer("IFTRM", {
         if(inChallenge('ITWRM', 42)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 51)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 52)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 61)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 62)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 71)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 72)) mult = new Decimal(0)
+        if(inChallenge('ITWRM', 81)) mult = new Decimal(0)
         return mult
     },
     gainExp() {
@@ -3451,6 +3708,9 @@ addLayer("IFTRM", {
     autoPrestige() {
         let auto = false
         if(hasMilestone('ITWRM', 2)) auto = true
+        if(inChallenge('ITWRM', 82)) auto = false
+        if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 4)) auto = false
+
         return auto
     },
     infoboxes: {
@@ -3460,20 +3720,22 @@ addLayer("IFTRM", {
         },
     },
     onPrestige(gain) {
-        if(!hasMilestone('IFERM', 2)) {
-            setBuyableAmount('IFDRM', 11, new Decimal(0))
-            setBuyableAmount('IFDRM', 12, new Decimal(0))
-            setBuyableAmount('IFDRM', 13, new Decimal(0))
+        if(!hasMilestone('ITWRM', 11)) {
+                if(!hasMilestone('IFERM', 2)) {
+                setBuyableAmount('IFDRM', 11, new Decimal(0))
+                setBuyableAmount('IFDRM', 12, new Decimal(0))
+                setBuyableAmount('IFDRM', 13, new Decimal(0))
+            }
+            if(!hasMilestone('ITWRM', 1)) {
+                setBuyableAmount('IFDRM', 21, new Decimal(0))
+                setBuyableAmount('IFDRM', 22, new Decimal(0))
+                setBuyableAmount('IFDRM', 23, new Decimal(0))
+            }
+            setBuyableAmount('IFDRM', 31, new Decimal(0))
+            setBuyableAmount('IFDRM', 32, new Decimal(0))
+            setBuyableAmount('IFDRM', 33, new Decimal(0))
+            player['IFERM'].points = new Decimal(0)
         }
-        if(!hasMilestone('ITWRM', 1)) {
-            setBuyableAmount('IFDRM', 21, new Decimal(0))
-            setBuyableAmount('IFDRM', 22, new Decimal(0))
-            setBuyableAmount('IFDRM', 23, new Decimal(0))
-        }
-        setBuyableAmount('IFDRM', 31, new Decimal(0))
-        setBuyableAmount('IFDRM', 32, new Decimal(0))
-        setBuyableAmount('IFDRM', 33, new Decimal(0))
-        player['IFERM'].points = new Decimal(0)
 
         player[this.layer].RT = new Decimal(0)
     },
@@ -3519,6 +3781,12 @@ addLayer("IFTRM", {
         if(inChallenge('ITWRM', 42)) inactive = true
         if(inChallenge('ITWRM', 51)) inactive = true
         if(inChallenge('ITWRM', 52)) inactive = true
+        if(inChallenge('ITWRM', 61)) inactive = true
+        if(inChallenge('ITWRM', 62)) inactive = true
+        if(inChallenge('ITWRM', 71)) inactive = true
+        if(inChallenge('ITWRM', 72)) inactive = true
+        if(inChallenge('ITWRM', 81)) inactive = true
+        if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 4) && player['IFERM'].points.lt(3)) inactive = true
         return inactive
     },
     automate() {
@@ -3546,7 +3814,9 @@ addLayer("ITWRM", {
     gainMult() {
         mult = new Decimal(1)
 
-        if(hasMilestone(this.layer, 10)) mult = new Decimal(0)
+        if(hasChallenge(this.layer, 62)) mult = mult.times(player['SKIPRM'].layerEffect)
+
+        if(hasMilestone(this.layer, 16)) mult = new Decimal(0)
 
         return mult
     },
@@ -3661,16 +3931,52 @@ addLayer("ITWRM", {
         },
         10: {
             requirementDescription: "11 ITW",
-            effectDescription: "I have like No IDEA what to do rn so Ending ig",
+            effectDescription: "/1e10 Skill Gain",
             done() { return player[this.layer].points.gte(11) },
             unlocked() {return hasMilestone(this.layer, 9)}
+        },
+        11: {
+            requirementDescription: "12 ITW",
+            effectDescription: "IFT Resets Nothing",
+            done() { return player[this.layer].points.gte(12) },
+            unlocked() {return hasMilestone(this.layer, 10)}
+        },
+        12: {
+            requirementDescription: "13 ITW",
+            effectDescription: "+1e10 IF. gain, x1,000,000 IF. gain and ^2 IF. gain",
+            done() { return player[this.layer].points.gte(13) },
+            unlocked() {return hasMilestone(this.layer, 11)}
+        },
+        13: {
+            requirementDescription: "14 ITW",
+            effectDescription: "Autobuy Row 4 IF. Buyable",
+            done() { return player[this.layer].points.gte(14) },
+            unlocked() {return hasMilestone(this.layer, 12)}
+        },
+        14: {
+            requirementDescription: "15 ITW",
+            effectDescription: "Autobuy First 5 Neg i Upgrades",
+            done() { return player[this.layer].points.gte(15) },
+            unlocked() {return hasMilestone(this.layer, 13)}
+        },
+        15: {
+            requirementDescription: "16 ITW",
+            effectDescription: "Autobuy First Row 2 'A' Buyable",
+            done() { return player[this.layer].points.gte(16) },
+            unlocked() {return hasMilestone(this.layer, 14)}
+        },
+        16: {
+            requirementDescription: "17 ITW",
+            effectDescription: "x1,000 Skill and Hardcap ITW",
+            done() { return player[this.layer].points.gte(17) },
+            unlocked() {return hasMilestone(this.layer, 15)}
         },
     },
     challenges: {
         11: {
             name: "First Win",
             challengeDescription: "Lock Every layer Except This layer, TLG and TFD and Unlock More TFD and ^0.5 Skill",
-            goalDescription: "Get 1e11 Skill",
+            goalDescription: "Get 1e10 Skill",
             rewardDescription: "Keep the First 5 Upgrades In this Challenge Unlocked",
             onEnter() {
                 player[this.layer].ActiveChallenge = true
@@ -3678,13 +3984,13 @@ addLayer("ITWRM", {
             onExit() {
                 player[this.layer].ActiveChallenge = false
             },
-            canComplete: function() {return player.points.gte(100e9)},
+            canComplete: function() {return player.points.gte(10e9) || hasMilestone('TLGRM', 16)},
             unlocked() {return hasMilestone(this.layer, 0)},
         },
         12: {
             name: "Lower Win",
             challengeDescription: "Prev Challenge Effect but Nerf Skill More ^0.5 → ^0.33",
-            goalDescription: "Get 10,000,000 Skill",
+            goalDescription: "Get 1,000,000 Skill",
             rewardDescription: "Keep Row 2 IF. Buyables On IFT and Keep Row 3 IF. Buyables On IFE",
             onEnter() {
                 player[this.layer].ActiveChallenge = true
@@ -3692,13 +3998,13 @@ addLayer("ITWRM", {
             onExit() {
                 player[this.layer].ActiveChallenge = false
             },
-            canComplete: function() {return player.points.gte(10e6)},
+            canComplete: function() {return player.points.gte(1e6) || hasMilestone('TLGRM', 16)},
             unlocked() {return hasMilestone(this.layer, 1)},
         },
         21: {
             name: "Negative Win",
-            challengeDescription: "Prev Challenge Effect but Not lock Neg and Unlock More Neg Upgrades but Don't Unlock the Other TFD Upgrades",
-            goalDescription: "Get 5e10 Skill",
+            challengeDescription: "Prev Challenge Effect but Not lock Neg and Unlock More Neg Upgrades but Don't Unlock i6-i13 TFD Upgrades",
+            goalDescription: "Get 5e9 Skill",
             rewardDescription: "Keep Row All Upgrades except Neg Upgrade #i5 In this Challenge Unlocked",
             onEnter() {
                 player[this.layer].ActiveChallenge = true
@@ -3706,13 +4012,13 @@ addLayer("ITWRM", {
             onExit() {
                 player[this.layer].ActiveChallenge = false
             },
-            canComplete: function() {return player.points.gte(50e9)},
+            canComplete: function() {return player.points.gte(5e9) || hasMilestone('TLGRM', 16)},
             unlocked() {return hasMilestone(this.layer, 2)},
         },
         22: {
             name: "Cashed Win",
             challengeDescription: "Prev Challenge Effect but Not lock Ca$h",
-            goalDescription: "Get 1e11 Skill",
+            goalDescription: "Get 1e10 Skill",
             rewardDescription: "x1.5 skill",
             onEnter() {
                 player[this.layer].ActiveChallenge = true
@@ -3720,13 +4026,13 @@ addLayer("ITWRM", {
             onExit() {
                 player[this.layer].ActiveChallenge = false
             },
-            canComplete: function() {return player.points.gte(100e9)},
+            canComplete: function() {return player.points.gte(10e9) || hasMilestone('TLGRM', 16)},
             unlocked() {return hasMilestone(this.layer, 3)},
         },
         31: {
             name: "UIP Win",
-            challengeDescription: "Prev Challenge Effect but Not lock UIP and Unlock More UIP Buyables and Don't Unlock Neg Upgrade i5.",
-            goalDescription: "Get 500,000,000 Skill",
+            challengeDescription: "Prev Challenge Effect but Not lock UIP and Unlock More UIP Buyables and Gain 1 UIP, AUI and UUP/s but Don't Unlock Neg Upgrade i5.",
+            goalDescription: "Get 50,000,000 Skill",
             rewardDescription: "Make Row 1 UIP Buyables Cost Nothing and Keep the Buyables Unlocked",
             onEnter() {
                 player[this.layer].ActiveChallenge = true
@@ -3734,14 +4040,14 @@ addLayer("ITWRM", {
             onExit() {
                 player[this.layer].ActiveChallenge = false
             },
-            canComplete: function() {return player.points.gte(500e6)},
+            canComplete: function() {return player.points.gte(50e6)},
             unlocked() {return hasMilestone(this.layer, 4)},
         },
         32: {
             name: "Friendly Win",
-            challengeDescription: "Prev Challenge Effect but Not lock FLN and ^0.33 → ^0.5",
-            goalDescription: "Get 1e13 Skill",
-            rewardDescription: "For Each Milestone x2 Skill per Level",
+            challengeDescription: "Prev Challenge Effect but Not lock FLN and ^0.33 → ^0.5 and x1,000 FLN But Don't Gain +1 UIP, AUI and UUP/s",
+            goalDescription: "Get 1e12 Skill",
+            rewardDescription: "For Each Milestone x2 Skill per Level and x1,000 FLN in ITW Challenges",
             onEnter() {
                 player[this.layer].ActiveChallenge = true
             },
@@ -3750,13 +4056,13 @@ addLayer("ITWRM", {
             },
             rewardEffect() {return new Decimal(2).pow(player[this.layer].points)},
             rewardDisplay() {return "x"+format(challengeEffect(this.layer, this.id))+" Skill"},
-            canComplete: function() {return player.points.gte(10e12)},
+            canComplete: function() {return player.points.gte(1e12)},
             unlocked() {return hasMilestone(this.layer, 5)},
         },
         41: {
             name: "True Ease Win",
             challengeDescription: "Prev Challenge Effect but Not lock TES",
-            goalDescription: "Get 1e14 Skill",
+            goalDescription: "Get 1e13 Skill",
             rewardDescription: "Increase The Max Buyable limit 250 → 350",
             onEnter() {
                 player[this.layer].ActiveChallenge = true
@@ -3764,13 +4070,13 @@ addLayer("ITWRM", {
             onExit() {
                 player[this.layer].ActiveChallenge = false
             },
-            canComplete: function() {return player.points.gte(100e12)},
+            canComplete: function() {return player.points.gte(10e12)},
             unlocked() {return hasMilestone(this.layer, 6)},
         },
         42: {
             name: "'A' Win",
-            challengeDescription: "Prev Challenge Effect but Not lock 'A'",
-            goalDescription: "Get 5e14 Skill",
+            challengeDescription: "Prev Challenge Effect but Not lock 'A' and Gain 1 'A'/s",
+            goalDescription: "Get 1e16 Skill",
             rewardDescription: "x1,000,000 Skill",
             onEnter() {
                 player[this.layer].ActiveChallenge = true
@@ -3778,13 +4084,13 @@ addLayer("ITWRM", {
             onExit() {
                 player[this.layer].ActiveChallenge = false
             },
-            canComplete: function() {return player.points.gte(500e12)},
+            canComplete: function() {return player.points.gte(10e15)},
             unlocked() {return hasMilestone(this.layer, 7)},
         },
         51: {
             name: "Felix the ДА Win",
             challengeDescription: "Prev Challenge Effect but Not lock ДА",
-            goalDescription: "Get 2.1e21 Skill",
+            goalDescription: "Get 2.1e20 Skill",
             rewardDescription: "x1,000 'A'",
             onEnter() {
                 player[this.layer].ActiveChallenge = true
@@ -3792,13 +4098,13 @@ addLayer("ITWRM", {
             onExit() {
                 player[this.layer].ActiveChallenge = false
             },
-            canComplete: function() {return player.points.gte(2.1e21)},
+            canComplete: function() {return player.points.gte(210e18)},
             unlocked() {return hasMilestone(this.layer, 8)},
         },
         52: {
             name: "Exist Win",
-            challengeDescription: "Prev Challenge Effect but Not lock XST",
-            goalDescription: "Get 1e23 Skill",
+            challengeDescription: "Prev Challenge Effect but Not lock XST and Have 5 XST",
+            goalDescription: "Get 1e20 Skill",
             rewardDescription: "Autobuy FLN Upgrade #6, #7a and #7b",
             onEnter() {
                 player[this.layer].ActiveChallenge = true
@@ -3806,8 +4112,117 @@ addLayer("ITWRM", {
             onExit() {
                 player[this.layer].ActiveChallenge = false
             },
-            canComplete: function() {return player.points.gte(1e23)},
+            canComplete: function() {return player.points.gte(100e18)},
             unlocked() {return hasMilestone(this.layer, 9)},
+        },
+        61: {
+            name: "Relaxed Win",
+            challengeDescription: "Prev Challenge Effect but Not lock RLX",
+            goalDescription: "Get 1e15 Skill",
+            rewardDescription: "Have at least 5 XST and x1,000,000 Skill",
+            onEnter() {
+                player[this.layer].ActiveChallenge = true
+            },
+            onExit() {
+                player[this.layer].ActiveChallenge = false
+            },
+            canComplete: function() {return player.points.gte(1e15)},
+            unlocked() {return hasMilestone(this.layer, 10)},
+        },
+        62: {
+            name: "Skipped Win",
+            challengeDescription: "Prev Challenge Effect but Not lock Skip but Don't gain +1 'A'/s",
+            goalDescription: "Get 1e20 Skill",
+            rewardDescription: "Skip Also Effects ITW",
+            onEnter() {
+                player[this.layer].ActiveChallenge = true
+            },
+            onExit() {
+                player[this.layer].ActiveChallenge = false
+            },
+            canComplete: function() {return player.points.gte(100e18)},
+            unlocked() {return hasMilestone(this.layer, 11)},
+        },
+        71: {
+            name: "Restful Win",
+            challengeDescription: "Prev Challenge Effect but Not lock RTF and Keep RTF Upgrade #1",
+            goalDescription: "Get 1e21 Skill",
+            rewardDescription: "Keep RTF Upgrade #1",
+            onEnter() {
+                player[this.layer].ActiveChallenge = true
+            },
+            onExit() {
+                player[this.layer].ActiveChallenge = false
+            },
+            canComplete: function() {return player.points.gte(1e21)},
+            unlocked() {return hasMilestone(this.layer, 12)},
+        },
+        72: {
+            name: "Infinite Dot Win",
+            challengeDescription: "Prev Challenge Effect but Not lock IF. but ^0.5 IF. gain and /5,000,000 IF. gain and -1e10 IF. gain and Don't Get IF. Milestones",
+            goalDescription: "Get 1e29 Skill",
+            rewardDescription: "x5 Skill",
+            onEnter() {
+                player[this.layer].ActiveChallenge = true
+            },
+            onExit() {
+                player[this.layer].ActiveChallenge = false
+            },
+            canComplete: function() {return player.points.gte(100e27)},
+            unlocked() {return hasMilestone(this.layer, 13)},
+        },
+        81: {
+            name: "Infinite Easy Win",
+            challengeDescription: "Prev Challenge Effect but Not lock IFE and Allow Getting IF. Milestones but Don't AutoReset IFE",
+            goalDescription: "Get 1e30 Skill",
+            rewardDescription: "x5 Skill again",
+            onEnter() {
+                player[this.layer].ActiveChallenge = true
+            },
+            onExit() {
+                player[this.layer].ActiveChallenge = false
+            },
+            canComplete: function() {return player.points.gte(1e30)},
+            unlocked() {return hasMilestone(this.layer, 14)},
+        },
+        82: {
+            name: "Infinity Win",
+            challengeDescription: "Prev Challenge Effect but Not lock IFT and AutoRest For IFE Milestones but Don't AutoReset IFT",
+            goalDescription: "Get 1e33 Skill",
+            rewardDescription: "x4 Skill",
+            onEnter() {
+                player[this.layer].ActiveChallenge = true
+            },
+            onExit() {
+                player[this.layer].ActiveChallenge = false
+            },
+            canComplete: function() {return player.points.gte(1e33)},
+            unlocked() {return hasMilestone(this.layer, 15)},
+        },
+        91: {
+            name: "Instant Win",
+            challengeDescription() {
+                if(challengeCompletions(this.layer, this.id) == 5) return "You Finnished This"
+                if(challengeCompletions(this.layer, this.id) == 4) return "Final Challenge. Also ^0.25 Skill but ^0.5 IF. gain and /5,000,000 IF. gain and -1e10 IF. gain and Don't AutoReset IFE and Don't AutoReset IFT and lock all layers unless you can reset Exsept TLG, XST and ITW"
+                if(challengeCompletions(this.layer, this.id) == 3) return "Your Not Done Yet But Close. Also ^0.25 → ^0.14 and Unlock More Content In this Challenge"
+                if(challengeCompletions(this.layer, this.id) == 2) return "Your Not Done Yet Still. Also ^0.25 → ^0.16 and Unlock More Content In this Challenge"
+                if(challengeCompletions(this.layer, this.id) == 1) return "Your Not Done Yet. Also ^0.25 → ^0.2 and Unlock More Content In this Challenge"
+                return "Prev Challenge Effect but ^0.25 Skill Instead And Keep Neg Upgrade i5 Unlocked and Add a Lot of Stuff"
+            },
+            goalDescription() {return "Get "+format(new Decimal(1e25).times(player['SKIPRM'].layerEffectc))+" Skill"},
+            rewardDescription() {
+                if(challengeCompletions(this.layer, this.id) == 5) return "Keep TES buyable 2"
+                return "???"
+            },
+            onEnter() {
+                player[this.layer].ActiveChallenge = true
+            },
+            onExit() {
+                player[this.layer].ActiveChallenge = false
+            },
+            canComplete: function() {return player.points.gte(new Decimal(1e25).times(player['SKIPRM'].layerEffectc))},
+            completionLimit: 5,
+            unlocked() {return hasMilestone(this.layer, 16)},
         },
     },
 })
