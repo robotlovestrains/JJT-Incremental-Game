@@ -45,6 +45,7 @@ addLayer("TFDRM", {
     layerShown() {
         let vis = false
         if(hasUpgrade('BSG', 11)) vis = true
+        if(hasMilestone('TLGRM', 17)) vis = false
         return vis
     },
     passiveGeneration() {
@@ -750,6 +751,7 @@ addLayer("TLGRM", {
 
         // softcap
         if(player[this.layer].points.gte(16)) mult = mult.times(new Decimal(1000).pow(player[this.layer].points.add(-15).times(4).pow(1.15)))
+        if(player[this.layer].points.gte(20)) mult = mult.times(1e10)
 
         return mult
     },
@@ -884,8 +886,26 @@ addLayer("TLGRM", {
         },
         16: {
             requirementDescription: "17 TLG",
-            effectDescription: "Unlock Millisecondless and Keep Milestone IFT 0 (1st) and For Every TLG After 16 To 20 Instacomplete 4 more Challenges on Reset (NEXT UPDATE To Much Work)",
+            effectDescription: "Unlock Millisecondless and Keep Milestone IFT 0 (1st) and For Every TLG After 16 To 20 Instacomplete 4 more Challenges on Reset",
             done() { return player[this.layer].points.gte(17) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        17: {
+            requirementDescription: "18 TLG",
+            effectDescription: "Unlock Astron- Nope Unlock Multi? Also Combine All Class Negative Layers and Revamp Ca$h Exsept TLG into 1 (For QoL Space) And x10 Skill. Forgot It (IDK how)",
+            done() { return player[this.layer].points.gte(18) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        18: {
+            requirementDescription: "19 TLG",
+            effectDescription: "Unlock Win (the Difficulty) and Always Have atleast 5 XST and Autoreset for IFE and IFT",
+            done() { return player[this.layer].points.gte(19) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        19: {
+            requirementDescription: "20 TLG",
+            effectDescription: "Unlock Winsome and x1e10 TLG Requirement (to balence the game) [ENDGAME]",
+            done() { return player[this.layer].points.gte(20) },
             unlocked() {return hasMilestone(this.layer, this.id)},
         },
     },
@@ -926,6 +946,7 @@ addLayer("NEGRM", {
     layerShown() {
         let vis = false
         if(hasMilestone('TLGRM', 0)) vis = true
+        if(hasMilestone('TLGRM', 17)) vis = false
         return vis
     },
     passiveGeneration() {
@@ -1025,6 +1046,7 @@ addLayer("NEGRM", {
                     { "color": "#92248F", "font-size": "24px" }],,
                 "blank",
                 "prestige-button",
+                "clickables",
             ],
             unlocked() {return layers['NEGRM'].passiveGeneration().lt(0.25)},
         },
@@ -1047,6 +1069,7 @@ addLayer("NEGRM", {
                         return text
                     },
                     { "color": "#92248F", "font-size": "24px" }],
+                "clickables",
             ],
             unlocked() {return layers['NEGRM'].passiveGeneration().gt(0)},
         },
@@ -1217,6 +1240,16 @@ addLayer("NEGRM", {
             unlocked() {return getBuyableAmount(this.layer, 51).gte(1) && (inChallenge('ITWRM', 21) || inChallenge('ITWRM', 22) || inChallenge('ITWRM', 91))},
         },
     },
+    clickables: {
+        11: {
+            title: "Reset",
+            display() {return "Reset Negativity (Usefull for Softlock)"},
+            canClick: true,
+            onClick() {
+                player[this.layer].points = new Decimal(0);
+            },
+        },
+    },
     deactivated() {
         let inactive = false
         if(inChallenge('ITWRM', 11)) inactive = true
@@ -1290,6 +1323,8 @@ addLayer("CSHRM", {
         mult = new Decimal(1)
 
         mult = mult.times(buyableEffect('TESRM', 11).pow(-1))
+        mult = mult.times(player['MULTRM'].layerEffect.pow(-1))
+        if(getBuyableAmount('WINRM', 21).gte(1)) mult = mult.times(buyableEffect('WINRM', 21).pow(-1))
 
         if(inChallenge('ITWRM', 11)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 12)) mult = new Decimal(0)
@@ -1304,6 +1339,7 @@ addLayer("CSHRM", {
     layerShown() {
         let vis = false
         if(hasMilestone('TLGRM', 1)) vis = true
+        if(hasMilestone('TLGRM', 17)) vis = false
         return vis
     },
     infoboxes: {
@@ -1317,6 +1353,7 @@ addLayer("CSHRM", {
         if(hasMilestone('TLGRM', 6)) auto = true
         return auto
     },
+    resetsNothing() {return hasMilestone('MULTRM', 0)},
     resetDescription: "Reset Skill For ",
     tabFormat: {
         "Milestones": {
@@ -1468,6 +1505,7 @@ addLayer("UIPRM", {
     layerShown() {
         let vis = false
         if(hasMilestone('TLGRM', 2)) vis = true
+        if(hasMilestone('TLGRM', 17)) vis = false
         return vis
     },
     infoboxes: {
@@ -1486,6 +1524,9 @@ addLayer("UIPRM", {
     onPrestige(gain) {
         player[this.layer].pointsB = player[this.layer].pointsB.add(getResetGain(this.layer).sqrt())
         player[this.layer].pointsC = player[this.layer].pointsC.add(getResetGain(this.layer).cbrt())
+    },
+    tooltip() {
+        return format(player[this.layer].points)+" Unimpossible<br>"+format(player[this.layer].pointsB)+" Almost Unimpossible<br>"+format(player[this.layer].pointsC)+" Ununpossible"
     },
     tabFormat: {
         "Buyables": {
@@ -1712,6 +1753,7 @@ addLayer("FLNRM", {
     layerShown() {
         let vis = false
         if(hasMilestone('TLGRM', 3)) vis = true
+        if(hasMilestone('TLGRM', 17)) vis = false
         return vis
     },
     passiveGeneration() {
@@ -1730,6 +1772,10 @@ addLayer("FLNRM", {
         },
     },
     resetDescription: "Reset Skill For ",
+    tooltip() {
+        if(getBuyableAmount(this.layer, 51).gte(1)) return format(player[this.layer].points)+" "+this.name+"<br>"+format(player[this.layer].level)+" FLN Level"
+        else return format(player[this.layer].points)+" "+this.name
+    },
     tabFormat: {
         "Upgrades": {
             content: [
@@ -2070,6 +2116,7 @@ addLayer("TESRM", {
     layerShown() {
         let vis = false
         if(hasMilestone('TLGRM', 4)) vis = true
+        if(hasMilestone('TLGRM', 17)) vis = false
         return vis
     },
     passiveGeneration() {
@@ -2223,6 +2270,7 @@ addLayer("ARM", {
     layerShown() {
         let vis = false
         if(hasMilestone('TLGRM', 5)) vis = true
+        if(hasMilestone('TLGRM', 17)) vis = false
         return vis
     },
     infoboxes: {
@@ -2438,6 +2486,7 @@ addLayer("ДARM", {
     layerShown() {
         let vis = false
         if(hasMilestone('TLGRM', 6)) vis = true
+        if(hasMilestone('TLGRM', 17)) vis = false
         return vis
     },
     autoPrestige() {
@@ -2551,6 +2600,7 @@ addLayer("XSTRM", {
     layerShown() {
         let vis = false
         if(hasMilestone('TLGRM', 7)) vis = true
+        if(hasMilestone('TLGRM', 17)) vis = false
         return vis
     },
     resetsNothing() {
@@ -2667,7 +2717,7 @@ addLayer("XSTRM", {
                 };
             };
         };
-        if(player[this.layer].points.lt(5) && (inChallenge('ITWRM', 52) || inChallenge('ITWRM', 61) || hasChallenge('ITWRM', 61))) {
+        if(player[this.layer].points.lt(5) && (inChallenge('ITWRM', 52) || inChallenge('ITWRM', 61) || hasChallenge('ITWRM', 61) || hasMilestone('TLGRM', 18))) {
             player[this.layer].points = new Decimal(5)
         };
     },
@@ -2713,6 +2763,7 @@ addLayer("RLXRM", {
     layerShown() {
         let vis = false
         if(hasMilestone('TLGRM', 9)) vis = true
+        if(hasMilestone('TLGRM', 17)) vis = false
         return vis
     },
     passiveGeneration() {
@@ -2810,7 +2861,7 @@ addLayer("RLXRM", {
             },
             purchaseLimit: new Decimal(1),
             branches: [31],
-            unlocked() {return getBuyableAmount(this.layer, 11).gte(1) && inChallenge('ITWRM', 91)},
+            unlocked() {return getBuyableAmount(this.layer, 11).gte(1) && inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) >= 1)},
         },
         31: {
             title() {return "<h2>RLX #4</h2>"},
@@ -2853,6 +2904,101 @@ addLayer("RLXRM", {
     },
 })
 
+
+addLayer("MULTRM", {
+    name: "Multiplier",
+    symbol: "MULT",
+    position: 9,
+    startData() { return {
+        unlocked: true,
+		points: new Decimal(1),
+		layerEffect: new Decimal(1),
+    }},
+    color: "#ff0000",
+    requires: new Decimal(10),
+    resource: "Multiplier",
+    baseResource: "Ca$h",
+    baseAmount() {return player['CSHRM'].points},
+    type: "static",
+    exponent: 0.5,
+    roundUpCost: true,
+    gainMult() {
+        mult = new Decimal(1)
+
+        if(player['ITWRM'].ActiveChallenge) mult = new Decimal(0)
+
+        return mult
+    },
+    gainExp() {
+        return new Decimal(1)
+    },
+    row: 0,
+    layerShown: false,
+    infoboxes: {
+        1: {
+            title: "Info About this layer",
+            body() { return "Sorry This is Late [Row 1]" },
+        },
+        2: {
+            title: "Info About this layer 2",
+            body() { return "Multiplier Can't Be Less Then 1 [Row 1]" },
+        },
+    },
+    resetDescription: "Reset Skill For ",
+    resetsNothing: true,
+    onPrestige(gain) {
+        player['CSHRM'].points = new Decimal(0)
+    },
+    tabFormat: {
+        "Milestones": {
+            content: [
+                ["infobox", 1],
+                "blank",
+                ["display-text",
+                    function() { return 'You have ' + format(player[this.layer].points) + ' Multiplier (MULT)' },
+                    { "color": "#ff0000", "font-size": "24px" }],
+                "blank",
+                "prestige-button",
+                "blank",
+                "milestones",
+            ],
+        },
+        "Effects": {
+            content: [
+                ["infobox", 2],
+                "blank",
+                ["display-text",
+                    function() { return 'You have ' + format(player[this.layer].points) + ' Multiplier (MULT)' },
+                    { "color": "#ff0000", "font-size": "24px" }],
+                ["display-text",
+                    function() { return 'x' + format(player[this.layer].layerEffect) + ' Skill and /' + format(player[this.layer].layerEffect) + ' Ca$h Requirement' },
+                    { "color": "#ff0000", "font-size": "24px" }],
+            ],
+        },
+    },
+    milestones: {
+        0: {
+            requirementDescription: "2 Multi",
+            effectDescription: "Ca$h Resets Nothing",
+            done() { return player[this.layer].points.gte(2) },
+        },
+    },
+    deactivated() {
+        let inactive = false
+        if(player['ITWRM'].ActiveChallenge) inactive = true
+        return inactive
+    },
+    automate() {
+        if(player[this.layer].points.lt(1)) player[this.layer].points = new Decimal(1);
+
+        let effect = new Decimal(1);
+
+        effect = new Decimal(1e12).pow(player[this.layer].points.add(-1));
+
+        player[this.layer].layerEffect = effect;
+    },
+})
+
 addLayer("SKIPRM", {
     name: "Skip",
     symbol: "SKIP",
@@ -2862,7 +3008,7 @@ addLayer("SKIPRM", {
 		points: new Decimal(0),
         layerEffect: new Decimal(0),
         layerEffectb: new Decimal(0),
-        layerEffectc: new Decimal(0),
+        layerEffectc: new Decimal(1),
     }},
     color: "#FFAC65",
     requires: new Decimal(1e21),
@@ -2895,6 +3041,7 @@ addLayer("SKIPRM", {
     layerShown() {
         let vis = false
         if(hasMilestone('TLGRM', 10)) vis = true
+        if(hasMilestone('TLGRM', 17)) vis = false
         return vis
     },
     passiveGeneration() {
@@ -3039,6 +3186,7 @@ addLayer("RTFRM", {
     layerShown() {
         let vis = false
         if(hasMilestone('TLGRM', 11)) vis = true
+        if(hasMilestone('TLGRM', 17)) vis = false
         return vis
     },
     passiveGeneration() {
@@ -3111,7 +3259,7 @@ addLayer("RTFRM", {
         11: {
             title() {return "<h2>RTF #1</h2>"},
             cost(x) { return new Decimal(1) },
-            display() { return "<h2>XST Milestone 0 (1st) also Effects All non-static Layers and if it's over +25%/s remove it's reset button</h2><br><h3>[XST Milestone 0] x (1/([Layer Number]^3))</h3><br><br><h2>Cost: "+format(this.cost())+"</h2>" },
+            display() { return "<h2>XST Milestone 0 (1st) also Effects All non-static Class -1 Layers and if it's over +25%/s remove it's reset button</h2><br><h3>[XST Milestone 0] x (1/([Layer Number]^3))</h3><br><br><h2>Cost: "+format(this.cost())+"</h2>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())
@@ -3285,6 +3433,8 @@ addLayer("IFDRM", {
         if(inChallenge('ITWRM', 62)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 71)) mult = new Decimal(0)
 
+        if(!hasMilestone('TLGRM', 12)) mult = new Decimal(0)
+
         return mult
     },
     gainExp() {
@@ -3294,6 +3444,7 @@ addLayer("IFDRM", {
     layerShown() {
         let vis = false
         if(hasMilestone('TLGRM', 12)) vis = true
+        if(hasMilestone('TLGRM', 17)) vis = false
         return vis
     },
     passiveGeneration: new Decimal(1),
@@ -3569,11 +3720,13 @@ addLayer("IFERM", {
     layerShown() {
         let vis = false
         if(hasMilestone('TLGRM', 13)) vis = true
+        if(hasMilestone('TLGRM', 17)) vis = false
         return vis
     },
     autoPrestige() {
         let auto = false
         if(hasMilestone('ITWRM', 2)) auto = true
+        if(hasMilestone('TLGRM', 18)) auto = true
         if(inChallenge('ITWRM', 81)) auto = false
         if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 4)) auto = false
 
@@ -3709,11 +3862,13 @@ addLayer("IFTRM", {
     layerShown() {
         let vis = false
         if(hasMilestone('TLGRM', 14)) vis = true
+        if(hasMilestone('TLGRM', 17)) vis = false
         return vis
     },
     autoPrestige() {
         let auto = false
         if(hasMilestone('ITWRM', 2)) auto = true
+        if(hasMilestone('TLGRM', 18)) auto = true
         if(inChallenge('ITWRM', 82)) auto = false
         if(inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) == 4)) auto = false
 
@@ -3833,6 +3988,7 @@ addLayer("ITWRM", {
     layerShown() {
         let vis = false
         if(hasMilestone('TLGRM', 15)) vis = true
+        if(hasMilestone('TLGRM', 17)) vis = false
         return vis
     },
     infoboxes: {
@@ -3991,6 +4147,7 @@ addLayer("ITWRM", {
                 player[this.layer].ActiveChallenge = false
             },
             canComplete: function() {return player.points.gte(10e9) || hasMilestone('TLGRM', 16)},
+            completionLimit: 1,
             unlocked() {return hasMilestone(this.layer, 0)},
         },
         12: {
@@ -4005,6 +4162,7 @@ addLayer("ITWRM", {
                 player[this.layer].ActiveChallenge = false
             },
             canComplete: function() {return player.points.gte(1e6) || hasMilestone('TLGRM', 16)},
+            completionLimit: 1,
             unlocked() {return hasMilestone(this.layer, 1)},
         },
         21: {
@@ -4019,6 +4177,7 @@ addLayer("ITWRM", {
                 player[this.layer].ActiveChallenge = false
             },
             canComplete: function() {return player.points.gte(5e9) || hasMilestone('TLGRM', 16)},
+            completionLimit: 1,
             unlocked() {return hasMilestone(this.layer, 2)},
         },
         22: {
@@ -4033,6 +4192,7 @@ addLayer("ITWRM", {
                 player[this.layer].ActiveChallenge = false
             },
             canComplete: function() {return player.points.gte(10e9) || hasMilestone('TLGRM', 16)},
+            completionLimit: 1,
             unlocked() {return hasMilestone(this.layer, 3)},
         },
         31: {
@@ -4046,7 +4206,8 @@ addLayer("ITWRM", {
             onExit() {
                 player[this.layer].ActiveChallenge = false
             },
-            canComplete: function() {return player.points.gte(50e6)},
+            canComplete: function() {return player.points.gte(50e6) || hasMilestone('TLGRM', 17)},
+            completionLimit: 1,
             unlocked() {return hasMilestone(this.layer, 4)},
         },
         32: {
@@ -4062,7 +4223,8 @@ addLayer("ITWRM", {
             },
             rewardEffect() {return new Decimal(2).pow(player[this.layer].points)},
             rewardDisplay() {return "x"+format(challengeEffect(this.layer, this.id))+" Skill"},
-            canComplete: function() {return player.points.gte(1e12)},
+            canComplete: function() {return player.points.gte(1e12) || hasMilestone('TLGRM', 17)},
+            completionLimit: 1,
             unlocked() {return hasMilestone(this.layer, 5)},
         },
         41: {
@@ -4076,7 +4238,8 @@ addLayer("ITWRM", {
             onExit() {
                 player[this.layer].ActiveChallenge = false
             },
-            canComplete: function() {return player.points.gte(10e12)},
+            canComplete: function() {return player.points.gte(10e12) || hasMilestone('TLGRM', 17)},
+            completionLimit: 1,
             unlocked() {return hasMilestone(this.layer, 6)},
         },
         42: {
@@ -4090,7 +4253,8 @@ addLayer("ITWRM", {
             onExit() {
                 player[this.layer].ActiveChallenge = false
             },
-            canComplete: function() {return player.points.gte(10e15)},
+            canComplete: function() {return player.points.gte(10e15) || hasMilestone('TLGRM', 17)},
+            completionLimit: 1,
             unlocked() {return hasMilestone(this.layer, 7)},
         },
         51: {
@@ -4104,7 +4268,8 @@ addLayer("ITWRM", {
             onExit() {
                 player[this.layer].ActiveChallenge = false
             },
-            canComplete: function() {return player.points.gte(210e18)},
+            canComplete: function() {return player.points.gte(210e18) || hasMilestone('TLGRM', 18)},
+            completionLimit: 1,
             unlocked() {return hasMilestone(this.layer, 8)},
         },
         52: {
@@ -4118,7 +4283,8 @@ addLayer("ITWRM", {
             onExit() {
                 player[this.layer].ActiveChallenge = false
             },
-            canComplete: function() {return player.points.gte(100e18)},
+            canComplete: function() {return player.points.gte(100e18) || hasMilestone('TLGRM', 18)},
+            completionLimit: 1,
             unlocked() {return hasMilestone(this.layer, 9)},
         },
         61: {
@@ -4132,7 +4298,8 @@ addLayer("ITWRM", {
             onExit() {
                 player[this.layer].ActiveChallenge = false
             },
-            canComplete: function() {return player.points.gte(1e15)},
+            canComplete: function() {return player.points.gte(1e15) || hasMilestone('TLGRM', 18)},
+            completionLimit: 1,
             unlocked() {return hasMilestone(this.layer, 10)},
         },
         62: {
@@ -4146,7 +4313,8 @@ addLayer("ITWRM", {
             onExit() {
                 player[this.layer].ActiveChallenge = false
             },
-            canComplete: function() {return player.points.gte(100e18)},
+            canComplete: function() {return player.points.gte(100e18) || hasMilestone('TLGRM', 18)},
+            completionLimit: 1,
             unlocked() {return hasMilestone(this.layer, 11)},
         },
         71: {
@@ -4161,6 +4329,7 @@ addLayer("ITWRM", {
                 player[this.layer].ActiveChallenge = false
             },
             canComplete: function() {return player.points.gte(1e21)},
+            completionLimit: 1,
             unlocked() {return hasMilestone(this.layer, 12)},
         },
         72: {
@@ -4175,6 +4344,7 @@ addLayer("ITWRM", {
                 player[this.layer].ActiveChallenge = false
             },
             canComplete: function() {return player.points.gte(100e27)},
+            completionLimit: 1,
             unlocked() {return hasMilestone(this.layer, 13)},
         },
         81: {
@@ -4189,6 +4359,7 @@ addLayer("ITWRM", {
                 player[this.layer].ActiveChallenge = false
             },
             canComplete: function() {return player.points.gte(1e30)},
+            completionLimit: 1,
             unlocked() {return hasMilestone(this.layer, 14)},
         },
         82: {
@@ -4203,6 +4374,7 @@ addLayer("ITWRM", {
                 player[this.layer].ActiveChallenge = false
             },
             canComplete: function() {return player.points.gte(1e33)},
+            completionLimit: 1,
             unlocked() {return hasMilestone(this.layer, 15)},
         },
         91: {
@@ -4229,6 +4401,189 @@ addLayer("ITWRM", {
             canComplete: function() {return player.points.gte(new Decimal(1e25).times(player['SKIPRM'].layerEffectc))},
             completionLimit: 5,
             unlocked() {return hasMilestone(this.layer, 16)},
+        },
+    },
+})
+
+addLayer("PECRM", {
+    name: "Pre Excavation Chain",
+    symbol: "PEC",
+    position: 2,
+    startData() { return {
+        unlocked: true,
+		points: new Decimal(0),
+    }},
+    color: "#b4b4b4",
+    requires: new Decimal(1e1000),
+    resource: "Useless Layers",
+    baseResource: "Skill",
+    baseAmount() {return player.points},
+    type: "normal",
+    exponent: 0,
+    gainMult() {
+        mult = new Decimal(0)
+        return mult
+    },
+    gainExp() {
+        return new Decimal(1)
+    },
+    row: 0,
+    layerShown() {
+        let vis = false
+        if(hasMilestone('TLGRM', 17)) vis = true
+        return vis
+    },
+    tabFormat: {
+        "Ca$h": {
+            embedLayer: "CSHRM",
+            buttonStyle: {
+                "color": "#009000",
+                "border": "2px solid #009000",
+            },
+        },
+        "Multi": {
+            embedLayer: "MULTRM",
+            buttonStyle: {
+                "color": "#ff0000",
+                "border": "2px solid #ff0000",
+            },
+        },
+    },
+})
+
+addLayer("ClassNeg", {
+    name: "Class Negative",
+    symbol: "C_-1",
+    position: 0,
+    startData() { return {
+        unlocked: true,
+		points: new Decimal(0),
+    }},
+    color: "#b4b4b4",
+    requires: new Decimal(1e1000),
+    resource: "Useless Layers",
+    baseResource: "Skill",
+    baseAmount() {return player.points},
+    type: "normal",
+    exponent: 0,
+    gainMult() {
+        mult = new Decimal(0)
+        return mult
+    },
+    gainExp() {
+        return new Decimal(1)
+    },
+    row: 0,
+    layerShown() {
+        let vis = false
+        if(hasMilestone('TLGRM', 17)) vis = true
+        return vis
+    },
+    tabFormat: {
+        "TFD": {
+            embedLayer: "TFDRM",
+            buttonStyle: {
+                "color": "#464646",
+                "border": "2px solid #464646",
+            },
+        },
+        "Neg": {
+            embedLayer: "NEGRM",
+            buttonStyle: {
+                "color": "#92248F",
+                "border": "2px solid #92248F",
+            },
+        },
+        "UIP": {
+            embedLayer: "UIPRM",
+            buttonStyle: {
+                "color": "#580C72",
+                "border": "2px solid #580C72",
+            },
+        },
+        "FLN": {
+            embedLayer: "FLNRM",
+            buttonStyle: {
+                "color": "#cecece",
+                "border": "2px solid #cecece",
+            },
+        },
+        "TES": {
+            embedLayer: "TESRM",
+            buttonStyle: {
+                "color": "#cecece",
+                "border": "2px solid #cecece",
+            },
+        },
+        "A": {
+            embedLayer: "ARM",
+            buttonStyle: {
+                "color": "#ff0000",
+                "border": "2px solid #ff0000",
+            },
+        },
+        "ДА": {
+            embedLayer: "ДARM",
+            buttonStyle: {
+                "color": "#00ff00",
+                "border": "2px solid #00ff00",
+            },
+        },
+        "XST": {
+            embedLayer: "XSTRM",
+            buttonStyle: {
+                "color": "#cecece",
+                "border": "2px solid #cecece",
+            },
+        },
+        "RLX": {
+            embedLayer: "RLXRM",
+            buttonStyle: {
+                "color": "#cecece",
+                "border": "2px solid #cecece",
+            },
+        },
+        "SKIP": {
+            embedLayer: "SKIPRM",
+            buttonStyle: {
+                "color": "#FFAC65",
+                "border": "2px solid #FFAC65",
+            },
+        },
+        "RTF": {
+            embedLayer: "RTFRM",
+            buttonStyle: {
+                "color": "#006300",
+                "border": "2px solid #006300",
+            },
+        },
+        "IF.": {
+            embedLayer: "IFDRM",
+            buttonStyle: {
+                "color": "#cecece",
+                "border": "2px solid #cecece",
+            },
+        },
+        "IFE": {
+            embedLayer: "IFERM",
+            buttonStyle: {
+                "color": "#009000",
+                "border": "2px solid #009000",
+            },
+        },
+        "IFT": {
+            embedLayer: "IFTRM",
+            buttonStyle: {
+                "color": "#3f0092",
+                "border": "2px solid #3f0092",
+            },
+        },
+        "ITW": {
+            embedLayer: "ITWRM",
+            buttonStyle: {
+                "color": "#0000ff",
+                "border": "2px solid #0000ff",
+            },
         },
     },
 })

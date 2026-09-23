@@ -96,6 +96,41 @@ addLayer("MiniGames", {
     },
 })
 
+addLayer("Event", {
+    name: "Event",
+    symbol: "",
+    position: 0,
+    startData() { return {
+        unlocked: true,
+		points: new Decimal(0),
+    }},
+    color: "#797979",
+    requires: new Decimal(1e1000),
+    resource: "Event Points",
+    baseResource: "Skill",
+    baseAmount() {return player.points},
+    type: "normal",
+    exponent: 0,
+    gainMult() {
+        mult = new Decimal(0)
+        return mult
+    },
+    gainExp() {
+        return new Decimal(1)
+    },
+    row: "side",
+    layerShown() {return false},
+    tabFormat: {
+        "Halloween": {
+            embedLayer: "Halloween",
+            buttonStyle: {
+                "color": "#c07000",
+                "border": "2px solid #c07000",
+            },
+        },
+    },
+})
+
 addLayer("MiniSettings", {
     name: "Minigame Settings",
     symbol: "",

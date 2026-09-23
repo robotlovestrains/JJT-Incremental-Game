@@ -6,10 +6,12 @@ let modInfo = {
 		"layers_v1/LayerNegative.js",
 		"layers_v1/ClassNegative.js",
 		"layers_v1/LayerZero.js",
-		"layers_extra/MiniGame.js",
+		"layers_extra/MiniGameI.js",
 		"layers_extra/EventOne.js",
 		"layers_v2/ClassNegative.js",
 		"layers_extra/MiscLayers.js",
+		"layers_v2/ClassZero.js",
+		"layers_extra/MiniGameII.js",
 		"tree.js",
 	],
 
@@ -20,15 +22,21 @@ let modInfo = {
 }
 
 // Set your version num
-let value = "7.1"
+let value = "8.0"
 
 // Set your version and name
 let VERSION = {
 	num: "Alpha"+value,
-	name: "Slight Changes",
+	name: "Class 0 (again)",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>vAlpha8.0 Class 0 (again)</h3><br>
+		- Added Some Of Class 0<br>
+		- Added Some QoL Changes<br>
+		- Added More Minigame Content<br>
+		- Fixed Some Bugs<br>
+		<br>
 	<h3>vAlpha7.1 Slight Changes</h3><br>
 		- Changed Some Things<br>
 		<br>
@@ -532,6 +540,10 @@ function getPointGen() {
 	if(hasMilestone('CSHRM', 6)) gain = gain.times(1e25)
 	if(hasMilestone('XSTRM', 7)) gain = gain.times(1e25)
 	if(hasMilestone('CSHRM', 7)) gain = gain.times(1e20)
+	if(hasMilestone('TLGRM', 17)) gain = gain.times(10)
+    gain = gain.times(player['MULTRM'].layerEffect)
+
+	if(getBuyableAmount('MSLRM', 81).gte(1)) gain = gain.times(player['MSLRM'].timeEffectc)
 
 	let pow = new Decimal(1)
 	if(inChallenge('ITWRM', 11)) pow = pow.times(0.5)
@@ -563,7 +575,7 @@ function getPointGen() {
 	if(gain.lt(1)) gain = new Decimal(1)
 
 	//Misc
-	if(player['HalloweenLevel'].MainEffectA) gain = gain.times(10)
+	//if(player['HalloweenLevel'].MainEffectA) gain = gain.times(10)
 
 	return gain
 }
@@ -578,7 +590,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return hasMilestone('TLGRM', 16)
+	return hasMilestone('TLGRM', 19)
 }
 
 
