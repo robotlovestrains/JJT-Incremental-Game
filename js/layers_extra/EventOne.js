@@ -1169,6 +1169,7 @@ addLayer("Witch", {
         if(player[this.layer].click31) mult = new Decimal(1)
         if(player[this.layer].click41) mult = new Decimal(1)
         if(player[this.layer].click51) mult = new Decimal(1)
+        if(player[this.layer].click61) mult = new Decimal(1)
         return mult
     },
     gainExp() {
@@ -1195,6 +1196,7 @@ addLayer("Witch", {
         if(player[this.layer].click31) mult = mult.add(1)
         if(player[this.layer].click41) mult = mult.add(1)
         if(player[this.layer].click51) mult = mult.add(1)
+        if(player[this.layer].click61) mult = mult.add(1)
 
         if(player['Witch'].points.lt(mult.add(1)) {
             player['Witch'].points = mult
@@ -1429,7 +1431,7 @@ addLayer("Witch", {
                 player['ToT'].milestones = []
                 player['ToT'].points = new Decimal(0)
             },
-            unlocked() {return player[this.layer].points.gte(7) && (hasUpgrade('JoL', 45) || player[this.layer].click61)},
+            unlocked() {return player[this.layer].points.gte(6) && (hasUpgrade('JoL', 45) || player[this.layer].click61)},
         },
     },
 })
