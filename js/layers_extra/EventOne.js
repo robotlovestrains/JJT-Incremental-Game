@@ -65,46 +65,6 @@ addLayer("Halloween", {
     },
 })
 
-addLayer("HalloweenA", {
-    name: "HalloweenA",
-    symbol: "",
-    position: 1,
-    startData() { return {
-        unlocked: true,
-		points: new Decimal(0),
-    }},
-    color: "#f5d628",
-    requires: new Decimal(1e1000),
-    resource: "Pumkins",
-    baseResource: "Pumkins",
-    baseAmount() {return player.points},
-    type: "normal",
-    exponent: 0,
-    gainMult() {
-        mult = new Decimal(0)
-
-        return mult
-    },
-    gainExp() {
-        return new Decimal(1)
-    },
-    row: "side",
-    layerShown() {return false},
-    tabFormat: [
-        ["display-text",
-        function() { return "I don't care About Spoilers. Happy Halloween." },
-        { "color": "orange", "font-size": "24px"}],
-        "achievements",
-    ],
-    achievments: {
-        11: {
-            name: "???",
-            done() {return false},
-            tooltip: "No"
-        },
-    },
-})
-
 addLayer("Pumkin", {
     name: "Pumkin",
     symbol: "",
@@ -1200,18 +1160,6 @@ addLayer("Witch", {
     baseAmount() {return player['ToT'].points},
     type: "static",
     exponent: 0,
-    gainMult() {
-        mult = new Decimal(0)
-
-        if(player[this.layer].click11) mult = new Decimal(1)
-        if(player[this.layer].click12) mult = new Decimal(1)
-        if(player[this.layer].click21) mult = new Decimal(1)
-        if(player[this.layer].click31) mult = new Decimal(1)
-        if(player[this.layer].click41) mult = new Decimal(1)
-        if(player[this.layer].click51) mult = new Decimal(1)
-
-        return mult
-    },
     gainExp() {
         return new Decimal(1)
     },
@@ -1228,7 +1176,7 @@ addLayer("Witch", {
         player['ToT'].milestones = []
         player['ToT'].points = new Decimal(0)
 
-        let mult = new Decimal(0)
+        let mult = new Decimal(1)
 
         if(player[this.layer].click11) mult = mult.add(1)
         if(player[this.layer].click12) mult = mult.add(1)

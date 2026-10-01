@@ -22,15 +22,18 @@ let modInfo = {
 }
 
 // Set your version num
-let value = "9.0"
+let value = "9.1"
 
 // Set your version and name
 let VERSION = {
 	num: "Alpha"+value,
-	name: "Halloween Event (Mostly)",
+	name: "Small Fix",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>vAlpha9.1 Small Fix</h3><br>
+		- Fixed a Bug about witches
+		<br>
 	<h3>vAlpha9.0 Halloween Event (Mostly)</h3><br>
 		- Added Winsome<br>
 		- Misc/QoL Changes<br>
