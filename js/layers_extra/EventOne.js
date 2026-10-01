@@ -1176,7 +1176,7 @@ addLayer("Witch", {
         player['ToT'].milestones = []
         player['ToT'].points = new Decimal(0)
 
-        let mult = new Decimal(1)
+        let mult = new Decimal(0)
 
         if(player[this.layer].click11) mult = mult.add(1)
         if(player[this.layer].click12) mult = mult.add(1)
@@ -1185,7 +1185,7 @@ addLayer("Witch", {
         if(player[this.layer].click41) mult = mult.add(1)
         if(player[this.layer].click51) mult = mult.add(1)
 
-        if(player['Witch'].points.lt(mult)) {
+        if(player['Witch'].points.lt(mult.add(1)) {
             player['Witch'].points = mult
         }
         else {
