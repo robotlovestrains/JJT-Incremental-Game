@@ -1160,6 +1160,17 @@ addLayer("Witch", {
     baseAmount() {return player['ToT'].points},
     type: "static",
     exponent: 0,
+    gainMult() {
+        let mult = new Decimal(0)
+
+        if(player[this.layer].click11) mult = new Decimal(1)
+        if(player[this.layer].click12) mult = new Decimal(1)
+        if(player[this.layer].click21) mult = new Decimal(1)
+        if(player[this.layer].click31) mult = new Decimal(1)
+        if(player[this.layer].click41) mult = new Decimal(1)
+        if(player[this.layer].click51) mult = new Decimal(1)
+        return mult
+    },
     gainExp() {
         return new Decimal(1)
     },
