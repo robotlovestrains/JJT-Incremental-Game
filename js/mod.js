@@ -22,15 +22,18 @@ let modInfo = {
 }
 
 // Set your version num
-let value = "9.1"
+let value = "9.2"
 
 // Set your version and name
 let VERSION = {
-	num: "Alpha"+value,
-	name: "Small Fix",
+	num: "Alpha "+value,
+	name: "Sorry I Broke it",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>vAlpha9.2 Sorry I Broke it</h3><br>
+		- MADE THE GAME PLAYABLE
+		<br>
 	<h3>vAlpha9.1 Small Fix</h3><br>
 		- Fixed a Bug about witches
 		<br>

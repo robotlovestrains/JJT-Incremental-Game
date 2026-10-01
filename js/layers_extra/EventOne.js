@@ -1198,7 +1198,7 @@ addLayer("Witch", {
         if(player[this.layer].click51) mult = mult.add(1)
         if(player[this.layer].click61) mult = mult.add(1)
 
-        if(player['Witch'].points.lt(mult.add(1)) {
+        if(player['Witch'].points.lt(mult.add(1))) {
             player['Witch'].points = mult
         }
         else {
