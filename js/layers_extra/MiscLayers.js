@@ -9,6 +9,7 @@ addLayer("MISC", {
     color: "#b4b4b4",
     requires: new Decimal(1e1000),
     resource: "Useless Layers",
+    tooltip() {return "Misc. Layers"},
     baseResource: "Skill",
     baseAmount() {return player.points},
     type: "normal",
@@ -79,13 +80,6 @@ addLayer("MiniGames", {
                 "border": "2px solid #b4b4b4",
             },
         },
-        "Minigame 1 Achievments": {
-            embedLayer: "MiniA1",
-            buttonStyle: {
-                "color": "#ffff00",
-                "border": "2px solid #ffff00",
-            },
-        },
         "Minigame 2": {
             embedLayer: "MiniGame2",
             buttonStyle: {
@@ -140,6 +134,7 @@ addLayer("MiniSettings", {
 		points: new Decimal(0),
         Mini1: false,
         Mini2: false,
+        Mini2M: false,
     }},
     color: "#b4b4b4",
     requires: new Decimal(1e1000),
@@ -181,6 +176,14 @@ addLayer("MiniSettings", {
             display() {return player[this.layer].Mini2},
             onClick() {
                 player[this.layer].Mini2 = !player[this.layer].Mini2
+            },
+            canClick: true,
+        },
+        22: {
+            title: "Disable Minigame 2's Milestones",
+            display() {return player[this.layer].Mini2M},
+            onClick() {
+                player[this.layer].Mini2M = !player[this.layer].Mini2M
             },
             canClick: true,
         },

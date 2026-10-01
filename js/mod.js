@@ -22,20 +22,30 @@ let modInfo = {
 }
 
 // Set your version num
-let value = "8.0"
+let value = "9.0"
 
 // Set your version and name
 let VERSION = {
 	num: "Alpha"+value,
-	name: "Class 0 (again)",
+	name: "Halloween Event (Mostly)",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>vAlpha9.0 Halloween Event (Mostly)</h3><br>
+		- Added Winsome<br>
+		- Misc/QoL Changes<br>
+		- Added More Halloween Content<br>
+		- Galaxy.click Chat (cuz why not it's been a while)<br>
+		- Removed Achivements To save Space<br>
+		<b>Notice I will <u>REMOVE</u> <u>ALL</u> of v1 To Make Space For this Game</b><br>
+		EndGame: 21 TLG<br>
+		<br>
 	<h3>vAlpha8.0 Class 0 (again)</h3><br>
 		- Added Some Of Class 0<br>
 		- Added Some QoL Changes<br>
 		- Added More Minigame Content<br>
 		- Fixed Some Bugs<br>
+		EndGame: 20 TLG<br>
 		<br>
 	<h3>vAlpha7.1 Slight Changes</h3><br>
 		- Changed Some Things<br>
@@ -590,7 +600,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return hasMilestone('TLGRM', 19)
+	return hasMilestone('TLGRM', 20)
 }
 
 

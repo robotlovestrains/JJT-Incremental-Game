@@ -387,6 +387,7 @@ addLayer("MiniStones", {
     },
     row: "side",
     layerShown() {return false},
+    milestonePopups() {return !player['MiniSettings'].Mini2M},
     infoboxes: {
         1: {
             title: "Info About this layer",
@@ -1591,6 +1592,7 @@ addLayer("SuperStones", {
     },
     row: "side",
     layerShown() {return false},
+    milestonePopups() {return !player['MiniSettings'].Mini2M},
     infoboxes: {
         1: {
             title: "Info About this layer",
@@ -1759,6 +1761,7 @@ addLayer("MegaStones", {
     },
     row: "side",
     layerShown() {return false},
+    milestonePopups() {return !player['MiniSettings'].Mini2M},
     infoboxes: {
         1: {
             title: "Info About this layer",

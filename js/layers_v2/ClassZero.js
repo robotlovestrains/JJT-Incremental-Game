@@ -35,6 +35,9 @@ addLayer("MSLRM", {
     },
     passiveGeneration() {
         let Gen = new Decimal(0)
+
+        if(getBuyableAmount('WINRM', 31).gte(1)) Gen = Gen.add(0.25)
+
         return Gen
     },
     Timegain() {
@@ -55,6 +58,8 @@ addLayer("MSLRM", {
         if(getBuyableAmount(this.layer, 102).gte(1)) gain = gain.times(buyableEffect(this.layer, 102));
         if(getBuyableAmount(this.layer, 111).gte(1)) gain = gain.times(buyableEffect(this.layer, 111));
         if(getBuyableAmount(this.layer, 121).gte(1)) gain = gain.times(buyableEffect(this.layer, 121));
+        if(getBuyableAmount('WSMRM', 21).gte(1)) gain = gain.times(buyableEffect('WSMRM', 21));
+        if(getBuyableAmount('WSMRM', 31).gte(1)) gain = gain.times(buyableEffect('WSMRM', 31));
 
         let exp = new Decimal(1);
 
@@ -471,6 +476,9 @@ addLayer("WINRM", {
     },
     passiveGeneration() {
         let Gen = new Decimal(0)
+
+        if(getBuyableAmount(this.layer, 41).gte(1)) Gen = Gen.add(0.25)
+
         return Gen
     },
     infoboxes: {
@@ -493,6 +501,15 @@ addLayer("WINRM", {
                 "blank",
                 "blank",
                 ["row", [["buyable", 21]]],
+                "blank",
+                "blank",
+                ["row", [["buyable", 31]]],
+                "blank",
+                "blank",
+                ["row", [["buyable", 41]]],
+                "blank",
+                "blank",
+                ["row", [["buyable", 51]]],
             ],
         },
         "Reset": {
@@ -545,8 +562,183 @@ addLayer("WINRM", {
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             purchaseLimit: new Decimal(1),
-            branches: [],
+            branches: [31],
             unlocked() {return getBuyableAmount(this.layer, 11).gte(1)},
+        },
+        31: {
+            title() {return "<h2>Win #3</h2>"},
+            cost(x) { return new Decimal(50e3) },
+            display() { return "<h2>Autogain 25% of MSL/s and Remove its Reset Button</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br>" },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: new Decimal(1),
+            branches: [41],
+            unlocked() {return getBuyableAmount(this.layer, 21).gte(1) && getBuyableAmount('WSMRM', 11).gte(1)},
+        },
+        41: {
+            title() {return "<h2>Win #4</h2>"},
+            cost(x) { return new Decimal(50e3) },
+            display() { return "<h2>Autogain 25% of WIN/s and Remove its Reset Button</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br>" },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: new Decimal(1),
+            branches: [51],
+            unlocked() {return getBuyableAmount(this.layer, 31).gte(1)},
+        },
+        51: {
+            title() {return "<h2>Win #5</h2>"},
+            cost(x) { return new Decimal(50e3) },
+            display() { return "<h2>Autogain 25% of WSM/s and Remove its Reset Button and Unlock More WSM Upgrades</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br>" },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: new Decimal(1),
+            branches: [],
+            unlocked() {return getBuyableAmount(this.layer, 41).gte(1)},
+        },
+    },
+    deactivated() {
+        let inactive = false
+        if(player['ITWRM'].ActiveChallenge) inactive = true
+        return inactive
+    },
+})
+
+addLayer("WSMRM", {
+    name: "Winsome",
+    symbol: "WSM",
+    position: 17,
+    startData() { return {
+        unlocked: true,
+		points: new Decimal(0),
+    }},
+    color: "#77a6e7",
+    requires: new Decimal(1e175),
+    resource: "Win",
+    baseResource: "Skill",
+    baseAmount() {return player.points},
+    type: "normal",
+    exponent: 0.05,
+    gainMult() {
+        mult = new Decimal(1)
+
+        return mult
+    },
+    gainExp() {
+        return new Decimal(1)
+    },
+    row: 0,
+    layerShown() {
+        let vis = false
+        if(hasMilestone('TLGRM', 19)) vis = true
+        return vis
+    },
+    passiveGeneration() {
+        let Gen = new Decimal(0)
+
+        if(getBuyableAmount('WINRM', 51).gte(1)) Gen = Gen.add(0.25)
+
+        return Gen
+    },
+    infoboxes: {
+        1: {
+            title: "Info About this layer",
+            body() { return "Still Not Winning the Game" },
+        },
+    },
+    resetDescription: "Reset Skill For ",
+    tabFormat: {
+        "Upgrades": {
+            content: [
+                ["infobox", 1],
+                "blank",
+                ["display-text",
+                    function() { return 'You have ' + format(player[this.layer].points) + ' Winsome (WIN)' },
+                    { "color": "#0badff", "font-size": "24px" }],
+                "blank",
+                ["row", [["buyable", 11]]],
+                "blank",
+                "blank",
+                ["row", [["buyable", 21]]],
+                "blank",
+                "blank",
+                ["row", [["buyable", 31]]],
+            ],
+        },
+        "Reset": {
+            content: [
+                ["infobox", 1],
+                "blank",
+                ["display-text",
+                    function() { return 'You have ' + format(player[this.layer].points) + ' Winsome (WSM)' },
+                    { "color": "#0badff", "font-size": "24px" }],
+                "blank",
+                "prestige-button",
+            ],
+            unlocked() {return layers['WSMRM'].passiveGeneration().lt(0.25)},
+        },
+        "Autogain": {
+            content: [
+                ["infobox", 1],
+                "blank",
+                ["display-text",
+                    function() { return 'You have ' + format(player[this.layer].points) + ' Winsome (WSM)' },
+                    { "color": "#0badff", "font-size": "24px" }],
+                ["display-text",
+                    function() { return 'You are gaining +' + format(layers[this.layer].passiveGeneration().times(getResetGain(this.layer))) + ' WSM/s and the percent is '+format(layers[this.layer].passiveGeneration().times(100))+'%' },
+                    { "color": "#0badff", "font-size": "16px" }],
+            ],
+            unlocked() {return layers['WSMRM'].passiveGeneration().gt(0)},
+        },
+    },
+    buyables: {
+        11: {
+            title() {return "<h2>WSM #1</h2>"},
+            cost(x) { return new Decimal(1) },
+            display() { return "<h2>Unlock More Win Upgrades</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2>" },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: new Decimal(1),
+            branches: [21],
+        },
+        21: {
+            title() {return "<h2>WSM #2</h2>"},
+            cost(x) { return new Decimal(1) },
+            display() { return "<h2>x25 Time</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2>" },
+            effect() { return getBuyableAmount(this.layer, this.id).times(24).add(1) },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: new Decimal(1),
+            branches: [31],
+            unlocked() {return getBuyableAmount(this.layer, 11).gte(1) && getBuyableAmount('WINRM', 51).gte(1)},
+        },
+        31: {
+            title() {return "<h2>WSM #3</h2>"},
+            cost(x) { return new Decimal(5) },
+            display() { return "<h2>x40 Time</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2>" },
+            effect() { return getBuyableAmount(this.layer, this.id).times(39).add(1) },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: new Decimal(1),
+            branches: [],
+            unlocked() {return getBuyableAmount(this.layer, 21).gte(1)},
         },
     },
     deactivated() {

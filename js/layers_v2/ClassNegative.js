@@ -904,8 +904,14 @@ addLayer("TLGRM", {
         },
         19: {
             requirementDescription: "20 TLG",
-            effectDescription: "Unlock Winsome and x1e10 TLG Requirement (to balence the game) [ENDGAME]",
+            effectDescription: "Unlock Winsome and x1e10 TLG Requirement (to balence the game)",
             done() { return player[this.layer].points.gte(20) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        20: {
+            requirementDescription: "21 TLG",
+            effectDescription: "Unlock Do Nothing and ???",
+            done() { return player[this.layer].points.gte(21) },
             unlocked() {return hasMilestone(this.layer, this.id)},
         },
     },
@@ -2379,9 +2385,9 @@ addLayer("ARM", {
         21: {
             title() {return "<h2>E</h2>"},
             cost(x) { return new Decimal(500e15).times(new Decimal(2).pow(x.add(1).pow(0.25))).tetrate(x.add(1).pow(0.01)) },
-            display() { return "<h3>Effect: ДА Boost Skill</h3><br><h2>log10(sqrt(ДА) + 1)</h2><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3><br>"+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit) },
+            display() { return "<h3>Effect: ДА Boost Skill</h3><br><h2>log10(sqrt(ДА) + 1) + 1</h2><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3><br>"+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit) },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
-            effect() { return (player[this.layer].points.sqrt().add(1).log10()).pow(getBuyableAmount(this.layer, this.id)) },
+            effect() { return (player[this.layer].points.sqrt().add(1).log10()).add(1).pow(getBuyableAmount(this.layer, this.id)) },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
@@ -4328,7 +4334,7 @@ addLayer("ITWRM", {
             onExit() {
                 player[this.layer].ActiveChallenge = false
             },
-            canComplete: function() {return player.points.gte(1e21)},
+            canComplete: function() {return player.points.gte(1e21) || hasMilestone('TLGRM', 19)},
             completionLimit: 1,
             unlocked() {return hasMilestone(this.layer, 12)},
         },
@@ -4343,7 +4349,7 @@ addLayer("ITWRM", {
             onExit() {
                 player[this.layer].ActiveChallenge = false
             },
-            canComplete: function() {return player.points.gte(100e27)},
+            canComplete: function() {return player.points.gte(100e27) || hasMilestone('TLGRM', 19)},
             completionLimit: 1,
             unlocked() {return hasMilestone(this.layer, 13)},
         },
@@ -4358,7 +4364,7 @@ addLayer("ITWRM", {
             onExit() {
                 player[this.layer].ActiveChallenge = false
             },
-            canComplete: function() {return player.points.gte(1e30)},
+            canComplete: function() {return player.points.gte(1e30) || hasMilestone('TLGRM', 19)},
             completionLimit: 1,
             unlocked() {return hasMilestone(this.layer, 14)},
         },
@@ -4373,7 +4379,7 @@ addLayer("ITWRM", {
             onExit() {
                 player[this.layer].ActiveChallenge = false
             },
-            canComplete: function() {return player.points.gte(1e33)},
+            canComplete: function() {return player.points.gte(1e33) || hasMilestone('TLGRM', 19)},
             completionLimit: 1,
             unlocked() {return hasMilestone(this.layer, 15)},
         },
@@ -4406,7 +4412,7 @@ addLayer("ITWRM", {
 })
 
 addLayer("PECRM", {
-    name: "Pre Excavation Chain",
+    name: "Pre-Excavation Chain",
     symbol: "PEC",
     position: 2,
     startData() { return {
@@ -4416,6 +4422,7 @@ addLayer("PECRM", {
     color: "#b4b4b4",
     requires: new Decimal(1e1000),
     resource: "Useless Layers",
+    tooltip() {return "Pre-Excavation Chain Layers"},
     baseResource: "Skill",
     baseAmount() {return player.points},
     type: "normal",
@@ -4462,6 +4469,7 @@ addLayer("ClassNeg", {
     color: "#b4b4b4",
     requires: new Decimal(1e1000),
     resource: "Useless Layers",
+    tooltip() {return "Class Negative Layers"},
     baseResource: "Skill",
     baseAmount() {return player.points},
     type: "normal",

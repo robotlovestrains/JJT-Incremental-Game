@@ -23,13 +23,6 @@ addLayer("Halloween", {
     row: "side",
     layerShown() {return false},
     tabFormat: {
-        "Halloween Acheivments": {
-            embedLayer: "HalloweenA",
-            buttonStyle: {
-                "color": "#f5d628",
-                "border": "2px solid #f5d628",
-            },
-        },
         "Pumkin Layer": {
             embedLayer: "Pumkin",
             buttonStyle: {
@@ -166,6 +159,10 @@ addLayer("Pumkin", {
         if(hasUpgrade('JoL', 32)) mult = mult.times(10)
         if(hasUpgrade('JoL', 33)) mult = mult.times(3.14)
         if(hasUpgrade('JoL', 34)) mult = mult.times(7)
+        if(hasUpgrade('JoL', 35)) mult = mult.times(25)
+        if(hasUpgrade('JoL', 42)) mult = mult.times(10)
+        if(hasUpgrade('JoL', 43)) mult = mult.times(10)
+        if(hasUpgrade('JoL', 44)) mult = mult.times(100)
 
         if(hasUpgrade('ToT', 11)) mult = mult.times(1/0.1)
         if(hasUpgrade('ToT', 12)) mult = mult.times(1/0.11)
@@ -181,6 +178,7 @@ addLayer("Pumkin", {
         if(hasUpgrade('ToT', 41)) mult = mult.times(5)
         if(hasUpgrade('ToT', 43)) mult = mult.times(upgradeEffect('ToT', 43))
         if(hasUpgrade('ToT', 45)) mult = mult.times(4)
+        if(hasMilestone('ToT', 3)) mult = mult.times(100)
 
         if(hasMilestone('HalloweenLevel', 0)) mult = mult.times(5)
         if(hasMilestone('HalloweenLevel', 1)) mult = mult.times(3)
@@ -189,11 +187,14 @@ addLayer("Pumkin", {
         if(hasMilestone('Witch', 0)) mult = mult.times(new Decimal(2.5).pow(player['Witch'].points))
         if(hasMilestone('Witch', 2)) mult = mult.times(5)
         if(hasMilestone('Witch', 3)) mult = mult.times(100)
+        if(hasMilestone('Witch', 4)) mult = mult.times(4)
 
         if(player['Witch'].click11) mult = mult.times(5)
         if(player['Witch'].click12) mult = mult.times(1/9)
         if(player['Witch'].click21) mult = mult.times(1/8)
         if(player['Witch'].click31) mult = mult.times(1/4)
+        if(player['Witch'].click51) mult = mult.times(200e-6)
+        if(player['Witch'].click61) mult = mult.times(0.1)
 
         return mult
     },
@@ -518,6 +519,8 @@ addLayer("JoL", {
         if(hasUpgrade(this.layer, 23)) mult = mult.times(10)
         if(hasUpgrade(this.layer, 25)) mult = mult.times(3)
         if(hasUpgrade(this.layer, 31)) mult = mult.times(5)
+        if(hasUpgrade(this.layer, 35)) mult = mult.times(25)
+        if(hasUpgrade(this.layer, 43)) mult = mult.times(4)
 
         if(hasUpgrade('ToT', 21)) mult = mult.times(3)
         if(hasUpgrade('ToT', 22)) mult = mult.times(4)
@@ -533,6 +536,7 @@ addLayer("JoL", {
         if(hasUpgrade('ToT', 42)) mult = mult.times(upgradeEffect('ToT', 42))
         if(hasUpgrade('ToT', 44)) mult = mult.times(upgradeEffect('ToT', 44))
         if(hasUpgrade('ToT', 45)) mult = mult.times(9)
+        if(hasMilestone('ToT', 3)) mult = mult.times(100)
 
         if(hasMilestone('HalloweenLevel', 0)) mult = mult.times(4)
         if(hasMilestone('HalloweenLevel', 1)) mult = mult.times(2.5)
@@ -540,12 +544,15 @@ addLayer("JoL", {
 
         if(hasMilestone('Witch', 1)) mult = mult.times(new Decimal(4).pow(player['Witch'].points))
         if(hasMilestone('Witch', 2)) mult = mult.times(5)
+        if(hasMilestone('Witch', 4)) mult = mult.times(4)
 
         if(player['Witch'].click11) mult = mult.times(1/9)
         if(player['Witch'].click12) mult = mult.times(5)
         if(player['Witch'].click21) mult = mult.times(1/8)
         if(player['Witch'].click31) mult = mult.times(1/9)
         if(player['Witch'].click41) mult = mult.times(1/4)
+        if(player['Witch'].click51) mult = mult.times(200e-6)
+        if(player['Witch'].click61) mult = mult.times(0.1)
 
         return mult
     },
@@ -572,6 +579,7 @@ addLayer("JoL", {
         if(hasUpgrade('ToT', 25)) Gen = Gen.add(0.05)
         if(hasMilestone('ToT', 1)) Gen = Gen.add(0.13)
         if(hasMilestone(this.layer, 3)) Gen = Gen.add(0.17)
+        if(hasUpgrade(this.layer, 41)) Gen = Gen.add(0.25)
 
         return Gen
     },
@@ -679,7 +687,7 @@ addLayer("JoL", {
         },
         31: {
             title: "Pumkined XI",
-            description: "x5 Pumkins -> ToT",
+            description: "x5 Pumkins → ToT",
             cost: new Decimal(5e23),
             unlocked() {return hasMilestone(this.layer, 4)}
         },
@@ -700,6 +708,42 @@ addLayer("JoL", {
             description: "x7 Pumkins",
             cost: new Decimal(1e25),
             unlocked() {return hasUpgrade(this.layer, 33)}
+        },
+        35: {
+            title: "Pumkined XV",
+            description: "x25 Pumkins → ToT",
+            cost: new Decimal(5e33),
+            unlocked() {return hasMilestone('Witch', 4)}
+        },
+        41: {
+            title: "Pumkined XVI",
+            description: "+25% JoL/s",
+            cost: new Decimal(5e35),
+            unlocked() {return hasUpgrade(this.layer, 35)}
+        },
+        42: {
+            title: "Pumkined XVII",
+            description: "x10 Pumkins and Generate +1% of ToT/s",
+            cost: new Decimal(5e35),
+            unlocked() {return hasUpgrade(this.layer, 41)}
+        },
+        43: {
+            title: "Pumkined XVIII",
+            description: "Unlock More ToT Milestones and x10 Pumkins and x4 JoLs and x2 ToTs",
+            cost: new Decimal(1e36),
+            unlocked() {return hasUpgrade(this.layer, 42)}
+        },
+        44: {
+            title: "Pumkined XIX",
+            description: "x100 Pumkins",
+            cost: new Decimal(1e39),
+            unlocked() {return hasMilestone('ToT', 4)}
+        },
+        45: {
+            title: "Pumkined XX",
+            description: "Unlock More Witch Content",
+            cost: new Decimal(1e40),
+            unlocked() {return hasUpgrade(this.layer, 44)}
         },
     },
     milestones: {
@@ -763,25 +807,38 @@ addLayer("ToT", {
         mult = new Decimal(1)
 
         if(hasUpgrade('JoL', 31)) mult = mult.times(5)
+        if(hasUpgrade('JoL', 35)) mult = mult.times(25)
+        if(hasUpgrade('JoL', 43)) mult = mult.times(2)
+
+        if(hasMilestone(this.layer, 3)) mult = mult.times(100)
 
         if(hasMilestone('HalloweenLevel', 0)) mult = mult.times(3)
         if(hasMilestone('HalloweenLevel', 1)) mult = mult.times(2)
         if(hasMilestone('HalloweenLevel', 2)) mult = mult.times(100)
 
         if(hasMilestone('Witch', 2)) mult = mult.times(new Decimal(3).pow(player['Witch'].points))
+        if(hasMilestone('Witch', 4)) mult = mult.times(4)
 
         if(player['Witch'].click21) mult = mult.times(1.2)
         if(player['Witch'].click41) mult = mult.times(0.9)
+        if(player['Witch'].click51) mult = mult.times(200e-6)
+        if(player['Witch'].click61) mult = mult.times(0.1)
 
         return mult
     },
     gainExp() {
-        return new Decimal(1)
+        Exp = new Decimal(1)
+
+        return Exp
     },
     row: "side",
     layerShown() {return false},
     passiveGeneration() {
         let Gen = new Decimal(0)
+
+        if(hasUpgrade('JoL', 42)) Gen = Gen.add(0.01)
+        if(hasMilestone(this.layer, 4)) Gen = Gen.add(0.09)
+
 
         return Gen
     },
@@ -1009,6 +1066,18 @@ addLayer("ToT", {
             done() {return player[this.layer].points.gte(250) && hasUpgrade(this.layer, 35)},
             unlocked() {return hasUpgrade(this.layer, 35)},
         },
+        3: {
+            requirementDescription: "1e14 ToT",
+            effectDescription: "x100 Pumkins → ToTs",
+            done() {return player[this.layer].points.gte(1e14) && hasUpgrade('JoL', 43)},
+            unlocked() {return hasUpgrade('JoL', 43)},
+        },
+        4: {
+            requirementDescription: "1e17 ToT",
+            effectDescription: "Unlock more JoL Upgrades and +9% of ToT/s",
+            done() {return player[this.layer].points.gte(1e17) && hasUpgrade('JoL', 43)},
+            unlocked() {return hasUpgrade('JoL', 43)},
+        },
     },
 })
 
@@ -1020,6 +1089,7 @@ addLayer("HalloweenLevel", {
         unlocked: true,
 		points: new Decimal(1),
         MainEffectA: false,
+        MainEffectB: false,
     }},
     color: "#96b609",
     requires: new Decimal(1e32),
@@ -1034,6 +1104,7 @@ addLayer("HalloweenLevel", {
         mult = new Decimal(1)
 
         if(hasMilestone('Witch', 3)) mult = mult.times(new Decimal(1000).pow(player['Witch'].points).pow(-1))
+        if(hasMilestone('Witch', 4)) mult = mult.times(10e-21)
 
         return mult
     },
@@ -1091,9 +1162,18 @@ addLayer("HalloweenLevel", {
         },
         2: {
             requirementDescription: "Level 4",
-            effectDescription: "Unlock More Witch Items (starting at 5) and x100 Pumkins → ToT",
+            effectDescription: "Unlock More Witch Content (starting at 5) and x100 Pumkins → ToT",
             done() {return player[this.layer].points.gte(4)},
             unlocked() {return hasMilestone(this.layer, 1)},
+        },
+        3: {
+            requirementDescription: "Level 5",
+            effectDescription: "Unlock Candy (Next Update and Get a x2 Candy Boost If Collected before next Update)",
+            done() {return player[this.layer].points.gte(5)},
+            onComplete() {
+                player[this.layer].MainEffectB = true
+            },
+            unlocked() {return hasMilestone(this.layer, 2)},
         },
     },
 })
@@ -1110,6 +1190,8 @@ addLayer("Witch", {
         click21: false,
         click31: false,
         click41: false,
+        click51: false,
+        click61: false,
     }},
     color: "#962eeb",
     requires: new Decimal(25000/2),
@@ -1126,7 +1208,7 @@ addLayer("Witch", {
         if(player[this.layer].click21) mult = new Decimal(1)
         if(player[this.layer].click31) mult = new Decimal(1)
         if(player[this.layer].click41) mult = new Decimal(1)
-        //if(player[this.layer].click51) mult = new Decimal(1)
+        if(player[this.layer].click51) mult = new Decimal(1)
 
         return mult
     },
@@ -1153,16 +1235,19 @@ addLayer("Witch", {
         if(player[this.layer].click21) mult = mult.add(1)
         if(player[this.layer].click31) mult = mult.add(1)
         if(player[this.layer].click41) mult = mult.add(1)
-        //if(player[this.layer].click51) mult = mult.add(1)
+        if(player[this.layer].click51) mult = mult.add(1)
 
         if(player['Witch'].points.lt(mult)) {
             player['Witch'].points = mult
+        }
+        else {
+            player['Witch'].points = player['Witch'].points.add(-1)
         }
     },
     autoPrestige: true,
     resetsNothing: true,
     tabFormat: {
-        "Items": {
+        "Effects": {
             content: [
                 ["display-text",
                     function() { return 'You have ' + format(player['Pumkin'].points) + ' Pumkins' },
@@ -1215,6 +1300,16 @@ addLayer("Witch", {
                 "milestones",
             ],
         },
+        "Help": {
+            content: [
+                ["display-text",
+                    function() { return 'You gain witches by getting 25,000 ToT and The More You Activate The more You Earn' },
+                    { "color": "purple", "font-size": "24px" }],
+                ["display-text",
+                    function() { return 'Formula: (Active Witch Challenges) + 1' },
+                    { "color": "purple", "font-size": "16px" }],
+            ],
+        },
     },
     milestones: {
         0: {
@@ -1243,6 +1338,12 @@ addLayer("Witch", {
             tooltip() {return "x"+format(new Decimal(1000).pow(player[this.layer].points))},
             done() {return player[this.layer].points.gte(5)},
             unlocked() {return hasMilestone(this.layer, 2)},
+        },
+        4: {
+            requirementDescription: "6 Witches",
+            effectDescription: "Unlock More JoL Upgrades and x4 Pumkins, JoLs and ToTs and /1e20 Halloween level requirment",
+            done() {return player[this.layer].points.gte(6) && hasMilestone('HalloweenLevel', 2)},
+            unlocked() {return hasMilestone(this.layer, 3) && hasMilestone('HalloweenLevel', 2)},
         },
     },
     clickables: {
@@ -1337,7 +1438,7 @@ addLayer("Witch", {
         },
         51: {
             title() {return "Drout "+player[this.layer].click51},
-            display() {return "End Game For Now"},
+            display() {return "/5,000 Pumkins → ToT"},
             canClick() {return true},
             onClick() {
                 player[this.layer].click51 = !player[this.layer].click51
@@ -1352,6 +1453,24 @@ addLayer("Witch", {
                 player['ToT'].points = new Decimal(0)
             },
             unlocked() {return player[this.layer].points.gte(5) && hasMilestone('HalloweenLevel', 2)},
+        },
+        61: {
+            title() {return "Poison "+player[this.layer].click61},
+            display() {return "/10 Pumkins → ToT"},
+            canClick() {return true},
+            onClick() {
+                player[this.layer].click61 = !player[this.layer].click61
+                player['Pumkin'].upgrades = []
+                player['Pumkin'].milestones = []
+                player['Pumkin'].points = new Decimal(0)
+                player['JoL'].upgrades = []
+                player['JoL'].milestones = []
+                player['JoL'].points = new Decimal(0)
+                player['ToT'].upgrades = []
+                player['ToT'].milestones = []
+                player['ToT'].points = new Decimal(0)
+            },
+            unlocked() {return player[this.layer].points.gte(7) && (hasUpgrade('JoL', 45) || player[this.layer].click61)},
         },
     },
 })
