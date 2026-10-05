@@ -22,22 +22,26 @@ let modInfo = {
 }
 
 // Set your version num
-let value = "9.2"
+let value = "10.0"
 
 // Set your version and name
 let VERSION = {
 	num: "Alpha "+value,
-	name: "Sorry I Broke it",
+	name: "Halloween Time",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>vAlpha9.2 Sorry I Broke it</h3><br>
+	<h3>vAlpha 10.0 Halloween Time</h3><br>
+		- Made Halloween Event Not a Teaser
+		- Added all the Halloween Event Content
+		<br>
+	<h3>vAlpha 9.2 Sorry I Broke it</h3><br>
 		- MADE THE GAME PLAYABLE
 		<br>
-	<h3>vAlpha9.1 Small Fix</h3><br>
+	<h3>vAlpha 9.1 Small Fix</h3><br>
 		- Fixed a Bug about witches
 		<br>
-	<h3>vAlpha9.0 Halloween Event (Mostly)</h3><br>
+	<h3>vAlpha 9.0 Halloween Event (Mostly)</h3><br>
 		- Added Winsome<br>
 		- Misc/QoL Changes<br>
 		- Added More Halloween Content<br>
@@ -46,28 +50,28 @@ let changelog = `<h1>Changelog:</h1><br>
 		<b>Notice I will <u>REMOVE</u> <u>ALL</u> of v1 To Make Space For this Game</b><br>
 		EndGame: 21 TLG<br>
 		<br>
-	<h3>vAlpha8.0 Class 0 (again)</h3><br>
+	<h3>vAlpha 8.0 Class 0 (again)</h3><br>
 		- Added Some Of Class 0<br>
 		- Added Some QoL Changes<br>
 		- Added More Minigame Content<br>
 		- Fixed Some Bugs<br>
 		EndGame: 20 TLG<br>
 		<br>
-	<h3>vAlpha7.1 Slight Changes</h3><br>
+	<h3>vAlpha 7.1 Slight Changes</h3><br>
 		- Changed Some Things<br>
 		<br>
-	<h3>vAlpha7.0 Win Part 3</h3><br>
+	<h3>vAlpha 7.0 Win Part 3</h3><br>
 		- Added more Content<br>
 		- Made ITW Challenges Easier<br>
 		- Fixed Some Bugs<br>
 		Minigame Content Soon?<br>
 		EndGame: 17 ITW<br>
 		<br>
-	<h3>vAlpha6.1 Birthday End</h3><br>
+	<h3>vAlpha 6.1 Birthday End</h3><br>
 		- Removed the Birthday boosts<br>
 		- Did some Small Changes<br>
 		<br>
-	<h3>vAlpha6.0 Win Part 2</h3><br>
+	<h3>vAlpha 6.0 Win Part 2</h3><br>
 		- Added more Content<br>
 		- Added more MiniGame Content<br>
 		- Added a Second MiniGame!<br>
@@ -77,35 +81,35 @@ let changelog = `<h1>Changelog:</h1><br>
 		EndGame: 11 ITW<br>
 		I had My Birthday on sep 9🎉🎉🎁🎁🎁 (the day this was released on)<br>
 		<br>
-	<h3>vAlpha5.0 Win Part 1</h3><br>
+	<h3>vAlpha 5.0 Win Part 1</h3><br>
 		- Added more Content<br>
 		- Make Some Changes<br>
 		- Removed the halloween event fixer<br>
 		EndGame: 3 ITW<br>
 		<br>
-	<h3>vAlpha4.0 Existence</h3><br>
+	<h3>vAlpha 4.0 Existence</h3><br>
 		- Added more Content<br>
 		- Changed Some layers Colors<br>
 		- Canged where the Reset button is (for some layers)<br>
 		EndGame: 10 TLG<br>
 		<br>
-	<h3>vAlpha3.1 Brr Fixes</h3><br>
+	<h3>vAlpha 3.1 Brr Fixes</h3><br>
 		- Fixed the Endgame<br>
 		- Fixed a Milestone<br>
 		- Added a Ending Milestone<br>
 		<br>
-	<h3>vAlpha3.0 More Content</h3><br>
+	<h3>vAlpha 3.0 More Content</h3><br>
 		- Added more Layer<br>
 		- Added more Content in Minigame Layer<br>
 		- Change Changelog again x 2<br>
 		EndGame: 5 TLG<br>
 		Updates are taking longer due to upgrade tree<br>
 		<br>
-	<h3>vAlpha2.1 Opps I Broke it</h3><br>
+	<h3>vAlpha 2.1 Opps I Broke it</h3><br>
 		- Fixed the Halloween effect breaking the game<br>
 		Sorry :O<br>
 		<br>
-	<h3>vAlpha2 small but BIG</h3><br>
+	<h3>vAlpha 2 small but BIG</h3><br>
 		- Added more Main Content<br>
 		- Added more Minigame Content<br>
 		- Changed how the Halloween Effect works<br>
@@ -113,13 +117,13 @@ let changelog = `<h1>Changelog:</h1><br>
 		EndGame: 3 TLG<br>
 		GL<br>
 		<br>
-	<h3>vAlpha1.1 / A4.1 Reseting (for Good reason)</h3><br>
+	<h3>vAlpha 1.1 / A4.1 Reseting (for Good reason)</h3><br>
 		- Did a Small Changelog Change<br>
 		- Fixed first TLG first milestone for v1<br>
 		- Fixed the reset upgrade layer to reset points<br>
 		<h3>!NOTICE!</h3> You will lose your TFD v2 on this update this is to make the game fair.<br>
 		<br>
-	<h3>vAlpha1.0 / A4.0 Reseting (for Good reason)</h3><br>
+	<h3>vAlpha 1.0 / A4.0 Reseting (for Good reason)</h3><br>
 		- Just Rework and Fixes<br>
 		Too lazy to write for this update hope you like the rework<br>
 		EndGame (Rework): TFD Upgrade #13<br>
@@ -591,7 +595,8 @@ function getPointGen() {
 	if(gain.lt(1)) gain = new Decimal(1)
 
 	//Misc
-	//if(player['HalloweenLevel'].MainEffectA) gain = gain.times(10)
+	if(player['HalloweenLevel'].MainEffectA) gain = gain.times(10)
+	if(player['HalloweenLevel'].MainEffectC) gain = gain.times(10)
 
 	return gain
 }

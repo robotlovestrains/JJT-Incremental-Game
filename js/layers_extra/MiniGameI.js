@@ -141,7 +141,7 @@ addLayer("Island1", {
         if(player["Island3b"].click24) mult = mult.times(1/16)
         
         if(player['MiniSettings'].Mini1) return new Decimal(0)
-        return mult
+        return mult.times(100)
     },
     gainExp() {
         return new Decimal(1)
@@ -165,7 +165,7 @@ addLayer("Island1", {
         "upgrades",
     ],
     passiveGeneration() {
-        let Gen = 1
+        let Gen = 0.01
         return Gen
     },
     upgrades: {
@@ -586,13 +586,13 @@ addLayer("Island2b", {
         if(player["Island3b"].click24) mult = mult.times(5)
 
         if(player['MiniSettings'].Mini1) return new Decimal(0)
-        return mult
+        return mult.times(100)
     },
     gainExp() {
         return new Decimal(1)
     },
     passiveGeneration() {
-        let Gen = 1
+        let Gen = 0.01
         return Gen
     },
     row: "side",

@@ -50,6 +50,7 @@ addLayer("CNT", {
     },
     update(diff) {
         if (hasMilestone('TLG', 16)) player[this.layer].unlocked = true
+        if(hasUpgrade('BSG', 11)) inactive = true
     },
     milestones: {
         0: {
@@ -357,6 +358,7 @@ addLayer("S", {
     deactivated() {
         let inactive = true
         if(hasUpgrade('CNT', 33)) inactive = false
+        if(hasUpgrade('BSG', 11)) inactive = true
         return inactive
     },
 })
@@ -515,6 +517,7 @@ addLayer("MULT", {
     deactivated() {
         let inactive = true
         if(hasUpgrade('CNT', 35)) inactive = false
+        if(hasUpgrade('BSG', 11)) inactive = true
         return inactive
     },
 })

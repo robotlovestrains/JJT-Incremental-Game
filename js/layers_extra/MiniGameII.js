@@ -234,7 +234,7 @@ addLayer("MiniPoints", {
         if(hasMilestone('SuperStones', 11)) mult = mult.add(1e50)
         
         if(player['MiniSettings'].Mini2) return new Decimal(0)
-        return mult
+        return mult.times(100)
     },
     gainExp() {
         Exp = new Decimal(1)
@@ -260,7 +260,7 @@ addLayer("MiniPoints", {
     ],
     passiveGeneration() {
         let Gen = new Decimal(0)
-        if(hasMilestone('MiniStones', 0)) Gen = Gen.add(1)
+        if(hasMilestone('MiniStones', 0)) Gen = Gen.add(0.01)
         return Gen
     },
 })

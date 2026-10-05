@@ -399,7 +399,7 @@ addLayer("TFDRM", {
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             purchaseLimit: new Decimal(1),
-            branches: [1072],
+            branches: [72],
             unlocked() {return getBuyableAmount(this.layer, 51).gte(1)},
         },
         1062: {

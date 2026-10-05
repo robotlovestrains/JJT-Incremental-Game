@@ -31,7 +31,7 @@ addLayer("MISC", {
                 "border": "2px solid #b4b4b4",
             },
         },
-        "Events (teaser Not Required)": {
+        "Events (ACTIVE EVENT)": {
             embedLayer: "Event",
             buttonStyle: {
                 "color": "#797979",

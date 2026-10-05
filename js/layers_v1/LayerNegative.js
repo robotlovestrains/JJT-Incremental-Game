@@ -295,12 +295,12 @@ addLayer("TLG", {
     },
     effectDescription() {
         let effect = "No Softcap.. For Now"
-        if(hasMilestone(this.layer, 15)) effect = "Capped"
+        if(hasMilestone(this.layer, 17)) effect = "Capped"
         return effect
     },
     gainMult() {
         mult = new Decimal(1)
-        if(hasMilestone(this.layer, 15)) mult = new Decimal(0)
+        if(hasMilestone(this.layer, 17)) mult = new Decimal(0)
         return mult
     },
     gainExp() {
