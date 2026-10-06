@@ -22,15 +22,19 @@ let modInfo = {
 }
 
 // Set your version num
-let value = "10.0"
+let value = "10.1"
 
 // Set your version and name
 let VERSION = {
 	num: "Alpha "+value,
-	name: "Halloween Time",
+	name: "Halloween Fix",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>vAlpha 10.1 Halloween Fix</h3><br>
+		- Forgot to add 5 Upgrades in Halloween event<br>
+		So x1.5 All Halloween Candy Currentcies (After SoftCaps)
+		<br>
 	<h3>vAlpha 10.0 Halloween Time</h3><br>
 		- Made Halloween Event Not a Teaser
 		- Added all the Halloween Event Content

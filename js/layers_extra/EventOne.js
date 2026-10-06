@@ -1529,6 +1529,8 @@ addLayer("Candy", {
 
         if(player[this.layer].Starburst.gte(1.79e308)) mult = new Decimal(0)
 
+        mult = mult.times(1.5) // Remove this
+
         return mult
     },
     SkittlesMult() {
@@ -1564,6 +1566,8 @@ addLayer("Candy", {
 
         if(player[this.layer].Skittles.gte(1.79e308)) mult = new Decimal(0)
 
+        mult = mult.times(1.5) // Remove this
+
         return mult
     },
     LaffyTaffyMult() {
@@ -1594,6 +1598,8 @@ addLayer("Candy", {
 
         if(player[this.layer].LaffyTaffy.gte(1.79e308)) mult = new Decimal(0)
 
+        mult = mult.times(1.5) // Remove this
+
         return mult
     },
     TootsieRollsMult() {
@@ -1618,6 +1624,8 @@ addLayer("Candy", {
         if(mult.gte(1e154)) mult = mult.add(-1e154).pow(0.9).add(1e154)
 
         if(player[this.layer].TootsieRolls.gte(1.79e308)) mult = new Decimal(0)
+
+        mult = mult.times(1.5) // Remove this
 
         return mult
     },
@@ -1660,6 +1668,7 @@ addLayer("Candy", {
                 "blank",
                 ["row", [["upgrade", 11], ["upgrade", 12], ["upgrade", 13], ["upgrade", 14], ["upgrade", 15]]],
                 ["row", [["upgrade", 21], ["upgrade", 22], ["upgrade", 23], ["upgrade", 24], ["upgrade", 25]]],
+                ["row", [["upgrade", 31], ["upgrade", 32], ["upgrade", 33], ["upgrade", 34], ["upgrade", 35]]],
             ],
         },
         "Skittles": {
