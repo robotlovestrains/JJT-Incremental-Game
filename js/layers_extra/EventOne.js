@@ -70,6 +70,14 @@ addLayer("Halloween", {
             },
             unlocked() {return hasMilestone('HalloweenLevel', 3)},
         },
+        "Halloween Loop": {
+            embedLayer: "HalloweenLoop",
+            buttonStyle: {
+                "color": "#ffffff",
+                "border": "2px solid #ffffff",
+            },
+            unlocked() {return hasMilestone('HalloweenLevel', 4) || hasMilestone('HalloweenLoop', 0)},
+        },
     },
 })
 
@@ -90,8 +98,7 @@ addLayer("Pumkin", {
     type: "normal",
     exponent: 0,
     gainMult() {
-        mult = new Decimal(0)
-        if(player[this.layer].started) mult = new Decimal(1)
+        mult = new Decimal(1)
 
         if(hasUpgrade(this.layer, 11)) mult = mult.times(2)
         if(hasUpgrade(this.layer, 12)) mult = mult.times(2)
@@ -167,6 +174,9 @@ addLayer("Pumkin", {
         if(hasUpgrade('Candy', 15)) mult = mult.times(2)
         if(hasUpgrade('Candy', 4011)) mult = mult.times(1e6)
 
+        if(hasMilestone('MiniStones', 156)) mult = mult.times(2)
+        mult = mult.times(new Decimal(5).pow(player['HalloweenLoop'].points))
+
         return mult.times(100)
     },
     gainExp() {
@@ -203,7 +213,6 @@ addLayer("Pumkin", {
                 "resource-display",
                 "blank",
                 "blank",
-                "clickables",
                 "upgrades",
             ],
         },
@@ -218,17 +227,6 @@ addLayer("Pumkin", {
                 "blank",
                 "milestones",
             ],
-        },
-    },
-    clickables: {
-        11: {
-            title: "Start the Game",
-            display() {return "Make Pumkins Generate"},
-            onClick() {
-                player[this.layer].started = true
-            },
-            canClick() {return true},
-            unlocked() {return !player[this.layer].started},
         },
     },
     upgrades: {
@@ -392,7 +390,7 @@ addLayer("Pumkin", {
                 if(hasMilestone(this.layer, 1)) Text = "x1.15 Pumkins Per Pumkin Upgrade (x) and Milestone (y) 1.15^(x + y) [x] [No Cap]"
                 return Text
             },
-            done() {return player[this.layer].points.gte(5000) && (hasUpgrade(this.layer, 23))},
+            done() {return (player[this.layer].points.gte(5000) && (hasUpgrade(this.layer, 23))) || hasMilestone('HalloweenLoop', 4)},
             unlocked() {return hasUpgrade(this.layer, 23)},
             tooltip() {
                 let Text = "x"+format(new Decimal(1.1).pow(player[this.layer].upgrades.length))+" Pumkins"
@@ -403,25 +401,25 @@ addLayer("Pumkin", {
         1: {
             requirementDescription: "1e10 Pumkins",
             effectDescription: "Make Milestone id 0 (1st) Effect Now 1.15 Per Upgrade and Milestone",
-            done() {return player[this.layer].points.gte(1e10) && (hasUpgrade(this.layer, 33))},
+            done() {return (player[this.layer].points.gte(1e10) && hasUpgrade(this.layer, 33)) || hasMilestone('HalloweenLoop', 4)},
             unlocked() {return hasUpgrade(this.layer, 33)},
         },
         2: {
             requirementDescription: "1e15 Pumkins",
             effectDescription: "x5 JoL",
-            done() {return player[this.layer].points.gte(1e15) && (hasUpgrade(this.layer, 33))},
+            done() {return (player[this.layer].points.gte(1e15) && hasUpgrade(this.layer, 33)) || hasMilestone('HalloweenLoop', 4)},
             unlocked() {return hasUpgrade(this.layer, 33)},
         },
         3: {
             requirementDescription: "1e17 Pumkins",
             effectDescription: "x2 Pumkins and JoLs",
-            done() {return player[this.layer].points.gte(1e17) && (hasUpgrade(this.layer, 42))},
+            done() {return (player[this.layer].points.gte(1e17) && hasUpgrade(this.layer, 42)) || hasMilestone('HalloweenLoop', 4)},
             unlocked() {return hasUpgrade(this.layer, 42)},
         },
         4: {
             requirementDescription: "1e20 Pumkins",
             effectDescription: "+5% JoL/s",
-            done() {return player[this.layer].points.gte(1e20) && (hasUpgrade(this.layer, 42))},
+            done() {return (player[this.layer].points.gte(1e20) && hasUpgrade(this.layer, 42)) || hasMilestone('HalloweenLoop', 4)},
             unlocked() {return hasUpgrade(this.layer, 42)},
         },
     },
@@ -439,6 +437,28 @@ addLayer("Pumkin", {
             buyUpgrade(this.layer, 25)
         };
         if(hasUpgrade('ToT', 15)) {
+            buyUpgrade(this.layer, 11)
+            buyUpgrade(this.layer, 12)
+            buyUpgrade(this.layer, 13)
+            buyUpgrade(this.layer, 14)
+            buyUpgrade(this.layer, 15)
+            buyUpgrade(this.layer, 21)
+            buyUpgrade(this.layer, 22)
+            buyUpgrade(this.layer, 23)
+            buyUpgrade(this.layer, 24)
+            buyUpgrade(this.layer, 25)
+            buyUpgrade(this.layer, 31)
+            buyUpgrade(this.layer, 32)
+            buyUpgrade(this.layer, 33)
+            buyUpgrade(this.layer, 34)
+            buyUpgrade(this.layer, 35)
+            buyUpgrade(this.layer, 41)
+            buyUpgrade(this.layer, 42)
+            buyUpgrade(this.layer, 43)
+            buyUpgrade(this.layer, 44)
+            buyUpgrade(this.layer, 45)
+        };
+        if(hasMilestone('HalloweenLoop', 2)) {
             buyUpgrade(this.layer, 11)
             buyUpgrade(this.layer, 12)
             buyUpgrade(this.layer, 13)
@@ -528,6 +548,9 @@ addLayer("JoL", {
         if(hasUpgrade('Candy', 15)) mult = mult.times(2)
         if(hasUpgrade('Candy', 4011)) mult = mult.times(1e6)
 
+        if(hasMilestone('MiniStones', 156)) mult = mult.times(2)
+        mult = mult.times(new Decimal(5).pow(player['HalloweenLoop'].points))
+
         return mult
     },
     gainExp() {
@@ -554,6 +577,9 @@ addLayer("JoL", {
         if(hasMilestone('ToT', 1)) Gen = Gen.add(0.13)
         if(hasMilestone(this.layer, 3)) Gen = Gen.add(0.17)
         if(hasUpgrade(this.layer, 41)) Gen = Gen.add(0.25)
+        if(hasMilestone('HalloweenLoop', 1)) Gen = Gen.add(0.1)
+        if(hasMilestone('HalloweenLoop', 6)) Gen = Gen.add(0.9)
+        if(hasMilestone('HalloweenLoop', 8)) Gen = Gen.add(9)
 
         return Gen
     },
@@ -561,7 +587,7 @@ addLayer("JoL", {
     resetDescription: "Reset Pumkin For ",
     onPrestige(gain) {
         player['Pumkin'].upgrades = []
-        if(!hasUpgrade(this.layer, 14)) {
+        if(!hasUpgrade(this.layer, 14) && !hasMilestone('HalloweenLoop', 4)) {
             player['Pumkin'].milestones = []
         }
         player['Pumkin'].points = new Decimal(0)
@@ -724,30 +750,30 @@ addLayer("JoL", {
         0: {
             requirementDescription: "1 JoL",
             effectDescription: "Keep JoL Unlocked",
-            done() {return player[this.layer].points.gte(1)},
+            done() {return player[this.layer].points.gte(1) || hasMilestone('HalloweenLoop', 4)},
         },
         1: {
             requirementDescription: "250 JoL",
             effectDescription: "Unlock More Pumkin Upgrades",
-            done() {return player[this.layer].points.gte(250) && hasUpgrade(this.layer, 22)},
+            done() {return (player[this.layer].points.gte(250) && hasUpgrade(this.layer, 22)) || hasMilestone('HalloweenLoop', 4)},
             unlocked() {return hasUpgrade(this.layer, 22)},
         },
         2: {
             requirementDescription: "1000 JoL",
             effectDescription: "+4% Jol/s",
-            done() {return player[this.layer].points.gte(1000) && hasUpgrade(this.layer, 22)},
+            done() {return (player[this.layer].points.gte(1000) && hasUpgrade(this.layer, 22)) || hasMilestone('HalloweenLoop', 4)},
             unlocked() {return hasUpgrade(this.layer, 22)},
         },
         3: {
             requirementDescription: "1e23 JoL",
             effectDescription: "+17% Jol/s",
-            done() {return player[this.layer].points.gte(1e23) && hasUpgrade('ToT', 45)},
+            done() {return (player[this.layer].points.gte(1e23) && hasUpgrade('ToT', 45)) || hasMilestone('HalloweenLoop', 4)},
             unlocked() {return hasUpgrade('ToT', 45)},
         },
         4: {
             requirementDescription: "3.33e23 JoL",
             effectDescription: "Unlock More JoL Upgrades",
-            done() {return player[this.layer].points.gte(3.33e23) && hasUpgrade('ToT', 45)},
+            done() {return (player[this.layer].points.gte(3.33e23) && hasUpgrade('ToT', 45)) || hasMilestone('HalloweenLoop', 4)},
             unlocked() {return hasUpgrade('ToT', 45)},
         },
     },
@@ -758,6 +784,30 @@ addLayer("JoL", {
             buyUpgrade(this.layer, 13);
             buyUpgrade(this.layer, 14);
             buyUpgrade(this.layer, 15);
+        };
+        if(hasMilestone('HalloweenLoop', 2)) {
+            buyUpgrade(this.layer, 11)
+            buyUpgrade(this.layer, 12)
+            buyUpgrade(this.layer, 13)
+            buyUpgrade(this.layer, 14)
+            buyUpgrade(this.layer, 15)
+            buyUpgrade(this.layer, 21)
+            buyUpgrade(this.layer, 22)
+            buyUpgrade(this.layer, 23)
+            buyUpgrade(this.layer, 24)
+            buyUpgrade(this.layer, 25)
+            buyUpgrade(this.layer, 31)
+            buyUpgrade(this.layer, 32)
+            buyUpgrade(this.layer, 33)
+            buyUpgrade(this.layer, 34)
+            buyUpgrade(this.layer, 35)
+        };
+        if(hasMilestone('HalloweenLoop', 9)) {
+            buyUpgrade(this.layer, 41)
+            buyUpgrade(this.layer, 42)
+            buyUpgrade(this.layer, 43)
+            buyUpgrade(this.layer, 44)
+            buyUpgrade(this.layer, 45)
         };
     },
 })
@@ -802,6 +852,9 @@ addLayer("ToT", {
         if(hasUpgrade('Candy', 15)) mult = mult.times(2)
         if(hasUpgrade('Candy', 4011)) mult = mult.times(1e6)
 
+        if(hasMilestone('MiniStones', 156)) mult = mult.times(2)
+        mult = mult.times(new Decimal(5).pow(player['HalloweenLoop'].points))
+
         return mult
     },
     gainExp() {
@@ -816,6 +869,9 @@ addLayer("ToT", {
 
         if(hasUpgrade('JoL', 42)) Gen = Gen.add(0.01)
         if(hasMilestone(this.layer, 4)) Gen = Gen.add(0.09)
+        if(hasMilestone('HalloweenLoop', 1)) Gen = Gen.add(0.1)
+        if(hasMilestone('HalloweenLoop', 6)) Gen = Gen.add(0.9)
+        if(hasMilestone('HalloweenLoop', 8)) Gen = Gen.add(9)
 
 
         return Gen
@@ -824,12 +880,12 @@ addLayer("ToT", {
     resetDescription: "Reset Pumkin and JoL For ",
     onPrestige(gain) {
         player['Pumkin'].upgrades = []
-        if(!hasUpgrade(this.layer, 41)) {
+        if(!hasUpgrade(this.layer, 41) && !hasMilestone('HalloweenLoop', 4)) {
             player['Pumkin'].milestones = []
         }
         player['Pumkin'].points = new Decimal(0)
         player['JoL'].upgrades = []
-        if(!hasUpgrade(this.layer, 41)) {
+        if(!hasUpgrade(this.layer, 41) && !hasMilestone('HalloweenLoop', 4)) {
             player['JoL'].milestones = []
         }
         player['JoL'].points = new Decimal(0)
@@ -1030,32 +1086,58 @@ addLayer("ToT", {
         0: {
             requirementDescription: "1 ToT",
             effectDescription: "Keep ToT Unlocked",
-            done() {return player[this.layer].points.gte(1)},
+            done() {return player[this.layer].points.gte(1) || hasMilestone('HalloweenLoop', 4)},
         },
         1: {
             requirementDescription: "100 ToT",
             effectDescription: "+13% JoL/s",
-            done() {return player[this.layer].points.gte(100) && hasUpgrade(this.layer, 35)},
+            done() {return (player[this.layer].points.gte(100) && hasUpgrade(this.layer, 35)) || hasMilestone('HalloweenLoop', 4)},
             unlocked() {return hasUpgrade(this.layer, 35)},
         },
         2: {
             requirementDescription: "250 ToT",
             effectDescription: "Unlock Halloween Levels and x100 Pumkins",
-            done() {return player[this.layer].points.gte(250) && hasUpgrade(this.layer, 35)},
+            done() {return (player[this.layer].points.gte(250) && hasUpgrade(this.layer, 35)) || hasMilestone('HalloweenLoop', 4)},
             unlocked() {return hasUpgrade(this.layer, 35)},
         },
         3: {
             requirementDescription: "1e14 ToT",
             effectDescription: "x100 Pumkins → ToTs",
-            done() {return player[this.layer].points.gte(1e14) && hasUpgrade('JoL', 43)},
+            done() {return (player[this.layer].points.gte(1e14) && hasUpgrade('JoL', 43)) || hasMilestone('HalloweenLoop', 4)},
             unlocked() {return hasUpgrade('JoL', 43)},
         },
         4: {
             requirementDescription: "1e17 ToT",
             effectDescription: "Unlock more JoL Upgrades and +9% of ToT/s",
-            done() {return player[this.layer].points.gte(1e17) && hasUpgrade('JoL', 43)},
+            done() {return (player[this.layer].points.gte(1e17) && hasUpgrade('JoL', 43)) || hasMilestone('HalloweenLoop', 4)},
             unlocked() {return hasUpgrade('JoL', 43)},
         },
+    },
+    automate() {
+        if(hasMilestone('HalloweenLoop', 2)) {
+            buyUpgrade(this.layer, 11)
+            buyUpgrade(this.layer, 12)
+            buyUpgrade(this.layer, 13)
+            buyUpgrade(this.layer, 14)
+            buyUpgrade(this.layer, 15)
+            buyUpgrade(this.layer, 21)
+            buyUpgrade(this.layer, 22)
+            buyUpgrade(this.layer, 23)
+            buyUpgrade(this.layer, 24)
+            buyUpgrade(this.layer, 25)
+            buyUpgrade(this.layer, 31)
+            buyUpgrade(this.layer, 32)
+            buyUpgrade(this.layer, 33)
+            buyUpgrade(this.layer, 34)
+            buyUpgrade(this.layer, 35)
+        };
+        if(hasMilestone('HalloweenLoop', 9)) {
+            buyUpgrade(this.layer, 41)
+            buyUpgrade(this.layer, 42)
+            buyUpgrade(this.layer, 43)
+            buyUpgrade(this.layer, 44)
+            buyUpgrade(this.layer, 45)
+        };
     },
 })
 
@@ -1096,18 +1178,19 @@ addLayer("HalloweenLevel", {
     resetsNothing: true,
     resetDescription: "Reset All Halloween For ",
     onPrestige(gain) {
-        player['Pumkin'].upgrades = []
-        player['Pumkin'].milestones = []
-        player['Pumkin'].points = new Decimal(0)
-        player['JoL'].upgrades = []
-        player['JoL'].milestones = []
-        player['JoL'].points = new Decimal(0)
-        player['ToT'].upgrades = []
-        player['ToT'].milestones = []
-        player['ToT'].points = new Decimal(0)
-        player['Witch'].points = new Decimal(1)
-        player['Witch'].milestones = []
+        if(!hasMilestone('HalloweenLoop', 5)) {
+            player['Pumkin'].upgrades = []
+            if(!hasMilestone('HalloweenLoop', 4)) player['Pumkin'].milestones = []
+            player['Pumkin'].points = new Decimal(0)
+            player['JoL'].upgrades = []
+            if(!hasMilestone('HalloweenLoop', 4)) player['JoL'].milestones = []
+            player['JoL'].points = new Decimal(0)
+            player['ToT'].upgrades = []
+            if(!hasMilestone('HalloweenLoop', 4)) player['ToT'].milestones = []
+            player['ToT'].points = new Decimal(0)
+        }
     },
+    autoPrestige() {return hasMilestone('HalloweenLoop', 5)},
     tabFormat: [
         ["display-text",
         function() { return 'You have ' + format(player['Pumkin'].points) + ' Pumkins' },
@@ -1132,33 +1215,33 @@ addLayer("HalloweenLevel", {
         0: {
             requirementDescription: "Level 2",
             effectDescription: "Keep HalloweenLevel Unlocked and Unlock More JoL Upgrades and x5 Pumkins and x4 JoLs and x3 ToT",
-            done() {return player[this.layer].points.gte(2)},
+            done() {return player[this.layer].points.gte(2) || hasMilestone('HalloweenLoop', 4)},
         },
         1: {
             requirementDescription: "Level 3",
             effectDescription: "x3 Pumkins and x2.5 Jols and x2 ToT and Unlock Witchs",
-            done() {return player[this.layer].points.gte(3)},
+            done() {return player[this.layer].points.gte(3) || hasMilestone('HalloweenLoop', 4)},
             unlocked() {return hasMilestone(this.layer, 0)},
         },
         2: {
             requirementDescription: "Level 4",
             effectDescription: "Unlock More Witch Content (starting at 5) and x100 Pumkins → ToT",
-            done() {return player[this.layer].points.gte(4)},
+            done() {return player[this.layer].points.gte(4) || hasMilestone('HalloweenLoop', 4)},
             unlocked() {return hasMilestone(this.layer, 1)},
         },
         3: {
             requirementDescription: "Level 5",
             effectDescription: "Unlock Candy",
-            done() {return player[this.layer].points.gte(5)},
+            done() {return player[this.layer].points.gte(5) || hasMilestone('HalloweenLoop', 4)},
             unlocked() {return hasMilestone(this.layer, 2)},
         },
         4: {
             requirementDescription: "Level 6",
-            effectDescription: "x10 Skill",
+            effectDescription: "x10 Skill and Unlock Loops",
             onComplete() {
                 player[this.layer].MainEffectC = true
             },
-            done() {return player[this.layer].points.gte(6)},
+            done() {return player[this.layer].points.gte(6) || hasMilestone('HalloweenLoop', 4)},
             unlocked() {return hasMilestone(this.layer, 4)},
         },
     },
@@ -1205,13 +1288,13 @@ addLayer("Witch", {
     layerShown() {return false},
     onPrestige(gain) {
         player['Pumkin'].upgrades = []
-        player['Pumkin'].milestones = []
+        if(!hasMilestone('HalloweenLoop', 4)) player['Pumkin'].milestones = []
         player['Pumkin'].points = new Decimal(0)
         player['JoL'].upgrades = []
-        player['JoL'].milestones = []
+        if(!hasMilestone('HalloweenLoop', 4)) player['JoL'].milestones = []
         player['JoL'].points = new Decimal(0)
         player['ToT'].upgrades = []
-        player['ToT'].milestones = []
+        if(!hasMilestone('HalloweenLoop', 4)) player['ToT'].milestones = []
         player['ToT'].points = new Decimal(0)
 
         let mult = new Decimal(0)
@@ -1303,33 +1386,33 @@ addLayer("Witch", {
             requirementDescription: "2 Witches",
             effectDescription: "x2.5 Pumkins per Witch [x]",
             tooltip() {return "x"+format(new Decimal(2.5).pow(player[this.layer].points))},
-            done() {return player[this.layer].points.gte(2)},
+            done() {return player[this.layer].points.gte(2) || hasMilestone('HalloweenLoop', 4)},
         },
         1: {
             requirementDescription: "3 Witches",
             effectDescription: "x4 JoLs per Witch [x]",
             tooltip() {return "x"+format(new Decimal(4).pow(player[this.layer].points))},
-            done() {return player[this.layer].points.gte(3)},
+            done() {return player[this.layer].points.gte(3) || hasMilestone('HalloweenLoop', 4)},
             unlocked() {return hasMilestone(this.layer, 0)},
         },
         2: {
             requirementDescription: "4 Witches",
             effectDescription: "x3 ToT per Witch and x5 Pumkins and JoLs [x]",
             tooltip() {return "x"+format(new Decimal(3).pow(player[this.layer].points))},
-            done() {return player[this.layer].points.gte(4)},
+            done() {return player[this.layer].points.gte(4) || hasMilestone('HalloweenLoop', 4)},
             unlocked() {return hasMilestone(this.layer, 1)},
         },
         3: {
             requirementDescription: "5 Witches",
             effectDescription: "/1000 Halloween level requirment per Witch and x100 Pumkins [/]",
             tooltip() {return "x"+format(new Decimal(1000).pow(player[this.layer].points))},
-            done() {return player[this.layer].points.gte(5)},
+            done() {return player[this.layer].points.gte(5) || hasMilestone('HalloweenLoop', 4)},
             unlocked() {return hasMilestone(this.layer, 2)},
         },
         4: {
             requirementDescription: "6 Witches",
             effectDescription: "Unlock More JoL Upgrades and x4 Pumkins, JoLs and ToTs and /1e20 Halloween level requirment",
-            done() {return player[this.layer].points.gte(6) && hasMilestone('HalloweenLevel', 2)},
+            done() {return (player[this.layer].points.gte(6) && hasMilestone('HalloweenLevel', 2)) || hasMilestone('HalloweenLoop', 4)},
             unlocked() {return hasMilestone(this.layer, 3) && hasMilestone('HalloweenLevel', 2)},
         },
     },
@@ -1340,15 +1423,17 @@ addLayer("Witch", {
             canClick() {return !player[this.layer].click12},
             onClick() {
                 player[this.layer].click11 = !player[this.layer].click11
-                player['Pumkin'].upgrades = []
-                player['Pumkin'].milestones = []
-                player['Pumkin'].points = new Decimal(0)
-                player['JoL'].upgrades = []
-                player['JoL'].milestones = []
-                player['JoL'].points = new Decimal(0)
-                player['ToT'].upgrades = []
-                player['ToT'].milestones = []
-                player['ToT'].points = new Decimal(0)
+                if(!hasMilestone('HalloweenLoop', 5)) {
+                    player['Pumkin'].upgrades = []
+                    if(!hasMilestone('HalloweenLoop', 4)) player['Pumkin'].milestones = []
+                    player['Pumkin'].points = new Decimal(0)
+                    player['JoL'].upgrades = []
+                    if(!hasMilestone('HalloweenLoop', 4)) player['JoL'].milestones = []
+                    player['JoL'].points = new Decimal(0)
+                    player['ToT'].upgrades = []
+                    if(!hasMilestone('HalloweenLoop', 4)) player['ToT'].milestones = []
+                    player['ToT'].points = new Decimal(0)
+                }
             },
         },
         12: {
@@ -1357,15 +1442,17 @@ addLayer("Witch", {
             canClick() {return !player[this.layer].click11},
             onClick() {
                 player[this.layer].click12 = !player[this.layer].click12
-                player['Pumkin'].upgrades = []
-                player['Pumkin'].milestones = []
-                player['Pumkin'].points = new Decimal(0)
-                player['JoL'].upgrades = []
-                player['JoL'].milestones = []
-                player['JoL'].points = new Decimal(0)
-                player['ToT'].upgrades = []
-                player['ToT'].milestones = []
-                player['ToT'].points = new Decimal(0)
+                if(!hasMilestone('HalloweenLoop', 5)) {
+                    player['Pumkin'].upgrades = []
+                    if(!hasMilestone('HalloweenLoop', 4)) player['Pumkin'].milestones = []
+                    player['Pumkin'].points = new Decimal(0)
+                    player['JoL'].upgrades = []
+                    if(!hasMilestone('HalloweenLoop', 4)) player['JoL'].milestones = []
+                    player['JoL'].points = new Decimal(0)
+                    player['ToT'].upgrades = []
+                    if(!hasMilestone('HalloweenLoop', 4)) player['ToT'].milestones = []
+                    player['ToT'].points = new Decimal(0)
+                }
             },
             unlocked() {return player[this.layer].points.gte(2)},
         },
@@ -1375,15 +1462,17 @@ addLayer("Witch", {
             canClick() {return true},
             onClick() {
                 player[this.layer].click21 = !player[this.layer].click21
-                player['Pumkin'].upgrades = []
-                player['Pumkin'].milestones = []
-                player['Pumkin'].points = new Decimal(0)
-                player['JoL'].upgrades = []
-                player['JoL'].milestones = []
-                player['JoL'].points = new Decimal(0)
-                player['ToT'].upgrades = []
-                player['ToT'].milestones = []
-                player['ToT'].points = new Decimal(0)
+                if(!hasMilestone('HalloweenLoop', 5)) {
+                    player['Pumkin'].upgrades = []
+                    if(!hasMilestone('HalloweenLoop', 4)) player['Pumkin'].milestones = []
+                    player['Pumkin'].points = new Decimal(0)
+                    player['JoL'].upgrades = []
+                    if(!hasMilestone('HalloweenLoop', 4)) player['JoL'].milestones = []
+                    player['JoL'].points = new Decimal(0)
+                    player['ToT'].upgrades = []
+                    if(!hasMilestone('HalloweenLoop', 4)) player['ToT'].milestones = []
+                    player['ToT'].points = new Decimal(0)
+                }
             },
             unlocked() {return player[this.layer].points.gte(2)},
         },
@@ -1393,15 +1482,17 @@ addLayer("Witch", {
             canClick() {return true},
             onClick() {
                 player[this.layer].click31 = !player[this.layer].click31
-                player['Pumkin'].upgrades = []
-                player['Pumkin'].milestones = []
-                player['Pumkin'].points = new Decimal(0)
-                player['JoL'].upgrades = []
-                player['JoL'].milestones = []
-                player['JoL'].points = new Decimal(0)
-                player['ToT'].upgrades = []
-                player['ToT'].milestones = []
-                player['ToT'].points = new Decimal(0)
+                if(!hasMilestone('HalloweenLoop', 5)) {
+                    player['Pumkin'].upgrades = []
+                    if(!hasMilestone('HalloweenLoop', 4)) player['Pumkin'].milestones = []
+                    player['Pumkin'].points = new Decimal(0)
+                    player['JoL'].upgrades = []
+                    if(!hasMilestone('HalloweenLoop', 4)) player['JoL'].milestones = []
+                    player['JoL'].points = new Decimal(0)
+                    player['ToT'].upgrades = []
+                    if(!hasMilestone('HalloweenLoop', 4)) player['ToT'].milestones = []
+                    player['ToT'].points = new Decimal(0)
+                }
             },
             unlocked() {return player[this.layer].points.gte(3)},
         },
@@ -1411,15 +1502,17 @@ addLayer("Witch", {
             canClick() {return true},
             onClick() {
                 player[this.layer].click41 = !player[this.layer].click41
-                player['Pumkin'].upgrades = []
-                player['Pumkin'].milestones = []
-                player['Pumkin'].points = new Decimal(0)
-                player['JoL'].upgrades = []
-                player['JoL'].milestones = []
-                player['JoL'].points = new Decimal(0)
-                player['ToT'].upgrades = []
-                player['ToT'].milestones = []
-                player['ToT'].points = new Decimal(0)
+                if(!hasMilestone('HalloweenLoop', 5)) {
+                    player['Pumkin'].upgrades = []
+                    if(!hasMilestone('HalloweenLoop', 4)) player['Pumkin'].milestones = []
+                    player['Pumkin'].points = new Decimal(0)
+                    player['JoL'].upgrades = []
+                    if(!hasMilestone('HalloweenLoop', 4)) player['JoL'].milestones = []
+                    player['JoL'].points = new Decimal(0)
+                    player['ToT'].upgrades = []
+                    if(!hasMilestone('HalloweenLoop', 4)) player['ToT'].milestones = []
+                    player['ToT'].points = new Decimal(0)
+                }
             },
             unlocked() {return player[this.layer].points.gte(4)},
         },
@@ -1429,15 +1522,17 @@ addLayer("Witch", {
             canClick() {return true},
             onClick() {
                 player[this.layer].click51 = !player[this.layer].click51
-                player['Pumkin'].upgrades = []
-                player['Pumkin'].milestones = []
-                player['Pumkin'].points = new Decimal(0)
-                player['JoL'].upgrades = []
-                player['JoL'].milestones = []
-                player['JoL'].points = new Decimal(0)
-                player['ToT'].upgrades = []
-                player['ToT'].milestones = []
-                player['ToT'].points = new Decimal(0)
+                if(!hasMilestone('HalloweenLoop', 5)) {
+                    player['Pumkin'].upgrades = []
+                    if(!hasMilestone('HalloweenLoop', 4)) player['Pumkin'].milestones = []
+                    player['Pumkin'].points = new Decimal(0)
+                    player['JoL'].upgrades = []
+                    if(!hasMilestone('HalloweenLoop', 4)) player['JoL'].milestones = []
+                    player['JoL'].points = new Decimal(0)
+                    player['ToT'].upgrades = []
+                    if(!hasMilestone('HalloweenLoop', 4)) player['ToT'].milestones = []
+                    player['ToT'].points = new Decimal(0)
+                }
             },
             unlocked() {return player[this.layer].points.gte(5) && hasMilestone('HalloweenLevel', 2)},
         },
@@ -1447,18 +1542,24 @@ addLayer("Witch", {
             canClick() {return true},
             onClick() {
                 player[this.layer].click61 = !player[this.layer].click61
-                player['Pumkin'].upgrades = []
-                player['Pumkin'].milestones = []
-                player['Pumkin'].points = new Decimal(0)
-                player['JoL'].upgrades = []
-                player['JoL'].milestones = []
-                player['JoL'].points = new Decimal(0)
-                player['ToT'].upgrades = []
-                player['ToT'].milestones = []
-                player['ToT'].points = new Decimal(0)
+                if(!hasMilestone('HalloweenLoop', 5)) {
+                    player['Pumkin'].upgrades = []
+                    if(!hasMilestone('HalloweenLoop', 4)) player['Pumkin'].milestones = []
+                    player['Pumkin'].points = new Decimal(0)
+                    player['JoL'].upgrades = []
+                    if(!hasMilestone('HalloweenLoop', 4)) player['JoL'].milestones = []
+                    player['JoL'].points = new Decimal(0)
+                    player['ToT'].upgrades = []
+                    if(!hasMilestone('HalloweenLoop', 4)) player['ToT'].milestones = []
+                    player['ToT'].points = new Decimal(0)
+                }
             },
             unlocked() {return player[this.layer].points.gte(6) && (hasUpgrade('JoL', 45) || player[this.layer].click61)},
         },
+    },
+    automate() {
+        if(hasMilestone('HalloweenLoop', 7)) player[this.layer].points = player[this.layer].points.add(5e-3)
+        if(hasMilestone('HalloweenLoop', 8)) player[this.layer].points = player[this.layer].points.add(45e-3)
     },
 })
 
@@ -1529,7 +1630,8 @@ addLayer("Candy", {
 
         if(player[this.layer].Starburst.gte(1.79e308)) mult = new Decimal(0)
 
-        mult = mult.times(1.5) // Remove this
+        if(hasMilestone('MiniStones', 156)) mult = mult.times(2)
+        mult = mult.times(new Decimal(5).pow(player['HalloweenLoop'].points))
 
         return mult
     },
@@ -1566,7 +1668,8 @@ addLayer("Candy", {
 
         if(player[this.layer].Skittles.gte(1.79e308)) mult = new Decimal(0)
 
-        mult = mult.times(1.5) // Remove this
+        if(hasMilestone('MiniStones', 156)) mult = mult.times(2)
+        mult = mult.times(new Decimal(5).pow(player['HalloweenLoop'].points))
 
         return mult
     },
@@ -1598,7 +1701,8 @@ addLayer("Candy", {
 
         if(player[this.layer].LaffyTaffy.gte(1.79e308)) mult = new Decimal(0)
 
-        mult = mult.times(1.5) // Remove this
+        if(hasMilestone('MiniStones', 156)) mult = mult.times(2)
+        mult = mult.times(new Decimal(5).pow(player['HalloweenLoop'].points))
 
         return mult
     },
@@ -1625,7 +1729,8 @@ addLayer("Candy", {
 
         if(player[this.layer].TootsieRolls.gte(1.79e308)) mult = new Decimal(0)
 
-        mult = mult.times(1.5) // Remove this
+        if(hasMilestone('MiniStones', 156)) mult = mult.times(2)
+        mult = mult.times(new Decimal(5).pow(player['HalloweenLoop'].points))
 
         return mult
     },
@@ -2310,5 +2415,185 @@ addLayer("Candy", {
         if(player[this.layer].TootsieRolls.gte(1.79e308)) player[this.layer].TootsieRolls = new Decimal(1.79e308)
 
         player[this.layer].points = new Decimal.min(player[this.layer].Starburst.add(player[this.layer].Skittles).add(player[this.layer].LaffyTaffy).add(player[this.layer].TootsieRolls), new Decimal(1.79e308))
+        if(hasMilestone('HalloweenLoop', 3)) {
+            buyUpgrade(this.layer, 11)
+            buyUpgrade(this.layer, 12)
+            buyUpgrade(this.layer, 13)
+            buyUpgrade(this.layer, 14)
+            buyUpgrade(this.layer, 15)
+            buyUpgrade(this.layer, 21)
+            buyUpgrade(this.layer, 22)
+            buyUpgrade(this.layer, 23)
+            buyUpgrade(this.layer, 24)
+            buyUpgrade(this.layer, 25)
+            buyUpgrade(this.layer, 31)
+            buyUpgrade(this.layer, 32)
+            buyUpgrade(this.layer, 33)
+            buyUpgrade(this.layer, 34)
+            buyUpgrade(this.layer, 35)
+            buyUpgrade(this.layer, 1011)
+            buyUpgrade(this.layer, 1012)
+            buyUpgrade(this.layer, 1013)
+            buyUpgrade(this.layer, 1014)
+            buyUpgrade(this.layer, 1015)
+            buyUpgrade(this.layer, 1021)
+            buyUpgrade(this.layer, 1022)
+            buyUpgrade(this.layer, 1023)
+            buyUpgrade(this.layer, 1024)
+            buyUpgrade(this.layer, 1025)
+            buyUpgrade(this.layer, 2011)
+            buyUpgrade(this.layer, 2012)
+            buyUpgrade(this.layer, 2013)
+            buyUpgrade(this.layer, 2014)
+            buyUpgrade(this.layer, 2015)
+            buyUpgrade(this.layer, 2021)
+            buyUpgrade(this.layer, 2022)
+            buyUpgrade(this.layer, 2023)
+            buyUpgrade(this.layer, 2024)
+            buyUpgrade(this.layer, 2025)
+            buyUpgrade(this.layer, 3011)
+            buyUpgrade(this.layer, 3012)
+            buyUpgrade(this.layer, 3013)
+            buyUpgrade(this.layer, 3014)
+            buyUpgrade(this.layer, 3015)
+            buyUpgrade(this.layer, 3021)
+            buyUpgrade(this.layer, 3022)
+            buyUpgrade(this.layer, 3023)
+            buyUpgrade(this.layer, 3024)
+            buyUpgrade(this.layer, 3025)
+            buyUpgrade(this.layer, 4011)
+        };
+    },
+})
+
+addLayer("HalloweenLoop", {
+    name: "Halloween Loops",
+    symbol: "",
+    position: 1,
+    startData() { return {
+        unlocked: true,
+		points: new Decimal(0),
+        MainEffectA: false,
+    }},
+    color: "#ffffff",
+    requires: new Decimal(3),
+    resource: "Halloween Loops",
+    baseResource: "Halloween Level",
+    baseAmount() {return player['HalloweenLevel'].points},
+    type: "static",
+    roundUpCost: true,
+    exponent: 0,
+    gainMult() {
+        mult = new Decimal(1)
+
+        return mult
+    },
+    gainExp() {
+        return new Decimal(1)
+    },
+    row: "side",
+    layerShown() {return false},
+    resetsNothing: true,
+    resetDescription: "Reset All Halloween For ",
+    onPrestige(gain) {
+        player['Pumkin'].upgrades = []
+        if(!hasMilestone('HalloweenLoop', 4)) player['Pumkin'].milestones = []
+        player['Pumkin'].points = new Decimal(0)
+        player['JoL'].upgrades = []
+        if(!hasMilestone('HalloweenLoop', 4)) player['JoL'].milestones = []
+        player['JoL'].points = new Decimal(0)
+        player['ToT'].upgrades = []
+        if(!hasMilestone('HalloweenLoop', 4)) player['ToT'].milestones = []
+        player['ToT'].points = new Decimal(0)
+        player['Witch'].points = new Decimal(1)
+        if(!hasMilestone('HalloweenLoop', 4)) player['Witch'].milestones = []
+        player['HalloweenLevel'].points = new Decimal(1)
+        if(!hasMilestone('HalloweenLoop', 4)) player['HalloweenLevel'].milestones = []
+        player['Candy'].points = new Decimal(0)
+        player['Candy'].Starburst = new Decimal(0)
+        player['Candy'].Skittles = new Decimal(0)
+        player['Candy'].LaffyTaffy = new Decimal(0)
+        player['Candy'].TootsieRolls = new Decimal(0)
+        player['Candy'].upgrades = []
+    },
+    tabFormat: [
+        ["display-text",
+        function() { return 'You are at Halloween Level ' + format(player[this.layer].points) },
+        { "color": "white", "font-size": "24px" }],
+        "blank",
+        ["prestige-button", "static"],
+        "resource-display",
+        "blank",
+        "blank",
+        "milestones",
+    ],
+    milestones: {
+        0: {
+            requirementDescription: "Loop 1",
+            effectDescription: "Keep Halloween Loops Unlocked and x5 Pumkins, JoLs, ToTs and Candy Currencies per Loop and Keep x10 Skill Effect",
+            done() {return player[this.layer].points.gte(1)},
+            tooltip() {return "x"+format(new Decimal(5).pow(player['HalloweenLoop'].points))+" Pumkins, JoLs, ToTs and Candy Currencies"},
+            onComplete() {
+                player[this.layer].MainEffectA = true
+            },
+        },
+        1: {
+            requirementDescription: "Loop 2",
+            effectDescription: "+10% of JoLs and ToTs/s",
+            done() {return player[this.layer].points.gte(2)},
+        },
+        2: {
+            requirementDescription: "Loop 3",
+            effectDescription: "AutoBuy All pre Halloween Level Upgrades",
+            done() {return player[this.layer].points.gte(3)},
+        },
+        3: {
+            requirementDescription: "Loop 4",
+            effectDescription: "AutoBuy All Candy Upgrades",
+            done() {return player[this.layer].points.gte(4)},
+        },
+        4: {
+            requirementDescription: "Loop 5",
+            effectDescription: "Keep All Milestones",
+            done() {return player[this.layer].points.gte(5)},
+        },
+        5: {
+            requirementDescription: "Loop 10",
+            effectDescription: "AutoReset For Halloween Level and Halloween Level Resets Nothing",
+            done() {return player[this.layer].points.gte(10)},
+        },
+        6: {
+            requirementDescription: "Loop 15",
+            effectDescription: "+90% of JoLs and ToTs/s",
+            done() {return player[this.layer].points.gte(15)},
+        },
+        7: {
+            requirementDescription: "Loop 25",
+            effectDescription: "Gain +0.01 Loop/s and +0.1 Witch/s",
+            done() {return player[this.layer].points.gte(25)},
+        },
+        8: {
+            requirementDescription: "Loop 50",
+            effectDescription: "+900% of JoLs and ToTs/s and +0.09 Loops/s and +0.9 Witch/s",
+            done() {return player[this.layer].points.gte(50)},
+        },
+        9: {
+            requirementDescription: "Loop 75",
+            effectDescription: "Autobuy All Halloween Upgrades and +0.9 Loops/s",
+            done() {return player[this.layer].points.gte(75)},
+        },
+        10: {
+            requirementDescription: "Loop 100",
+            effectDescription() {
+                if(hasMilestone(this.layer, this.id)) return "GGs You Win I'm Done"
+                else return ""
+            },
+            done() {return player[this.layer].points.gte(100)},
+        },
+    },
+    automate() {
+        if(hasMilestone(this.layer, 7)) player[this.layer].points = player[this.layer].points.add(500e-6)
+        if(hasMilestone(this.layer, 8)) player[this.layer].points = player[this.layer].points.add(4.5e-3)
+        if(hasMilestone(this.layer, 9)) player[this.layer].points = player[this.layer].points.add(45e-3)
     },
 })

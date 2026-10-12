@@ -120,10 +120,15 @@ addLayer("MiniPoints", {
         if(hasMilestone('MiniStones', 115)) mult = mult.add(100)
         if(hasMilestone('MiniStones', 123)) mult = mult.add(124)
         if(hasMilestone('MiniStones', 130)) mult = mult.add(133)
+        if(hasMilestone('MiniStones', 141)) mult = mult.add(layers[this.layer].startData.length)
+        if(hasMilestone('MiniStones', 145)) mult = mult.add(layers['MiniStones'].milestone146Effect())
+        if(hasMilestone('MiniStones', 148)) mult = mult.add(-1)
+        if(hasMilestone('MiniStones', 149)) mult = mult.add(-100)
 
         if(hasMilestone('SuperStones', 2)) mult = mult.add(0.25)
         if(hasMilestone('SuperStones', 4)) mult = mult.add(1)
         if(hasMilestone('SuperStones', 8)) mult = mult.add(25)
+        if(hasMilestone('SuperStones', 14)) mult = mult.add(150)
 
         //Multi
         if(hasMilestone('MiniStones', 1)) mult = mult.times(2)
@@ -210,6 +215,19 @@ addLayer("MiniPoints", {
         if(hasMilestone('MiniStones', 138)) mult = mult.times(20e-6)
         if(hasMilestone('MiniStones', 139)) mult = mult.times(1/0.95)
         if(hasMilestone('MiniStones', 140)) mult = mult.times(1/0.75)
+        if(hasMilestone('MiniStones', 142)) mult = mult.times(layers['MiniStones'].milestone143Effect())
+        if(hasMilestone('MiniStones', 143)) mult = mult.times(1.1)
+        if(hasMilestone('MiniStones', 144)) mult = mult.times(1)
+        if(hasMilestone('MiniStones', 146)) mult = mult.times(2)
+        if(hasMilestone('MiniStones', 149)) mult = mult.times(100)
+        if(hasMilestone('MiniStones', 155)) mult = mult.times(2.209)
+        if(hasMilestone('MiniStones', 158)) mult = mult.times(5)
+        if(hasMilestone('MiniStones', 159)) mult = mult.times(20)
+        if(hasMilestone('MiniStones', 160)) mult = mult.times(5.5)
+        if(hasMilestone('MiniStones', 161)) mult = mult.times(5.5)
+        if(hasMilestone('MiniStones', 162)) mult = mult.times(10)
+        if(hasMilestone('MiniStones', 164)) mult = mult.times(new Decimal(1e100).log10())
+        if(hasMilestone('MiniStones', 166)) mult = mult.times(layers['MiniStones'].milestone67Effect())
 
         if(hasMilestone('SuperStones', 0)) mult = mult.times(3)
         if(hasMilestone('SuperStones', 1)) mult = mult.times(2)
@@ -218,8 +236,12 @@ addLayer("MiniPoints", {
         if(hasMilestone('SuperStones', 8)) mult = mult.times(100)
         if(hasMilestone('SuperStones', 10)) mult = mult.times(25)
         if(hasMilestone('SuperStones', 11)) mult = mult.times(123)
+        if(hasMilestone('SuperStones', 12)) mult = mult.times(100)
+        if(hasMilestone('SuperStones', 13)) mult = mult.times(300)
 
         if(hasMilestone('MegaStones', 0)) mult = mult.times(4)
+        if(hasMilestone('MegaStones', 1)) mult = mult.times(5)
+        if(hasMilestone('MegaStones', 2)) mult = mult.times(15)
 
         //Extra
         if(hasMilestone('MiniStones', 24)) mult = mult.add(7.5e3)
@@ -232,6 +254,7 @@ addLayer("MiniPoints", {
         if(hasMilestone('SuperStones', 7)) mult = mult.add(1e9)
         if(hasMilestone('SuperStones', 8)) mult = mult.add(1e15)
         if(hasMilestone('SuperStones', 11)) mult = mult.add(1e50)
+        if(hasMilestone('SuperStones', 14)) mult = mult.add(1e90)
         
         if(player['MiniSettings'].Mini2) return new Decimal(0)
         return mult.times(100)
@@ -255,7 +278,7 @@ addLayer("MiniPoints", {
         function() { return 'You have ' + format(player[this.layer].points) + ' Points' },
         { "color": "#00acac", "font-size": "24px"}],
         ["display-text",
-        function() { return 'You gain +' + format(getResetGain(this.layer)) + ' Points/s' },
+        function() { return 'You gain +' + format(getResetGain(this.layer).times(0.01)) + ' Points/s' },
         { "color": "#00acac", "font-size": "16px"}],
     ],
     passiveGeneration() {
@@ -332,6 +355,8 @@ addLayer("MiniStones", {
     milestone67Effect() {
         let sixsevens = new Decimal(0)
         if(hasMilestone('MiniStones', 67)) sixsevens = sixsevens.add(1) // have 1 tho
+        if(hasMilestone('MiniStones', 165)) sixsevens = sixsevens.add(1) // Another 1
+        if(hasMilestone('MiniStones', 166)) sixsevens = sixsevens.add(1) // Another 1
         return new Decimal(0.99).pow(sixsevens) // IDC IF THIS MAKES IT x0.01 IT'S YOUR FAULT
     },
     milestone73Effect() {
@@ -355,11 +380,19 @@ addLayer("MiniStones", {
         if(hasMilestone('MiniStones', 117)) log = log.add(-1)
         if(hasMilestone('MiniStones', 132)) log = log.add(-1.5)
         if(hasMilestone('MiniStones', 117)) base = base.add(-0.05)
+        if(hasMilestone('MiniStones', 147)) base = base.add(-0.05)
         return new Decimal(base).pow(player['MiniPoints'].points.log(log))
     },
     milestone132Effect() {
         let Devide = new Decimal(5)
         return player['MiniStones'].points.times(Devide.pow(-1)).add(1)
+    },
+    milestone143Effect() {
+        let Base = new Decimal(1.025)
+        return Base.pow(new Decimal(player[this.layer].milestones.length).add(player['SuperStones'].milestones.length).add(player['MegaStones'].milestones.length).add(player['TLGRM'].milestones.length).add(player['TLGRM'].milestones.length).add(player['FLNRM'].milestones.length).add(player['ДARM'].milestones.length).add(player['XSTRM'].milestones.length).add(player['IFDRM'].milestones.length).add(player['IFERM'].milestones.length).add(player['IFTRM'].milestones.length).add(player['ITWRM'].milestones.length).add(player['CSHRM'].milestones.length).add(player['MULTRM'].milestones.length))
+    },
+    milestone146Effect() {
+        return player[this.layer].points.add(-145).times(player[this.layer].points.add(-144)).times(1/2)
     },
     color: "#6800ad",
     requires: new Decimal(10),
@@ -403,6 +436,13 @@ addLayer("MiniStones", {
     onPrestige(gain) {
         if(!hasMilestone('SuperStones', 5)) player['MiniPoints'].points = new Decimal(0)
         if(hasMilestone('SuperStones', 5) && !hasMilestone('MiniStones', 79)) player['MiniPoints'].points = player['MiniPoints'].points.sqrt()
+    },
+    canBuyMax() {
+        let MaxBuy = false
+
+        if(hasMilestone('MegaStones', 2)) MaxBuy = true
+
+        return MaxBuy
     },
     tabFormat: [
         ["infobox", 1],
@@ -1056,7 +1096,7 @@ addLayer("MiniStones", {
             effectDescription() {
                 return "x25 Milestone 1 Effect and Milestones Reset Nothing"
             },
-            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) || hasMilestone('SuperStones', 13) },
             unlocked() {return hasMilestone(this.layer, this.id - 1) || hasMilestone(this.layer, this.id)}
         },
         80: {
@@ -1547,6 +1587,215 @@ addLayer("MiniStones", {
             done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
             unlocked() {return hasMilestone(this.layer, this.id - 1) || hasMilestone(this.layer, this.id)}
         },
+        141: {
+            requirementDescription() {return "Milestone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "Length in StartData Boost Milestone 1 Effect"
+            },
+            tooltip() {return "+"+format(layers[this.layer].startData.length)+" Base Milestone 1 Effect"},
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 1) || hasMilestone(this.layer, this.id)}
+        },
+        142: {
+            requirementDescription() {return "Milestone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "Total Milestones Boost Milestone 1 Effect Currently: x"+format(layers[this.layer].milestone143Effect())
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 1) || hasMilestone(this.layer, this.id)}
+        },
+        143: {
+            requirementDescription() {return "Milestone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "x1.1 Milestone 1 Effect Per level Currently: x"+format(new Decimal(1.1).pow(new Decimal.min(new Decimal.max(new Decimal(player[this.layer].milestones.length).add(-143), new Decimal(0)), new Decimal(1))))
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 1) || hasMilestone(this.layer, this.id)}
+        },
+        144: {
+            requirementDescription() {return "Milestone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "Boost Milestone 1 Effect Based On 0s Effect: x1 Milestone 1 Effect (0^0)"
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 1) || hasMilestone(this.layer, this.id)}
+        },
+        145: {
+            requirementDescription() {return "Milestone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "Boost Base Milestone 1 Effect Based On Summation Series (x = Milestones - 145) Currently: +"+format(layers[this.layer].milestone146Effect())
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 1) || hasMilestone(this.layer, this.id)}
+        },
+        146: {
+            requirementDescription() {return "Milestone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "x2 Milestone 1 Effect"
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 1) || hasMilestone(this.layer, this.id)}
+        },
+        147: {
+            requirementDescription() {return "Milestone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "Buff Milestone 109 Effect"
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 1) || hasMilestone(this.layer, this.id)}
+        },
+        148: {
+            requirementDescription() {return "Milestone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "+...99999 Base Milestone 1 Effect (+-1)"
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 1) || hasMilestone(this.layer, this.id)}
+        },
+        149: {
+            requirementDescription() {return "Milestone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "-100 Base Milestone 1 Effect but x100 Milestone 1 Effect"
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 1) || hasMilestone(this.layer, this.id)}
+        },
+        150: {
+            requirementDescription() {return "Milestone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "x2 ???"
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 1) || hasMilestone(this.layer, this.id)}
+        },
+        151: {
+            requirementDescription() {return "Milestone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "x2 ??? again"
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 1) || hasMilestone(this.layer, this.id)}
+        },
+        152: {
+            requirementDescription() {return "Milestone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "x1 Useless Layers and Milestones 151 and 152 were Useless Layers"
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 1) || hasMilestone(this.layer, this.id)}
+        },
+        153: {
+            requirementDescription() {return "Milestone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "Add 1 More Milestone Reveal To Milestones"
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 1) || hasMilestone(this.layer, this.id)}
+        },
+        154: {
+            requirementDescription() {return "Milestone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "x1.00..001 Milestone 1 Effect"
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 1) || hasMilestone(this.layer, this.id)}
+        },
+        155: {
+            requirementDescription() {return "Milestone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "x2.209 Milestone 1 Effect"
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 2) || hasMilestone(this.layer, this.id)}
+        },
+        156: {
+            requirementDescription() {return "Milestone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "x2 Halloween 2026 Event Currencies (Exsept Loops)"
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 2) || hasMilestone(this.layer, this.id)}
+        },
+        157: {
+            requirementDescription() {return "Milestone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "x2 Some Minigame layer"
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 2) || hasMilestone(this.layer, this.id)}
+        },
+        158: {
+            requirementDescription() {return "Milestone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "x5 Milestone 1 Effect"
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 2) || hasMilestone(this.layer, this.id)}
+        },
+        159: {
+            requirementDescription() {return "Milestone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "x20 Milestone 1 Effect and Milestone 158 was Sub-Skill"
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 2) || hasMilestone(this.layer, this.id)}
+        },
+        160: {
+            requirementDescription() {return "Milestone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "x??? Milestone 1 Effect"
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 2) || hasMilestone(this.layer, this.id)}
+        },
+        161: {
+            requirementDescription() {return "Milestone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "x??? Milestone 1 Effect again"
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 2) || hasMilestone(this.layer, this.id)}
+        },
+        162: {
+            requirementDescription() {return "Milestone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "^2 Milestone 1 Effect but Sqrt Milestone 1 Effect lol and x10 Milestone 1 Effect"
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 2) || hasMilestone(this.layer, this.id)}
+        },
+        163: {
+            requirementDescription() {return "Milestone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "^2 Useless Layers and Milestone 161 and 162 were x5.5"
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 2) || hasMilestone(this.layer, this.id)}
+        },
+        164: {
+            requirementDescription() {return "Milestone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "^1.01 Useless Layers (Last Joke [... For Now]) and x(Number Of 0's In 1 Googol) Milestone 1 Effect"
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 2) || hasMilestone(this.layer, this.id)}
+        },
+        165: {
+            requirementDescription() {return "Milestone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "67 Soon"
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 2) || hasMilestone(this.layer, this.id)}
+        },
+        166: {
+            requirementDescription() {return "Milestone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "Re-apply Milestone 67 Effect"
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 2) || hasMilestone(this.layer, this.id)}
+        },
     },
 })
 
@@ -1726,6 +1975,22 @@ addLayer("SuperStones", {
             done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
             unlocked() {return hasMilestone(this.layer, this.id - 1) || hasMilestone(this.layer, this.id)}
         },
+        13: {
+            requirementDescription() {return "Superstone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "x300 Milestone 1 Effect and Keep Milestone 80"
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 1) || hasMilestone(this.layer, this.id)}
+        },
+        14: {
+            requirementDescription() {return "Superstone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "+150 Base Milestone 1 Effect and +1e90 Milestone 1 Effect (after All Main Effects) [extra effect]"
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 1) || hasMilestone(this.layer, this.id)}
+        },
     },
 })
 
@@ -1815,7 +2080,15 @@ addLayer("MegaStones", {
         2: {
             requirementDescription() {return "Megastone "+format(new Decimal(this.id).add(1))},
             effectDescription() {
-                return "ENDGAME IS MEGASTONE 2"
+                return "Bulk buy Milestones and x15 Milestone 1 Effect"
+            },
+            done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
+            unlocked() {return hasMilestone(this.layer, this.id - 1) || hasMilestone(this.layer, this.id)}
+        },
+        3: {
+            requirementDescription() {return "Megastone "+format(new Decimal(this.id).add(1))},
+            effectDescription() {
+                return "ENDGAME IS MEGASTONE 3"
             },
             done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
             unlocked() {return hasMilestone(this.layer, this.id - 1) || hasMilestone(this.layer, this.id)}

@@ -52,7 +52,15 @@ addLayer("MiniGame1", {
                 "color": "#00ffff",
                 "border": "2px solid #00ffff",
             },
-            unlocked() {return hasUpgrade('Island3f', 25) || hasMilestone('Research', 0)}
+            unlocked() {return hasUpgrade('Island3f', 25) || hasMilestone('Research', 0) || hasMilestone('Prestige', 0)}
+        },
+        "Prestige": {
+            embedLayer: "Prestige",
+            buttonStyle: {
+                "color": "#ffff92",
+                "border": "2px solid #ffff92",
+            },
+            unlocked() {return hasUpgrade('Research', 71) || hasMilestone('Prestige', 0)}
         },
     },
 })
@@ -131,6 +139,11 @@ addLayer("Island1", {
         if(hasUpgrade('Research', 61)) mult = mult.times(9.999)
         if(hasUpgrade('Research', 65)) mult = mult.times(9.999)
 
+        if(hasUpgrade('Prestige', 11)) mult = mult.times(25)
+        if(hasUpgrade('Prestige', 14)) mult = mult.times(4)
+        if(hasUpgrade('Prestige', 22)) mult = mult.times(1.07)
+        if(hasUpgrade('Prestige', 32)) mult = mult.times(10)
+
         if(player["Island3b"].click11) mult = mult.times(2)
         if(player["Island3b"].click12) mult = mult.times(3)
         if(player["Island3b"].click13) mult = mult.times(3)
@@ -139,6 +152,8 @@ addLayer("Island1", {
         if(player["Island3b"].click22) mult = mult.times(1/8)
         if(player["Island3b"].click23) mult = mult.times(1/12)
         if(player["Island3b"].click24) mult = mult.times(1/16)
+            
+        if(hasMilestone('MiniStones', 158)) mult = mult.times(2)
         
         if(player['MiniSettings'].Mini1) return new Decimal(0)
         return mult.times(100)
@@ -257,7 +272,7 @@ addLayer("Island1", {
         },
     },
     automate() {
-        if(hasUpgrade('Research', 15)) {
+        if(hasUpgrade('Research', 15) || hasUpgrade('Prestige', 12)) {
             buyUpgrade(this.layer, 11);
             buyUpgrade(this.layer, 12);
             buyUpgrade(this.layer, 13);
@@ -267,7 +282,7 @@ addLayer("Island1", {
             buyUpgrade(this.layer, 22);
             buyUpgrade(this.layer, 23);
         };
-        if(hasUpgrade('Research', 44)) {
+        if(hasUpgrade('Research', 44) || hasUpgrade('Prestige', 15)) {
             buyUpgrade(this.layer, 24);
             buyUpgrade(this.layer, 25);
         };
@@ -524,6 +539,18 @@ addLayer("Island2a", {
         if(hasUpgrade('Research', 22)) {
             buyUpgrade(this.layer, 25);
         };
+        if(hasUpgrade('Prestige', 12)) {
+            buyUpgrade(this.layer, 11);
+            buyUpgrade(this.layer, 12);
+            buyUpgrade(this.layer, 13);
+            buyUpgrade(this.layer, 14);
+            buyUpgrade(this.layer, 15);
+            buyUpgrade(this.layer, 21);
+            buyUpgrade(this.layer, 22);
+            buyUpgrade(this.layer, 23);
+            buyUpgrade(this.layer, 24);
+            buyUpgrade(this.layer, 25);
+        };
     }
 })
 
@@ -575,6 +602,12 @@ addLayer("Island2b", {
         if(hasUpgrade('Research', 55)) mult = mult.times(upgradeEffect('Island3e', 15))
         if(hasUpgrade('Research', 62)) mult = mult.times(9.999)
         if(hasUpgrade('Research', 65)) mult = mult.times(9.999)
+
+        if(hasUpgrade('Prestige', 11)) mult = mult.times(10)
+        if(hasUpgrade('Prestige', 14)) mult = mult.times(2.5)
+        if(hasUpgrade('Prestige', 21)) mult = mult.times(4)
+        if(hasUpgrade('Prestige', 22)) mult = mult.times(1.07)
+        if(hasUpgrade('Prestige', 32)) mult = mult.times(10)
         
         if(player["Island3b"].click11) mult = mult.times(1/4)
         if(player["Island3b"].click12) mult = mult.times(1/8)
@@ -638,8 +671,9 @@ addLayer("Island2b", {
             },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
-                if(!hasUpgrade('Island3a', 15) && !hasUpgrade('Research', 23)) player[this.layer].points = player[this.layer].points.sub(this.cost())
+                if(!hasUpgrade('Island3a', 15) && !hasUpgrade('Research', 23) && !hasUpgrade('Prestige', 23)) player[this.layer].points = player[this.layer].points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                if(hasUpgrade('Prestige', 34) && this.canAfford() && getBuyableAmount(this.layer, this.id).lt(this.purchaseLimit())) this.buy()
             },
             purchaseLimit() {
                 let Max = new Decimal(250).add(buyableEffect('Island3d', 21))
@@ -667,8 +701,9 @@ addLayer("Island2b", {
             },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
-                if(!hasUpgrade('Island3a', 15) && !hasUpgrade('Research', 23)) player[this.layer].points = player[this.layer].points.sub(this.cost())
+                if(!hasUpgrade('Island3a', 15) && !hasUpgrade('Research', 23) && !hasUpgrade('Prestige', 23)) player[this.layer].points = player[this.layer].points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                if(hasUpgrade('Prestige', 34) && this.canAfford() && getBuyableAmount(this.layer, this.id).lt(this.purchaseLimit())) this.buy()
             },
             purchaseLimit() {
                 let Max = new Decimal(200).add(buyableEffect('Island3d', 21))
@@ -692,8 +727,9 @@ addLayer("Island2b", {
             },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
-                if(!hasUpgrade('Research', 23)) player[this.layer].points = player[this.layer].points.sub(this.cost())
+                if(!hasUpgrade('Research', 23) && !hasUpgrade('Prestige', 23)) player[this.layer].points = player[this.layer].points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                if(hasUpgrade('Prestige', 34) && this.canAfford() && getBuyableAmount(this.layer, this.id).lt(this.purchaseLimit())) this.buy()
             },
             purchaseLimit() {
                 let Max = new Decimal(1)
@@ -823,6 +859,17 @@ addLayer("Island2b", {
                 layers[this.layer].buyables[13].buy();
             };
         }
+        if(hasUpgrade('Prestige', 23)) {
+            if(layers[this.layer].buyables[11].canAfford() && getBuyableAmount(this.layer, 11).lt(layers[this.layer].buyables[11].purchaseLimit())) {
+                layers[this.layer].buyables[11].buy();
+            };
+            if(layers[this.layer].buyables[12].canAfford() && getBuyableAmount(this.layer, 12).lt(layers[this.layer].buyables[12].purchaseLimit())) {
+                layers[this.layer].buyables[12].buy();
+            };
+            if(layers[this.layer].buyables[13].canAfford() && getBuyableAmount(this.layer, 13).lt(layers[this.layer].buyables[13].purchaseLimit())) {
+                layers[this.layer].buyables[13].buy();
+            };
+        }
         if(hasUpgrade('Research', 15)) {
             buyUpgrade(this.layer, 11);
             buyUpgrade(this.layer, 12);
@@ -833,12 +880,20 @@ addLayer("Island2b", {
             buyUpgrade(this.layer, 15);
             buyUpgrade(this.layer, 21);
         };
-        if(hasUpgrade('Research', 44)) {
+        if(hasUpgrade('Research', 44) || hasUpgrade('Prestige', 15)) {
             buyUpgrade(this.layer, 21);
             buyUpgrade(this.layer, 22);
             buyUpgrade(this.layer, 23);
             buyUpgrade(this.layer, 24);
             buyUpgrade(this.layer, 25);
+        };
+        if(hasUpgrade('Prestige', 12)) {
+            buyUpgrade(this.layer, 11);
+            buyUpgrade(this.layer, 12);
+            buyUpgrade(this.layer, 13);
+            buyUpgrade(this.layer, 14);
+            buyUpgrade(this.layer, 15);
+            buyUpgrade(this.layer, 21);
         };
     },
 })
@@ -978,9 +1033,9 @@ addLayer("Island3a", {
             display() {return "x1.01 Sub-Skill per Level Currently: x"+format(buyableEffect(this.layer, this.id))+" Cost: "+format(this.cost())+" Sub-Skill "+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit)},
             canAfford() { return player["Island1"].points.gte(this.cost()) },
             buy() {
-                if(!hasUpgrade('Island3e', 13)) player["Island1"].points = player["Island1"].points.sub(this.cost())
+                if(!hasUpgrade('Island3e', 13) && !hasUpgrade('Prestige', 23)) player["Island1"].points = player["Island1"].points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
-                if(hasUpgrade('Research', 54) && this.canAfford()) this.buy()
+                if((hasUpgrade('Research', 54) || hasUpgrade('Prestige', 34)) && this.canAfford()) this.buy()
             },
             unlocked() {return hasUpgrade(this.layer, 11)},
         },
@@ -1092,12 +1147,12 @@ addLayer("Island3a", {
         },
     },
     automate() {
-        if(hasUpgrade('Island3e', 13)) {
+        if(hasUpgrade('Island3e', 13) || hasUpgrade('Prestige', 23)) {
             if(layers[this.layer].buyables[11].canAfford() && getBuyableAmount(this.layer, 11).lt(layers[this.layer].buyables[11].purchaseLimit)) {
                 layers[this.layer].buyables[11].buy();
             };
         }
-        if(hasUpgrade('Research', 22)) {
+        if(hasUpgrade('Research', 22) || hasUpgrade('Prestige', 12)) {
             buyUpgrade(this.layer, 11);
             buyUpgrade(this.layer, 12);
             buyUpgrade(this.layer, 13);
@@ -1105,7 +1160,7 @@ addLayer("Island3a", {
             buyUpgrade(this.layer, 15);
             buyUpgrade(this.layer, 21);
         };
-        if(hasUpgrade('Research', 44)) {
+        if(hasUpgrade('Research', 44) || hasUpgrade('Prestige', 15)) {
             buyUpgrade(this.layer, 22);
             buyUpgrade(this.layer, 23);
             buyUpgrade(this.layer, 24);
@@ -1386,7 +1441,7 @@ addLayer("Island3c", {
             unlocked() {return hasUpgrade(this.layer, 15)},
         },
         22: {
-            title: "Unlocker V #36",
+            title: "Unlocker V #36.5",
             description: "Unlock Area 3 and x2 Sub-Skill and Money",
             currencyDisplayName: "Sub-Skill",
             currencyInternalName: "points",
@@ -1423,7 +1478,7 @@ addLayer("Island3c", {
         },
     },
     automate() {
-        if(hasUpgrade('Research', 25)) {
+        if(hasUpgrade('Research', 25) || hasUpgrade('Prestige', 12)) {
             buyUpgrade(this.layer, 11);
             buyUpgrade(this.layer, 12);
             buyUpgrade(this.layer, 13);
@@ -1432,7 +1487,7 @@ addLayer("Island3c", {
             buyUpgrade(this.layer, 21);
             buyUpgrade(this.layer, 22);
         };
-        if(hasUpgrade('Research', 44)) {
+        if(hasUpgrade('Research', 44) || hasUpgrade('Prestige', 15)) {
             buyUpgrade(this.layer, 23);
             buyUpgrade(this.layer, 24);
             buyUpgrade(this.layer, 25);
@@ -1515,6 +1570,11 @@ addLayer("Island3d", {
         if(hasUpgrade('Research', 52)) gain = gain.times(10)
         if(hasUpgrade('Research', 63)) gain = gain.times(9.999)
         if(hasUpgrade('Research', 65)) gain = gain.times(9.999)
+        if(hasUpgrade('Prestige', 22)) gain = gain.times(1.07)
+
+        if(hasUpgrade('Prestige', 14)) gain = gain.times(3)
+        if(hasUpgrade('Prestige', 21)) gain = gain.times(3)
+        if(hasUpgrade('Prestige', 32)) gain = gain.times(10)
 
         if(player['MiniSettings'].Mini1) return new Decimal(0)
         return gain
@@ -1535,8 +1595,9 @@ addLayer("Island3d", {
             display() {return "x1.05 Sub-Skill per Level Currently: x"+format(buyableEffect(this.layer, this.id))+" Cost: "+format(this.cost())+" Money "+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit())},
             canAfford() { return player["Island2b"].points.gte(this.cost()) },
             buy() {
-                if(!hasUpgrade('Island3e', 13) && !hasUpgrade('Research', 23)) player["Island2b"].points = player["Island2b"].points.sub(this.cost())
+                if(!hasUpgrade('Island3e', 13) && !hasUpgrade('Research', 23) && !hasUpgrade('Prestige', 23)) player["Island2b"].points = player["Island2b"].points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                if(hasUpgrade('Prestige', 34) && this.canAfford() && getBuyableAmount(this.layer, this.id).lt(this.purchaseLimit())) this.buy()
             },
             purchaseLimit() {return new Decimal(100).add(buyableEffect(this.layer, 23))},
         },
@@ -1555,8 +1616,9 @@ addLayer("Island3d", {
             display() {return "x1.1 Money per Level Currently: x"+format(buyableEffect(this.layer, this.id))+" Cost: "+format(this.cost())+" Money "+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit())},
             canAfford() { return player["Island2b"].points.gte(this.cost()) },
             buy() {
-                if(!hasUpgrade('Island3e', 13) && !hasUpgrade('Research', 23)) player["Island2b"].points = player["Island2b"].points.sub(this.cost())
+                if(!hasUpgrade('Island3e', 13) && !hasUpgrade('Research', 23) && !hasUpgrade('Prestige', 23)) player["Island2b"].points = player["Island2b"].points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                if(hasUpgrade('Prestige', 34) && this.canAfford() && getBuyableAmount(this.layer, this.id).lt(this.purchaseLimit())) this.buy()
             },
             purchaseLimit() {return new Decimal(125).add(buyableEffect(this.layer, 23))},
         },
@@ -1575,8 +1637,9 @@ addLayer("Island3d", {
             display() {return "x1.01 Moners per Level Currently: x"+format(buyableEffect(this.layer, this.id))+" Cost: "+format(this.cost())+" Money "+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit)},
             canAfford() { return player["Island2b"].points.gte(this.cost()) },
             buy() {
-                if(!hasUpgrade('Island3f', 22) && !hasUpgrade('Research', 23)) player["Island2b"].points = player["Island2b"].points.sub(this.cost())
+                if(!hasUpgrade('Island3f', 22) && !hasUpgrade('Research', 23) && !hasUpgrade('Prestige', 23)) player["Island2b"].points = player["Island2b"].points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                if(hasUpgrade('Prestige', 34) && this.canAfford() && getBuyableAmount(this.layer, this.id).lt(this.purchaseLimit)) this.buy()
             },
             purchaseLimit: new Decimal(250),
         },
@@ -1595,8 +1658,9 @@ addLayer("Island3d", {
             display() {return "+5 Buyables' Max for Sub-Skill Boost I and Money Boost I per Level Currently: +"+format(buyableEffect(this.layer, this.id))+" Cost: "+format(this.cost())+" Moners "+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit())},
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
-                if(hasUpgrade('Research', 31)) player[this.layer].points = player[this.layer].points.sub(this.cost())
+                if(hasUpgrade('Research', 31) && !hasUpgrade('Prestige', 23)) player[this.layer].points = player[this.layer].points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                if(hasUpgrade('Prestige', 34) && this.canAfford() && getBuyableAmount(this.layer, this.id).lt(this.purchaseLimit())) this.buy()
             },
             purchaseLimit() {
                 let Max = new Decimal(10)
@@ -1613,8 +1677,9 @@ addLayer("Island3d", {
             display() {return "-10 in the Log of Upgrade #6, Upgrade #10's Limit is now 1e20, Upgrade #10's Else Mult is now 3, +0.05 in the Exponent of Upgrade #15 and x2 moners Cost: 1000 Moners "+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit)},
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
-                if(hasUpgrade('Research', 31)) player[this.layer].points = player[this.layer].points.sub(this.cost())
+                if(hasUpgrade('Research', 31) && !hasUpgrade('Prestige', 23)) player[this.layer].points = player[this.layer].points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                if(hasUpgrade('Prestige', 34) && this.canAfford() && getBuyableAmount(this.layer, this.id).lt(this.purchaseLimit)) this.buy()
             },
             purchaseLimit: new Decimal(1),
         },
@@ -1635,6 +1700,7 @@ addLayer("Island3d", {
             buy() {
                 if(hasUpgrade('Research', 31)) player[this.layer].points = player[this.layer].points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                if(hasUpgrade('Prestige', 34) && this.canAfford() && getBuyableAmount(this.layer, this.id).lt(this.purchaseLimit())) this.buy()
             },
             purchaseLimit() {
                 let Max = new Decimal(5)
@@ -1895,6 +1961,27 @@ addLayer("Island3d", {
                 layers[this.layer].buyables[23].buy();
             };
         }
+        
+        if(hasUpgrade('Prestige', 23)) {
+            if(layers[this.layer].buyables[11].canAfford() && getBuyableAmount(this.layer, 11).lt(layers[this.layer].buyables[11].purchaseLimit())) {
+                layers[this.layer].buyables[11].buy();
+            };
+            if(layers[this.layer].buyables[12].canAfford() && getBuyableAmount(this.layer, 12).lt(layers[this.layer].buyables[12].purchaseLimit())) {
+                layers[this.layer].buyables[12].buy();
+            };
+            if(layers[this.layer].buyables[13].canAfford() && getBuyableAmount(this.layer, 13).lt(layers[this.layer].buyables[13].purchaseLimit)) {
+                layers[this.layer].buyables[13].buy();
+            };
+            if(layers[this.layer].buyables[21].canAfford() && getBuyableAmount(this.layer, 21).lt(layers[this.layer].buyables[21].purchaseLimit())) {
+                layers[this.layer].buyables[21].buy();
+            };
+            if(layers[this.layer].buyables[22].canAfford() && getBuyableAmount(this.layer, 22).lt(layers[this.layer].buyables[22].purchaseLimit)) {
+                layers[this.layer].buyables[22].buy();
+            };
+            if(layers[this.layer].buyables[23].canAfford() && getBuyableAmount(this.layer, 23).lt(layers[this.layer].buyables[23].purchaseLimit())) {
+                layers[this.layer].buyables[23].buy();
+            };
+        }
         if(hasUpgrade('Research', 33)) {
             if(player["Island2b"].points.gte(new Decimal(1e9).times(new Decimal(1).pow(2)))) {
                 player[this.layer].points = player[this.layer].points.add(layers[this.layer].getMonersGain().times(1));
@@ -1942,6 +2029,23 @@ addLayer("Island3d", {
             };
             if(player["Island2b"].points.gte(new Decimal(1e9).times(new Decimal(15).pow(4)))) {
                 player[this.layer].points = player[this.layer].points.add(layers[this.layer].getMonersGain().times(15));
+            };
+        }
+        if(hasUpgrade('Prestige', 25)) {
+            if(player["Island2b"].points.gte(new Decimal(1e9).times(new Decimal(1).pow(2)))) {
+                player[this.layer].points = player[this.layer].points.add(layers[this.layer].getMonersGain().times(1));
+            };
+            if(player["Island2b"].points.gte(new Decimal(1e9).times(new Decimal(2).pow(2)))) {
+                player[this.layer].points = player[this.layer].points.add(layers[this.layer].getMonersGain().times(2));
+            };
+            if(player["Island2b"].points.gte(new Decimal(1e9).times(new Decimal(3).pow(2)))) {
+                player[this.layer].points = player[this.layer].points.add(layers[this.layer].getMonersGain().times(3));
+            };
+            if(player["Island2b"].points.gte(new Decimal(1e9).times(new Decimal(4).pow(2)))) {
+                player[this.layer].points = player[this.layer].points.add(layers[this.layer].getMonersGain().times(4));
+            };
+            if(player["Island2b"].points.gte(new Decimal(1e9).times(new Decimal(5).pow(3)))) {
+                player[this.layer].points = player[this.layer].points.add(layers[this.layer].getMonersGain().times(5));
             };
         }
     },
@@ -2111,13 +2215,13 @@ addLayer("Island3e", {
         },
     },
     automate() {
-        if(hasUpgrade('Research', 25)) {
+        if(hasUpgrade('Research', 25) || hasUpgrade('Prestige', 12)) {
             buyUpgrade(this.layer, 11);
             buyUpgrade(this.layer, 12);
             buyUpgrade(this.layer, 13);
             buyUpgrade(this.layer, 14);
         };
-        if(hasUpgrade('Research', 53)) {
+        if(hasUpgrade('Research', 53) || hasUpgrade('Prestige', 31)) {
             buyUpgrade(this.layer, 15);
             buyUpgrade(this.layer, 21);
             buyUpgrade(this.layer, 22);
@@ -2295,7 +2399,7 @@ addLayer("Island3f", {
         },
     },
     automate() {
-        if(hasUpgrade('Research', 43)) {
+        if(hasUpgrade('Research', 43) || hasUpgrade('Prestige', 12)) {
             buyUpgrade(this.layer, 11);
             buyUpgrade(this.layer, 12);
             buyUpgrade(this.layer, 13);
@@ -2331,6 +2435,11 @@ addLayer("Research", {
 
         if(hasUpgrade(this.layer, 64)) mult = mult.times(1.25)
 
+        if(hasUpgrade('Prestige', 11)) mult = mult.times(3)
+        if(hasUpgrade('Prestige', 21)) mult = mult.times(3)
+        if(hasUpgrade('Prestige', 22)) mult = mult.times(1.07)
+        if(hasUpgrade('Prestige', 32)) mult = mult.times(10)
+
         if(player[this.layer].secretone) mult = mult.times(1.1)
 
 
@@ -2339,6 +2448,15 @@ addLayer("Research", {
     },
     gainExp() {
         return new Decimal(1)
+    },
+    passiveGeneration() {
+        let auto = new Decimal(0)
+
+        if(hasUpgrade('Prestige', 13)) auto = auto.add(0.01)
+        if(hasUpgrade('Prestige', 15)) auto = auto.add(0.04)
+        if(hasUpgrade('Prestige', 24)) auto = auto.add(0.05)
+
+        return auto
     },
     row: "side",
     layerShown() {return false},
@@ -2592,9 +2710,235 @@ addLayer("Research", {
         },
         71: {
             title: "Final II #100",
-            description: "Unlock ??? (some Later Update Thing)",
-            cost: new Decimal(2e3),
+            description: "Unlock Prestige (Requires 2,000)",
+            cost: new Decimal(0),
+            canAfford() {return player[this.layer].points.gte(2e3)},
             unlocked() {return hasUpgrade(this.layer, 65)},
+        },
+    },
+    automate() {
+        if(hasUpgrade('Prestige', 13)) {
+            buyUpgrade(this.layer, 11)
+            buyUpgrade(this.layer, 12)
+            buyUpgrade(this.layer, 13)
+            buyUpgrade(this.layer, 14)
+            buyUpgrade(this.layer, 15)
+            buyUpgrade(this.layer, 21)
+            buyUpgrade(this.layer, 22)
+            buyUpgrade(this.layer, 23)
+            buyUpgrade(this.layer, 24)
+            buyUpgrade(this.layer, 25)
+            buyUpgrade(this.layer, 31)
+            buyUpgrade(this.layer, 32)
+        }
+        if(hasUpgrade('Prestige', 15)) {
+            buyUpgrade(this.layer, 33)
+            buyUpgrade(this.layer, 34)
+            buyUpgrade(this.layer, 35)
+            buyUpgrade(this.layer, 41)
+            buyUpgrade(this.layer, 42)
+        }
+        if(hasUpgrade('Prestige', 33)) {
+            buyUpgrade(this.layer, 43)
+            buyUpgrade(this.layer, 44)
+            buyUpgrade(this.layer, 45)
+        }
+    },
+})
+
+addLayer("Prestige", {
+    name: "Prestige",
+    symbol: "",
+    position: 0,
+    startData() { return {
+        unlocked: true,
+		points: new Decimal(0),
+        secretone: false,
+    }},
+    color: "#ffff92",
+    requires: new Decimal(2e3),
+    resource: "Prestige",
+    baseResource: "Research",
+    baseAmount() {return player['Research'].points},
+    type: "normal",
+    exponent: 0.1,
+    gainMult() {
+        mult = new Decimal(1)
+
+        if(player['MiniSettings'].Mini1) return new Decimal(0)
+        return mult
+    },
+    gainExp() {
+        return new Decimal(1)
+    },
+    row: "side",
+    layerShown() {return false},
+    infoboxes: {
+        1: {
+            title: "Info About this layer",
+            body() { return "Prestiged Upgrades" },
+        },
+    },
+    resetsNothing: true,
+    onPrestige(gain) {
+        player["Island1"].points = new Decimal(0)
+        player["Island2b"].points = new Decimal(0)
+        player["Island3d"].points = new Decimal(0)
+        player["Island1"].upgrades = []
+        player["Island2a"].upgrades = []
+        player["Island2b"].upgrades = []
+        player["Island3a"].upgrades = []
+        player["Island3b"].upgrades = []
+        player["Island3c"].upgrades = []
+        player["Island3d"].upgrades = []
+        player["Island3e"].upgrades = []
+        player["Island3f"].upgrades = []
+        addBuyables('Island2b', 11, -getBuyableAmount('Island2b', 11))
+        addBuyables('Island2b', 12, -getBuyableAmount('Island2b', 12))
+        addBuyables('Island2b', 13, -getBuyableAmount('Island2b', 13))
+        addBuyables('Island3a', 11, -getBuyableAmount('Island3a', 11))
+        addBuyables('Island3d', 11, -getBuyableAmount('Island3d', 11))
+        addBuyables('Island3d', 12, -getBuyableAmount('Island3d', 12))
+        addBuyables('Island3d', 13, -getBuyableAmount('Island3d', 13))
+        addBuyables('Island3d', 21, -getBuyableAmount('Island3d', 21))
+        addBuyables('Island3d', 22, -getBuyableAmount('Island3d', 22))
+        addBuyables('Island3d', 23, -getBuyableAmount('Island3d', 23))
+        player["Island3b"].click11 = false
+        player["Island3b"].click12 = false
+        player["Island3b"].click13 = false
+        player["Island3b"].click14 = false
+        player["Island3b"].click21 = false
+        player["Island3b"].click22 = false
+        player["Island3b"].click23 = false
+        player["Island3b"].click24 = false
+        player["Research"].points = new Decimal(0)
+        player["Research"].upgrades = []
+        player["Research"].milestones = []
+    },
+    tabFormat: [
+        ["infobox", 1],
+        ["display-text",
+        function() { return 'You have ' + format(player["Island1"].points) + ' Sub-Skill' },
+        { "color": "green", "font-size": "24px"}],
+        ["display-text",
+        function() { return 'You have ' + format(player["Island2b"].points) + ' Money' },
+        { "color": "lime", "font-size": "24px"}],
+        ["display-text",
+        function() { return 'You have ' + format(player["Island3d"].points) + ' Moners' },
+        { "color": "green", "font-size": "24px"}],
+        ["display-text",
+        function() { return 'You have ' + format(player["Research"].points) + ' Research' },
+        { "color": "#00ffff", "font-size": "24px"}],
+        "blank",
+        "main-display", 
+        ["prestige-button", "normal"],
+        "resource-display",
+        "blank",
+        "blank",
+        "milestones",
+        "blank",
+        "upgrades",
+    ],
+    milestones: {
+        0: {
+            requirementDescription: "1 Prestige",
+            effectDescription: "Keep Research Tab and Prestige Tab Unlocked",
+            done() { return player[this.layer].points.gte(1) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        }
+    },
+    upgrades: {
+        11: {
+            title: "Rebirth I #101",
+            description: "x25 Sub-Skill, x10 Money and x3 Research",
+            cost: new Decimal(1),
+        },
+        12: {
+            title: "Rebirth II #102",
+            description: "Autobuy Upgrade #1 - #50",
+            cost: new Decimal(1),
+            unlocked() {return hasUpgrade(this.layer, 11)},
+        },
+        13: {
+            title: "Rebirth III #103",
+            description: "Autobuy Upgrade #51 - #62 and Gain +1% of Research/s",
+            cost: new Decimal(1),
+            unlocked() {return hasUpgrade(this.layer, 12)},
+        },
+        14: {
+            title: "Rebirth IV #104",
+            description: "x4 Sub-Skill, x3 Moner and x2.5 Money",
+            cost: new Decimal(1),
+            unlocked() {return hasUpgrade(this.layer, 13)},
+        },
+        15: {
+            title: "Rebirth V #105",
+            description: "Autobuy Upgrades #63 - #80 and +4% of Research/s",
+            cost: new Decimal(1),
+            unlocked() {return hasUpgrade(this.layer, 14)},
+        },
+        21: {
+            title: "Rebirth VI #106",
+            description: "x4 Money and x3 Moner and Research",
+            cost: new Decimal(1),
+            unlocked() {return hasUpgrade(this.layer, 15)},
+        },
+        22: {
+            title: "Rebirth VII #107",
+            description: "x1.07 Sub-Skill, Money, Moners and Research",
+            cost: new Decimal(1),
+            unlocked() {return hasUpgrade(this.layer, 21)},
+        },
+        23: {
+            title: "Rebirth VIII #108",
+            description: "Autobuy All Island 1, 2 and 3 Buyables and they Cost Nothing",
+            cost: new Decimal(1),
+            unlocked() {return hasUpgrade(this.layer, 22)},
+        },
+        24: {
+            title: "Rebirth IX #109",
+            description: "+5% of Research/s",
+            cost: new Decimal(1),
+            unlocked() {return hasUpgrade(this.layer, 23)},
+        },
+        25: {
+            title: "Rebirth X #110",
+            description: "Autogain the First 5 Converters in Island 3 moners",
+            cost: new Decimal(1),
+            unlocked() {return hasUpgrade(this.layer, 24)},
+        },
+        31: {
+            title: "Rebirth XI #111",
+            description: "Autobuy Upgrades #81 - #86",
+            cost: new Decimal(2),
+            unlocked() {return hasUpgrade(this.layer, 25)},
+        },
+        32: {
+            title: "Rebirth XII #112",
+            description: "x10 Sub-Skill, Money, Moners and Research",
+            cost: new Decimal(2),
+            unlocked() {return hasUpgrade(this.layer, 31)},
+        },
+        33: {
+            title: "Rebirth XIII #113",
+            description: "Autobuy Upgrades #87 - #89",
+            cost: new Decimal(2),
+            unlocked() {return hasUpgrade(this.layer, 32)},
+        },
+        34: {
+            title: "Rebirth XIV #114",
+            description: "Max Buy All Island 1, 2 and 3 Buyables",
+            cost: new Decimal(2),
+            unlocked() {return hasUpgrade(this.layer, 33)},
+        },
+        35: {
+            title: "Rebirth XV #115",
+            description: "Unlock Something (ENDGAME.. FOR NOW Also x2 Currency When Bought Before Minigame Update)",
+            onPurchase() {
+                player[this.layer].secretone = true
+            },
+            cost: new Decimal(20),
+            unlocked() {return hasUpgrade(this.layer, 34)},
         },
     },
 })

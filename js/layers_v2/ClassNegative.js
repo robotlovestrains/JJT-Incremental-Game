@@ -1,6 +1,6 @@
-addLayer("TFDRM", {
+addLayer("TFirDRM", {
     name: "The First Difficulty",
-    symbol: "TFD",
+    symbol: "TFirD",
     position: 0,
     startData() { return {
         unlocked: true,
@@ -43,8 +43,7 @@ addLayer("TFDRM", {
     },
     row: 0,
     layerShown() {
-        let vis = false
-        if(hasUpgrade('BSG', 11)) vis = true
+        let vis = true
         if(hasMilestone('TLGRM', 17)) vis = false
         return vis
     },
@@ -67,7 +66,7 @@ addLayer("TFDRM", {
                 ["infobox", 1],
                 "blank",
                 ["display-text",
-                    function() { return 'You have ' + format(player[this.layer].points) + ' The First Difficulty (TFD)' },
+                    function() { return 'You have ' + format(player[this.layer].points) + ' The First Difficulty (TFirD)' },
                     { "color": "#464646", "font-size": "24px" }],
                 ["display-text",
                     function() { return format(player[this.layer].RT)+' Reset Time has Past' },
@@ -123,7 +122,7 @@ addLayer("TFDRM", {
                 ["infobox", 1],
                 "blank",
                 ["display-text",
-                    function() { return 'You have ' + format(player[this.layer].points) + ' The First Difficulty (TFD)' },
+                    function() { return 'You have ' + format(player[this.layer].points) + ' The First Difficulty (TFirD)' },
                     { "color": "#464646", "font-size": "24px" }],
                 ["display-text",
                     function() { return format(player[this.layer].RT)+' Reset Time has Past' },
@@ -165,7 +164,7 @@ addLayer("TFDRM", {
                 ["infobox", 1],
                 "blank",
                 ["display-text",
-                    function() { return 'You have ' + format(player[this.layer].points) + ' The First Difficulty (TFD)' },
+                    function() { return 'You have ' + format(player[this.layer].points) + ' The First Difficulty (TFirD)' },
                     { "color": "#464646", "font-size": "24px" }],
                 ["display-text",
                     function() { return format(player[this.layer].RT)+' Reset Time has Past' },
@@ -173,28 +172,28 @@ addLayer("TFDRM", {
                 "blank",
                 "prestige-button",
             ],
-            unlocked() {return layers['TFDRM'].passiveGeneration().lt(0.25)},
+            unlocked() {return layers['TFirDRM'].passiveGeneration().lt(0.25)},
         },
         "Autogain": {
             content: [
                 ["infobox", 1],
                 "blank",
                 ["display-text",
-                    function() { return 'You have ' + format(player[this.layer].points) + ' The First Difficulty (TFD)' },
+                    function() { return 'You have ' + format(player[this.layer].points) + ' The First Difficulty (TFirD)' },
                     { "color": "#464646", "font-size": "24px" }],
                 ["display-text",
-                    function() { return 'You are gaining +' + format(layers[this.layer].passiveGeneration().times(getResetGain(this.layer))) + ' TFD/s and the percent is '+format(layers[this.layer].passiveGeneration().times(100))+'%' },
+                    function() { return 'You are gaining +' + format(layers[this.layer].passiveGeneration().times(getResetGain(this.layer))) + ' TFirD/s and the percent is '+format(layers[this.layer].passiveGeneration().times(100))+'%' },
                     { "color": "#464646", "font-size": "16px" }],
                 ["display-text",
                     function() { return format(player[this.layer].RT)+' Reset Time has Past' },
                     { "color": "#464646", "font-size": "24px" }],
             ],
-            unlocked() {return layers['TFDRM'].passiveGeneration().gt(0)},
+            unlocked() {return layers['TFirDRM'].passiveGeneration().gt(0)},
         },
     },
     buyables: {
         11: {
-            title() {return "<h2>TFD #1</h2>"},
+            title() {return "<h2>TFirD #1</h2>"},
             cost(x) { return new Decimal(1) },
             display() { return "<h2>x2 Skill</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
@@ -207,7 +206,7 @@ addLayer("TFDRM", {
             branches: [21],
         },
         1011: {
-            title() {return "<h2>TFD #i1</h2>"},
+            title() {return "<h2>TFirD #i1</h2>"},
             cost(x) { return new Decimal(10) },
             display() { return "<h2>x5 Skill</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
@@ -221,7 +220,7 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 11).gte(1)},
         },
         21: {
-            title() {return "<h2>TFD #2</h2>"},
+            title() {return "<h2>TFirD #2</h2>"},
             cost(x) { return new Decimal(1) },
             display() { return "<h2>x3 Skill</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
@@ -235,7 +234,7 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 11).gte(1)},
         },
         1021: {
-            title() {return "<h2>TFD #i2</h2>"},
+            title() {return "<h2>TFirD #i2</h2>"},
             cost(x) { return new Decimal(10) },
             display() { return "<h2>x7 Skill</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
@@ -249,7 +248,7 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 21).gte(1)},
         },
         31: {
-            title() {return "<h2>TFD #3</h2>"},
+            title() {return "<h2>TFirD #3</h2>"},
             cost(x) { return new Decimal(2) },
             display() { return "<h2>x1.5 Skill</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
@@ -263,7 +262,7 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 21).gte(1)},
         },
         1031: {
-            title() {return "<h2>TFD #i3</h2>"},
+            title() {return "<h2>TFirD #i3</h2>"},
             cost(x) { return new Decimal(20) },
             display() { return "<h2>x2.5 Skill</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
@@ -277,7 +276,7 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 31).gte(1)},
         },
         32: {
-            title() {return "<h2>TFD #4</h2>"},
+            title() {return "<h2>TFirD #4</h2>"},
             cost(x) { return new Decimal(3) },
             display() { return "<h2>x3.14 Skill</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
@@ -291,7 +290,7 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 21).gte(1)},
         },
         1032: {
-            title() {return "<h2>TFD #i4</h2>"},
+            title() {return "<h2>TFirD #i4</h2>"},
             cost(x) { return new Decimal(30) },
             display() { return "<h2>xpi (π) Skill</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
@@ -305,7 +304,7 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 32).gte(1)},
         },
         41: {
-            title() {return "<h2>TFD #5</h2>"},
+            title() {return "<h2>TFirD #5</h2>"},
             cost(x) { return new Decimal(5) },
             display() { return "<h2>x2 Skill again</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
@@ -319,7 +318,7 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 31).gte(1)},
         },
         1041: {
-            title() {return "<h2>TFD #i5</h2>"},
+            title() {return "<h2>TFirD #i5</h2>"},
             cost(x) { return new Decimal(50) },
             display() { return "<h2>x5 Skill again</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
@@ -333,9 +332,9 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 41).gte(1)},
         },
         51: {
-            title() {return "<h2>TFD #6</h2>"},
+            title() {return "<h2>TFirD #6</h2>"},
             cost(x) { return new Decimal(15) },
-            display() { return "<h2>x2 TFD</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
+            display() { return "<h2>x2 TFirD</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             effect() { return getBuyableAmount(this.layer, this.id).times(1).add(1) },
             buy() {
@@ -347,9 +346,9 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 41).gte(1)},
         },
         1051: {
-            title() {return "<h2>TFD #i6</h2>"},
+            title() {return "<h2>TFirD #i6</h2>"},
             cost(x) { return new Decimal(150) },
-            display() { return "<h2>x5 TFD</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
+            display() { return "<h2>x5 TFirD</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             effect() { return getBuyableAmount(this.layer, this.id).times(4).add(1) },
             buy() {
@@ -361,9 +360,9 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 51).gte(1) && (inChallenge('ITWRM', 11) || inChallenge('ITWRM', 12) || getBuyableAmount('NEGRM', 1051).gte(1))},
         },
         61: {
-            title() {return "<h2>TFD #7</h2>"},
+            title() {return "<h2>TFirD #7</h2>"},
             cost(x) { return new Decimal(25) },
-            display() { return "<h2>x5 TFD</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
+            display() { return "<h2>x5 TFirD</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             effect() { return getBuyableAmount(this.layer, this.id).times(4).add(1) },
             buy() {
@@ -375,9 +374,9 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 51).gte(1)},
         },
         1061: {
-            title() {return "<h2>TFD #i7</h2>"},
+            title() {return "<h2>TFirD #i7</h2>"},
             cost(x) { return new Decimal(250) },
-            display() { return "<h2>x12 TFD</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
+            display() { return "<h2>x12 TFirD</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             effect() { return getBuyableAmount(this.layer, this.id).times(11).add(1) },
             buy() {
@@ -389,9 +388,9 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 61).gte(1) && (inChallenge('ITWRM', 11) || inChallenge('ITWRM', 12) || getBuyableAmount('NEGRM', 1051).gte(1))},
         },
         62: {
-            title() {return "<h2>TFD #8</h2>"},
+            title() {return "<h2>TFirD #8</h2>"},
             cost(x) { return new Decimal(120) },
-            display() { return "<h2>x3 TFD</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
+            display() { return "<h2>x3 TFirD</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             effect() { return getBuyableAmount(this.layer, this.id).times(2).add(1) },
             buy() {
@@ -403,9 +402,9 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 51).gte(1)},
         },
         1062: {
-            title() {return "<h2>TFD #i8</h2>"},
+            title() {return "<h2>TFirD #i8</h2>"},
             cost(x) { return new Decimal(1.2e3) },
-            display() { return "<h2>x7 TFD</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
+            display() { return "<h2>x7 TFirD</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             effect() { return getBuyableAmount(this.layer, this.id).times(6).add(1) },
             buy() {
@@ -417,9 +416,9 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 62).gte(1) && (inChallenge('ITWRM', 11) || inChallenge('ITWRM', 12) || getBuyableAmount('NEGRM', 1051).gte(1))},
         },
         71: {
-            title() {return "<h2>TFD #9</h2>"},
+            title() {return "<h2>TFirD #9</h2>"},
             cost(x) { return new Decimal(500) },
-            display() { return "<h2>x2 Skill and TFD</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
+            display() { return "<h2>x2 Skill and TFirD</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             effect() { return getBuyableAmount(this.layer, this.id).times(1).add(1) },
             buy() {
@@ -431,9 +430,9 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 61).gte(1)},
         },
         1071: {
-            title() {return "<h2>TFD #i9</h2>"},
+            title() {return "<h2>TFirD #i9</h2>"},
             cost(x) { return new Decimal(5e3) },
-            display() { return "<h2>x5 Skill and TFD</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
+            display() { return "<h2>x5 Skill and TFirD</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             effect() { return getBuyableAmount(this.layer, this.id).times(4).add(1) },
             buy() {
@@ -445,9 +444,9 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 71).gte(1) && (inChallenge('ITWRM', 11) || inChallenge('ITWRM', 12) || getBuyableAmount('NEGRM', 1051).gte(1))},
         },
         72: {
-            title() {return "<h2>TFD #10</h2>"},
+            title() {return "<h2>TFirD #10</h2>"},
             cost(x) { return new Decimal(1.25e3) },
-            display() { return "<h2>x2.5 Skill and TFD</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
+            display() { return "<h2>x2.5 Skill and TFirD</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             effect() { return getBuyableAmount(this.layer, this.id).times(1.5).add(1) },
             buy() {
@@ -459,9 +458,9 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 62).gte(1)},
         },
         1072: {
-            title() {return "<h2>TFD #i10</h2>"},
+            title() {return "<h2>TFirD #i10</h2>"},
             cost(x) { return new Decimal(12.5e3) },
-            display() { return "<h2>x6 Skill and TFD</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
+            display() { return "<h2>x6 Skill and TFirD</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             effect() { return getBuyableAmount(this.layer, this.id).times(5).add(1) },
             buy() {
@@ -473,9 +472,9 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 72).gte(1) && (inChallenge('ITWRM', 11) || inChallenge('ITWRM', 12) || getBuyableAmount('NEGRM', 1051).gte(1))},
         },
         81: {
-            title() {return "<h2>TFD #11</h2>"},
+            title() {return "<h2>TFirD #11</h2>"},
             cost(x) { return new Decimal(5e3) },
-            display() { return "<h2>TFD Boost Skill</h2><br><h3>(TFD + 1)^0.1</h3><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
+            display() { return "<h2>TFirD Boost Skill</h2><br><h3>(TFirD + 1)^0.1</h3><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             effect() { return getBuyableAmount(this.layer, this.id).times(player[this.layer].points).add(1).pow(0.1) },
             buy() {
@@ -487,9 +486,9 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 71).gte(1) || getBuyableAmount(this.layer, 72).gte(1)},
         },
         1081: {
-            title() {return "<h2>TFD #i11</h2>"},
+            title() {return "<h2>TFirD #i11</h2>"},
             cost(x) { return new Decimal(50e3) },
-            display() { return "<h2>TFD Boost Skill</h2><br><h3>(TFD + 1)^0.3</h3><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
+            display() { return "<h2>TFirD Boost Skill</h2><br><h3>(TFirD + 1)^0.3</h3><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             effect() { return getBuyableAmount(this.layer, this.id).times(player[this.layer].points).add(1).pow(0.3) },
             buy() {
@@ -501,7 +500,7 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 81).gte(1) && (inChallenge('ITWRM', 11) || inChallenge('ITWRM', 12) || getBuyableAmount('NEGRM', 1051).gte(1))},
         },
         91: {
-            title() {return "<h2>TFD #12</h2>"},
+            title() {return "<h2>TFirD #12</h2>"},
             cost(x) { return new Decimal(10e3) },
             display() { return "<h2>Skill Boost Itself</h2><br><h3>log10(Skill + 1) + 1</h3><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
@@ -515,7 +514,7 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 81).gte(1)},
         },
         1091: {
-            title() {return "<h2>TFD #i12</h2>"},
+            title() {return "<h2>TFirD #i12</h2>"},
             cost(x) { return new Decimal(100e3) },
             display() { return "<h2>Skill Boost Itself</h2><br><h3>log5(Skill + 1) + 1</h3><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
@@ -529,7 +528,7 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 91).gte(1) && (inChallenge('ITWRM', 11) || inChallenge('ITWRM', 12) || getBuyableAmount('NEGRM', 1051).gte(1))},
         },
         101: {
-            title() {return "<h2>TFD #13</h2>"},
+            title() {return "<h2>TFirD #13</h2>"},
             cost(x) { return new Decimal(50e3) },
             display() { return "<h2>Unlock TLG</h2><br><br><br><br><h2>Cost: "+format(this.cost())+"</h2>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
@@ -542,7 +541,7 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 91).gte(1)},
         },
         1101: {
-            title() {return "<h2>TFD #i13</h2>"},
+            title() {return "<h2>TFirD #i13</h2>"},
             cost(x) { return new Decimal(500e3) },
             display() { return "<h2>x25 Skill</h2><br><br><br><br><h2>Cost: "+format(this.cost())+"</h2>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
@@ -555,9 +554,9 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 101).gte(1) && (inChallenge('ITWRM', 11) || inChallenge('ITWRM', 12) || getBuyableAmount('NEGRM', 1051).gte(1))},
         },
         111: {
-            title() {return "<h2>TFD #14</h2>"},
+            title() {return "<h2>TFirD #14</h2>"},
             cost(x) { return new Decimal(250e3) },
-            display() { return "<h2>Skill Boost TFD</h2><br><h3>log25(Skill + 1) + 1</h3><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
+            display() { return "<h2>Skill Boost TFirD</h2><br><h3>log25(Skill + 1) + 1</h3><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) && getBuyableAmount('NEGRM', 51).gte(1) },
             effect() { return getBuyableAmount(this.layer, this.id).times(player.points).add(1).log(25).add(1) },
             buy() {
@@ -569,7 +568,7 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 101).gte(1) && getBuyableAmount('NEGRM', 51).gte(1)},
         },
         121: {
-            title() {return "<h2>TFD #15</h2>"},
+            title() {return "<h2>TFirD #15</h2>"},
             cost(x) { return new Decimal(1e6) },
             display() { return "<h2>Reset Time Boost Skill</h2><br><h3>(RT + 1)^0.1 + 1</h3><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) && getBuyableAmount('NEGRM', 51).gte(1) },
@@ -583,7 +582,7 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 111).gte(1)},
         },
         131: {
-            title() {return "<h2>TFD #16a</h2>"},
+            title() {return "<h2>TFirD #16a</h2>"},
             cost(x) { return new Decimal(1e6).times(x.add(1).pow(2)) },
             display() { return "<h2>x2 Skill Per Level and Lock #16b</h2><br><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3><br>"+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit()) },
             canAfford() { return player[this.layer].points.gte(this.cost()) && (getBuyableAmount(this.layer, 132).lt(1) || hasMilestone('CSHRM', 2)) && getBuyableAmount('NEGRM', 51).gte(1) },
@@ -597,9 +596,9 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 121).gte(1)},
         },
         132: {
-            title() {return "<h2>TFD #16b</h2>"},
+            title() {return "<h2>TFirD #16b</h2>"},
             cost(x) { return new Decimal(1e6).times(x.add(1).pow(2)) },
-            display() { return "<h2>x1.2 Skill and TFD Per level and Lock #16a</h2><br><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3><br>"+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit()) },
+            display() { return "<h2>x1.2 Skill and TFirD Per level and Lock #16a</h2><br><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3><br>"+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit()) },
             canAfford() { return player[this.layer].points.gte(this.cost()) && (getBuyableAmount(this.layer, 131).lt(1) || hasMilestone('CSHRM', 2)) && getBuyableAmount('NEGRM', 51).gte(1) },
             effect() { return new Decimal(1.2).pow(getBuyableAmount(this.layer, this.id)) },
             buy() {
@@ -611,7 +610,7 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 121).gte(1)},
         },
         141: {
-            title() {return "<h2>TFD #17</h2>"},
+            title() {return "<h2>TFirD #17</h2>"},
             cost(x) { return new Decimal(2.5e6) },
             display() { return "<h2>Make the Nerf From Neg into a Buff and It now Boosts the Base but Nerf the Effect a Lot</h2><br><h3>now log25(x + 1) + 1</h3><br><br><br><h2>Cost: "+format(this.cost())+"</h2>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) && getBuyableAmount('NEGRM', 51).gte(1) },
@@ -624,9 +623,9 @@ addLayer("TFDRM", {
             unlocked() {return getBuyableAmount(this.layer, 131).gte(1) || getBuyableAmount(this.layer, 132).gte(1)},
         },
         151: {
-            title() {return "<h2>TFD #18</h2>"},
+            title() {return "<h2>TFirD #18</h2>"},
             cost(x) { return new Decimal(7.5e6) },
-            display() { return "<h2>TFD Boost Skill again</h2><br><h3>log10(TFD^2 + 1) + 1</h3><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
+            display() { return "<h2>TFirD Boost Skill again</h2><br><h3>log10(TFirD^2 + 1) + 1</h3><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) && getBuyableAmount('NEGRM', 51).gte(1) },
             effect() { return getBuyableAmount(this.layer, this.id).times(player[this.layer].points).pow(2).add(1).log10().add(1) },
             buy() {
@@ -761,7 +760,7 @@ addLayer("TLGRM", {
     row: 2,
     layerShown() {
         let vis = false
-        if(getBuyableAmount('TFDRM', 101).gte(1) || hasMilestone(this.layer, 0)) vis = true
+        if(getBuyableAmount('TFirDRM', 101).gte(1) || hasMilestone(this.layer, 0)) vis = true
         return vis
     },
     infoboxes: {
@@ -795,19 +794,19 @@ addLayer("TLGRM", {
         },
         1: {
             requirementDescription: "2 TLG",
-            effectDescription: "Unlock Ca$h also Autogain 25% of TFD/s and Remove its Reset Button",
+            effectDescription: "Unlock Ca$h also Autogain 25% of TFirD/s and Remove its Reset Button",
             done() { return player[this.layer].points.gte(2) },
             unlocked() {return hasMilestone(this.layer, this.id)},
         },
         2: {
             requirementDescription: "3 TLG",
-            effectDescription: "Unlock Unimpossible and Keep the Effect of Uprgade TFD #17",
+            effectDescription: "Unlock Unimpossible and Keep the Effect of Uprgade TFirD #17",
             done() { return player[this.layer].points.gte(3) },
             unlocked() {return hasMilestone(this.layer, this.id)},
         },
         3: {
             requirementDescription: "4 TLG",
-            effectDescription: "Unlock FLN and Autobuy the First 10 TFD Upgrades",
+            effectDescription: "Unlock FLN and Autobuy the First 10 TFirD Upgrades",
             done() { return player[this.layer].points.gte(4) },
             unlocked() {return hasMilestone(this.layer, this.id)},
         },
@@ -831,7 +830,7 @@ addLayer("TLGRM", {
         },
         7: {
             requirementDescription: "8 TLG",
-            effectDescription: "Unlock Exist AutoBuy the Next 8 TFD Upgrade and first 5 Neg Upgrades and Row 1 UIP Buyables",
+            effectDescription: "Unlock Exist AutoBuy the Next 8 TFirD Upgrade and first 5 Neg Upgrades and Row 1 UIP Buyables",
             done() { return player[this.layer].points.gte(8) },
             unlocked() {return hasMilestone(this.layer, this.id)},
         },
@@ -980,7 +979,7 @@ addLayer("NEGRM", {
                     function() {
                         let text = '-' + format(player[this.layer].layerEffect) + ' Skill gain [1.5^cbrt(x) - 1] [after All effects unless specifed]'
                         if(getBuyableAmount('NEGRM', 42).gte(1)) text = '-' + format(player[this.layer].layerEffect) + ' Skill gain [1.5^sqrt(x) - 1] [after All effects unless specifed]'
-                        if(getBuyableAmount('TFDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) text = '+' + format(player[this.layer].layerEffect) + ' Base Skill gain [log25(x + 1) + 1]'
+                        if(getBuyableAmount('TFirDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) text = '+' + format(player[this.layer].layerEffect) + ' Base Skill gain [log25(x + 1) + 1]'
                         if(getBuyableAmount('NEGRM', 1042).gte(1)) text = '+' + format(player[this.layer].layerEffect) + ' Base Skill gain [log20(x + 1) + 1]'
                         return text
                     },
@@ -1012,7 +1011,7 @@ addLayer("NEGRM", {
                     function() {
                         let text = '-' + format(player[this.layer].layerEffect) + ' Skill gain [1.5^cbrt(x) - 1] [after All effects unless specifed]'
                         if(getBuyableAmount('NEGRM', 42).gte(1)) text = '-' + format(player[this.layer].layerEffect) + ' Skill gain [1.5^sqrt(x) - 1] [after All effects unless specifed]'
-                        if(getBuyableAmount('TFDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) text = '+' + format(player[this.layer].layerEffect) + ' Base Skill gain [log25(x + 1) + 1]'
+                        if(getBuyableAmount('TFirDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) text = '+' + format(player[this.layer].layerEffect) + ' Base Skill gain [log25(x + 1) + 1]'
                         if(getBuyableAmount('NEGRM', 1042).gte(1)) text = '+' + format(player[this.layer].layerEffect) + ' Base Skill gain [log20(x + 1) + 1]'
                         return text
                     },
@@ -1045,7 +1044,7 @@ addLayer("NEGRM", {
                     function() {
                         let text = '-' + format(player[this.layer].layerEffect) + ' Skill gain [1.5^cbrt(x) - 1] [after All effects unless specifed]'
                         if(getBuyableAmount('NEGRM', 42).gte(1)) text = '-' + format(player[this.layer].layerEffect) + ' Skill gain [1.5^sqrt(x) - 1] [after All effects unless specifed]'
-                        if(getBuyableAmount('TFDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) text = '+' + format(player[this.layer].layerEffect) + ' Base Skill gain [log25(x + 1) + 1]'
+                        if(getBuyableAmount('TFirDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) text = '+' + format(player[this.layer].layerEffect) + ' Base Skill gain [log25(x + 1) + 1]'
                         if(getBuyableAmount('NEGRM', 1042).gte(1)) text = '+' + format(player[this.layer].layerEffect) + ' Base Skill gain [log20(x + 1) + 1]'
                         return text
                     },
@@ -1070,7 +1069,7 @@ addLayer("NEGRM", {
                     function() {
                         let text = '-' + format(player[this.layer].layerEffect) + ' Skill gain [1.5^cbrt(x) - 1] [after All effects unless specifed]'
                         if(getBuyableAmount('NEGRM', 42).gte(1)) text = '-' + format(player[this.layer].layerEffect) + ' Skill gain [1.5^sqrt(x) - 1] [after All effects unless specifed]'
-                        if(getBuyableAmount('TFDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) text = '+' + format(player[this.layer].layerEffect) + ' Base Skill gain [log25(x + 1) + 1]'
+                        if(getBuyableAmount('TFirDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) text = '+' + format(player[this.layer].layerEffect) + ' Base Skill gain [log25(x + 1) + 1]'
                         if(getBuyableAmount('NEGRM', 1042).gte(1)) text = '+' + format(player[this.layer].layerEffect) + ' Base Skill gain [log20(x + 1) + 1]'
                         return text
                     },
@@ -1221,7 +1220,7 @@ addLayer("NEGRM", {
         51: {
             title() {return "<h2>Neg #5</h2>"},
             cost(x) { return new Decimal(20) },
-            display() { return "<h2>x10 Skill, Unlock more TFD Upgrades and Autogain 10% of Neg/s</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
+            display() { return "<h2>x10 Skill, Unlock more TFirD Upgrades and Autogain 10% of Neg/s</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             effect() { return getBuyableAmount(this.layer, this.id).times(9).add(1) },
             buy() {
@@ -1235,7 +1234,7 @@ addLayer("NEGRM", {
         1051: {
             title() {return "<h2>Neg #i5</h2>"},
             cost(x) { return new Decimal(200) },
-            display() { return "<h2>/4 Skill, Unlock The Other TFD i Upgrades</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect().pow(-1))+"</h3>" },
+            display() { return "<h2>/4 Skill, Unlock The Other TFirD i Upgrades</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect().pow(-1))+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             effect() { return getBuyableAmount(this.layer, this.id).times(3).add(1).pow(-1) },
             buy() {
@@ -1267,7 +1266,7 @@ addLayer("NEGRM", {
         let effect = new Decimal(-1);
         effect = new Decimal(-1).add(new Decimal(1.5).pow(player[this.layer].points.cbrt()));
         if(getBuyableAmount(this.layer, 42).gte(1)) effect = new Decimal(-1).add(new Decimal(1.5).pow(player[this.layer].points.sqrt()));
-        if(getBuyableAmount('TFDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) effect = player[this.layer].points.add(1).log(25).add(1);
+        if(getBuyableAmount('TFirDRM', 141).gte(1) || hasMilestone('TLGRM', 2)) effect = player[this.layer].points.add(1).log(25).add(1);
         if(getBuyableAmount('NEGRM', 1042).gte(1)) effect = player[this.layer].points.add(1).log(20).add(1);
         player[this.layer].layerEffect = effect;
         if(hasMilestone('TLGRM', 7)) {
@@ -1403,7 +1402,7 @@ addLayer("CSHRM", {
         },
         2: {
             requirementDescription: "5 Ca$h",
-            effectDescription() {return "Ca$h Boosts Skill ($+1) and Allow Both Upgrades TFD #16a and #16b to be Bought Effect: x"+format(player[this.layer].points.add(1))},
+            effectDescription() {return "Ca$h Boosts Skill ($+1) and Allow Both Upgrades TFirD #16a and #16b to be Bought Effect: x"+format(player[this.layer].points.add(1))},
             done() { return player[this.layer].points.gte(5) },
         },
         3: {
@@ -1612,7 +1611,7 @@ addLayer("UIPRM", {
         12: {
             title() {return "<h2>AA #1</h2>"},
             cost(x) { return new Decimal(1).times(new Decimal(5).pow(x.pow(1.5))).times(buyableEffect(this.layer, 22)) },
-            display() { return "<h2>x"+format(buyableEffect(this.layer, 23))+" TFD per level</h2><br><br><br><h2>Cost: "+format(this.cost())+" AUI</h2><br><h3>Effect: x"+format(this.effect())+"</h3><br>"+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit()) },
+            display() { return "<h2>x"+format(buyableEffect(this.layer, 23))+" TFirD per level</h2><br><br><br><h2>Cost: "+format(this.cost())+" AUI</h2><br><h3>Effect: x"+format(this.effect())+"</h3><br>"+format(getBuyableAmount(this.layer, this.id))+"/"+format(this.purchaseLimit()) },
             canAfford() { return player[this.layer].pointsB.gte(this.cost()) },
             effect() { return buyableEffect(this.layer, 23).pow(getBuyableAmount(this.layer, this.id)) },
             buy() {
@@ -1922,7 +1921,7 @@ addLayer("FLNRM", {
         41: {
             title() {return "<h2>FLN #4</h2>"},
             cost(x) { return new Decimal(50e3) },
-            display() { return "<h2>x5 TFD, x3 Neg, x2 UIP, AUI, UUP and x1.5 FLN</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
+            display() { return "<h2>x5 TFirD, x3 Neg, x2 UIP, AUI, UUP and x1.5 FLN</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             effect() { return {1: getBuyableAmount(this.layer, this.id).times(4).add(1), 2: getBuyableAmount(this.layer, this.id).times(2).add(1), 3: getBuyableAmount(this.layer, this.id).times(1).add(1), 4: getBuyableAmount(this.layer, this.id).times(0.5).add(1)} },
             buy() {
@@ -1981,7 +1980,7 @@ addLayer("FLNRM", {
         72: {
             title() {return "<h2>FLN #7b</h2>"},
             cost(x) { return new Decimal(250e3) },
-            display() { return "<h2>+5 levels to TFD #16a and #16b and Lock #7a</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2>" },
+            display() { return "<h2>+5 levels to TFirD #16a and #16b and Lock #7a</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2>" },
             canAfford() { return player[this.layer].points.gte(this.cost()) && (getBuyableAmount(this.layer, 71).lt(1) || hasMilestone('TLGRM', 4)) },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())
@@ -4062,7 +4061,7 @@ addLayer("ITWRM", {
         },
         4: {
             requirementDescription: "5 ITW",
-            effectDescription: "Autobuy First 5 TFD i Upgrades",
+            effectDescription: "Autobuy First 5 TFirD i Upgrades",
             done() { return player[this.layer].points.gte(5) },
             unlocked() {return hasMilestone(this.layer, 3)}
         },
@@ -4143,7 +4142,7 @@ addLayer("ITWRM", {
     challenges: {
         11: {
             name: "First Win",
-            challengeDescription: "Lock Every layer Except This layer, TLG and TFD and Unlock More TFD and ^0.5 Skill",
+            challengeDescription: "Lock Every layer Except This layer, TLG and TFirD and Unlock More TFirD and ^0.5 Skill",
             goalDescription: "Get 1e10 Skill",
             rewardDescription: "Keep the First 5 Upgrades In this Challenge Unlocked",
             onEnter() {
@@ -4173,7 +4172,7 @@ addLayer("ITWRM", {
         },
         21: {
             name: "Negative Win",
-            challengeDescription: "Prev Challenge Effect but Not lock Neg and Unlock More Neg Upgrades but Don't Unlock i6-i13 TFD Upgrades",
+            challengeDescription: "Prev Challenge Effect but Not lock Neg and Unlock More Neg Upgrades but Don't Unlock i6-i13 TFirD Upgrades",
             goalDescription: "Get 5e9 Skill",
             rewardDescription: "Keep Row All Upgrades except Neg Upgrade #i5 In this Challenge Unlocked",
             onEnter() {
@@ -4488,8 +4487,8 @@ addLayer("ClassNeg", {
         return vis
     },
     tabFormat: {
-        "TFD": {
-            embedLayer: "TFDRM",
+        "TFirD": {
+            embedLayer: "TFirDRM",
             buttonStyle: {
                 "color": "#464646",
                 "border": "2px solid #464646",

@@ -115,7 +115,7 @@ addLayer("Event", {
     row: "side",
     layerShown() {return false},
     tabFormat: {
-        "Halloween": {
+        "Halloween 2026": {
             embedLayer: "Halloween",
             buttonStyle: {
                 "color": "#c07000",
