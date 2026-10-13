@@ -234,7 +234,6 @@ addLayer("Pumkin", {
             title: "Pumkins I",
             description: "x2 Pumkins",
             cost: new Decimal(10),
-            unlocked() {return player[this.layer].started},
         },
         12: {
             title: "Pumkins II",

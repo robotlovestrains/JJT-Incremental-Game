@@ -19,15 +19,18 @@ let modInfo = {
 }
 
 // Set your version num
-let value = "11.0"
+let value = "11.1"
 
 // Set your version and name
 let VERSION = {
 	num: "Alpha "+value,
-	name: "Halloween Update",
+	name: "Halloween Fix",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>vAlpha 11.1 Halloween Fix</h3><br>
+		- Fixed The Halloween Event<br>
+		<br>
 	<h3>vAlpha 11.0 Halloween Update</h3><br>
 		- Added Loops In Halloween Update<br>
 		- Removed The x1.5 Boost in Halloween Currentcies<br>
