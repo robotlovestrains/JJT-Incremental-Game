@@ -1,7 +1,7 @@
 let modInfo = {
 	name: "The JJT Incremental",
 	author: "RobotLovesTrains",
-	pointsName: "Skill  LAST CHANCE FOR HALLOWEEN EVENT",
+	pointsName: "Skill",
 	modFiles: [
 		"layers_extra/MiniGameI.js",
 		"layers_extra/EventOne.js",
@@ -20,15 +20,19 @@ let modInfo = {
 }
 
 // Set your version num
-let value = "12.0"
+let value = "12.1"
 
 // Set your version and name
 let VERSION = {
 	num: "Alpha "+value,
-	name: "Save Bank and More",
+	name: "Halloween End",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>vAlpha 12.1 Halloween End</h3><br>
+		- Removed The Obtainability of Halloween Boosts<br>
+		Halloween is Gone<br>
+		<br>
 	<h3>vAlpha 12.0 Save Bank and More</h3><br>
 		- Added More Content<br>
 		- Changed Colors For Most Difficulties (To be More Accurate)<br>

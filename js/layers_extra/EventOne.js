@@ -177,8 +177,6 @@ addLayer("Pumkin", {
         if(hasMilestone('MiniStones', 156)) mult = mult.times(2)
         mult = mult.times(new Decimal(5).pow(player['HalloweenLoop'].points))
 
-        mult = mult.times(1.5)
-
         return mult.times(100)
     },
     gainExp() {
@@ -552,8 +550,6 @@ addLayer("JoL", {
         if(hasMilestone('MiniStones', 156)) mult = mult.times(2)
         mult = mult.times(new Decimal(5).pow(player['HalloweenLoop'].points))
 
-        mult = mult.times(1.5)
-
         return mult
     },
     gainExp() {
@@ -857,8 +853,6 @@ addLayer("ToT", {
 
         if(hasMilestone('MiniStones', 156)) mult = mult.times(2)
         mult = mult.times(new Decimal(5).pow(player['HalloweenLoop'].points))
-
-        mult = mult.times(1.5)
 
         return mult
     },
@@ -1314,8 +1308,6 @@ addLayer("Witch", {
         if(player[this.layer].click51) mult = mult.add(1)
         if(player[this.layer].click61) mult = mult.add(1)
 
-        mult = mult.times(1.5)
-
         if(player['Witch'].points.lt(mult.add(1))) {
             player['Witch'].points = mult
         }
@@ -1642,8 +1634,6 @@ addLayer("Candy", {
         if(hasMilestone('MiniStones', 156)) mult = mult.times(2)
         mult = mult.times(new Decimal(5).pow(player['HalloweenLoop'].points))
 
-        mult = mult.times(1.5)
-
         return mult
     },
     SkittlesMult() {
@@ -1682,8 +1672,6 @@ addLayer("Candy", {
         if(hasMilestone('MiniStones', 156)) mult = mult.times(2)
         mult = mult.times(new Decimal(5).pow(player['HalloweenLoop'].points))
 
-        mult = mult.times(1.5)
-
         return mult
     },
     LaffyTaffyMult() {
@@ -1717,8 +1705,6 @@ addLayer("Candy", {
         if(hasMilestone('MiniStones', 156)) mult = mult.times(2)
         mult = mult.times(new Decimal(5).pow(player['HalloweenLoop'].points))
 
-        mult = mult.times(1.5)
-
         return mult
     },
     TootsieRollsMult() {
@@ -1746,8 +1732,6 @@ addLayer("Candy", {
 
         if(hasMilestone('MiniStones', 156)) mult = mult.times(2)
         mult = mult.times(new Decimal(5).pow(player['HalloweenLoop'].points))
-
-        mult = mult.times(1.5)
 
         return mult
     },

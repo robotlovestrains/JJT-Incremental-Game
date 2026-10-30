@@ -31,11 +31,11 @@ addLayer("MISC", {
                 "border": "2px solid #b4b4b4",
             },
         },
-        "Events (ACTIVE EVENT)": {
+        "Events": {
             embedLayer: "Event",
             buttonStyle: {
-                "color": "#797979",
-                "border": "2px solid #797979",
+                "color": "#444444",
+                "border": "2px solid #444444",
             },
         },
     },
@@ -112,7 +112,7 @@ addLayer("Event", {
         unlocked: true,
 		points: new Decimal(0),
     }},
-    color: "#797979",
+    color: "#444444",
     requires: new Decimal(1e1000),
     resource: "Event Points",
     baseResource: "Skill",
