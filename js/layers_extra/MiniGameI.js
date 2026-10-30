@@ -143,6 +143,8 @@ addLayer("Island1", {
         if(hasUpgrade('Prestige', 14)) mult = mult.times(4)
         if(hasUpgrade('Prestige', 22)) mult = mult.times(1.07)
         if(hasUpgrade('Prestige', 32)) mult = mult.times(10)
+        mult = mult.times(buyableEffect('Prestige', 11))
+        if(hasUpgrade('Prestige', 45)) mult = mult.times(10)
 
         if(player["Island3b"].click11) mult = mult.times(2)
         if(player["Island3b"].click12) mult = mult.times(3)
@@ -608,6 +610,8 @@ addLayer("Island2b", {
         if(hasUpgrade('Prestige', 21)) mult = mult.times(4)
         if(hasUpgrade('Prestige', 22)) mult = mult.times(1.07)
         if(hasUpgrade('Prestige', 32)) mult = mult.times(10)
+        mult = mult.times(buyableEffect('Prestige', 11))
+        if(hasUpgrade('Prestige', 45)) mult = mult.times(10)
         
         if(player["Island3b"].click11) mult = mult.times(1/4)
         if(player["Island3b"].click12) mult = mult.times(1/8)
@@ -1042,8 +1046,8 @@ addLayer("Island3a", {
     },
     upgrades: {
         11: {
-            title: "Third Island #25",
-            description: "-15 in the Log of Upgrade #6, and make the Limit in Upgrade #10 1e15, +1 Mult in the If Mult and +0.75 Mult in the Else Mult, +0.03 in the Exponent of Upgrade #15 and Unlock a Buyable",
+            title: "Third Island #25 (M)",
+            description: "-15 in the Log of Upgrade #6, and make the Limit in Upgrade #10 1e15, +1 Mult in the If Mult and +0.75 Mult in the Else Mult, +0.03 in the Exponent of Upgrade #15 and Unlock a Buyable (M Upgrades Are Milestones And Are Kept On Data Loads)",
             currencyDisplayName: "Sub-Skill",
             currencyInternalName: "points",
             currencyLayer: "Island1",
@@ -1575,6 +1579,8 @@ addLayer("Island3d", {
         if(hasUpgrade('Prestige', 14)) gain = gain.times(3)
         if(hasUpgrade('Prestige', 21)) gain = gain.times(3)
         if(hasUpgrade('Prestige', 32)) gain = gain.times(10)
+        mult = mult.times(buyableEffect('Prestige', 11))
+        if(hasUpgrade('Prestige', 45)) mult = mult.times(10)
 
         if(player['MiniSettings'].Mini1) return new Decimal(0)
         return gain
@@ -2389,7 +2395,7 @@ addLayer("Island3f", {
             unlocked() {return hasUpgrade(this.layer, 23)},
         },
         25: {
-            title: "Final I #50",
+            title: "Final I #50 (M)",
             description: "Unlock Research.. Wait Research thats odd.",
             currencyDisplayName: "Sub-Skill",
             currencyInternalName: "points",
@@ -2439,6 +2445,10 @@ addLayer("Research", {
         if(hasUpgrade('Prestige', 21)) mult = mult.times(3)
         if(hasUpgrade('Prestige', 22)) mult = mult.times(1.07)
         if(hasUpgrade('Prestige', 32)) mult = mult.times(10)
+        if(!hasUpgrade('Prestige', 53)) mult = mult.times(buyableEffect('Prestige', 11).pow(new Decimal(layers[this.layer].exponent).times(-1)))
+        mult = mult.times(buyableEffect('Prestige', 12))
+        if(hasUpgrade('Prestige', 45)) mult = mult.times(10)
+        if(hasUpgrade('Prestige', 52)) mult = mult.times(2)
 
         if(player[this.layer].secretone) mult = mult.times(1.1)
 
@@ -2583,7 +2593,7 @@ addLayer("Research", {
             unlocked() {return hasUpgrade(this.layer, 23)},
         },
         25: {
-            title: "Restart X #60",
+            title: "Restart X #60 (M)",
             description: "Autobuy Upgrades #31 - #40",
             cost: new Decimal(2),
             unlocked() {return hasUpgrade(this.layer, 24)},
@@ -2601,7 +2611,7 @@ addLayer("Research", {
             unlocked() {return hasUpgrade(this.layer, 31)},
         },
         33: {
-            title: "QoL I #76",
+            title: "QoL I #76 (M)",
             description: "AutoGain The First 10 Converters in Island 3 moners",
             cost: new Decimal(0),
             unlocked() {return hasUpgrade('Island3c', 25)},
@@ -2625,7 +2635,7 @@ addLayer("Research", {
             unlocked() {return hasUpgrade(this.layer, 35)},
         },
         42: {
-            title: "More Content III #80",
+            title: "More Content III #80 (M)",
             description: "Unlock More Upgrades In Island 3 area 3",
             cost: new Decimal(15),
             unlocked() {return hasUpgrade(this.layer, 41)},
@@ -2649,7 +2659,7 @@ addLayer("Research", {
             unlocked() {return hasUpgrade(this.layer, 44)},
         },
         51: {
-            title: "The Process I #90",
+            title: "The Process I #90 (M)",
             description: "+0.16 Exponnent in Upgrade #81",
             cost: new Decimal(200),
             unlocked() {return hasUpgrade(this.layer, 45)},
@@ -2709,7 +2719,7 @@ addLayer("Research", {
             unlocked() {return hasUpgrade(this.layer, 64)},
         },
         71: {
-            title: "Final II #100",
+            title: "Final II #100 (M)",
             description: "Unlock Prestige (Requires 2,000)",
             cost: new Decimal(0),
             canAfford() {return player[this.layer].points.gte(2e3)},
@@ -2743,6 +2753,23 @@ addLayer("Research", {
             buyUpgrade(this.layer, 44)
             buyUpgrade(this.layer, 45)
         }
+        if(hasUpgrade('Prestige', 44)) {
+            buyUpgrade(this.layer, 51)
+            buyUpgrade(this.layer, 52)
+            buyUpgrade(this.layer, 53)
+            buyUpgrade(this.layer, 54)
+            buyUpgrade(this.layer, 55)
+        }
+        if(hasUpgrade('Prestige', 53)) {
+            buyUpgrade(this.layer, 61)
+            buyUpgrade(this.layer, 62)
+            buyUpgrade(this.layer, 63)
+            buyUpgrade(this.layer, 64)
+            buyUpgrade(this.layer, 65)
+        }
+        if(hasUpgrade('Prestige', 54)) {
+            buyUpgrade(this.layer, 71)
+        }
     },
 })
 
@@ -2753,6 +2780,7 @@ addLayer("Prestige", {
     startData() { return {
         unlocked: true,
 		points: new Decimal(0),
+		boosters: new Decimal(0),
         secretone: false,
     }},
     color: "#ffff92",
@@ -2764,6 +2792,9 @@ addLayer("Prestige", {
     exponent: 0.1,
     gainMult() {
         mult = new Decimal(1)
+        
+        if(!hasUpgrade('Prestige', 54)) mult = mult.times(buyableEffect('Prestige', 12).pow(new Decimal(layers[this.layer].exponent).times(-1)))
+        mult = mult.times(buyableEffect('Prestige', 13))
 
         if(player['MiniSettings'].Mini1) return new Decimal(0)
         return mult
@@ -2771,12 +2802,32 @@ addLayer("Prestige", {
     gainExp() {
         return new Decimal(1)
     },
+    boostersGain() {
+        let gain = new Decimal(0)
+
+        if(hasUpgrade(this.layer, 35)) gain = gain.add(1)
+
+        if(hasUpgrade(this.layer, 41)) gain = gain.times(5)
+        if(hasUpgrade(this.layer, 42)) gain = gain.times(10)
+        if(hasUpgrade(this.layer, 43)) gain = gain.times(upgradeEffect(this.layer, 43))
+        if(hasUpgrade(this.layer, 51)) gain = gain.times(25)
+        if(hasUpgrade(this.layer, 52)) gain = gain.times(100)
+
+        if(player[this.layer].secretone) gain = gain.times(2)
+        if(player['MiniSettings'].Mini1) return new Decimal(0)
+
+        return gain
+    },
     row: "side",
     layerShown() {return false},
     infoboxes: {
         1: {
             title: "Info About this layer",
             body() { return "Prestiged Upgrades" },
+        },
+        2: {
+            title: "Info About this layer 2",
+            body() { return "Boosters? also Buyables Not Kept on Save Bank" },
         },
     },
     resetsNothing: true,
@@ -2815,30 +2866,46 @@ addLayer("Prestige", {
         player["Research"].upgrades = []
         player["Research"].milestones = []
     },
-    tabFormat: [
-        ["infobox", 1],
-        ["display-text",
-        function() { return 'You have ' + format(player["Island1"].points) + ' Sub-Skill' },
-        { "color": "green", "font-size": "24px"}],
-        ["display-text",
-        function() { return 'You have ' + format(player["Island2b"].points) + ' Money' },
-        { "color": "lime", "font-size": "24px"}],
-        ["display-text",
-        function() { return 'You have ' + format(player["Island3d"].points) + ' Moners' },
-        { "color": "green", "font-size": "24px"}],
-        ["display-text",
-        function() { return 'You have ' + format(player["Research"].points) + ' Research' },
-        { "color": "#00ffff", "font-size": "24px"}],
-        "blank",
-        "main-display", 
-        ["prestige-button", "normal"],
-        "resource-display",
-        "blank",
-        "blank",
-        "milestones",
-        "blank",
-        "upgrades",
-    ],
+    tabFormat: {
+        "Main": {
+            content: [
+                ["infobox", 1],
+                ["display-text",
+                function() { return 'You have ' + format(player["Island1"].points) + ' Sub-Skill' },
+                { "color": "green", "font-size": "24px"}],
+                ["display-text",
+                function() { return 'You have ' + format(player["Island2b"].points) + ' Money' },
+                { "color": "lime", "font-size": "24px"}],
+                ["display-text",
+             function() { return 'You have ' + format(player["Island3d"].points) + ' Moners' },
+                { "color": "green", "font-size": "24px"}],
+                ["display-text",
+                function() { return 'You have ' + format(player["Research"].points) + ' Research' },
+                { "color": "#00ffff", "font-size": "24px"}],
+                "blank",
+                "main-display", 
+                ["prestige-button", "normal"],
+                "resource-display",
+                "blank",
+                "blank",
+                "milestones",
+                "blank",
+                "upgrades",
+            ],
+        },
+        "Booster": {
+            content: [
+                ["infobox", 2],
+                ["display-text",
+                function() { return 'You have ' + format(player[this.layer].boosters) + ' Boosters' },
+                { "color": "blue", "font-size": "24px"}],
+                "blank",
+                "blank",
+                "buyables",
+            ],
+            unlocked() {return hasUpgrade('Prestige', 35)},
+        },
+    },
     milestones: {
         0: {
             requirementDescription: "1 Prestige",
@@ -2846,6 +2913,59 @@ addLayer("Prestige", {
             done() { return player[this.layer].points.gte(1) },
             unlocked() {return hasMilestone(this.layer, this.id)},
         }
+    },
+    buyables: {
+        11: {
+            cost(x) { return new Decimal(10).pow(0.5).pow(x.add(2)) },
+            title: 'Island "Booster"',
+            display() { return "x2 'Effect' Per Level Boost: x"+format(this.effect())+" Sub Skill, Money and Moner But /"+format(this.effect().pow(layers['Research'].exponent))+" Research Cost: "+format(this.cost())+" Boosters" },
+            effect() {
+                let effect = new Decimal(1)
+
+                effect = effect.times(new Decimal(2).pow(getBuyableAmount(this.layer, this.id)))
+
+                return effect
+            },
+            canAfford() { return player[this.layer].boosters.gte(this.cost()) },
+            buy() {
+                player[this.layer].boosters = player[this.layer].boosters.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+        },
+        12: {
+            cost(x) { return new Decimal(15).pow(0.5).pow(x.add(2))},
+            title: 'Research "Booster"',
+            display() { return "x2 'Effect' Per Level Boost: x"+format(this.effect())+" Research But /"+format(this.effect().pow(layers['Prestige'].exponent))+" Prestige Cost: "+format(this.cost())+" Boosters" },
+            effect() {
+                let effect = new Decimal(1)
+
+                effect = effect.times(new Decimal(2).pow(getBuyableAmount(this.layer, this.id)))
+
+                return effect
+            },
+            canAfford() { return player[this.layer].boosters.gte(this.cost()) },
+            buy() {
+                player[this.layer].boosters= player[this.layer].boosters.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+        },
+        13: {
+            cost(x) { return new Decimal(50).pow(0.5).pow(x.add(2))},
+            title: 'Prestige Booster',
+            display() { return "x2 Prestige Per Level Boost: x"+format(this.effect())+" Prestige Cost: "+format(this.cost())+" Boosters" },
+            effect() {
+                let effect = new Decimal(1)
+
+                effect = effect.times(new Decimal(2).pow(getBuyableAmount(this.layer, this.id)))
+
+                return effect
+            },
+            canAfford() { return player[this.layer].boosters.gte(this.cost()) },
+            buy() {
+                player[this.layer].boosters = player[this.layer].boosters.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+        },
     },
     upgrades: {
         11: {
@@ -2872,7 +2992,7 @@ addLayer("Prestige", {
             unlocked() {return hasUpgrade(this.layer, 13)},
         },
         15: {
-            title: "Rebirth V #105",
+            title: "Rebirth V #105 (M)",
             description: "Autobuy Upgrades #63 - #80 and +4% of Research/s",
             cost: new Decimal(1),
             unlocked() {return hasUpgrade(this.layer, 14)},
@@ -2902,7 +3022,7 @@ addLayer("Prestige", {
             unlocked() {return hasUpgrade(this.layer, 23)},
         },
         25: {
-            title: "Rebirth X #110",
+            title: "Rebirth X #110 (M)",
             description: "Autogain the First 5 Converters in Island 3 moners",
             cost: new Decimal(1),
             unlocked() {return hasUpgrade(this.layer, 24)},
@@ -2932,13 +3052,87 @@ addLayer("Prestige", {
             unlocked() {return hasUpgrade(this.layer, 33)},
         },
         35: {
-            title: "Rebirth XV #115",
-            description: "Unlock Something (ENDGAME.. FOR NOW Also x2 Currency When Bought Before Minigame Update)",
-            onPurchase() {
-                player[this.layer].secretone = true
-            },
-            cost: new Decimal(20),
+            title: "Rebirthed Unlock I #115 (M)",
+            description: 'Unlock "Boosters"',
+            cost: new Decimal(2),
             unlocked() {return hasUpgrade(this.layer, 34)},
         },
+        41: {
+            title: "Rebirth Booster I #116",
+            description: "x5 Boosters",
+            cost: new Decimal(5),
+            unlocked() {return hasUpgrade(this.layer, 35)},
+        },
+        42: {
+            title: "Rebirth Booster II #117",
+            description: "x10 Boosters",
+            cost: new Decimal(10),
+            unlocked() {return hasUpgrade(this.layer, 41)},
+        },
+        43: {
+            title: "Rebirth Booster III #118",
+            description() {
+                let Text = ""
+                Text = "Prestige Boost Boosters 1.1^(x^0.5 + 1) [x] [Cap: 5,000]"
+                return Text
+            },
+            effect() {
+                let Effect = new Decimal(1)
+
+                Effect = new Decimal(1).times(new Decimal(1.1).pow(player[this.layer].points.pow(0.5).add(1)))
+
+                Effect = new Decimal.min(Effect, new Decimal(5e3))
+                return Effect
+            },
+            effectDisplay() {return "x"+format(upgradeEffect(this.layer, this.id))+" Boosters"},
+            cost: new Decimal(10),
+            unlocked() {return hasUpgrade(this.layer, 42)},
+        },
+        44: {
+            title: "Rebirth XV #119",
+            description: "AutoBuy Upgrades #90 → #94",
+            cost: new Decimal(10),
+            unlocked() {return hasUpgrade(this.layer, 43)},
+        },
+        45: {
+            title: "Rebirth XVI #120 (M)",
+            description: "x10 Sub-Skill, Money, Moners and Research",
+            cost: new Decimal(25),
+            unlocked() {return hasUpgrade(this.layer, 44)},
+        },
+        51: {
+            title: "Rebirth Booster IV #121",
+            description: "x25 Boosters",
+            cost: new Decimal(50),
+            unlocked() {return hasUpgrade(this.layer, 45)},
+        },
+        52: {
+            title: "Rebirth Booster V #122",
+            description: "x100 Boosters and x2 Research",
+            cost: new Decimal(100),
+            unlocked() {return hasUpgrade(this.layer, 51)},
+        },
+        53: {
+            title: "Rebirth Booster VI #123",
+            description: "Remove Island Booster's Nerf and AutoBuy Upgrades #95 → #99",
+            cost: new Decimal(1e3),
+            unlocked() {return hasUpgrade(this.layer, 52)},
+        },
+        54: {
+            title: "Rebirth Booster VII #124",
+            description: "Remove Research Booster's Nerf and Upgrades #100",
+            cost: new Decimal(2e3),
+            unlocked() {return hasUpgrade(this.layer, 53)},
+        },
+        55: {
+            title: "Final III #125 (M)",
+            description: "Unlock Prestige Power (Requires 5,000) [ENDGAME]",
+            cost: new Decimal(0),
+            canAfford() {return player[this.layer].points.gte(5e3)},
+            unlocked() {return hasUpgrade(this.layer, 54)},
+        },
+    },
+    automate() {
+        player[this.layer].boosters = player[this.layer].boosters.add(layers[this.layer].boostersGain().times(0.05))
     },
 })

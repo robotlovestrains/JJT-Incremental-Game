@@ -9,6 +9,7 @@ addLayer("MSLRM", {
         timeEffect: new Decimal(0),
         timeEffectb: new Decimal(0),
         timeEffectc: new Decimal(0),
+        timeEffectd: new Decimal(0),
     }},
     color: "#f470fe",
     requires: new Decimal(1e85),
@@ -37,6 +38,7 @@ addLayer("MSLRM", {
         let Gen = new Decimal(0)
 
         if(getBuyableAmount('WINRM', 31).gte(1)) Gen = Gen.add(0.25)
+        if(getBuyableAmount('WSMRM', 51).gte(1)) Gen = Gen.add(0.75)
 
         return Gen
     },
@@ -60,6 +62,9 @@ addLayer("MSLRM", {
         if(getBuyableAmount(this.layer, 121).gte(1)) gain = gain.times(buyableEffect(this.layer, 121));
         if(getBuyableAmount('WSMRM', 21).gte(1)) gain = gain.times(buyableEffect('WSMRM', 21));
         if(getBuyableAmount('WSMRM', 31).gte(1)) gain = gain.times(buyableEffect('WSMRM', 31));
+        if(getBuyableAmount('DNTRM', 31).gte(1)) mult = mult.times(buyableEffect('DNTRM', 31));
+        if(getBuyableAmount('WSMRM', 41).gte(1)) gain = gain.times(buyableEffect('WSMRM', 41));
+        if(getBuyableAmount('WSMRM', 51).gte(1)) gain = gain.times(buyableEffect('WSMRM', 51));
 
         let exp = new Decimal(1);
 
@@ -167,6 +172,9 @@ addLayer("MSLRM", {
                     { "color": "#fac2ff", "font-size": "24px" }],
                 ["display-text",
                     function() { if(getBuyableAmount(this.layer, 81).gte(1)) return 'x' + format(player[this.layer].timeEffectc) + ' Skill' },
+                    { "color": "#fac2ff", "font-size": "24px" }],
+                ["display-text",
+                    function() { if(getBuyableAmount('BSGRM', 11).gte(1)) return 'x' + format(player[this.layer].timeEffectd) + ' All Class Negitive Non-Static Layers' },
                     { "color": "#fac2ff", "font-size": "24px" }],
             ],
             unlocked() {return getBuyableAmount('MSLRM', 11).gte(1)},
@@ -440,6 +448,61 @@ addLayer("MSLRM", {
         effect = new Decimal(5e3).pow(new Decimal.max(player[this.layer].time.add(-5), new Decimal(1)).pow(1.2).log10());
 
         player[this.layer].timeEffectc = effect;
+
+        effect = new Decimal(1.5).pow(new Decimal.max(player[this.layer].time.add(-1577880000), new Decimal(1)).pow(1.2).log10());
+
+        player[this.layer].timeEffectd = effect;
+
+        if(hasMilestone('TLGRM', 21)) {
+            if(layers[this.layer].buyables[11].canAfford() && getBuyableAmount(this.layer, 11).lt(layers[this.layer].buyables[11].purchaseLimit)) {
+                layers[this.layer].buyables[11].buy()
+            };
+            if(layers[this.layer].buyables[21].canAfford() && getBuyableAmount(this.layer, 21).lt(layers[this.layer].buyables[21].purchaseLimit)) {
+                layers[this.layer].buyables[21].buy()
+            };
+            if(layers[this.layer].buyables[31].canAfford() && getBuyableAmount(this.layer, 31).lt(layers[this.layer].buyables[31].purchaseLimit)) {
+               layers[this.layer].buyables[31].buy()
+            };
+            if(layers[this.layer].buyables[41].canAfford() && getBuyableAmount(this.layer, 41).lt(layers[this.layer].buyables[41].purchaseLimit)) {
+                layers[this.layer].buyables[41].buy()
+            };
+            if(layers[this.layer].buyables[42].canAfford() && getBuyableAmount(this.layer, 42).lt(layers[this.layer].buyables[42].purchaseLimit)) {
+                layers[this.layer].buyables[42].buy()
+            };
+            if(layers[this.layer].buyables[51].canAfford() && getBuyableAmount(this.layer, 51).lt(layers[this.layer].buyables[51].purchaseLimit)) {
+                layers[this.layer].buyables[51].buy()
+            };
+            if(layers[this.layer].buyables[52].canAfford() && getBuyableAmount(this.layer, 52).lt(layers[this.layer].buyables[52].purchaseLimit)) {
+                layers[this.layer].buyables[52].buy()
+            };
+            if(layers[this.layer].buyables[61].canAfford() && getBuyableAmount(this.layer, 61).lt(layers[this.layer].buyables[61].purchaseLimit)) {
+                layers[this.layer].buyables[61].buy()
+            };
+            if(layers[this.layer].buyables[71].canAfford() && getBuyableAmount(this.layer, 71).lt(layers[this.layer].buyables[71].purchaseLimit)) {
+                layers[this.layer].buyables[71].buy()
+            };
+            if(layers[this.layer].buyables[81].canAfford() && getBuyableAmount(this.layer, 81).lt(layers[this.layer].buyables[81].purchaseLimit)) {
+               layers[this.layer].buyables[81].buy()
+            };
+            if(layers[this.layer].buyables[91].canAfford() && getBuyableAmount(this.layer, 91).lt(layers[this.layer].buyables[91].purchaseLimit)) {
+                layers[this.layer].buyables[91].buy()
+            };
+            if(layers[this.layer].buyables[101].canAfford() && getBuyableAmount(this.layer, 101).lt(layers[this.layer].buyables[101].purchaseLimit)) {
+                layers[this.layer].buyables[101].buy()
+            };
+            if(layers[this.layer].buyables[102].canAfford() && getBuyableAmount(this.layer, 102).lt(layers[this.layer].buyables[102].purchaseLimit)) {
+                layers[this.layer].buyables[102].buy()
+            };
+            if(layers[this.layer].buyables[111].canAfford() && getBuyableAmount(this.layer, 111).lt(layers[this.layer].buyables[111].purchaseLimit)) {
+                layers[this.layer].buyables[111].buy()
+            };
+            if(layers[this.layer].buyables[121].canAfford() && getBuyableAmount(this.layer, 121).lt(layers[this.layer].buyables[121].purchaseLimit)) {
+                layers[this.layer].buyables[121].buy()
+            };
+            if(layers[this.layer].buyables[131].canAfford() && getBuyableAmount(this.layer, 131).lt(layers[this.layer].buyables[131].purchaseLimit)) {
+               layers[this.layer].buyables[131].buy()
+            };
+        }
     },
 })
 
@@ -478,6 +541,7 @@ addLayer("WINRM", {
         let Gen = new Decimal(0)
 
         if(getBuyableAmount(this.layer, 41).gte(1)) Gen = Gen.add(0.25)
+        if(getBuyableAmount('WSMRM', 51).gte(1)) Gen = Gen.add(0.75)
 
         return Gen
     },
@@ -610,6 +674,25 @@ addLayer("WINRM", {
         if(player['ITWRM'].ActiveChallenge) inactive = true
         return inactive
     },
+    automate() {
+        if(hasMilestone('TLGRM', 21)) {
+            if(layers[this.layer].buyables[11].canAfford() && getBuyableAmount(this.layer, 11).lt(layers[this.layer].buyables[11].purchaseLimit)) {
+                layers[this.layer].buyables[11].buy()
+            };
+            if(layers[this.layer].buyables[21].canAfford() && getBuyableAmount(this.layer, 21).lt(layers[this.layer].buyables[21].purchaseLimit)) {
+                layers[this.layer].buyables[21].buy()
+            };
+            if(layers[this.layer].buyables[31].canAfford() && getBuyableAmount(this.layer, 31).lt(layers[this.layer].buyables[31].purchaseLimit)) {
+               layers[this.layer].buyables[31].buy()
+            };
+            if(layers[this.layer].buyables[41].canAfford() && getBuyableAmount(this.layer, 41).lt(layers[this.layer].buyables[41].purchaseLimit)) {
+                layers[this.layer].buyables[41].buy()
+            };
+            if(layers[this.layer].buyables[51].canAfford() && getBuyableAmount(this.layer, 51).lt(layers[this.layer].buyables[51].purchaseLimit)) {
+                layers[this.layer].buyables[51].buy()
+            };
+        }
+    },
 })
 
 addLayer("WSMRM", {
@@ -620,9 +703,9 @@ addLayer("WSMRM", {
         unlocked: true,
 		points: new Decimal(0),
     }},
-    color: "#77a6e7",
+    color: "#79cdff",
     requires: new Decimal(1e175),
-    resource: "Win",
+    resource: "Winsome",
     baseResource: "Skill",
     baseAmount() {return player.points},
     type: "normal",
@@ -645,6 +728,7 @@ addLayer("WSMRM", {
         let Gen = new Decimal(0)
 
         if(getBuyableAmount('WINRM', 51).gte(1)) Gen = Gen.add(0.25)
+        if(getBuyableAmount(this.layer, 51).gte(1)) Gen = Gen.add(0.75)
 
         return Gen
     },
@@ -662,7 +746,7 @@ addLayer("WSMRM", {
                 "blank",
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].points) + ' Winsome (WIN)' },
-                    { "color": "#0badff", "font-size": "24px" }],
+                    { "color": "#3ca8fe", "font-size": "24px" }],
                 "blank",
                 ["row", [["buyable", 11]]],
                 "blank",
@@ -671,6 +755,12 @@ addLayer("WSMRM", {
                 "blank",
                 "blank",
                 ["row", [["buyable", 31]]],
+                "blank",
+                "blank",
+                ["row", [["buyable", 41]]],
+                "blank",
+                "blank",
+                ["row", [["buyable", 51]]],
             ],
         },
         "Reset": {
@@ -679,7 +769,7 @@ addLayer("WSMRM", {
                 "blank",
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].points) + ' Winsome (WSM)' },
-                    { "color": "#0badff", "font-size": "24px" }],
+                    { "color": "#3ca8fe", "font-size": "24px" }],
                 "blank",
                 "prestige-button",
             ],
@@ -691,10 +781,10 @@ addLayer("WSMRM", {
                 "blank",
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].points) + ' Winsome (WSM)' },
-                    { "color": "#0badff", "font-size": "24px" }],
+                    { "color": "#3ca8fe", "font-size": "24px" }],
                 ["display-text",
                     function() { return 'You are gaining +' + format(layers[this.layer].passiveGeneration().times(getResetGain(this.layer))) + ' WSM/s and the percent is '+format(layers[this.layer].passiveGeneration().times(100))+'%' },
-                    { "color": "#0badff", "font-size": "16px" }],
+                    { "color": "#3ca8fe", "font-size": "16px" }],
             ],
             unlocked() {return layers['WSMRM'].passiveGeneration().gt(0)},
         },
@@ -715,7 +805,7 @@ addLayer("WSMRM", {
         21: {
             title() {return "<h2>WSM #2</h2>"},
             cost(x) { return new Decimal(1) },
-            display() { return "<h2>x25 Time</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2>" },
+            display() { return "<h2>x25 Time</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><h3>Effect: x"+format(this.effect())+"</h3>" },
             effect() { return getBuyableAmount(this.layer, this.id).times(24).add(1) },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
@@ -729,8 +819,374 @@ addLayer("WSMRM", {
         31: {
             title() {return "<h2>WSM #3</h2>"},
             cost(x) { return new Decimal(5) },
-            display() { return "<h2>x40 Time</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2>" },
+            display() { return "<h2>x40 Time</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><h3>Effect: x"+format(this.effect())+"</h3>" },
             effect() { return getBuyableAmount(this.layer, this.id).times(39).add(1) },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: new Decimal(1),
+            branches: [41],
+            unlocked() {return getBuyableAmount(this.layer, 21).gte(1)},
+        },
+        41: {
+            title() {return "<h2>WSM #4</h2>"},
+            cost(x) { return new Decimal(500) },
+            display() { return "<h2>x10 Time</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><h3>Effect: x"+format(this.effect())+"</h3>" },
+            effect() { return getBuyableAmount(this.layer, this.id).times(9).add(1) },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: new Decimal(1),
+            branches: [51],
+            unlocked() {return getBuyableAmount('DNTRM', 51).gte(1)},
+        },
+        51: {
+            title() {return "<h2>WSM #5</h2>"},
+            cost(x) { return new Decimal(500) },
+            display() { return "<h2>x25 Time again and +75% of MSL, Win and WSM/s</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2>" },
+            effect() { return getBuyableAmount(this.layer, this.id).times(24).add(1) },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: new Decimal(1),
+            branches: [],
+            unlocked() {return getBuyableAmount(this.layer, 41).gte(1)},
+        },
+    },
+    deactivated() {
+        let inactive = false
+        if(player['ITWRM'].ActiveChallenge) inactive = true
+        return inactive
+    },
+    automate() {
+        if(hasMilestone('TLGRM', 21)) {
+            if(layers[this.layer].buyables[11].canAfford() && getBuyableAmount(this.layer, 11).lt(layers[this.layer].buyables[11].purchaseLimit)) {
+                layers[this.layer].buyables[11].buy()
+            };
+            if(layers[this.layer].buyables[21].canAfford() && getBuyableAmount(this.layer, 21).lt(layers[this.layer].buyables[21].purchaseLimit)) {
+                layers[this.layer].buyables[21].buy()
+            };
+            if(layers[this.layer].buyables[31].canAfford() && getBuyableAmount(this.layer, 31).lt(layers[this.layer].buyables[31].purchaseLimit)) {
+               layers[this.layer].buyables[31].buy()
+            };
+            if(layers[this.layer].buyables[41].canAfford() && getBuyableAmount(this.layer, 41).lt(layers[this.layer].buyables[41].purchaseLimit)) {
+                layers[this.layer].buyables[41].buy()
+            };
+            if(layers[this.layer].buyables[51].canAfford() && getBuyableAmount(this.layer, 51).lt(layers[this.layer].buyables[51].purchaseLimit)) {
+                layers[this.layer].buyables[51].buy()
+            };
+        }
+    },
+})
+
+addLayer("DNTRM", {
+    name: "Do Nothing",
+    symbol: "DNT",
+    position: 18,
+    startData() { return {
+        unlocked: true,
+		points: new Decimal(0),
+    }},
+    color: "#9fd1e5",
+    requires: new Decimal(1e200),
+    resource: "Do Nothing",
+    baseResource: "Skill",
+    baseAmount() {return player.points},
+    type: "normal",
+    exponent: 0.05,
+    gainMult() {
+        mult = new Decimal(1)
+
+        if(getBuyableAmount(this.layer, 11).gte(1)) mult = mult.times(buyableEffect(this.layer, 11))
+
+        return mult
+    },
+    gainExp() {
+        return new Decimal(1)
+    },
+    row: 0,
+    layerShown() {
+        let vis = false
+        if(hasMilestone('TLGRM', 20)) vis = true
+        return vis
+    },
+    passiveGeneration() {
+        let Gen = new Decimal(1)
+
+        return Gen
+    },
+    infoboxes: {
+        1: {
+            title: "Info About this layer",
+            body() { return "Don't Need To Do Anything" },
+        },
+    },
+    resetDescription: "Reset Skill For ",
+    tabFormat: {
+        "Upgrades": {
+            content: [
+                ["infobox", 1],
+                "blank",
+                ["display-text",
+                    function() { return 'You have ' + format(player[this.layer].points) + ' Do Nothing (DNT)' },
+                    { "color": "#ffffff", "font-size": "24px" }],
+                "blank",
+                ["row", [["buyable", 11]]],
+                "blank",
+                "blank",
+                ["row", [["buyable", 21]]],
+                "blank",
+                "blank",
+                ["row", [["buyable", 31]]],
+                "blank",
+                "blank",
+                ["row", [["buyable", 41]]],
+                "blank",
+                "blank",
+                ["row", [["buyable", 51]]],
+            ],
+        },
+        "Reset": {
+            content: [
+                ["infobox", 1],
+                "blank",
+                ["display-text",
+                    function() { return 'You have ' + format(player[this.layer].points) + ' Do Nothing (DNT)' },
+                    { "color": "#ffffff", "font-size": "24px" }],
+                "blank",
+                "prestige-button",
+            ],
+            unlocked() {return layers['DNTRM'].passiveGeneration().lt(0.25)},
+        },
+        "Autogain": {
+            content: [
+                ["infobox", 1],
+                "blank",
+                ["display-text",
+                    function() { return 'You have ' + format(player[this.layer].points) + ' Do Nothing (DNT)' },
+                    { "color": "#ffffff", "font-size": "24px" }],
+                ["display-text",
+                    function() { return 'You are gaining +' + format(layers[this.layer].passiveGeneration().times(getResetGain(this.layer))) + ' DNT/s and the percent is '+format(layers[this.layer].passiveGeneration().times(100))+'%' },
+                    { "color": "#ffffff", "font-size": "16px" }],
+            ],
+            unlocked() {return layers['DNTRM'].passiveGeneration().gt(0)},
+        },
+    },
+    buyables: {
+        11: {
+            title() {return "<h2>DNT #1</h2>"},
+            cost(x) { return new Decimal(1) },
+            display() { return "<h2>x2 DNT</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><h3>Effect: x"+format(this.effect())+"</h3>" },
+            effect() { return getBuyableAmount(this.layer, this.id).times(1).add(1) },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: new Decimal(1),
+            branches: [21],
+        },
+        21: {
+            title() {return "<h2>DNT #2</h2>"},
+            cost(x) { return new Decimal(5) },
+            display() { return "<h2>x2 Skill</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><h3>Effect: x"+format(this.effect())+"</h3>" },
+            effect() { return getBuyableAmount(this.layer, this.id).times(1).add(1) },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: new Decimal(1),
+            branches: [31],
+            unlocked() {return getBuyableAmount(this.layer, 11).gte(1)},
+        },
+        31: {
+            title() {return "<h2>DNT #3</h2>"},
+            cost(x) { return new Decimal(10) },
+            display() { return "<h2>MSL Boost Time</h2><br><h3>log10(MSL + 1) / 10 + 1</h3><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            effect() { return player['MSLRM'].points.add(1).log10().times(0.1).add(1) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: new Decimal(1),
+            branches: [41],
+            unlocked() {return getBuyableAmount(this.layer, 21).gte(1)},
+        },
+        41: {
+            title() {return "<h2>DNT #4</h2>"},
+            cost(x) { return new Decimal(50) },
+            display() { return "<h2>Unlock The RLX Upgrades From ITW Challange Instant Win</h3><br><br><h2>Cost: "+format(this.cost())+"</h2>" },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: new Decimal(1),
+            branches: [51],
+            unlocked() {return getBuyableAmount(this.layer, 31).gte(1)},
+        },
+        51: {
+            title() {return "<h2>DNT #5</h2>"},
+            cost(x) { return new Decimal(100) },
+            display() { return "<h2>Unlock More WSM Upgrades</h3><br><br><h2>Cost: "+format(this.cost())+"</h2>" },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: new Decimal(1),
+            branches: [],
+            unlocked() {return getBuyableAmount(this.layer, 41).gte(1)},
+        },
+    },
+    deactivated() {
+        let inactive = false
+        if(player['ITWRM'].ActiveChallenge) inactive = true
+        return inactive
+    },
+    automate() {
+        if(layers[this.layer].buyables[11].canAfford() && getBuyableAmount(this.layer, 11).lt(layers[this.layer].buyables[11].purchaseLimit)) {
+            layers[this.layer].buyables[11].buy()
+        };
+        if(layers[this.layer].buyables[21].canAfford() && getBuyableAmount(this.layer, 21).lt(layers[this.layer].buyables[21].purchaseLimit)) {
+            layers[this.layer].buyables[21].buy()
+        };
+        if(layers[this.layer].buyables[31].canAfford() && getBuyableAmount(this.layer, 31).lt(layers[this.layer].buyables[31].purchaseLimit)) {
+            layers[this.layer].buyables[31].buy()
+        };
+        if(layers[this.layer].buyables[41].canAfford() && getBuyableAmount(this.layer, 41).lt(layers[this.layer].buyables[41].purchaseLimit)) {
+            layers[this.layer].buyables[41].buy()
+        };
+        if(layers[this.layer].buyables[51].canAfford() && getBuyableAmount(this.layer, 51).lt(layers[this.layer].buyables[51].purchaseLimit)) {
+            layers[this.layer].buyables[51].buy()
+        };
+    },
+})
+
+addLayer("BSGRM", {
+    name: "Blessing",
+    symbol: "BSG",
+    position: 19,
+    startData() { return {
+        unlocked: true,
+		points: new Decimal(0),
+    }},
+    color: "#36b08d",
+    requires: new Decimal(1e256),
+    resource: "Blessing",
+    baseResource: "Skill",
+    baseAmount() {return player.points},
+    type: "normal",
+    exponent: 0.05,
+    gainMult() {
+        mult = new Decimal(1)
+
+        return mult
+    },
+    gainExp() {
+        return new Decimal(1)
+    },
+    row: 0,
+    layerShown() {
+        let vis = false
+        if(hasMilestone('TLGRM', 22)) vis = true
+        return vis
+    },
+    passiveGeneration() {
+        let Gen = new Decimal(0)
+
+        return Gen
+    },
+    infoboxes: {
+        1: {
+            title: "Info About this layer",
+            body() { return "More Help Somehow?" },
+        },
+    },
+    resetDescription: "Reset Skill For ",
+    tabFormat: {
+        "Upgrades": {
+            content: [
+                ["infobox", 1],
+                "blank",
+                ["display-text",
+                    function() { return 'You have ' + format(player[this.layer].points) + ' Blessing (BSG)' },
+                    { "color": "#31a180", "font-size": "24px" }],
+                "blank",
+                ["row", [["buyable", 11]]],
+                "blank",
+                "blank",
+                ["row", [["buyable", 21]]],
+                "blank",
+                "blank",
+                ["row", [["buyable", 31]]],
+            ],
+        },
+        "Reset": {
+            content: [
+                ["infobox", 1],
+                "blank",
+                ["display-text",
+                    function() { return 'You have ' + format(player[this.layer].points) + ' Blessing (BSG)' },
+                    { "color": "#31a180", "font-size": "24px" }],
+                "blank",
+                "prestige-button",
+            ],
+            unlocked() {return layers['BSGRM'].passiveGeneration().lt(0.25)},
+        },
+        "Autogain": {
+            content: [
+                ["infobox", 1],
+                "blank",
+                ["display-text",
+                    function() { return 'You have ' + format(player[this.layer].points) + ' Blessing (BSG)' },
+                    { "color": "#31a180", "font-size": "24px" }],
+                ["display-text",
+                    function() { return 'You are gaining +' + format(layers[this.layer].passiveGeneration().times(getResetGain(this.layer))) + ' BSG/s and the percent is '+format(layers[this.layer].passiveGeneration().times(100))+'%' },
+                    { "color": "#31a180", "font-size": "16px" }],
+            ],
+            unlocked() {return layers['BSGRM'].passiveGeneration().gt(0)},
+        },
+    },
+    buyables: {
+        11: {
+            title() {return "<h2>BSG #1</h2>"},
+            cost(x) { return new Decimal(1) },
+            display() { return "<h2>Unlock Another Time Boost</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2>" },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: new Decimal(1),
+            branches: [21],
+        },
+        21: {
+            title() {return "<h2>BSG #2</h2>"},
+            cost(x) { return new Decimal(5) },
+            display() { return "<h2>Multi Resets Nothing</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2>" },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit: new Decimal(1),
+            branches: [31],
+            unlocked() {return getBuyableAmount(this.layer, 11).gte(1)},
+        },
+        31: {
+            title() {return "<h2>BSG #3</h2>"},
+            cost(x) { return new Decimal(10) },
+            display() { return "<h2>x1,000,000 Skill</h2><br><br><br><h2>Cost: "+format(this.cost())+"</h2><br><h3>Effect: x"+format(this.effect())+"</h3>" },
+            effect() { return getBuyableAmount(this.layer, this.id).times(1e6).add(1) },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())

@@ -1,7 +1,7 @@
 let modInfo = {
 	name: "The JJT Incremental",
 	author: "RobotLovesTrains",
-	pointsName: "Skill",
+	pointsName: "Skill  LAST CHANCE FOR HALLOWEEN EVENT",
 	modFiles: [
 		"layers_extra/MiniGameI.js",
 		"layers_extra/EventOne.js",
@@ -9,6 +9,7 @@ let modInfo = {
 		"layers_extra/MiscLayers.js",
 		"layers_v2/ClassZero.js",
 		"layers_extra/MiniGameII.js",
+		"layers_extra/ComTree.js",
 		"tree.js",
 	],
 
@@ -19,15 +20,23 @@ let modInfo = {
 }
 
 // Set your version num
-let value = "11.1"
+let value = "12.0"
 
 // Set your version and name
 let VERSION = {
 	num: "Alpha "+value,
-	name: "Halloween Fix",
+	name: "Save Bank and More",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>vAlpha 12.0 Save Bank and More</h3><br>
+		- Added More Content<br>
+		- Changed Colors For Most Difficulties (To be More Accurate)<br>
+		- Fixed The Names Of some things<br>
+		- Added SAVE BANK (Some Things Are Not Applied Go Check Details)<br>
+		- x2 All Halloween Stats Exsept Halloween Loops
+		EndGame: 24 TLG<br>
+		<br>
 	<h3>vAlpha 11.1 Halloween Fix</h3><br>
 		- Fixed The Halloween Event<br>
 		<br>
@@ -235,8 +244,11 @@ function getPointGen() {
 	if(hasMilestone('CSHRM', 7)) gain = gain.times(1e20)
 	if(hasMilestone('TLGRM', 17)) gain = gain.times(10)
     gain = gain.times(player['MULTRM'].layerEffect)
+	if(hasMilestone('TLGRM', 21)) gain = gain.times(1e15)
 
 	if(getBuyableAmount('MSLRM', 81).gte(1)) gain = gain.times(player['MSLRM'].timeEffectc)
+	if(getBuyableAmount('DNTRM', 21).gte(1)) gain = gain.times(buyableEffect('DNTRM', 21))
+	if(getBuyableAmount('BSGRM', 31).gte(1)) gain = gain.times(buyableEffect('BSGRM', 31))
 
 	let pow = new Decimal(1)
 	if(inChallenge('ITWRM', 11)) pow = pow.times(0.5)
@@ -284,7 +296,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return hasMilestone('TLGRM', 20)
+	return hasMilestone('TLGRM', 23)
 }
 
 

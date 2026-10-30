@@ -2088,7 +2088,7 @@ addLayer("MegaStones", {
         3: {
             requirementDescription() {return "Megastone "+format(new Decimal(this.id).add(1))},
             effectDescription() {
-                return "ENDGAME IS MEGASTONE 3"
+                return "ENDGAME IS MEGASTONE 3 (Discontuned Due To A Bug. May Be Undiscontuned when Fixed)"
             },
             done() { return player[this.layer].points.gte(new Decimal(this.id).add(1)) },
             unlocked() {return hasMilestone(this.layer, this.id - 1) || hasMilestone(this.layer, this.id)}

@@ -32,6 +32,7 @@ addLayer("TFirDRM", {
         mult = mult.times(buyableEffect(this.layer, 1062))
         mult = mult.times(buyableEffect(this.layer, 1071))
         mult = mult.times(buyableEffect(this.layer, 1072))
+        if(getBuyableAmount('BSGRM', 11).gte(1)) mult = mult.times(player['MSLRM'].timeEffectd)
 
         return mult
     },
@@ -733,7 +734,7 @@ addLayer("TLGRM", {
         unlocked: true,
 		points: new Decimal(0),
     }},
-    color: "#004600",
+    color: "#195719",
     requires: new Decimal(10000),
     resource: "The Lower Gap",
     baseResource: "Skill",
@@ -751,6 +752,9 @@ addLayer("TLGRM", {
         // softcap
         if(player[this.layer].points.gte(16)) mult = mult.times(new Decimal(1000).pow(player[this.layer].points.add(-15).times(4).pow(1.15)))
         if(player[this.layer].points.gte(20)) mult = mult.times(1e10)
+        if(player[this.layer].points.gte(24)) mult = mult.times(1e10)
+            
+        if(player[this.layer].points.gte(24)) return new Decimal(0)
 
         return mult
     },
@@ -909,8 +913,26 @@ addLayer("TLGRM", {
         },
         20: {
             requirementDescription: "21 TLG",
-            effectDescription: "Unlock Do Nothing and ???",
+            effectDescription: "Unlock Do Nothing and For Every TLG After 21 To 25 Instacomplete 1 Level Of ITW Challenge Instant Win",
             done() { return player[this.layer].points.gte(21) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        21: {
+            requirementDescription: "22 TLG",
+            effectDescription: "Another Sub-Difficulty So Make ITW Free, AutoReset For ITW, Autobuy All MSL → WSM Upgrades and x1e15 Skill",
+            done() { return player[this.layer].points.gte(22) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        22: {
+            requirementDescription: "23 TLG",
+            effectDescription: "Unlock Blessing and AutoReset for Multi and Keep Multi Milestone id 0 (1st)",
+            done() { return player[this.layer].points.gte(23) },
+            unlocked() {return hasMilestone(this.layer, this.id)},
+        },
+        23: {
+            requirementDescription: "24 TLG",
+            effectDescription: "Unlock Vintage and x1e10 TLG Requirement again (ENDGAME And Make TLG Unobtainable For now)",
+            done() { return player[this.layer].points.gte(24) },
             unlocked() {return hasMilestone(this.layer, this.id)},
         },
     },
@@ -925,7 +947,7 @@ addLayer("NEGRM", {
 		points: new Decimal(0),
         layerEffect: new Decimal(0),
     }},
-    color: "#92248F",
+    color: "#8d1d8d",
     requires: new Decimal(1e3),
     resource: "Negativity",
     baseResource: "Skill",
@@ -938,6 +960,7 @@ addLayer("NEGRM", {
         mult = mult.times(buyableEffect('UIPRM', 12))
         mult = mult.times(buyableEffect('FLNRM', 41)[2])
         mult = mult.times(buyableEffect('TESRM', 11))
+        if(getBuyableAmount('BSGRM', 11).gte(1)) mult = mult.times(player['MSLRM'].timeEffectd)
         
         if(inChallenge('ITWRM', 11)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 12)) mult = new Decimal(0)
@@ -974,7 +997,7 @@ addLayer("NEGRM", {
                 "blank",
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].points) + ' Negativity (Neg)' },
-                    { "color": "#92248F", "font-size": "24px" }],
+                    { "color": "#8d1d8d", "font-size": "24px" }],
                 ["display-text",
                     function() {
                         let text = '-' + format(player[this.layer].layerEffect) + ' Skill gain [1.5^cbrt(x) - 1] [after All effects unless specifed]'
@@ -983,7 +1006,7 @@ addLayer("NEGRM", {
                         if(getBuyableAmount('NEGRM', 1042).gte(1)) text = '+' + format(player[this.layer].layerEffect) + ' Base Skill gain [log20(x + 1) + 1]'
                         return text
                     },
-                    { "color": "#92248F", "font-size": "24px" }],
+                    { "color": "#8d1d8d", "font-size": "24px" }],
                 "blank",
                 ["row", [["buyable", 11]]],
                 "blank",
@@ -1006,7 +1029,7 @@ addLayer("NEGRM", {
                 "blank",
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].points) + ' Negativity (Neg)' },
-                    { "color": "#92248F", "font-size": "24px" }],
+                    { "color": "#8d1d8d", "font-size": "24px" }],
                 ["display-text",
                     function() {
                         let text = '-' + format(player[this.layer].layerEffect) + ' Skill gain [1.5^cbrt(x) - 1] [after All effects unless specifed]'
@@ -1015,7 +1038,7 @@ addLayer("NEGRM", {
                         if(getBuyableAmount('NEGRM', 1042).gte(1)) text = '+' + format(player[this.layer].layerEffect) + ' Base Skill gain [log20(x + 1) + 1]'
                         return text
                     },
-                    { "color": "#92248F", "font-size": "24px" }],
+                    { "color": "#8d1d8d", "font-size": "24px" }],
                 "blank",
                 ["row", [["buyable", 1011]]],
                 "blank",
@@ -1039,7 +1062,7 @@ addLayer("NEGRM", {
                 "blank",
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].points) + ' Negativity (Neg)' },
-                    { "color": "#92248F", "font-size": "24px" }],
+                    { "color": "#8d1d8d", "font-size": "24px" }],
                 ["display-text",
                     function() {
                         let text = '-' + format(player[this.layer].layerEffect) + ' Skill gain [1.5^cbrt(x) - 1] [after All effects unless specifed]'
@@ -1048,7 +1071,7 @@ addLayer("NEGRM", {
                         if(getBuyableAmount('NEGRM', 1042).gte(1)) text = '+' + format(player[this.layer].layerEffect) + ' Base Skill gain [log20(x + 1) + 1]'
                         return text
                     },
-                    { "color": "#92248F", "font-size": "24px" }],,
+                    { "color": "#8d1d8d", "font-size": "24px" }],,
                 "blank",
                 "prestige-button",
                 "clickables",
@@ -1061,10 +1084,10 @@ addLayer("NEGRM", {
                 "blank",
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].points) + ' Negativity (Neg)' },
-                    { "color": "#92248F", "font-size": "24px" }],
+                    { "color": "#8d1d8d", "font-size": "24px" }],
                 ["display-text",
                     function() { return 'You are gaining +' + format(layers[this.layer].passiveGeneration().times(getResetGain(this.layer))) + ' Neg/s and the percent is '+format(layers[this.layer].passiveGeneration().times(100))+'%' },
-                    { "color": "#92248F", "font-size": "16px" }],
+                    { "color": "#8d1d8d", "font-size": "16px" }],
                 ["display-text",
                     function() {
                         let text = '-' + format(player[this.layer].layerEffect) + ' Skill gain [1.5^cbrt(x) - 1] [after All effects unless specifed]'
@@ -1073,7 +1096,7 @@ addLayer("NEGRM", {
                         if(getBuyableAmount('NEGRM', 1042).gte(1)) text = '+' + format(player[this.layer].layerEffect) + ' Base Skill gain [log20(x + 1) + 1]'
                         return text
                     },
-                    { "color": "#92248F", "font-size": "24px" }],
+                    { "color": "#8d1d8d", "font-size": "24px" }],
                 "clickables",
             ],
             unlocked() {return layers['NEGRM'].passiveGeneration().gt(0)},
@@ -1317,7 +1340,7 @@ addLayer("CSHRM", {
         unlocked: true,
 		points: new Decimal(0),
     }},
-    color: "#009000",
+    color: "#21671f",
     requires: new Decimal(100e3),
     resource: "Ca$h",
     baseResource: "Skill",
@@ -1367,7 +1390,7 @@ addLayer("CSHRM", {
                 "blank",
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].points) + ' Ca$h ($)' },
-                    { "color": "#009000", "font-size": "24px" }],
+                    { "color": "#49d845", "font-size": "24px" }],
                 "blank",
                 "prestige-button",
                 "blank",
@@ -1380,7 +1403,7 @@ addLayer("CSHRM", {
                 "blank",
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].points) + ' Ca$h ($)' },
-                    { "color": "#009000", "font-size": "24px" }],
+                    { "color": "#49d845", "font-size": "24px" }],
                 "blank",
                 "prestige-button",
                 "blank",
@@ -1495,6 +1518,7 @@ addLayer("UIPRM", {
         mult = mult.times(buyableEffect('FLNRM', 41)[3])
         mult = mult.times(buyableEffect('TESRM', 11))
         if(hasMilestone('CSHRM', 5)) mult = mult.times(1e3)
+        if(getBuyableAmount('BSGRM', 11).gte(1)) mult = mult.times(player['MSLRM'].timeEffectd)
 
         if(inChallenge('ITWRM', 11)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 12)) mult = new Decimal(0)
@@ -1540,13 +1564,13 @@ addLayer("UIPRM", {
                 "blank",
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].points) + ' Unimpossible (UIP)' },
-                    { "color": "#580C72", "font-size": "24px" }],
+                    { "color": "#b900fc", "font-size": "24px" }],
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].pointsB) + ' Almost Unimpossible (AUI)' },
-                    { "color": "#580C72", "font-size": "24px" }],
+                    { "color": "#b900fc", "font-size": "24px" }],
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].pointsC) + ' Ununpossable (UUP)' },
-                    { "color": "#580C72", "font-size": "24px" }],
+                    { "color": "#b900fc", "font-size": "24px" }],
                 "blank",
                 "buyables",
             ],
@@ -1557,13 +1581,13 @@ addLayer("UIPRM", {
                 "blank",
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].points) + ' Unimpossible (UIP)' },
-                    { "color": "#580C72", "font-size": "24px" }],
+                    { "color": "#b900fc", "font-size": "24px" }],
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].pointsB) + ' Almost Unimpossible (AUI)' },
-                    { "color": "#580C72", "font-size": "24px" }],
+                    { "color": "#b900fc", "font-size": "24px" }],
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].pointsC) + ' Ununpossable (UUP)' },
-                    { "color": "#580C72", "font-size": "24px" }],
+                    { "color": "#b900fc", "font-size": "24px" }],
                 "blank",
                 "prestige-button",
             ],
@@ -1575,22 +1599,22 @@ addLayer("UIPRM", {
                 "blank",
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].points) + ' Unimpossible (UIP)' },
-                    { "color": "#580C72", "font-size": "24px" }],
+                    { "color": "#b900fc", "font-size": "24px" }],
                 ["display-text",
                     function() { return 'You are gaining +' + format(layers[this.layer].passiveGeneration().times(getResetGain(this.layer))) + ' UIP/s and the percent is '+format(layers[this.layer].passiveGeneration().times(100))+'%' },
-                    { "color": "#580C72", "font-size": "16px" }],
+                    { "color": "#b900fc", "font-size": "16px" }],
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].pointsB) + ' Almost Unimpossible (AUI)' },
-                    { "color": "#580C72", "font-size": "24px" }],
+                    { "color": "#b900fc", "font-size": "24px" }],
                 ["display-text",
                     function() { return 'You are gaining +' + format(layers[this.layer].passiveGeneration().times(getResetGain(this.layer).sqrt())) + ' AUI/s and the percent is '+format(layers[this.layer].passiveGeneration().times(100))+'%' },
-                    { "color": "#580C72", "font-size": "16px" }],
+                    { "color": "#b900fc", "font-size": "16px" }],
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].pointsC) + ' Ununpossable (UUP)' },
-                    { "color": "#580C72", "font-size": "24px" }],
+                    { "color": "#b900fc", "font-size": "24px" }],
                 ["display-text",
                     function() { return 'You are gaining +' + format(layers[this.layer].passiveGeneration().times(getResetGain(this.layer).cbrt())) + ' UUP/s and the percent is '+format(layers[this.layer].passiveGeneration().times(100))+'%' },
-                    { "color": "#580C72", "font-size": "16px" }],
+                    { "color": "#b900fc", "font-size": "16px" }],
             ],
             unlocked() {return layers['UIPRM'].passiveGeneration().gt(0)},
         },
@@ -1727,7 +1751,7 @@ addLayer("FLNRM", {
         BUpgrades: new Decimal(0),
         LvReq: new Decimal(100e3),
     }},
-    color: "#cecece",
+    color: "#ffffff",
     requires: new Decimal(1e9),
     resource: "Friendliness",
     baseResource: "Skill",
@@ -1740,6 +1764,7 @@ addLayer("FLNRM", {
         mult = mult.times(buyableEffect(this.layer, 41)[4])
         mult = mult.times(buyableEffect(this.layer, 61))
         mult = mult.times(buyableEffect('TESRM', 11))
+        if(getBuyableAmount('BSGRM', 11).gte(1)) mult = mult.times(player['MSLRM'].timeEffectd)
 
         if(inChallenge('ITWRM', 32) || (hasChallenge('ITWRM', 32) && player['ITWRM'].ActiveChallenge)) mult = mult.times(1e3)
 
@@ -2092,7 +2117,7 @@ addLayer("TESRM", {
         unlocked: true,
 		points: new Decimal(0),
     }},
-    color: "#cecece",
+    color: "#ffffff",
     requires: new Decimal(100e9),
     resource: "True Ease",
     baseResource: "Skill",
@@ -2103,6 +2128,7 @@ addLayer("TESRM", {
         mult = new Decimal(1)
 
         mult = mult.times(buyableEffect(this.layer, 11))
+        if(getBuyableAmount('BSGRM', 11).gte(1)) mult = mult.times(player['MSLRM'].timeEffectd)
 
         if(inChallenge('ITWRM', 11)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 12)) mult = new Decimal(0)
@@ -2143,7 +2169,7 @@ addLayer("TESRM", {
                 "blank",
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].points) + ' True Ease (TES)' },
-                    { "color": "#cecece", "font-size": "24px" }],
+                    { "color": "#ffffff", "font-size": "24px" }],
                 "blank",
                 "buyables",
             ],
@@ -2154,7 +2180,7 @@ addLayer("TESRM", {
                 "blank",
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].points) + ' True Ease (TES)' },
-                    { "color": "#cecece", "font-size": "24px" }],
+                    { "color": "#ffffff", "font-size": "24px" }],
                 "blank",
                 "prestige-button",
             ],
@@ -2166,10 +2192,10 @@ addLayer("TESRM", {
                 "blank",
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].points) + ' True Ease (TES)' },
-                    { "color": "#cecece", "font-size": "24px" }],
+                    { "color": "#ffffff", "font-size": "24px" }],
                 ["display-text",
                     function() { return 'You are gaining +' + format(layers[this.layer].passiveGeneration().times(getResetGain(this.layer))) + ' TES/s and the percent is '+format(layers[this.layer].passiveGeneration().times(100))+'%' },
-                    { "color": "#cecece", "font-size": "16px" }],
+                    { "color": "#ffffff", "font-size": "16px" }],
             ],
             unlocked() {return layers['TESRM'].passiveGeneration().gt(0)},
         },
@@ -2257,6 +2283,7 @@ addLayer("ARM", {
         if(hasMilestone('ДARM', 2)) mult = mult.times(new Decimal(1.05).pow(player['ДARM'].points))
         if(hasChallenge('ITWRM', 51)) mult = mult.times(1e3)
         if(hasMilestone('CSHRM', 5)) mult = mult.times(1e3)
+        if(getBuyableAmount('BSGRM', 11).gte(1)) mult = mult.times(player['MSLRM'].timeEffectd)
 
         if(inChallenge('ITWRM', 11)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 12)) mult = new Decimal(0)
@@ -2569,7 +2596,7 @@ addLayer("XSTRM", {
 		points: new Decimal(0),
         MEone: new Decimal(0)
     }},
-    color: "#cecece",
+    color: "#ffffff",
     requires: new Decimal(100e15),
     resource: "Exist",
     baseResource: "Skill",
@@ -2627,7 +2654,7 @@ addLayer("XSTRM", {
                 "blank",
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].points) + ' Exist (XST)' },
-                    { "color": "#cecece", "font-size": "24px" }],
+                    { "color": "#ffffff", "font-size": "24px" }],
                 "blank",
                 "prestige-button",
                 "blank",
@@ -2638,7 +2665,7 @@ addLayer("XSTRM", {
     milestones: {
         0: {
             requirementDescription: "1 Exist",
-            effectDescription: "AutoGain +0%/s (5% x Exist) of Other Layer (to this Point exsept TLG and Non-Static layers) and at +25%/s Remove thier Reset Buttons [SoftCap: +100%/s, +250%/s and HardCap: +500%/s]",
+            effectDescription: "AutoGain 5% x Exist of Other Layer (to this Point exsept TLG and Non-Static layers) and at +25%/s Remove thier Reset Buttons [SoftCap: +100%/s, +250%/s and HardCap: +500%/s]",
             done() { return player[this.layer].points.gte(1) },
             tooltip() {return "+"+format(player[this.layer].MEone.times(100))+"%/s"},
         },
@@ -2736,7 +2763,7 @@ addLayer("RLXRM", {
         unlocked: true,
 		points: new Decimal(0),
     }},
-    color: "#cecece",
+    color: "#ffffff",
     requires: new Decimal(10e18),
     resource: "Relax",
     baseResource: "Skill",
@@ -2747,6 +2774,7 @@ addLayer("RLXRM", {
         mult = new Decimal(1)
 
         if(hasMilestone('XSTRM', 7)) mult = mult.times(100)
+        if(getBuyableAmount('BSGRM', 11).gte(1)) mult = mult.times(player['MSLRM'].timeEffectd)
 
         if(inChallenge('ITWRM', 11)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 12)) mult = new Decimal(0)
@@ -2866,7 +2894,7 @@ addLayer("RLXRM", {
             },
             purchaseLimit: new Decimal(1),
             branches: [31],
-            unlocked() {return getBuyableAmount(this.layer, 11).gte(1) && inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) >= 1)},
+            unlocked() {return (getBuyableAmount(this.layer, 11).gte(1) && inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) >= 1)) || getBuyableAmount('DNTRM', 41).gte(1)},
         },
         31: {
             title() {return "<h2>RLX #4</h2>"},
@@ -2879,7 +2907,7 @@ addLayer("RLXRM", {
             },
             purchaseLimit: new Decimal(1),
             branches: [],
-            unlocked() {return getBuyableAmount(this.layer, 22).gte(1) && inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) >= 1)},
+            unlocked() {return (getBuyableAmount(this.layer, 22).gte(1) && inChallenge('ITWRM', 91) && (challengeCompletions('ITWRM', 91) >= 1)) || getBuyableAmount('DNTRM', 41).gte(1)},
         },
     },
     deactivated() {
@@ -2919,7 +2947,7 @@ addLayer("MULTRM", {
 		points: new Decimal(1),
 		layerEffect: new Decimal(1),
     }},
-    color: "#ff0000",
+    color: "#f55b5b",
     requires: new Decimal(10),
     resource: "Multiplier",
     baseResource: "Ca$h",
@@ -2952,7 +2980,12 @@ addLayer("MULTRM", {
     resetDescription: "Reset Skill For ",
     resetsNothing: true,
     onPrestige(gain) {
-        player['CSHRM'].points = new Decimal(0)
+        if(getBuyableAmount('BSGRM', 21).lt(1)) player['CSHRM'].points = new Decimal(0)
+    },
+    autoPrestige() {
+        let auto = false
+        if(hasMilestone('TLGRM', 22)) auto = true
+        return auto
     },
     tabFormat: {
         "Milestones": {
@@ -2961,7 +2994,7 @@ addLayer("MULTRM", {
                 "blank",
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].points) + ' Multiplier (MULT)' },
-                    { "color": "#ff0000", "font-size": "24px" }],
+                    { "color": "#f50000", "font-size": "24px" }],
                 "blank",
                 "prestige-button",
                 "blank",
@@ -2974,10 +3007,10 @@ addLayer("MULTRM", {
                 "blank",
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].points) + ' Multiplier (MULT)' },
-                    { "color": "#ff0000", "font-size": "24px" }],
+                    { "color": "#f50000", "font-size": "24px" }],
                 ["display-text",
                     function() { return 'x' + format(player[this.layer].layerEffect) + ' Skill and /' + format(player[this.layer].layerEffect) + ' Ca$h Requirement' },
-                    { "color": "#ff0000", "font-size": "24px" }],
+                    { "color": "#f50000", "font-size": "24px" }],
             ],
         },
     },
@@ -2985,7 +3018,7 @@ addLayer("MULTRM", {
         0: {
             requirementDescription: "2 Multi",
             effectDescription: "Ca$h Resets Nothing",
-            done() { return player[this.layer].points.gte(2) },
+            done() { return player[this.layer].points.gte(2) || hasMilestone('TLGRM', 22) },
         },
     },
     deactivated() {
@@ -3024,6 +3057,8 @@ addLayer("SKIPRM", {
     exponent: 0.5,
     gainMult() {
         mult = new Decimal(1)
+        
+        if(getBuyableAmount('BSGRM', 11).gte(1)) mult = mult.times(player['MSLRM'].timeEffectd)
 
         if(inChallenge('ITWRM', 11)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 12)) mult = new Decimal(0)
@@ -3159,7 +3194,7 @@ addLayer("RTFRM", {
         unlocked: true,
 		points: new Decimal(0),
     }},
-    color: "#006300",
+    color: "#0e3f05",
     requires: new Decimal(100e21),
     resource: "Restful",
     baseResource: "Skill",
@@ -3168,6 +3203,8 @@ addLayer("RTFRM", {
     exponent: 0.5,
     gainMult() {
         mult = new Decimal(1)
+        
+        if(getBuyableAmount('BSGRM', 11).gte(1)) mult = mult.times(player['MSLRM'].timeEffectd)
 
         if(inChallenge('ITWRM', 11)) mult = new Decimal(0)
         if(inChallenge('ITWRM', 12)) mult = new Decimal(0)
@@ -3373,7 +3410,7 @@ addLayer("IFDRM", {
         unlocked: true,
 		points: new Decimal(0),
     }},
-    color: "#cecece",
+    color: "#ffffff",
     requires: new Decimal(0),
     resource: "Inifite Dot",
     baseResource: "Skill",
@@ -3404,6 +3441,7 @@ addLayer("IFDRM", {
         if(hasMilestone('IFTRM', 0)) mult = mult.times(10)
         if(hasMilestone('ITWRM', 1)) mult = mult.times(5)
         if(hasMilestone('ITWRM', 12)) mult = mult.times(1e6)
+        if(getBuyableAmount('BSGRM', 11).gte(1)) mult = mult.times(player['MSLRM'].timeEffectd)
 
         if(inChallenge('ITWRM', 72)) mult = mult.times(1e-6)
         if(inChallenge('ITWRM', 81)) mult = mult.times(1e-3)
@@ -3691,7 +3729,7 @@ addLayer("IFERM", {
 		points: new Decimal(0),
         RT: new Decimal(0),
     }},
-    color: "#009000",
+    color: "#3dac2a",
     requires: new Decimal(1.79e308/2),
     resource: "Inifite Easy",
     baseResource: "IF.",
@@ -3833,7 +3871,7 @@ addLayer("IFTRM", {
 		points: new Decimal(0),
         RT: new Decimal(0),
     }},
-    color: "#3f0092",
+    color: "#4e1072",
     requires: new Decimal(3),
     resource: "Inifity",
     baseResource: "IFE",
@@ -3914,7 +3952,7 @@ addLayer("IFTRM", {
                 "blank",
                 ["display-text",
                     function() { return 'You have ' + format(player[this.layer].points) + ' Inifity (IFT)' },
-                    { "color": "#5600c7", "font-size": "24px" }],
+                    { "color": "#630294", "font-size": "24px" }],
                 "blank",
                 "prestige-button",
                 "blank",
@@ -3969,8 +4007,11 @@ addLayer("ITWRM", {
 		points: new Decimal(0),
         ActiveChallenge: false,
     }},
-    color: "#0000ff",
-    requires: new Decimal(1e70),
+    color: "#1d21fd",
+    requires() {
+        if(hasMilestone('TLGRM', 21)) new Decimal(1)
+        return new Decimal(1e70)
+    },
     resource: "Instant Win",
     baseResource: "Skill",
     baseAmount() {return player.points},
@@ -4001,6 +4042,11 @@ addLayer("ITWRM", {
             title: "Info About this layer",
             body() { return "Final ShowDown [Row 2]" },
         },
+    },
+    autoPrestige() {
+        let auto = false
+        if(hasMilestone('TLGRM', 21)) auto = true
+        return auto
     },
     resetDescription: "Reset All of Class -1 exept This Layer For ",
     tabFormat: {
@@ -4403,7 +4449,7 @@ addLayer("ITWRM", {
             onExit() {
                 player[this.layer].ActiveChallenge = false
             },
-            canComplete: function() {return player.points.gte(new Decimal(1e25).times(player['SKIPRM'].layerEffectc))},
+            canComplete: function() {return player.points.gte(new Decimal(1e25).times(player['SKIPRM'].layerEffectc)) || (hasMilestone('TLGRM', 20) && challengeCompletions(this.layer, this.id) == 0) || (hasMilestone('TLGRM', 21) && challengeCompletions(this.layer, this.id) == 1) || (hasMilestone('TLGRM', 22) && challengeCompletions(this.layer, this.id) == 2)},
             completionLimit: 5,
             unlocked() {return hasMilestone(this.layer, 16)},
         },
@@ -4443,15 +4489,15 @@ addLayer("PECRM", {
         "Ca$h": {
             embedLayer: "CSHRM",
             buttonStyle: {
-                "color": "#009000",
-                "border": "2px solid #009000",
+                "color": "#21671f",
+                "border": "2px solid #49d845",
             },
         },
         "Multi": {
             embedLayer: "MULTRM",
             buttonStyle: {
-                "color": "#ff0000",
-                "border": "2px solid #ff0000",
+                "color": "#f55b5b",
+                "border": "2px solid #f50000",
             },
         },
     },
@@ -4497,29 +4543,29 @@ addLayer("ClassNeg", {
         "Neg": {
             embedLayer: "NEGRM",
             buttonStyle: {
-                "color": "#92248F",
-                "border": "2px solid #92248F",
+                "color": "#8d1d8d",
+                "border": "2px solid #8d1d8d",
             },
         },
         "UIP": {
             embedLayer: "UIPRM",
             buttonStyle: {
                 "color": "#580C72",
-                "border": "2px solid #580C72",
+                "border": "2px solid #b900fc",
             },
         },
         "FLN": {
             embedLayer: "FLNRM",
             buttonStyle: {
-                "color": "#cecece",
-                "border": "2px solid #cecece",
+                "color": "#ffffff",
+                "border": "2px solid #00ff00",
             },
         },
         "TES": {
             embedLayer: "TESRM",
             buttonStyle: {
-                "color": "#cecece",
-                "border": "2px solid #cecece",
+                "color": "#ffffff",
+                "border": "2px solid #ffffff",
             },
         },
         "A": {
@@ -4539,15 +4585,15 @@ addLayer("ClassNeg", {
         "XST": {
             embedLayer: "XSTRM",
             buttonStyle: {
-                "color": "#cecece",
-                "border": "2px solid #cecece",
+                "color": "#ffffff",
+                "border": "2px solid #ffffff",
             },
         },
         "RLX": {
             embedLayer: "RLXRM",
             buttonStyle: {
-                "color": "#cecece",
-                "border": "2px solid #cecece",
+                "color": "#ffffff",
+                "border": "2px solid #464646",
             },
         },
         "SKIP": {
@@ -4560,36 +4606,36 @@ addLayer("ClassNeg", {
         "RTF": {
             embedLayer: "RTFRM",
             buttonStyle: {
-                "color": "#006300",
-                "border": "2px solid #006300",
+                "color": "#0e3f05",
+                "border": "2px solid #ffffff",
             },
         },
         "IF.": {
             embedLayer: "IFDRM",
             buttonStyle: {
-                "color": "#cecece",
-                "border": "2px solid #cecece",
+                "color": "#ffffff",
+                "border": "2px solid #ff0000",
             },
         },
         "IFE": {
             embedLayer: "IFERM",
             buttonStyle: {
-                "color": "#009000",
-                "border": "2px solid #009000",
+                "color": "#3dac2a",
+                "border": "2px solid #ff0000",
             },
         },
         "IFT": {
             embedLayer: "IFTRM",
             buttonStyle: {
-                "color": "#3f0092",
-                "border": "2px solid #3f0092",
+                "color": "#4e1072",
+                "border": "2px solid #630294",
             },
         },
         "ITW": {
             embedLayer: "ITWRM",
             buttonStyle: {
-                "color": "#0000ff",
-                "border": "2px solid #0000ff",
+                "color": "#1d21fd",
+                "border": "2px solid #ffffff",
             },
         },
     },

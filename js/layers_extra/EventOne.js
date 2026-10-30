@@ -177,6 +177,8 @@ addLayer("Pumkin", {
         if(hasMilestone('MiniStones', 156)) mult = mult.times(2)
         mult = mult.times(new Decimal(5).pow(player['HalloweenLoop'].points))
 
+        mult = mult.times(1.5)
+
         return mult.times(100)
     },
     gainExp() {
@@ -550,6 +552,8 @@ addLayer("JoL", {
         if(hasMilestone('MiniStones', 156)) mult = mult.times(2)
         mult = mult.times(new Decimal(5).pow(player['HalloweenLoop'].points))
 
+        mult = mult.times(1.5)
+
         return mult
     },
     gainExp() {
@@ -853,6 +857,8 @@ addLayer("ToT", {
 
         if(hasMilestone('MiniStones', 156)) mult = mult.times(2)
         mult = mult.times(new Decimal(5).pow(player['HalloweenLoop'].points))
+
+        mult = mult.times(1.5)
 
         return mult
     },
@@ -1167,6 +1173,8 @@ addLayer("HalloweenLevel", {
         if(hasMilestone('Witch', 4)) mult = mult.times(10e-21)
         if(hasUpgrade('Candy', 4011)) mult = mult.times(10e-55)
 
+        mult = mult.times(1.5)
+
         return mult
     },
     gainExp() {
@@ -1305,6 +1313,8 @@ addLayer("Witch", {
         if(player[this.layer].click41) mult = mult.add(1)
         if(player[this.layer].click51) mult = mult.add(1)
         if(player[this.layer].click61) mult = mult.add(1)
+
+        mult = mult.times(1.5)
 
         if(player['Witch'].points.lt(mult.add(1))) {
             player['Witch'].points = mult
@@ -1632,6 +1642,8 @@ addLayer("Candy", {
         if(hasMilestone('MiniStones', 156)) mult = mult.times(2)
         mult = mult.times(new Decimal(5).pow(player['HalloweenLoop'].points))
 
+        mult = mult.times(1.5)
+
         return mult
     },
     SkittlesMult() {
@@ -1670,6 +1682,8 @@ addLayer("Candy", {
         if(hasMilestone('MiniStones', 156)) mult = mult.times(2)
         mult = mult.times(new Decimal(5).pow(player['HalloweenLoop'].points))
 
+        mult = mult.times(1.5)
+
         return mult
     },
     LaffyTaffyMult() {
@@ -1703,6 +1717,8 @@ addLayer("Candy", {
         if(hasMilestone('MiniStones', 156)) mult = mult.times(2)
         mult = mult.times(new Decimal(5).pow(player['HalloweenLoop'].points))
 
+        mult = mult.times(1.5)
+
         return mult
     },
     TootsieRollsMult() {
@@ -1730,6 +1746,8 @@ addLayer("Candy", {
 
         if(hasMilestone('MiniStones', 156)) mult = mult.times(2)
         mult = mult.times(new Decimal(5).pow(player['HalloweenLoop'].points))
+
+        mult = mult.times(1.5)
 
         return mult
     },
@@ -2413,7 +2431,7 @@ addLayer("Candy", {
         player[this.layer].TootsieRolls = player[this.layer].TootsieRolls.add(layers[this.layer].TootsieRollsMult().times(1/20))
         if(player[this.layer].TootsieRolls.gte(1.79e308)) player[this.layer].TootsieRolls = new Decimal(1.79e308)
 
-        player[this.layer].points = new Decimal.min(player[this.layer].Starburst.add(player[this.layer].Skittles).add(player[this.layer].LaffyTaffy).add(player[this.layer].TootsieRolls), new Decimal(1.79e308))
+        player[this.layer].points = new Decimal.min(player[this.layer].Starburst.add(player[this.layer].Skittles).add(player[this.layer].LaffyTaffy).add(player[this.layer].TootsieRolls), new Decimal(1.79e308)).times(1.5)
         if(hasMilestone('HalloweenLoop', 3)) {
             buyUpgrade(this.layer, 11)
             buyUpgrade(this.layer, 12)
@@ -2517,7 +2535,7 @@ addLayer("HalloweenLoop", {
     },
     tabFormat: [
         ["display-text",
-        function() { return 'You are at Halloween Level ' + format(player[this.layer].points) },
+        function() { return 'You Have Done ' + format(player[this.layer].points) + ' Loops' },
         { "color": "white", "font-size": "24px" }],
         "blank",
         ["prestige-button", "static"],
