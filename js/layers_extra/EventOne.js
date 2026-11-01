@@ -1238,10 +1238,7 @@ addLayer("HalloweenLevel", {
         },
         4: {
             requirementDescription: "Level 6",
-            effectDescription: "x10 Skill and Unlock Loops",
-            onComplete() {
-                player[this.layer].MainEffectC = true
-            },
+            effectDescription: "x10 Skill (Unobtainable) and Unlock Loops",
             done() {return player[this.layer].points.gte(6) || hasMilestone('HalloweenLoop', 4)},
             unlocked() {return hasMilestone(this.layer, 4)},
         },
@@ -2531,12 +2528,9 @@ addLayer("HalloweenLoop", {
     milestones: {
         0: {
             requirementDescription: "Loop 1",
-            effectDescription: "Keep Halloween Loops Unlocked and x5 Pumkins, JoLs, ToTs and Candy Currencies per Loop and Keep x10 Skill Effect",
+            effectDescription: "Keep Halloween Loops Unlocked and x5 Pumkins, JoLs, ToTs and Candy Currencies per Loop and Keep x10 Skill Effect (Unobtainable)",
             done() {return player[this.layer].points.gte(1)},
             tooltip() {return "x"+format(new Decimal(5).pow(player['HalloweenLoop'].points))+" Pumkins, JoLs, ToTs and Candy Currencies"},
-            onComplete() {
-                player[this.layer].MainEffectA = true
-            },
         },
         1: {
             requirementDescription: "Loop 2",
